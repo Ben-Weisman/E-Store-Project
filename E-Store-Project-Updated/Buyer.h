@@ -2,6 +2,7 @@
 #define __Buyer_h
 #include "Address.h"
 #include "Product.h"
+#include "Order.h"
 
 class Buyer
 {
@@ -12,8 +13,13 @@ private:
 	char* m_lname;
 	int m_cartPsize;
 	int m_number_of_items;
+	int m_num_checkout_orders;
+	int m_checkout_orders_pSize;
+
 	Address m_address;
 	Product** m_cart;
+	Order** m_checkout_orders;
+
 
 public:
 
@@ -24,18 +30,19 @@ public:
 	inline const char* getUsername()const;
 	inline const Address getAddress()const;
 
-	//void deleteProductFromCart(Product* item_to_delete); Moved to Order.h
-	void addToCart(Product* item_to_add);
-	
 	bool setPassword(const char* password);
 	bool setFname(const char* fname);
 	bool setLname(const char* lname);
-	bool setAddress(const Address address);
-	bool setCart(const Product** cart);
+
+	void addToCart(Product* item_to_add);
+	void addToCheckout(Order* checkout_order);
+
+	void removeFromCart(Product* item_to_remove);
 	
-	void removeProductFromCart(Product* item_to_delete);
+
 	void printBuyer()const;
-	void reallocateCart();
+	void cartRealloc();
+	void checkoutRealloc();
 
 	Buyer(char* userName, char* password, char* fname, char*
 		lname, const Address &address)

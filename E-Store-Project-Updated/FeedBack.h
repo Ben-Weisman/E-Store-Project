@@ -2,6 +2,7 @@
 #define __FeedBack_h
 #include <string.h>
 #include "Buyer.h"
+#include "Date.h"
 
 class FeedBack
 {
@@ -13,6 +14,7 @@ private:
 	int m_feedback_stars;
 	Buyer* m_feedback_provider;
 	Address m_address;
+	Date m_date;
 
 public:
 	char* getFirstName();
