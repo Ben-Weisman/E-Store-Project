@@ -1,3 +1,4 @@
+//TEST 1
 #include "System.h"
 #include "Buyer.h"
 #include "Source.h"
@@ -11,7 +12,7 @@ const int MAX_LEN = 20;
 int main()
 {
 	System eben();
-
+	
 	bool exit_flag = true;
 	while (exit_flag)
 	{
@@ -95,7 +96,7 @@ int main()
 			break;
 		}
 
-
+	
 	}
 
 	return 0;
