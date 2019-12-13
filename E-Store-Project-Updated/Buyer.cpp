@@ -57,8 +57,6 @@ bool Buyer::setUserName(const char* username)
 	delete[] m_username;
 	m_username = strdup(username);
 	return true;
-	
-
 }
 
 bool Buyer::setPassword(const char* password)
