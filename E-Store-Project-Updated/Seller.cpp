@@ -10,6 +10,7 @@ inline const char* Seller::getUsername()const { return m_username; }
 inline const Address Seller::getAddress()const { return m_address; }
 inline const Product** Seller::getListedItems()const { return m_listed_items; }
 inline const FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
+inline const Order** Seller::getOrders()const() { return m_orders; }
 
 bool Seller::setPassword(const char* password)
 { 
@@ -35,10 +36,10 @@ bool Seller::setLname(const char* lname)
 	return true;
 }
 
-void Seller::addToListItems(Product *item_to_add)
+void Seller::addToListItemsArr(Product *item_to_add)
 {
-	if (m_listed_items == m_listed_items_pSize)
-		reallocateListedItemsArr();
+	if (m_num_of_listed_items == m_listed_items_pSize)
+		ListedItemsArrRealloc();
 	m_listed_items[m_num_of_listed_items++] = item_to_add; /*does copy c'tor get called 
 														   in such case? */
 }
@@ -46,18 +47,17 @@ void Seller::addToListItems(Product *item_to_add)
 void Seller::addToFeedArr(FeedBack* feed_to_add)
 {
 	if (m_feedbacks_phy_size == m_num_of_feedbacks)
-		reallocateFeedBackArr();
+		FeedbackArrRealloc();
 	m_feedback_arr[m_num_of_feedbacks++] = feed_to_add;
 }
 
-
-void Seller::removeFromListItems()
+void Seller::addToOrdersArr(Order* order_request)
 {
-	for (int i = 0; i < m_num_of_listed_items; i++)
-	{
-		//stopped here
-	}
+	if (m_num_of_orders == m_orders_pSize)
+		OrdersArrRealloc();
+	m_orders[m_num_of_orders++] = order_request;
 }
+
 void removeFromFeedArr();
 
 void Seller::FeedbackArrRealloc()
@@ -67,16 +67,40 @@ void Seller::FeedbackArrRealloc()
 
 	for (int i = 0; i < m_num_of_feedbacks; i++)
 		tmp[i] = m_feedback_arr[i];
-	delete []m_feedback_arr;
+	delete m_feedback_arr;
 	m_feedback_arr = tmp;
+}
+
+void Seller::ListedItemsArrRealloc()
+{
+	this->m_feedbacks_phy_size *= 2;
+	Product** tmp = new Product * [m_feedbacks_phy_size];
+
+	for (int i = 0; i < m_num_of_listed_items; i++)
+		tmp[i] = m_listed_items[i];
+	delete m_listed_items;
+
+	m_listed_items = tmp;
+}
+
+void Seller::OrdersArrRealloc()
+{
+	this->m_orders_pSize *= 2;
+	Order** tmp = new Order * [m_orders_pSize];
+
+	for (int i = 0; i < m_num_of_orders; i++)
+		tmp[i] = m_orders[i];
+	delete m_orders;
+
+	m_orders = tmp;
 }
 
 void Seller::printSeller()
 {
-	cout << "Name: " << m_fname << " " << m_lname << endl << "Username: " << m_username << endl
-		<< "Password: " << m_password << endl << "Address: " << m_address->printAddress << endl
-		<< "Listed Items: " <<endl;
-
+	cout << "Name: " << this->getFirstName << " " << this->getLastName << endl << "Username: " << m_username << endl
+		<< "Password: " << m_password << endl << "Address: " << m_address.printAddress << endl
+		<< "Listed Items: " << endl;
+	
 	for (int i = 0; i < m_num_of_listed_items; i++)
 		cout << m_listed_items[i]->printProduct << endl;
 	cout << "FeedBacks: " << endl;
@@ -86,17 +110,6 @@ void Seller::printSeller()
 		//cout << m_feedback_arr[i]->printFeedback(); To Implement
 	}
 
-}
-
-void Seller::ListedItemsArrRealloc()
-{
-	this->m_feedbacks_phy_size *= 2;
-	Product** tmp = new Product * [m_feedbacks_phy_size];
-	for (int i = 0; i < m_num_of_listed_items; i++)
-		tmp[i] = m_listed_items[i];
-	delete[]m_listed_items;
-
-	m_listed_items = tmp;
 }
 
 Seller::Seller(char* userName, char* password, char* fname, char* lname,

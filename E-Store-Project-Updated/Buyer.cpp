@@ -7,11 +7,11 @@ const char* Buyer::getFirstName()const { return m_fname; }
 const char* Buyer::getLastName()const { return m_lname; }
 const char* Buyer::getUsername()const { return m_username; }
 const Product** Buyer::getCart()const { return m_cart; }
-const Address* Buyer::getAddress()const { return m_address; }
+const Address Buyer::getAddress()const { return m_address; }
 
 ////// Moved to Order.h //////
 
-void Buyer::removeProductFromCart(Product* item_to_delete)
+void Buyer::removeFromCart(Product* item_to_delete)
 {
 
 	for (int i = 0; i < m_number_of_items; i++)
@@ -35,8 +35,15 @@ void Buyer::removeProductFromCart(Product* item_to_delete)
 void Buyer::addToCart(Product* item_to_add)
 { 
 	if (m_cartPsize == m_number_of_items)
-		reallocateCart();
+		cartRealloc();
 	m_cart[m_number_of_items++] = item_to_add;
+}
+
+void Buyer::addToCheckout(Order* checkout_order)
+{
+	if (m_num_checkout_orders == m_checkout_orders_pSize)
+		checkoutRealloc();
+	m_checkout_orders[m_num_checkout_orders++] = checkout_order;
 }
 
 bool Buyer::setPassword(const char* password)
@@ -63,22 +70,6 @@ bool Buyer::setLname(const char* lname)
 		return false;
 	delete[]m_lname;
 	m_lname = strdup(lname);
-	return true;
-}
-
-bool Buyer::setAddress(const Address* address)
-{
-	if (!address)
-		return false;
-	m_address = address;
-	return true;
-}
-
-bool Buyer::setCart(const Product** cart)
-{
-	if (!cart)
-		return false;
-	m_cart = cart;
 	return true;
 }
 
@@ -127,13 +118,27 @@ void Buyer::printBuyer()const
 
 }
 
-void Buyer::reallocateCart()
+void Buyer::cartRealloc()
 {
 	this->m_cartPsize *= 2;
 	Product** tmp = new Product*[m_cartPsize];
+
 	for (int i = 0; i < m_number_of_items; i++)
 		tmp[i] = m_cart[i];
-	delete []m_cart;
+	delete m_cart;
 
 	m_cart = tmp;
+}
+
+void Buyer::checkoutRealloc()
+{
+	m_checkout_orders_pSize *= 2;
+
+	Order** tmp = new Order * [m_checkout_orders_pSize];
+
+	for (int i = 0; i < m_num_checkout_orders; i++)
+		tmp[i] = m_checkout_orders[i];
+	delete m_checkout_orders;
+
+	m_checkout_orders = tmp;
 }
