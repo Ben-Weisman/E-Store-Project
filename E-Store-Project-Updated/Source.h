@@ -4,8 +4,9 @@
 #include "Buyer.h"
 #include "Seller.h"
 #include "Address.h"
+#include "FeedBack.h"
 
-const int MAX_LEN = 50;
+const int MAX_LEN = 30;
 
 Address createAdress();
 Buyer* createBuyer();
