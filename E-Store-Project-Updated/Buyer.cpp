@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-
+//TEST2
 inline const int Buyer::getNumberOfItems()const { return m_number_of_items; }
 const char* Buyer::getFirstName()const { return m_fname; }
 const char* Buyer::getLastName()const { return m_lname; }
