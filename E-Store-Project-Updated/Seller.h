@@ -4,6 +4,7 @@
 #include "FeedBack.h"
 #include "Address.h"
 #include "Product.h"
+#include "Order"
 
 class Seller
 {
@@ -15,9 +16,10 @@ class Seller
 	int m_num_of_feedbacks; // Ben please set to 0 by defauld at the c'tor
 	int m_num_of_listed_items;
 	int m_listed_items_pSize;
-	Address* m_address;
+	Address m_address;
 	FeedBack** m_feedback_arr; 
 	Product** m_listed_items;
+	Order **
 
 public:
 
@@ -25,18 +27,15 @@ public:
 	inline const char* getFirstName()const;
 	inline const char* getLastName()const;
 	inline const char* getUsername()const;
-	inline const Address* getAddress()const;
+	inline const Address getAddress()const;
 	inline const Product **getListedItems()const;
 	inline const FeedBack** getFeedbacks()const;
 
+
 	// Setters
-	bool setUserName(const char* username);
 	bool setPassword(const char* password);
 	bool setFname(const char* fname);
 	bool setLname(const char* lname);
-	bool setAddress(Address* address);
-	bool setListedItems(Product** listed_items);
-	bool setFeedBacks(FeedBack** feedbacks);
 
 
 	// Realloc
@@ -46,15 +45,14 @@ public:
 	void removeFromListItems();
 	void removeFromFeedArr();
 	
-	void reallocateFeedBackArr();
-	void reallocateListedItemsArr();
+	void FeedbackArrRealloc();
+	void ListedItemsArrRealloc();
 	
 	void printSeller();
 
 	~Seller(); // d'tor
-	Seller(char* userName = ['\0'], char* password = ['\0'], char* fname = ['\0'], char*
-		lname = ['\0'], Address* address = nullptr, Product** listed_items = [nullptr],
-		FeedBack** feedbackArray = nullptr);
+	Seller(char* userName, char* password, char* fname, char*
+		lname, const Address& address);
 	Seller(Seller& p); //copy c'tor
 
 

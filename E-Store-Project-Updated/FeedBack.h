@@ -1,15 +1,18 @@
 #ifndef __FeedBack_h
 #define __FeedBack_h
 #include <string.h>
+#include "Buyer.h"
 
 class FeedBack
 {
 private:
-	char* m_fname; //Static or pointer?
-	char* m_lname; //Static or pointer?
-	char* m_feedback_date; //Static or pointer?
-	char* m_feedback_evaluation; //Static or pointer?
-	int m_feedback_stars; // 1-5. 1-> terrible || 5 -> great.
+	char* m_fname;
+	char* m_lname;
+	char* m_feedback_date;
+	char* m_feedback_evaluation; 
+	int m_feedback_stars;
+	Buyer* m_feedback_provider;
+	Address m_address;
 
 public:
 	char* getFirstName();

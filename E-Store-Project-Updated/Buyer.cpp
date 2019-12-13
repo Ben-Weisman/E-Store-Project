@@ -12,51 +12,33 @@ const Product** Buyer::getCart()const { return m_cart; }
 const Address* Buyer::getAddress()const { return m_address; }
 
 ////// Moved to Order.h //////
-/*
-void Buyer::deleteProductFromCart(Product* item_to_delete)
-{ // Verify logic
+
+void Buyer::removeProductFromCart(Product* item_to_delete)
+{
 
 	for (int i = 0; i < m_number_of_items; i++)
 	{
 		if (m_cart[i]->getSerialNumber() == item_to_delete->getSerialNumber)
-		{ // is it delete or just moving the product by ref to orders?
-		// (will be performed by Orders if so)
-			i++;
-			delete m_cart[i];
-			
+		{			
 			Product* tmp;
 			for (int j = i; j < m_number_of_items - 1; j++)
 			{
-				tmp = m_cart[j]
+				tmp = m_cart[j];
 					m_cart[j] = m_cart[j + 1];
 				m_cart[j + 1] = tmp;
 			}
-			delete m_cart[size - 1];
-			m_cart[size - 1] = nullptr;
+			m_cart[m_number_of_items - 1] = nullptr;
+			m_number_of_items -= 1;
 			break;
-			
-		}
-		if (m_number_of_items == m_cartPsize)
-		{
-			reallocateCart();
 		}
 	}
 }
-*/
+
 void Buyer::addToCart(Product* item_to_add)
 { 
 	if (m_cartPsize == m_number_of_items)
 		reallocateCart();
 	m_cart[m_number_of_items++] = item_to_add;
-}
-
-bool Buyer::setUserName(const char* username)
-{
-	if (strlen(username) == 0)
-		return false;
-	delete[] m_username;
-	m_username = strdup(username);
-	return true;
 }
 
 bool Buyer::setPassword(const char* password)
@@ -102,14 +84,14 @@ bool Buyer::setCart(const Product** cart)
 	return true;
 }
 
-Buyer::Buyer(char* userName, char* password, char* fname, char* lname, Address* address, Product** cart) // c'tor
+Buyer::Buyer(char* userName, char* password, char* fname,
+	char* lname, const Address& address):m_address(address) // c'tor
 {
 	m_username = strdup(userName);
 	m_password = strdup(password);
 	m_fname = strdup(fname);
 	m_lname = strdup(lname);
-	setAddress(address);
-	setCart(cart);
+	m_cart
 	m_number_of_items = 0;
 	m_cartPsize = 1;
 }
