@@ -1,4 +1,3 @@
-//TEST 1
 #include "System.h"
 #include "Buyer.h"
 #include "Source.h"

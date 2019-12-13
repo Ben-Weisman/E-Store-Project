@@ -25,8 +25,8 @@ Address createAdress()
 	int house_number;
 	cout << "\nStreet: ";
 	cin >> house_number;
-
-	return(Address a(country, city, street, house_number));
+	Address a(country, city, street, house_number);
+	return a;
 }
 
 Buyer* createBuyer() //Waiting for Ben Buyer file (:
@@ -41,18 +41,21 @@ Buyer* createBuyer() //Waiting for Ben Buyer file (:
 	cout << "\nLast name: ";
 	cin.getline(l_name, MAX_LEN);
 
-	Address adress = createAdress();
+	Address address = createAdress();
 
 	cleanBuffer();
 	char user_name[MAX_LEN];
 	cout << "\nUserName: ";
 	cin.getline(user_name, MAX_LEN);
 
-	// more attributes
+	cleanBuffer();
+	char pass[MAX_LEN];
+	cout << "\nPassword: ";
+	cin.getline(user_name, MAX_LEN);
 
-	Buyer* b = new Buyer(/*constractor*/); // <------ Ben
+	Buyer* b = 
 
-	return b;
+	return new Buyer(user_name, pass, f_name, l_name, address);
 }
 
 Seller* createSeller() //Waiting for Ben Seller file (:
@@ -74,11 +77,13 @@ Seller* createSeller() //Waiting for Ben Seller file (:
 	cout << "\nUserName: ";
 	cin.getline(user_name, MAX_LEN);
 
-	// more attributes
+	cleanBuffer();
+	char pass[MAX_LEN];
+	cout << "\nPassword: ";
+	cin.getline(user_name, MAX_LEN);
 
-	Seller* s = new Seller(/*constractor*/);
-
-	return b;
+	
+	return new Seller(user_name, pass, f_name, l_name, adress);
 }
 
 Product* createProduct()
@@ -99,8 +104,8 @@ Product* createProduct()
 	int price;
 	cout << "\nPrice: ";
 	cin >> price;
-	Product* p = new Product(category, name, price); // Can i initilize that way?
-	return p;
+	
+	return new Product(category, name, price);
 }
 
 Feedback* createFeedback()

@@ -42,7 +42,7 @@ public:
 	//c'tor & keep default for safety purposes. 
 	Buyer(const Buyer& p); // copy c'tor
 	~Buyer();
-
+	
 };
 
 #endif //!__Buyer_h

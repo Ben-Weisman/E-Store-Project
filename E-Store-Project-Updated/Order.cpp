@@ -1,21 +1,23 @@
 #include "Order.h"
 
-Order::Order(unsigned int total_price=0)//:Seller seller(), Buyer Buyer() //?????????????????????????????????????????????? init line 
+Order::Order(Seller* s, Buyer* b) :m_seller(s), m_buyer(b)
 {
-	setTotalPrice(total_price);
+	setTotalPrice(m_total_price);
 	setProductsPhySize(1);
-	setNunOfProducts(0);
+	setNumOfProducts(0);
+	setTotalPrice(0);
+	setPaid(false);
 	
-	m_checkout_arr = new Product*[m_products_phy_size]; // is That enough? 
+	m_wishlist_arr = new Product*[m_products_phy_size]; // is That enough? 
 }
 
 
 Order::~Order()
 {
 	for (int i = 0; i < m_num_of_products; i++)
-		delete m_checkout_arr[i];
+		delete m_wishlist_arr[i];
 
-	delete m_checkout_arr;
+	delete m_wishlist_arr;
 }
 
 
@@ -31,12 +33,15 @@ bool Order::setProductsPhySize(unsigned int phy_size)
 {
 	m_products_phy_size = phy_size;
 }
-bool Order::setNunOfProducts(unsigned int num_of_prod)
+bool Order::setNumOfProducts(unsigned int num_of_prod)
 {
 	m_num_of_products = num_of_prod;
 }
+bool Order::setPaid(bool paid)
+{
+	m_paid = paid;
+}
 
-// Do we need setters to buyer&seller ?
 
 
 
@@ -50,20 +55,24 @@ unsigned int Order::getProductsPhySize()const
 {
 	return m_products_phy_size;
 }
-unsigned int Order::getNunOfProducts()const
+unsigned int Order::getNumOfProducts()const
 {
 	return m_num_of_products;
 }
-const Seller& Order::getSeller()const
+ Seller* const Order::getSeller()const
 {
 	return m_seller;
 }
-const Buyer& Order::getBuyer()const
+Buyer* const  Order::getBuyer()const
 {
 	return m_buyer;
 }
 Product** Order::getProductsArr()const
 {
-	return m_checkout_arr;
+	return m_wishlist_arr;
+}
+bool Order::getPaid()const
+{
+	return m_paid;
 }
 	

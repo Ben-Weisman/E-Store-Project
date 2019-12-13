@@ -178,25 +178,26 @@ bool System::addToSellerArr(const Seller* new_seller)
 
 /************************************************************ 3 ********************************************************/
 
-bool System::addProductToSeller(Product* prod, const char* username) //heaader change
+bool System::addProductToSeller(Product* prod, const char* username) //header change
 {
 	for (int i = 0; i < m_num_of_sellers; i++)
 	{
-		if (strcmp(m_seller_arr[i].getUserName(), username) == 0)
+		if (strcmp(m_seller_arr[i]->getUserName(), username) == 0)
 		{
-			m_seller_arr[i].addProduct(prod); //Ben - TO DO at Seller&Buyer class func that add product to the prod_arr (you can write realloc same as mine) 
+			m_seller_arr[i]->addProduct(prod); //Ben - TO DO at Seller&Buyer class func that add product to the prod_arr (you can write realloc same as mine) 
 			return true;
 		}
 	}
 	return false;
 }
 
-/*4*/
+/******************************************************************  4  ***********************************************************/
 
 bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback)
 {
 	//check if buyer exist
 	//check if seller exist
+	//check if the buyer already ordered from the seller
 
 	if (flag) // both exist
 	{
