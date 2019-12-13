@@ -1,8 +1,9 @@
 #include "Product.h"
-#include <string.h>
 #include "utils.h"
+#include <string>
 #include <iostream>
 using namespace std;
+#pragma warning(disable:4996) 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -10,14 +11,11 @@ int Product::COUNTER = 100000; // First serial number value
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Product::Product(ecategory category, char* name, int price) : m_serial_number(++COUNTER) //c'tor
+Product::Product(ecategory category, char* name, int price, Seller* s) : m_seller(s), m_serial_number(++COUNTER) //c'tor
 {
 	setCategory(category);
-
 	setName(name);
-
 	setPrice(price);
-
 }
 
 Product::~Product() //d'tor
@@ -25,7 +23,7 @@ Product::~Product() //d'tor
 	delete[]m_name;
 }
 
-Product::Product(const Product&p) //copy c'tor
+Product::Product(const Product&p):m_seller(p.m_seller) //copy c'tor
 {
 	setCategory(p.m_category);
 
@@ -36,7 +34,7 @@ Product::Product(const Product&p) //copy c'tor
 	m_serial_number = p.m_serial_number;
 }
 
-Product::Product(Product&&p) //move c'tor
+Product::Product(Product&&p) :m_seller(p.m_seller) //move c'tor
 {
 	m_category = p.m_category;
 	m_name = m_name;
@@ -63,6 +61,10 @@ int Product::getPrice()const
 int Product::getSerialNumber()const
 {
 	return m_serial_number;
+}
+Seller* const Product::getSeller()const
+{
+	return m_seller;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,8 +114,9 @@ bool Product::setPrice(int price)
 
 void Product::printProduct() const
 {
-	cout << "Product name: " << m_name << endl << "category: " << /*category_arr[m_category] <<*/  endl;
+	cout << "Product name: " << m_name << endl << "category: " << CATEGORY_ARR[m_category] <<  endl;
 	cout << "price: " << m_price << endl << "serial number: " << m_serial_number << endl;
+	cout << "The seller of this product is: " << m_seller->getUsername() << endl;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////

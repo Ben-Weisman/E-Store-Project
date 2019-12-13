@@ -1,5 +1,8 @@
 #ifndef __Product_h
 #define __Product_h
+
+#include "Seller.h"
+
 class Product
 {
 public:
@@ -14,9 +17,10 @@ private:
 	char* m_name;
 	int m_price;
 	int m_serial_number;
+	Seller* const m_seller; // Can't change them pointing
 
 public:
-	Product(ecategory category, char* name, int price); //c'tor
+	Product(ecategory category, char* name, int price, Seller* s); //c'tor
 	~Product(); //d'tor
 	Product(const Product&p); //copy c'tor
 	Product(Product&&p); //move c'tor
@@ -31,6 +35,9 @@ public:
 	inline const char* getName()const;
 	inline int getPrice()const;
 	inline int getSerialNumber()const;
+	inline int getSerialNumber()const;
+	inline Seller* const getSeller()const;
+
 
 public:
 	inline void printProduct()const;

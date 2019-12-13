@@ -1,5 +1,6 @@
 #ifndef __Order_h
 #define __Order_h
+
 #include "Product.h"
 #include "Buyer.h"
 #include "Seller.h" 
@@ -7,7 +8,7 @@
 class Order
 {
 	Product** m_wishlist_arr;
-	unsigned int m_products_phy_size;
+	unsigned int m_wishlist_phy_size;
 	unsigned int m_num_of_products;
 	unsigned int m_total_price;
 	Seller* const m_seller; // Can't change them pointing
@@ -33,6 +34,8 @@ public:
 	Product** getProductsArr()const;
 	bool getPaid()const;
 	
+public:
+	inline void printOrder()const;
 };
 
 #endif //!__Order_h
