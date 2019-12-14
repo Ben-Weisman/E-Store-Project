@@ -46,7 +46,6 @@ public:
 
 	Buyer(char* userName, char* password, char* fname, char*
 		lname, const Address &address)
-	//c'tor & keep default for safety purposes. 
 	Buyer(const Buyer& p); // copy c'tor
 	~Buyer();
 	
