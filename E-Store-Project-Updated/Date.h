@@ -1,5 +1,5 @@
-#ifndef __Buyer_h
-#define __Buyer_h
+#ifndef __Date_h
+#define __Date_h
 
 class Date
 {
@@ -26,4 +26,4 @@ public:
 	inline void printDate()const;
 };
 
-#endif //!__Buyer_h
+#endif //!__Date_h

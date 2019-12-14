@@ -1,7 +1,7 @@
 #ifndef __Product_h
 #define __Product_h
 
-#include "Seller.h"
+class Seller; //forword declaration
 
 class Product
 {

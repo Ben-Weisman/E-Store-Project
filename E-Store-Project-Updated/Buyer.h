@@ -2,7 +2,8 @@
 #define __Buyer_h
 #include "Address.h"
 #include "Product.h"
-#include "Order.h"
+
+class Order;//forword declaration
 
 class Buyer
 {

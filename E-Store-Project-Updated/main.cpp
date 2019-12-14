@@ -1,6 +1,6 @@
 
 
-//                                         --      HASAMBA HASAMBA HASAMBA       --
+//                                         --      To Be Or Not To Be      --
 
 #include "System.h"
 #include "Buyer.h"
@@ -8,7 +8,7 @@
 #include <iostream>
 using namespace std;
 
-const int MAX_LEN = 20;
+const int MAX_NAMES_LEN = 20;
 
 // We should move all this to Menu File 
 
@@ -35,7 +35,7 @@ int main()
 		cout << "Please enter your action: ";
 		int option;
 		cin >> option;
-
+		
 		switch (option)
 		{
 		case 1://add buyer
@@ -51,34 +51,38 @@ int main()
 			break;
 
 		case 3: //add product to seller
-			char username[MAX_LEN];
-			cout << "Enter the username of the seller:";
+			char username[MAX_NAMES_LEN];
+			cout << "Enter the username of the seller: ";
 			cin >> username;
-			//check if exist in arr - and return pointer to the seller <--------------------------------------------
 			eben.addProductToSeller(createProduct(), username);
 			break;
 
 		case 4: //add feedback to seller 
-			char b_username[MAX_LEN];
-			cout << "Enter the username of the buyer:";
+			char b_username[MAX_NAMES_LEN];
+			cout << "Enter the username of the buyer: ";
 			cin >> b_username;
 
-			char s_username[MAX_LEN];
-			cout << "Enter the username of the seller:";
+			char s_username[MAX_NAMES_LEN];
+			cout << "Enter the username of the seller: ";
 			cin >> s_username;
 			//check if both exist in each arr - and return pointer to each of them <--------------------------------------------
 			eben.addFeedbackToSeller(b_username, s_username, createFeedback()); //Check that the buyer acctually buy from the relevant seller
 			break;
 
 		case 5:
-			//add to cart
+			char username[MAX_NAMES_LEN];
+			cout << "Enter the username of the buyer: ";
+			cin >> username;
+			eben.addProductToBuyersCart(createProduct(), username);
+			break;
+
 		case 6:
 			//order
-			char b_username[MAX_LEN];
+			char b_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the buyer:";
 			cin >> b_username;
 
-			char s_username[MAX_LEN];
+			char s_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the seller:";
 			cin >> s_username;
 

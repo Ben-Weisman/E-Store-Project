@@ -10,7 +10,7 @@ const char* Seller::getUsername()const { return m_username; }
 const Address Seller::getAddress()const { return m_address; }
 const Product** Seller::getListedItems()const { return m_listed_items; }
 const FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
-const Order** Seller::getOrders()const() { return m_orders; }
+const Order** Seller::getOrders()const { return m_orders; }
 
 bool Seller::setPassword(const char* password)
 { 

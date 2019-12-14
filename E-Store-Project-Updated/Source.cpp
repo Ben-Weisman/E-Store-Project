@@ -1,95 +1,86 @@
 #include "Source.h"
-#include "Utils.h"
-#include "Seller.h"
-#include "Buyer.h"
 #include <iostream>
 using namespace std;
 
 
-Address createAdress()
+Address& createAdress()
 {
 	cleanBuffer();
-	char country[MAX_LEN];
+	char country[MAX_NAMES_LEN];
 	cout << "Country: ";
-	cin.getline(country, MAX_LEN);
+	cin.getline(country, MAX_NAMES_LEN);
 
 	cleanBuffer();
-	char city[MAX_LEN];
+	char city[MAX_NAMES_LEN];
 	cout << "\nCity: ";
-	cin.getline(city, MAX_LEN);
+	cin.getline(city, MAX_NAMES_LEN);
 
 	cleanBuffer();
-	char street[MAX_LEN];
+	char street[MAX_NAMES_LEN];
 	cout << "\nStreet: ";
-	cin.getline(street, MAX_LEN);
+	cin.getline(street, MAX_NAMES_LEN);
 
-	cleanBuffer();
 	int house_number;
 	cout << "\nStreet: ";
 	cin >> house_number;
-	Address a(country, city, street, house_number);
-	return a;
+
+	return Address(country, city, street, house_number);
 }
 
 Buyer* createBuyer() 
 {
 	cleanBuffer();
-	char f_name[MAX_LEN];
+	char f_name[MAX_NAMES_LEN];
 	cout << "First name: ";
-	cin.getline(f_name, MAX_LEN);
+	cin.getline(f_name, MAX_NAMES_LEN);
 
 	cleanBuffer();
-	char l_name[MAX_LEN];
+	char l_name[MAX_NAMES_LEN];
 	cout << "\nLast name: ";
-	cin.getline(l_name, MAX_LEN);
-
-	Address address = createAdress();
+	cin.getline(l_name, MAX_NAMES_LEN);
 
 	cleanBuffer();
-	char user_name[MAX_LEN];
+	char user_name[MAX_NAMES_LEN];
 	cout << "\nUserName: ";
-	cin.getline(user_name, MAX_LEN);
+	cin.getline(user_name, MAX_NAMES_LEN);
 
 	cleanBuffer();
-	char pass[MAX_LEN];
+	char pass[MAX_NAMES_LEN];
 	cout << "\nPassword: ";
-	cin.getline(user_name, MAX_LEN);
+	cin.getline(user_name, MAX_NAMES_LEN);
 
 
-	return new Buyer(user_name, pass, f_name, l_name, address);
+	return new Buyer(user_name, pass, f_name, l_name, createAdress());
 }
 
 Seller* createSeller() 
 {
 	cleanBuffer();
-	char f_name[MAX_LEN];
+	char f_name[MAX_NAMES_LEN];
 	cout << "First name: ";
-	cin.getline(f_name, MAX_LEN);
+	cin.getline(f_name, MAX_NAMES_LEN);
 
 	cleanBuffer();
-	char l_name[MAX_LEN];
+	char l_name[MAX_NAMES_LEN];
 	cout << "\nLast name: ";
-	cin.getline(l_name, MAX_LEN);
-
-	Address adress = createAdress();
+	cin.getline(l_name, MAX_NAMES_LEN);
 
 	cleanBuffer();
-	char user_name[MAX_LEN];
+	char user_name[MAX_NAMES_LEN];
 	cout << "\nUserName: ";
-	cin.getline(user_name, MAX_LEN);
+	cin.getline(user_name, MAX_NAMES_LEN);
 
 	cleanBuffer();
-	char pass[MAX_LEN];
+	char pass[MAX_NAMES_LEN];
 	cout << "\nPassword: ";
-	cin.getline(user_name, MAX_LEN);
+	cin.getline(user_name, MAX_NAMES_LEN);
 
 	
-	return new Seller(user_name, pass, f_name, l_name, adress);
+	return new Seller(user_name, pass, f_name, l_name, createAdress());
 }
 
 Product* createProduct()
 {
-	cleanBuffer();
 	Product::ecategory category;
 	int temp;
 	cout << "\nCategory:\n1)Kids\n2)Electricity\n3)Office\n4)Clothing\n";
@@ -97,23 +88,42 @@ Product* createProduct()
 	category = (Product::ecategory)(temp - 1);
 
 	cleanBuffer();
-	char name[MAX_LEN];
+	char name[MAX_NAMES_LEN];
 	cout << "Name: ";
-	cin.getline(name, MAX_LEN);
+	cin.getline(name, MAX_NAMES_LEN);
 
-	//cleanBuffer(); Do we need ????
 	int price;
 	cout << "\nPrice: ";
 	cin >> price;
-	
-	return new Product(category, name, price);
+
+	return new Product(category, name, price); //Ben we need to check that here the function overloading works (because i didnt sent pinter to seler)
 }
 
-Feedback* createFeedback()
+
+Date createDate()
 {
-	//Date
-	//Text
-	//...
-	Feedback* fb = new Feedback(/*Waiting for Ben the king*/);
-	return fb;
+	cleanBuffer();
+	int day, month, year;
+	cin >> day;
+	cout << "/";
+	cin >> month;
+	cout << "/";
+	cin >> year;
+	cout << endl;
+	
+	return(Date(day, month, year));
 }
+
+FeedBack* createFeedback()
+{
+	cleanBuffer();
+	char feedback[MAX_NAMES_LEN];
+	cout << "Please write your feedback:\n ";
+	cin.getline(feedback, MAX_FEEDBACK_LEN); // Do we want do seek for an option to write free text (with few lines? LUXURY)
+
+	return(FeedBack(feedback, /*C'tor expact Seller**/ createDate()); //Ben I think we need to change the c'tor to function overloading way - I'll insert the seller pointer at the system
+}
+
+
+// General note: I think we should consult about the order of the input's.. 
+// Example: Does it make sence to get the addess after username?, or feedback before date? 

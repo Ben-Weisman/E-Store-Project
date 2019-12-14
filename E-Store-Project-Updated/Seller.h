@@ -3,8 +3,9 @@
 
 #include "FeedBack.h"
 #include "Address.h"
-#include "Product.h"
-#include "Order.h"
+
+class Product; //forword declaration
+class Order; //forword declaration
 
 class Seller
 {

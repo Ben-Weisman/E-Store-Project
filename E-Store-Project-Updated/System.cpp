@@ -186,6 +186,7 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 	{
 		if (strcmp(m_seller_arr[i]->getUsername(), seller_username) == 0)
 		{
+			// Nir: I think that here we need to insert the seller pointer <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			m_seller_arr[i]->addToListItemsArr(prod); 
 			return true;
 		}
@@ -197,13 +198,13 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 
 bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback)
 {
-	
 	if (isBuyerExist(buyer_username))
 	{
 		for (int i = 0; i < m_num_of_sellers; ++i) //until we found the seller (if exist) 
 		{
 			if (strcmp(m_seller_arr[i]->getUsername(),seller_username)==0)
 			{
+				// Nir: I think that here we need to insert the buyer pointer into the Feedback <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 				m_seller_arr[i]->addToFeedArr(feedback);
 				return true;
 			}
@@ -213,7 +214,9 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 }
 
 /*****************************************************************  5  *****************************************************/
-bool System::addProductToBuyersCart(Product* prod, const char* buyer_username)
+
+//Note: we have problem here - (we dont want to make new prod at the main, just to choose one from the sellers)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+bool System::addProductToBuyersCart(/*Product* prod*/, const char* buyer_username)
 {
 	for (int i = 0; i < m_num_of_buyers; ++i)
 	{
@@ -236,17 +239,21 @@ bool System::newOrder(const char* buyer_username)
 	{
 		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
 		{
-			m_buyer_arr[i]->showCart(); // Waiting for Ben function
-
 			int option;
 			do
 			{
-				cout << "Please Choose your option: ";
-				cin >> option;
-			} while (option<1 || option>m_buyer_arr[i]->getNumberOfItems());
+				m_buyer_arr[i]->showCart();
 
-			
-			
+				cout << "\nPlease Choose product:\n Enter -1 to exit from order.\n";
+				cin >> option;
+
+				if ((option != -1 && option < 1) || option > m_buyer_arr[i]->getNumberOfItems()) // ----> validity check to "option" - can couse the program to fly
+					cout << "Sorry, invalid option.";
+				//Order array?
+
+			} while (option!=-1);
+
+
 			return true;
 		}
 	}

@@ -2,8 +2,10 @@
 #define __Order_h
 
 #include "Product.h"
-#include "Buyer.h"
-#include "Seller.h" 
+
+class Seller; //forword declaration
+class Buyer; //forword declaration
+
 
 class Order
 {
