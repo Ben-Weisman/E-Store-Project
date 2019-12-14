@@ -128,7 +128,7 @@ Buyer::Buyer(const Buyer& p) // copy c'tor
 	setFname(p.m_fname);
 	setLname(p.m_lname);
 	setCart(p.m_cart);
-	setOrder(p.getOrders())
+	setOrder(p.getOrders());
 	m_address = p.getAddress();
 
 	m_cartPsize = p.m_cartPsize;
