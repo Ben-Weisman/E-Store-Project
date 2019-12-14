@@ -17,7 +17,7 @@ void Buyer::removeFromCart(Product* item_to_delete)
 
 	for (int i = 0; i < m_number_of_items; i++)
 	{
-		if (m_cart[i]->getSerialNumber() == item_to_delete->getSerialNumber)
+		if (m_cart[i]->getSerialNumber() == item_to_delete->getSerialNumber())
 		{			
 			Product* tmp;
 			for (int j = i; j < m_number_of_items - 1; j++)

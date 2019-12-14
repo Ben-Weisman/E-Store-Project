@@ -1,6 +1,4 @@
-
-
-//                                         --      To Be Or Not To Be      --
+//                                         --      Ofek The Officer     --
 
 #include "System.h"
 #include "Buyer.h"
@@ -14,7 +12,7 @@ const int MAX_NAMES_LEN = 20;
 
 int main()
 {
-	System eben();
+	System system("eben");
 	
 	bool exit_flag = true;
 	while (exit_flag)
@@ -40,13 +38,13 @@ int main()
 		{
 		case 1://add buyer
 
-			if (!(eben.addToBuyerArr(createBuyer())))
+			if (!(system.addToBuyerArr(createBuyer())))
 				cout << "Username already exist, please try again";
 			break;
 
 		case 2://add seller
 
-			if (!(eben.addToSellerArr(createSeller())))
+			if (!(system.addToSellerArr(createSeller())))
 				cout << "Username already exist, please try again";
 			break;
 
@@ -54,7 +52,7 @@ int main()
 			char username[MAX_NAMES_LEN];
 			cout << "Enter the username of the seller: ";
 			cin >> username;
-			eben.addProductToSeller(createProduct(), username);
+			system.addProductToSeller(createProduct(), username);
 			break;
 
 		case 4: //add feedback to seller 
@@ -65,15 +63,15 @@ int main()
 			char s_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the seller: ";
 			cin >> s_username;
-			//check if both exist in each arr - and return pointer to each of them <--------------------------------------------
-			eben.addFeedbackToSeller(b_username, s_username, createFeedback()); //Check that the buyer acctually buy from the relevant seller
+
+			system.addFeedbackToSeller(b_username, s_username, createFeedback()); //Check that the buyer acctually buy from the relevant seller
 			break;
 
 		case 5:
 			char username[MAX_NAMES_LEN];
 			cout << "Enter the username of the buyer: ";
 			cin >> username;
-			eben.addProductToBuyersCart(createProduct(), username);
+			system.addProductToBuyersCart(createProduct(), username);
 			break;
 
 		case 6:
@@ -86,13 +84,13 @@ int main()
 			cout << "Enter the username of the seller:";
 			cin >> s_username;
 
-			eben.newOrder(b_username, s_username, /*One product each time?*/);
+			system.newOrder(b_username, s_username);
 		case 7:
 			//pay
 		case 8:
-			eben.printBuyers();
+			system.printBuyers();
 		case 9:
-			eben.printSellers();
+			system.printSellers();
 		case 10:
 			//show specific product
 		case 11:
@@ -103,7 +101,6 @@ int main()
 			break;
 		}
 
-	
 	}
 
 	return 0;

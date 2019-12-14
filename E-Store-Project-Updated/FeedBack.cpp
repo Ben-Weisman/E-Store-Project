@@ -1,5 +1,6 @@
 #include "FeedBack.h"
-
+#include <iostream>
+using namespace std;
 
 bool FeedBack::setFeedbackEval(char* eval)
 {
@@ -22,12 +23,18 @@ inline const char* FeedBack::getFeedbackEvaluation()const { return m_feedback_ev
 inline const Date FeedBack::getFeedbackDate()const { return m_date; }
 inline const Buyer* FeedBack::getBuyer()const { return m_feedback_provider; }
 
-void FeedBack::showFeedback()const
+void FeedBack::showFeedback()const // Nir: there was a lot of mess here, Every clss have his Show method, we should use them.
 {
-	cout << "Date provided: " << this->getFeedbackDate()->printDate() << endl;
-	cout << "Provided by: " << this->getBuyer()->getFirstName() <<
-		" " << this->getBuyer()->getLastName() << endl;
-	cout << "Feedback: " << this->getFeedbackEvaluation();
+	cout << "Date provided: ";
+	this->m_date.printDate();      // Nir: I changed it from "cout<<printFeedbackDate->printDate" **************************************************************************************************************
+	cout << endl;
+
+	cout << "Provided by: ";
+	this->getBuyer()->showBuyer(); // Nir: Same change **************************************************************************************************************
+	cout << endl;
+	
+	//cout << "Feedback: " << this->getFeedbackEvaluation(); Note: we are cant use cout to print the.. 
+	this->getFeedbackEvaluation();
 }
 
 FeedBack::FeedBack(char* feedback, Buyer* buyer, const Date& date): m_date(date) //c'tor

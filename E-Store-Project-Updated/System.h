@@ -63,7 +63,7 @@ public:
 	//4
 	bool addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback);
 	//5
-	bool addProductToBuyersCart(Product* prod, const char* buyer_username);
+	bool addProductToBuyersCart(char* prod_name, const char* buyer_username);
 	//6
 	bool newOrder(const char* buyer_username);
 	//7

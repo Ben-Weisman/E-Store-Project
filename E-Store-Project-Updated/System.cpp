@@ -216,14 +216,39 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 /*****************************************************************  5  *****************************************************/
 
 //Note: we have problem here - (we dont want to make new prod at the main, just to choose one from the sellers)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-bool System::addProductToBuyersCart(/*Product* prod*/, const char* buyer_username)
+bool System::addProductToBuyersCart(char* prod_name, const char* buyer_username)
 {
 	for (int i = 0; i < m_num_of_buyers; ++i)
 	{
 		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
 		{
-			m_buyer_arr[i]->addToCart(prod);
-			return true;
+			int counter = 1;
+				for (int j = 0; j < m_num_of_sellers; ++j)
+				{ 
+					for (int k = 0; k < m_seller_arr[j]->getNumOfListedItems(); ++k) //Ben: plaese add this method to seller class ****************************************************************************************8
+					{
+						if (strcmp(m_seller_arr[j]->getListedItems()[k], prod_name) == 0) // Nir: I think there is a const issue here
+							cout << counter++ << ") ";
+						cout << m_seller_arr[j]->getUsername(); //printing all the sellers that have choosen product
+					}
+					//STUCKED HERE - how can i save the right sellers place? <--------------------------------------------------------------------------------------------------------
+					char choosen_seller_username[MAX_LEN];
+					do
+					{
+						cout << "please enter the choosen seller's username: ";
+						cin >> option;
+					} while (option<1 || option>counter - 1);
+
+
+							cout << "\nPlease Choose product:\n Enter -1 to exit from order.\n";
+						cin >> option;
+
+						if ((option != -1 && option < 1) || option > m_buyer_arr[i]->getNumberOfItems()) // ----> validity check to "option" - can couse the program to fly
+							cout << "Sorry, invalid option.";
+
+						m_buyer_arr[i]->addToCart(prod);
+						return true;
+					}
 		}
 	}
 	return false;

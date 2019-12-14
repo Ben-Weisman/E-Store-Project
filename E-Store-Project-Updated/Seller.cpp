@@ -4,10 +4,11 @@
 using namespace std;
 
 //Ben, FYI inline wrriten just in the h File (:
+
 const char* Seller::getFirstName()const { return m_fname; }
 const char* Seller::getLastName()const { return m_lname; }
 const char* Seller::getUsername()const { return m_username; }
-const Address Seller::getAddress()const { return m_address; }
+const Address& Seller::getAddress()const { return m_address; }
 const Product** Seller::getListedItems()const { return m_listed_items; }
 const FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
 const Order** Seller::getOrders()const { return m_orders; }
@@ -135,14 +136,14 @@ void Seller::printSeller()
 		cout << m_listed_items[i]->printProduct << endl;
 	cout << "FeedBacks: " << endl;
 
-	for (i = 0; i < m_num_of_feedbacks; i++)
+	for (int i = 0; i < m_num_of_feedbacks; i++)
 	{
 		m_feedback_arr[i]
 	}
 
 }
 
-Seller::Seller(char* userName, char* password, char* fname, char* lname,
+Seller::Seller(char* username, char* password, char* fname, char* lname,
 	const Address& address) : m_address(address) // c'tor
 {
 	setUsername(username);
@@ -188,7 +189,7 @@ Seller::~Seller() // d'tor
 
 }
 
-Seller::Seller(Seller& p) //copy c'tor	
+Seller::Seller(const Seller& p) //copy c'tor	
 {
 	setUsername(p.m_username);
 	setPassword(p.m_password);

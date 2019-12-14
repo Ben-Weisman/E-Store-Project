@@ -10,9 +10,9 @@ class Buyer; //forword declaration
 class Order
 {
 	Product** m_wishlist_arr;
-	unsigned int m_wishlist_phy_size;
-	unsigned int m_num_of_products;
-	unsigned int m_total_price;
+	int m_wishlist_phy_size;
+	int m_num_of_products;
+	int m_total_price;
 	Seller* const m_seller; // Can't change them pointing
 	Buyer* const m_buyer;  // Can't change them pointing
 	bool m_paid; // indication - the order already paid or not?
@@ -23,9 +23,9 @@ public:
 	~Order();
 
 public:
-	inline bool setTotalPrice(unsigned int total_price);
-	inline bool setProductsPhySize(unsigned int phy_size);
-	inline bool setNumOfProducts(unsigned int num_of_prod);
+	inline bool setTotalPrice(int total_price);
+	inline bool setProductsPhySize(int phy_size);
+	inline bool setNumOfProducts(int num_of_prod);
 	inline bool setPaid(bool paid);
 public:
 	inline unsigned int getTotalPrice()const;

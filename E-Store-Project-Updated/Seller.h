@@ -31,9 +31,9 @@ private:
 
 private:
 	bool setUsername(char* username);
-	bool setFeedBacks(FeedBack* feed);
+	bool setFeedBacks(FeedBack** feed);
 	bool setOrders(Order** other);
-	bool setListItems(Product **listed_items)
+	bool setListItems(Product **listed_items);
 
 public:
 
@@ -41,7 +41,7 @@ public:
 	inline const char* getFirstName()const;
 	inline const char* getLastName()const;
 	inline const char* getUsername()const;
-	inline const Address getAddress()const;
+	inline const Address& getAddress()const;
 	inline const Product **getListedItems()const;
 	inline const FeedBack** getFeedbacks()const;
 	inline const Order** getOrders()const;

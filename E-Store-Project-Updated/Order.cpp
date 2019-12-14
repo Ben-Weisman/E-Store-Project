@@ -26,16 +26,16 @@ Order::~Order()
 
 //////////////////////////////////////////////////////////  setters  ///////////////////////////////////////////////////////////
 
-bool Order::setTotalPrice(unsigned int total_price)
+bool Order::setTotalPrice(int total_price)
 {
 	m_total_price = total_price;
 	return true; // unsigned - so can't be negative price
 }
-bool Order::setProductsPhySize(unsigned int phy_size)
+bool Order::setProductsPhySize(int phy_size)
 {
 	m_wishlist_phy_size = phy_size;
 }
-bool Order::setNumOfProducts(unsigned int num_of_prod)
+bool Order::setNumOfProducts(int num_of_prod)
 {
 	m_num_of_products = num_of_prod;
 }
