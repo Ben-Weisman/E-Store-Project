@@ -6,7 +6,7 @@ inline const int Buyer::getNumberOfItems()const { return m_number_of_items; }
 const char* Buyer::getFirstName()const { return m_fname; }
 const char* Buyer::getLastName()const { return m_lname; }
 const char* Buyer::getUsername()const { return m_username; }
-const Product** Buyer::getCart()const { return m_cart; }
+Product** Buyer::getCart()const { return m_cart; }
 const Address Buyer::getAddress()const { return m_address; }
 
 ////// Moved to Order.h //////

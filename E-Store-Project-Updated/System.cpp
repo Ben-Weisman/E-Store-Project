@@ -1,5 +1,7 @@
 #include "System.h"
 #include <string>
+#include <iostream>
+using namespace std;
 
 System::System(const char* name = "eBen") //Default name
 {
@@ -96,11 +98,11 @@ int System::getNumOfBuyers()const
 
 			/************************************************************ 1 ********************************************************/
 
-bool System::isBuyerExist(const Buyer* buyer)const
+bool System::isBuyerExist(const char* buyer_username)const
 {
-	for (int i = 0; i < m_num_of_buyers; i++)
+	for (int i = 0; i < m_num_of_buyers; ++i)
 	{
-		if (strcmp(m_buyer_arr[i].getUserName(), new_buyer->getUsername()) == 0)
+		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
 			return false;
 	}
 	return true;
@@ -121,26 +123,26 @@ void System::buyersRealloc()
 	m_buyer_arr = temp;
 }
 
-bool System::addToBuyerArr(Buyer* new_buyer) // change in header
+bool System::addToBuyerArr(Buyer* new_buyer) 
 {
-	if (isBuyerExist(new_buyer))
+	if (isBuyerExist(new_buyer->getUsername()))
 		return false; // username already exist
 
 	if (m_num_of_buyers == m_buyers_phy_size)
 		buyersRealloc();
 
-	m_buyer_arr[m_num_of_buyers++] = new_buyer; // Correct place ?
+	m_buyer_arr[m_num_of_buyers++] = new_buyer; 
 
 	return true; // new buyer entered
 }
 
 /************************************************************ 2 ********************************************************/
 
-bool System::isSellerExist(const Seller* seller)const
+bool System::isSellerExist(const char* seller_username)const
 {
-	for (int i = 0; i < m_num_of_sellers; i++)
+	for (int i = 0; i < m_num_of_sellers; ++i)
 	{
-		if (strcmp(m_seller_arr[i].getUserName(), seller->getUsername()) == 0)
+		if (strcmp(m_seller_arr[i]->getUsername(), seller_username) == 0)
 			return false;
 	}
 	return true;
@@ -162,15 +164,15 @@ void System::sellersRealloc()
 }
 
 
-bool System::addToSellerArr(const Seller* new_seller)
+bool System::addToSellerArr(Seller* new_seller)
 {
-	if (isSellerExist(new_seller))
+	if (isSellerExist(new_seller->getUsername()))
 		return false; // username already exist
 
 	if (m_num_of_sellers == m_sellers_phy_size)
 		sellersRealloc();
 
-	m_seller_arr[m_num_of_sellers++] = new_seller; // Correct place ?
+	m_seller_arr[m_num_of_sellers++] = new_seller; 
 
 	return true; // new buyer entered
 
@@ -178,13 +180,13 @@ bool System::addToSellerArr(const Seller* new_seller)
 
 /************************************************************ 3 ********************************************************/
 
-bool System::addProductToSeller(Product* prod, const char* username) //header change
+bool System::addProductToSeller(Product* prod, const char* seller_username) 
 {
-	for (int i = 0; i < m_num_of_sellers; i++)
+	for (int i = 0; i < m_num_of_sellers; ++i)
 	{
-		if (strcmp(m_seller_arr[i]->getUserName(), username) == 0)
+		if (strcmp(m_seller_arr[i]->getUsername(), seller_username) == 0)
 		{
-			m_seller_arr[i]->addProduct(prod); //Ben - TO DO at Seller&Buyer class func that add product to the prod_arr (you can write realloc same as mine) 
+			m_seller_arr[i]->addToListItemsArr(prod); 
 			return true;
 		}
 	}
@@ -195,52 +197,123 @@ bool System::addProductToSeller(Product* prod, const char* username) //header ch
 
 bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback)
 {
-	//check if buyer exist
-	//check if seller exist
-	//check if the buyer already ordered from the seller
-
-	if (flag) // both exist
+	
+	if (isBuyerExist(buyer_username))
 	{
+		for (int i = 0; i < m_num_of_sellers; ++i) //until we found the seller (if exist) 
+		{
+			if (strcmp(m_seller_arr[i]->getUsername(),seller_username)==0)
+			{
+				m_seller_arr[i]->addToFeedArr(feedback);
+				return true;
+			}
+		}
+	}
+	return false;
+}
 
+/*****************************************************************  5  *****************************************************/
+bool System::addProductToBuyersCart(Product* prod, const char* buyer_username)
+{
+	for (int i = 0; i < m_num_of_buyers; ++i)
+	{
+		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
+		{
+			m_buyer_arr[i]->addToCart(prod);
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
+
+/*****************************************************************  6  *****************************************************/
+bool System::newOrder(const char* buyer_username)
+{
+	for (int i = 0; i < m_num_of_buyers; ++i)
+	{
+		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
+		{
+			m_buyer_arr[i]->showCart(); // Waiting for Ben function
+
+			int option;
+			do
+			{
+				cout << "Please Choose your option: ";
+				cin >> option;
+			} while (option<1 || option>m_buyer_arr[i]->getNumberOfItems());
+
+			
+			
+			return true;
+		}
 	}
 }
-/*****************************************************************  6  *****************************************************/
-bool System::newOrder(const char* b_username, const char* s_username /*some more args*/)
+/*****************************************************************  7  *****************************************************/
+bool System::payment(const char* buyer_username)
 {
+	for (int i = 0; i < m_num_of_buyers; ++i)
+	{
+		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
+		{
+			m_buyer_arr[i]->showOrderList();      // Waiting for Ben function
+			int option;
+			do
+			{
+				cout << "Please Choose your option: ";
+				cin >> option;
+			} while (option<1 || option>m_buyer_arr[i]->getNumberOfOrders()); //Need this also
 
+			Product** prod_to_buy = m_buyer_arr[i]->getOrders();
+
+			for (int j = 0; j < m_buyer_arr[i]->getNumberOfOrders(); ++j)
+				m_buyer_arr[i]->removeFromCart(prod_to_buy[j]);
+
+				m_[option - 1]->setPaid(true);
+			return true;
+		}
+	}
 }
 
 
-/*8*/
+/*****************************************************************  8  *****************************************************/
 
 void System::printBuyers()const
 {
-	for (int i = 0; i < m_num_of_buyers; i++)
-		m_buyer_arr[i].printBuyer();
+	for (int i = 0; i < m_num_of_buyers; ++i)
+	{
+		m_buyer_arr[i]->printBuyer();
+		cout << endl;
+	}
 }
 
-/*9*/
+/*****************************************************************  9  *****************************************************/
 
 void System::printSellers()const
 {
-	for (int i = 0; i < m_num_of_sellers; i++)
-		m_seller_arr[i].printSeller();
+	for (int i = 0; i < m_num_of_sellers; ++i)
+	{
+		m_seller_arr[i]->printSeller();
+		cout << endl;
+	}
 }
 
 
-/*10*/
+/*****************************************************************  10  *****************************************************/
 
 void System::printAllSpecificProduct(const char* name_to_find)const
 {
 	int counter;
-	for (int i = 0; i < m_num_of_sellers; i++)
+	for (int i = 0; i < m_num_of_sellers; ++i)
 	{
-		for (int j = 0; j < m_seller_arr[i].getNumOfProductd(); i++) //Ben - We need this attribute and func in seller
+		for (int j = 0; j < m_seller_arr[i]->getNumOfProductd(); ++i) //Ben - We need this Method and func in seller
 		{
-			if (strcmp(name_to_find, m_seller_arr[i].productArr[j].getName()) == 0)
+			if (strcmp(name_to_find, m_seller_arr[i]->getListedItems()[j]->getName()) == 0)
 			{
 				cout << counter++ << ") ";
-				m_seller_arr[i].productArr[j].printProduct(); // Is there is private blocking here? 
+				m_seller_arr[i]->getListedItems()[j]->printProduct(); 
 				cout << endl;
 			}
 		}

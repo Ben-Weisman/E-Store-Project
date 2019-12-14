@@ -2,6 +2,7 @@
 #include "utils.h"
 #include <string>
 #include <iostream>
+#include "Seller.h"
 using namespace std;
 #pragma warning(disable:4996) 
 

@@ -1,5 +1,7 @@
 #include "Source.h"
 #include "Utils.h"
+#include "Seller.h"
+#include "Buyer.h"
 #include <iostream>
 using namespace std;
 
@@ -29,7 +31,7 @@ Address createAdress()
 	return a;
 }
 
-Buyer* createBuyer() //Waiting for Ben Buyer file (:
+Buyer* createBuyer() 
 {
 	cleanBuffer();
 	char f_name[MAX_LEN];
@@ -53,12 +55,11 @@ Buyer* createBuyer() //Waiting for Ben Buyer file (:
 	cout << "\nPassword: ";
 	cin.getline(user_name, MAX_LEN);
 
-	Buyer* b = 
 
 	return new Buyer(user_name, pass, f_name, l_name, address);
 }
 
-Seller* createSeller() //Waiting for Ben Seller file (:
+Seller* createSeller() 
 {
 	cleanBuffer();
 	char f_name[MAX_LEN];

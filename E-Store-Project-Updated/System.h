@@ -47,21 +47,32 @@ public:
 	inline int getBuyersPhySize()const;
 	inline int getNumOfBuyers()const;
 
+
+	/////////////////////////////////////////////////////////////menu functions/////////////////////////////////////////////////////////////
 public:
-	bool isBuyerExist(const Buyer* buyer)const;
+	//1
+	bool isBuyerExist(const char* buyer_username)const;
 	void buyersRealloc();
-	bool addToBuyerArr(const Buyer* new_buyer);
-
-	bool isSellerExist(const Seller* seller)const;
+	bool addToBuyerArr(Buyer* new_buyer);
+	//2
+	bool isSellerExist(const char* seller_username)const;
 	void sellersRealloc();
-	bool addToSellerArr(const Seller* new_seller);
-
-	bool addProductToSeller(const Product* prod, const char* username);
-	bool addFeedbackToSeller(const char* buyer_username, const char* seller_username, Feedback* feedback);
-	bool newOrder(const char* b_username, const char* s_username /*some more args*/);
-
+	bool addToSellerArr(Seller* new_seller);
+	//3
+	bool addProductToSeller(Product* prod, const char* seller_username);
+	//4
+	bool addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback);
+	//5
+	bool addProductToBuyersCart(Product* prod, const char* buyer_username);
+	//6
+	bool newOrder(const char* buyer_username);
+	//7
+	bool payment(const char* buyer_username);
+	//8
 	void printBuyers()const;
+	//9
 	void printSellers()const;
+	//10
 	void printAllSpecificProduct(const char* name_to_find) const;
 
 
