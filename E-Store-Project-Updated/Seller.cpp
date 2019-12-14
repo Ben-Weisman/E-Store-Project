@@ -36,6 +36,38 @@ bool Seller::setLname(const char* lname)
 	return true;
 }
 
+bool Seller::setUsername(char* username)
+{
+	if (strlen(username) == 0)
+		return false;
+	m_username = strdup(username);
+	return true;
+}
+
+bool Seller::setFeedBacks(FeedBack** feed)
+{
+	if (!feed)
+		return false;
+	m_feedback_arr = feed;
+	return true;
+}
+
+bool Seller::setOrders(Order** other)
+{
+	if (!other)
+		return false;
+	m_orders = other;
+	return true;
+}
+
+bool Seller::setListItems(Product** listed_items)
+{
+	if (!listed_items)
+		return false;
+	m_listed_items = listed_items;
+	return true;
+}
+
 void Seller::addToListItemsArr(Product *item_to_add)
 {
 	if (m_num_of_listed_items == m_listed_items_pSize)
@@ -57,8 +89,6 @@ void Seller::addToOrdersArr(Order* order_request)
 		OrdersArrRealloc();
 	m_orders[m_num_of_orders++] = order_request;
 }
-
-void removeFromFeedArr();
 
 void Seller::FeedbackArrRealloc()
 {
@@ -107,26 +137,38 @@ void Seller::printSeller()
 
 	for (i = 0; i < m_num_of_feedbacks; i++)
 	{
-		//cout << m_feedback_arr[i]->printFeedback(); To Implement
+		m_feedback_arr[i]
 	}
 
 }
 
 Seller::Seller(char* userName, char* password, char* fname, char* lname,
-	const Address& address) : m_address(address)
+	const Address& address) : m_address(address) // c'tor
 {
-	m_username = strdup(userName);
-	m_password = strdup(password);
-	m_fname = strdup(fname);
-	m_lname = strdup(lname);
+	setUsername(username);
+	setPassword(password);
+	setFname(fname);
+	setLname(lname);
+
 	m_num_of_feedbacks = 0;
 	m_num_of_listed_items = 0;
 	m_feedbacks_phy_size = 1;
 	m_listed_items_pSize = 1;
+	m_num_of_orders = 0;
+	m_orders_pSize = 1;
+
+	m_orders = new Order * [m_orders_pSize];
+	m_orders[m_num_of_orders] = nullptr;
+
+	m_feedback_arr = new FeedBack * [m_feedbacks_phy_size];
+	m_feedback_arr[m_num_of_feedbacks] = nullptr;
+
+	m_listed_items = new Product * [m_listed_items_pSize];
+	m_listed_items[m_num_of_listed_items] = nullptr;
 }
 
 
-Seller::~Seller()
+Seller::~Seller() // d'tor
 {
 	int i;
 
@@ -141,24 +183,18 @@ Seller::~Seller()
 	for (i = 0; i < m_num_of_listed_items; i++)
 		delete m_listed_items[i];
 
+	for (i = 0; i < m_num_of_orders; i++)
+		delete m_num_of_orders[i];
+
 }
 
-
-
-
-
-///////////////////////////
-void Seller::feedbacksRealloc()
+Seller::Seller(Seller& p) //copy c'tor	
 {
-		m_feedbacks_phy_size *= 2;
+	setUsername(p.m_username);
+	setPassword(p.m_password);
+	setFname(p.m_fname);
+	setLname(p.m_lname);
 
-		FeedBack** temp = new FeedBack*[m_feedbacks_phy_size];
-
-		for (int i = 0; i < m_num_of_feedbacks; i++)
-		{
-			temp[i] = m_feedback_arr[i];
-		}
-		delete[] m_feedback_arr;
-
-		m_feedback_arr = temp;
+	m_num_of_feedbacks = p.m_num_of_feedbacks;
+	m_feedbacks_phy_size = 
 }

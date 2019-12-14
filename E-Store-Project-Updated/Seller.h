@@ -28,6 +28,12 @@ private:
 	Product** m_listed_items;
 	Order** m_orders;
 
+private:
+	bool setUsername(char* username);
+	bool setFeedBacks(FeedBack* feed);
+	bool setOrders(Order** other);
+	bool setListItems(Product **listed_items)
+
 public:
 
 	// Getters
@@ -56,6 +62,7 @@ public:
 	void OrdersArrRealloc();
 	
 	void printSeller();
+	
 
 public:
 	~Seller(); // d'tor

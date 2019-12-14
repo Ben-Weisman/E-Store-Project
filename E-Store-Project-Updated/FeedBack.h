@@ -7,30 +7,25 @@
 class FeedBack
 {
 private:
-	char* m_fname;
-	char* m_lname;
-	char* m_feedback_date;
+
 	char* m_feedback_evaluation; 
-	int m_feedback_stars;
 	Buyer* m_feedback_provider;
-	Address m_address;
 	Date m_date;
 
+private:
+	bool setFeedbackEval(char* eval);
+	bool setFeedbackProvider(Buyer* provider);
+
 public:
-	char* getFirstName();
-	char* getLastName();
-	char* getFeedbackDate();
-	char* getFeedbackEvaluation();
-	int getStars();
+	inline const char* getFeedbackEvaluation()const;
+	inline const Date getFeedbackDate()const;
+	inline const Buyer* getBuyer()const;
 
-	void setFirstName(char* first_name);
-	void setLastName(char* last_name);
-	void setFeedbackDate(char* date);
-	void setFeedbackEvaluation(char* eval);
-	void setStars(int rank);
+	void showFeedback()const;
 
-	FeedBack(char* fname = '\0', char* lname, char* date, char* eval, int star); // c'tor
-
+	FeedBack(char* feedback, Buyer* buyer, const Date& date); //c'tor
+	~FeedBack(); //d'tor
+	FeedBack(FeedBack& f); //copy c'tor
 };
 
 #endif// __FeedBack_h

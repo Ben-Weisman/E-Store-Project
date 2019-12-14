@@ -11,6 +11,7 @@ private:
 	char* m_password;
 	char* m_fname;
 	char* m_lname;
+
 	int m_cartPsize;
 	int m_number_of_items;
 	int m_num_checkout_orders;
@@ -20,6 +21,9 @@ private:
 	Product** m_cart;
 	Order** m_checkout_orders;
 
+private:
+	bool setUsername(char* username);
+	bool setCart(Product** cart);
 
 public:
 
@@ -29,6 +33,7 @@ public:
 	inline const char* getLastName()const;
 	inline const char* getUsername()const;
 	inline const Address getAddress()const;
+	inline Order** getOrders()const;
 
 	bool setPassword(const char* password);
 	bool setFname(const char* fname);
@@ -39,8 +44,9 @@ public:
 
 	void removeFromCart(Product* item_to_remove);
 	
-
-	void printBuyer()const;
+	void showCart()const;
+	void showBuyer()const;
+	void showCheckoutOrders()const;
 	void cartRealloc();
 	void checkoutRealloc();
 
