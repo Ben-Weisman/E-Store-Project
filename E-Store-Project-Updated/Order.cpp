@@ -1,4 +1,6 @@
 #include "Order.h"
+#include <iostream>
+using namespace std;
 
 Order::Order(Seller* s, Buyer* b) :m_seller(s), m_buyer(b)
 {
@@ -8,7 +10,7 @@ Order::Order(Seller* s, Buyer* b) :m_seller(s), m_buyer(b)
 	setTotalPrice(0);
 	setPaid(false);
 	
-	m_wishlist_arr = new Product*[m_products_phy_size]; // is That enough? 
+	m_wishlist_arr = new Product*[m_wishlist_phy_size]; 
 }
 
 
@@ -31,7 +33,7 @@ bool Order::setTotalPrice(unsigned int total_price)
 }
 bool Order::setProductsPhySize(unsigned int phy_size)
 {
-	m_products_phy_size = phy_size;
+	m_wishlist_phy_size = phy_size;
 }
 bool Order::setNumOfProducts(unsigned int num_of_prod)
 {
@@ -53,7 +55,7 @@ unsigned int Order::getTotalPrice()const
 }
 unsigned int Order::getProductsPhySize()const
 {
-	return m_products_phy_size;
+	return m_wishlist_phy_size;
 }
 unsigned int Order::getNumOfProducts()const
 {
@@ -76,3 +78,12 @@ bool Order::getPaid()const
 	return m_paid;
 }
 	
+
+void Order::printOrder()const
+{
+	for (int i = 0; i < m_num_of_products; i++)
+	{
+		cout << i + 1 << ") " << m_wishlist_arr[i]->getName() << endl;
+	}
+	cout << m_total_price << endl;
+}

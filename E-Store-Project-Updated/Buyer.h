@@ -23,7 +23,7 @@ private:
 
 public:
 
-	inline const Product** getCart()const;
+	inline Product** getCart()const;
 	inline const int getNumberOfItems()const;
 	inline const char* getFirstName()const;
 	inline const char* getLastName()const;

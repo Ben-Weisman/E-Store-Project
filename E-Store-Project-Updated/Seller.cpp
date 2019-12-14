@@ -3,14 +3,14 @@
 #include <string>
 using namespace std;
 
-
-inline const char* Seller::getFirstName()const { return m_fname; }
-inline const char* Seller::getLastName()const { return m_lname; }
-inline const char* Seller::getUsername()const { return m_username; }
-inline const Address Seller::getAddress()const { return m_address; }
-inline const Product** Seller::getListedItems()const { return m_listed_items; }
-inline const FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
-inline const Order** Seller::getOrders()const() { return m_orders; }
+//Ben, FYI inline wrriten just in the h File (:
+const char* Seller::getFirstName()const { return m_fname; }
+const char* Seller::getLastName()const { return m_lname; }
+const char* Seller::getUsername()const { return m_username; }
+const Address Seller::getAddress()const { return m_address; }
+const Product** Seller::getListedItems()const { return m_listed_items; }
+const FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
+const Order** Seller::getOrders()const() { return m_orders; }
 
 bool Seller::setPassword(const char* password)
 { 
