@@ -13,8 +13,8 @@ private:
 	Date m_date;
 
 private:
-	bool setFeedbackEval(char* eval);
-	bool setFeedbackProvider(Buyer* provider);
+	bool setFeedbackEval(const char* eval);
+	bool setFeedbackProvider(const Buyer* provider);
 
 public:
 	inline const char* getFeedbackEvaluation()const;

@@ -1,7 +1,10 @@
 #include "FeedBack.h"
+#include "Date.h"
+#include "Buyer.h"
+#include <iostream>
+using namespace std;
 
-
-bool FeedBack::setFeedbackEval(char* eval)
+bool FeedBack::setFeedbackEval(const char* eval)
 {
 	if (strlen(eval) == 0)
 		return false;
@@ -9,7 +12,7 @@ bool FeedBack::setFeedbackEval(char* eval)
 	return true;
 }
 
-bool FeedBack::setFeedbackProvider(Buyer* provider)
+bool FeedBack::setFeedbackProvider(const Buyer* provider)
 {
 	if (!provider)
 		return false;
@@ -24,7 +27,8 @@ inline const Buyer* FeedBack::getBuyer()const { return m_feedback_provider; }
 
 void FeedBack::showFeedback()const
 {
-	cout << "Date provided: " << this->getFeedbackDate()->printDate() << endl;
+	cout << "Date provided: ";
+	this->getFeedbackDate().printDate();
 	cout << "Provided by: " << this->getBuyer()->getFirstName() <<
 		" " << this->getBuyer()->getLastName() << endl;
 	cout << "Feedback: " << this->getFeedbackEvaluation();
@@ -43,7 +47,7 @@ FeedBack::~FeedBack() //d'tor
 
 FeedBack::FeedBack(FeedBack& f) //copy c'tor
 {
-	setFeedbackProvider(buyer);
+	setFeedbackProvider(f.getBuyer());
 	setFeedbackEval(f.getFeedbackEvaluation());
 	m_date = f.getFeedbackDate();
 }
