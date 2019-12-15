@@ -5,8 +5,6 @@ using namespace std;
 #pragma warning(disable:4996) 
 
 
-//Ben, FYI inline wrriten just in the h File (:
-
 const char* Seller::getFirstName()const { return m_fname; }
 const char* Seller::getLastName()const { return m_lname; }
 const char* Seller::getUsername()const { return m_username; }
@@ -140,7 +138,7 @@ void Seller::printSeller()
 
 	for (int i = 0; i < m_num_of_feedbacks; i++)
 	{
-		m_feedback_arr[i]
+		m_feedback_arr[i]; // --------------------?
 	}
 
 }
@@ -173,31 +171,29 @@ Seller::Seller(char* username, char* password, char* fname, char* lname,
 
 Seller::~Seller() // d'tor
 {
-	int i;
-
 	delete[]m_fname;
 	delete[]m_lname;
 	delete[]m_username;
 	delete[]m_password;
 
-	for (i = 0; i < m_num_of_feedbacks; i++)
+	for (int i = 0; i < m_num_of_feedbacks; ++i)
 		delete m_feedback_arr[i];
 
-	for (i = 0; i < m_num_of_listed_items; i++)
+	for (int i = 0; i < m_num_of_listed_items; ++i)
 		delete m_listed_items[i];
 
-	for (i = 0; i < m_num_of_orders; i++)
-		delete m_num_of_orders[i];
+	for (int i = 0; i < m_num_of_orders; ++i)
+		delete m_orders[i];
 
 }
 
-Seller::Seller(const Seller& p) //copy c'tor	
+Seller::Seller(const Seller& s):m_address(s.m_address) //copy c'tor	 *************************** Nir: Contained Object - initlized at the inline
 {
-	setUsername(p.m_username);
-	setPassword(p.m_password);
-	setFname(p.m_fname);
-	setLname(p.m_lname);
+	setUsername(s.m_username);
+	setPassword(s.m_password);
+	setFname(s.m_fname);
+	setLname(s.m_lname);
 
-	m_num_of_feedbacks = p.m_num_of_feedbacks;
-	m_feedbacks_phy_size = 
+	m_num_of_feedbacks = s.m_num_of_feedbacks;
+	m_feedbacks_phy_size = s.m_num_of_feedbacks;
 }

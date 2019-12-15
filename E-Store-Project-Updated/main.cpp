@@ -49,22 +49,22 @@ int main()
 			break;
 
 		case 3: //add product to seller
-			char username[MAX_NAMES_LEN];
+			char seller_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the seller: ";
-			cin >> username;
-			system.addProductToSeller(createProduct(), username);
+			cin >> seller_username;
+			system.addProductToSeller(createProduct(seller_username), seller_username);
 			break;
 
 		case 4: //add feedback to seller 
 			char b_username[MAX_NAMES_LEN];
-			cout << "Enter the username of the buyer: ";
+			cout << "Enter buyer's username: ";
 			cin >> b_username;
 
 			char s_username[MAX_NAMES_LEN];
-			cout << "Enter the username of the seller: ";
+			cout << "Enter seller's username: ";
 			cin >> s_username;
 
-			system.addFeedbackToSeller(b_username, s_username, createFeedback()); //Check that the buyer acctually buy from the relevant seller
+			system.addFeedbackToSeller(b_username, s_username, createFeedback(b_username)); //Check that the buyer acctually buy from the relevant seller
 			break;
 
 		case 5:

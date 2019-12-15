@@ -42,8 +42,7 @@ void Buyer::showCart()const
 
 	for (int i = 0; i < m_number_of_items; i++)
 		cout << i + 1 << ") " << m_cart[i]->getName() << m_cart[i]->getPrice() <<
-		m_cart[i]->getSeller()->printSeller() << " " << m_cart[i]->getSeller()->getLastName()
-		<< endl;
+		m_cart[i]->getSellerUsername() << endl;
 }
 
 void Buyer::addToCart(Product* item_to_add)
@@ -124,20 +123,19 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 }
 
-Buyer::Buyer(const Buyer& p) // copy c'tor
+Buyer::Buyer(const Buyer& b :m_address(b.address) // copy c'tor
 {
-	setUsername(p.m_username);
-	setPassword(p.m_password);
-	setFname(p.m_fname);
-	setLname(p.m_lname);
-	setCart(p.m_cart);
-	setOrder(p.getOrders());
-	m_address(p.getAddress());
+	setUsername(b.m_username);
+	setPassword(b.m_password);
+	setFname(b.m_fname);
+	setLname(b.m_lname);
+	setCart(b.m_cart);
+	setOrder(b.getOrders());
 
-	m_cartPsize = p.m_cartPsize;
-	m_number_of_items = p.m_number_of_items;
-	m_num_checkout_orders = p.m_num_checkout_orders;
-	m_checkout_orders_pSize = p.m_checkout_orders_pSize;
+	m_cartPsize = b.m_cartPsize;
+	m_number_of_items = b.m_number_of_items;
+	m_num_checkout_orders = b.m_num_checkout_orders;
+	m_checkout_orders_pSize = b.m_checkout_orders_pSize;
 }
 
 Buyer::~Buyer() // d'tor

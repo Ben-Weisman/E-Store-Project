@@ -3,8 +3,8 @@
 
 #include "FeedBack.h"
 #include "Address.h"
+#include "Product.h"
 
-class Product; //forword declaration
 class Order; //forword declaration
 
 class Seller
@@ -69,7 +69,7 @@ public:
 	~Seller(); // d'tor
 	Seller(char* userName, char* password, char* fname, char*
 		lname, const Address& address);
-	Seller(Seller& p); //copy c'tor	
+	Seller(const Seller& s); //copy c'tor	
 };
 
 #endif // !__Seller_h

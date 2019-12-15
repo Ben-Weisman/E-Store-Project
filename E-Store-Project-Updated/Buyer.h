@@ -53,7 +53,7 @@ public:
 
 	Buyer(char* userName, char* password, char* fname, char*
 		lname, const Address& address);
-	Buyer(const Buyer& p); // copy c'tor
+	Buyer(const Buyer& b); // copy c'tor
 	~Buyer();
 	
 };

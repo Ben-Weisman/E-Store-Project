@@ -78,8 +78,6 @@ bool Address::setCity(const char* city)
 	delete[] m_city;
 	m_city = strdup(city);
 	return true;
-    exit();
-
 }
 bool Address::setStreet(const char* street)
 {

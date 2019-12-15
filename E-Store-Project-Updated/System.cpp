@@ -174,7 +174,7 @@ bool System::addToSellerArr(Seller* new_seller)
 
 	m_seller_arr[m_num_of_sellers++] = new_seller; 
 
-	return true; // new buyer entered
+	return true; // new seller entered
 
 }
 
@@ -186,7 +186,6 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 	{
 		if (strcmp(m_seller_arr[i]->getUsername(), seller_username) == 0)
 		{
-			// Nir: I think that here we need to insert the seller pointer <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			m_seller_arr[i]->addToListItemsArr(prod); 
 			return true;
 		}
@@ -204,7 +203,6 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 		{
 			if (strcmp(m_seller_arr[i]->getUsername(),seller_username)==0)
 			{
-				// Nir: I think that here we need to insert the buyer pointer into the Feedback <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 				m_seller_arr[i]->addToFeedArr(feedback);
 				return true;
 			}

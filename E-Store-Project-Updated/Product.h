@@ -1,8 +1,6 @@
 #ifndef __Product_h
 #define __Product_h
 
-class Seller; //forword declaration
-
 class Product
 {
 public:
@@ -17,10 +15,10 @@ private:
 	char* m_name;
 	int m_price;
 	int m_serial_number;
-	Seller* const m_seller; // Can't change them pointing
+	char* m_seller_username; 
 
 public:
-	Product(ecategory category, char* name, int price, Seller* s); //c'tor
+	Product(ecategory category, char* name, int price, char* seller_username); //c'tor
 	~Product(); //d'tor
 	Product(const Product&p); //copy c'tor
 	Product(Product&&p); //move c'tor
@@ -30,13 +28,16 @@ public:
 	bool setName(const char* name);
 	inline bool setPrice(int price);
 
+private:
+	bool setSellerUsername(char* seller_username); //we didn't give the option to change the product seller's username
+
 public:
 	inline ecategory getCategory()const;
 	inline const char* getName()const;
 	inline int getPrice()const;
 	inline int getSerialNumber()const;
 	inline int getSerialNumber()const;
-	inline Seller* const getSeller()const;
+	inline const char* getSellerUsername()const;
 
 
 public:

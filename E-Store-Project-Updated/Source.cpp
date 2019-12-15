@@ -3,7 +3,7 @@
 using namespace std;
 
 
-Address& createAdress()
+Address createAdress()
 {
 	cleanBuffer();
 	char country[MAX_NAMES_LEN];
@@ -79,7 +79,7 @@ Seller* createSeller()
 	return new Seller(user_name, pass, f_name, l_name, createAdress());
 }
 
-Product* createProduct()
+Product* createProduct(char* seller_username)
 {
 	Product::ecategory category;
 	int temp;
@@ -96,7 +96,7 @@ Product* createProduct()
 	cout << "\nPrice: ";
 	cin >> price;
 
-	return new Product(category, name, price); //Ben we need to check that here the function overloading works (because i didnt sent pinter to seler)
+	return new Product(category, name, price, seller_username); //Ben we need to check that here the function overloading works (because i didnt sent pointer to seler)
 }
 
 
@@ -111,17 +111,17 @@ Date createDate()
 	cin >> year;
 	cout << endl;
 	
-	return(Date(day, month, year));
+	return Date(day, month, year);
 }
 
-FeedBack* createFeedback()
+FeedBack* createFeedback(const char* b_username)
 {
 	cleanBuffer();
 	char feedback[MAX_NAMES_LEN];
 	cout << "Please write your feedback:\n ";
 	cin.getline(feedback, MAX_FEEDBACK_LEN); // Do we want do seek for an option to write free text (with few lines? LUXURY)
 
-	return(FeedBack(feedback, /*C'tor expact Seller**/ createDate()); //Ben I think we need to change the c'tor to function overloading way - I'll insert the seller pointer at the system
+	return new FeedBack(feedback, b_username, createDate());
 }
 
 

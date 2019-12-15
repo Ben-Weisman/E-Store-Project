@@ -12,19 +12,21 @@ int Product::COUNTER = 100000; // First serial number value
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Product::Product(ecategory category, char* name, int price, Seller* s) : m_seller(s), m_serial_number(++COUNTER) //c'tor
+Product::Product(ecategory category, char* name, int price, char* seller_username) :m_serial_number(++COUNTER)//c'tor
 {
 	setCategory(category);
 	setName(name);
 	setPrice(price);
+	setSellerUsername(seller_username);
 }
 
 Product::~Product() //d'tor
 {
 	delete[]m_name;
+	delete[]m_seller_username;
 }
 
-Product::Product(const Product&p):m_seller(p.m_seller) //copy c'tor
+Product::Product(const Product&p):m_serial_number(p.m_serial_number) //copy c'tor
 {
 	setCategory(p.m_category);
 
@@ -32,17 +34,18 @@ Product::Product(const Product&p):m_seller(p.m_seller) //copy c'tor
 
 	setPrice(p.m_price);
 
-	m_serial_number = p.m_serial_number;
+	setSellerUsername(p.m_seller_username);
 }
 
-Product::Product(Product&&p) :m_seller(p.m_seller) //move c'tor
+Product::Product(Product&&p) : m_serial_number (std::move(p.m_serial_number)) //move c'tor
 {
 	m_category = p.m_category;
 	m_name = m_name;
 	m_price = p.m_price;
-	m_serial_number = p.m_serial_number;
+	m_seller_username = p.m_seller_username;
 
 	p.m_name = nullptr;
+	p.m_seller_username = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,9 +66,9 @@ int Product::getSerialNumber()const
 {
 	return m_serial_number;
 }
-Seller* const Product::getSeller()const
+const char* Product::getSellerUsername()const
 {
-	return m_seller;
+	return m_seller_username;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,13 +114,19 @@ bool Product::setPrice(int price)
 	return false; //Nothing free in the world! 
 }
 
+bool Product::setSellerUsername(char* seller_username) //private method  
+{
+
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 void Product::printProduct() const
 {
 	cout << "Product name: " << m_name << endl << "category: " << CATEGORY_ARR[m_category] <<  endl;
 	cout << "price: " << m_price << endl << "serial number: " << m_serial_number << endl;
-	cout << "The seller of this product is: " << m_seller->getUsername() << endl;
+	cout << "The seller of this product is: " << m_seller_username << endl;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////

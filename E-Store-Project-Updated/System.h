@@ -4,6 +4,7 @@
 #include "Seller.h"
 #include "Buyer.h"
 #include "Product.h"
+#include <string.h>
 
 class System
 {
