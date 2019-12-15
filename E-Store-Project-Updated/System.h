@@ -6,6 +6,8 @@
 #include "Product.h"
 #include <string.h>
 
+const int MAX_LEN = 20;
+
 class System
 {
 private:
@@ -64,7 +66,7 @@ public:
 	//4
 	bool addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback);
 	//5
-	bool addProductToBuyersCart(char* prod_name, const char* buyer_username);
+	bool addProductToBuyersCart(const char* prod_name, const char* buyer_username);
 	//6
 	bool newOrder(const char* buyer_username);
 	//7
