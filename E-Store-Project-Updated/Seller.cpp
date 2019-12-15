@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 using namespace std;
+#pragma warning(disable:4996) 
+
 
 //Ben, FYI inline wrriten just in the h File (:
 
@@ -128,7 +130,7 @@ void Seller::OrdersArrRealloc()
 
 void Seller::printSeller()
 {
-	cout << "Name: " << this->getFirstName << " " << this->getLastName << endl << "Username: " << m_username << endl
+	cout << "Name: " << this->getFirstName()<< " " << this->getLastName << endl << "Username: " << m_username << endl
 		<< "Password: " << m_password << endl << "Address: " << m_address.printAddress << endl
 		<< "Listed Items: " << endl;
 	

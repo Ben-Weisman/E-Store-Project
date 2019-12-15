@@ -1,6 +1,9 @@
 #include "Buyer.h"
+#include "Seller.h"
+#include "Order.h"
 #include <iostream>
 #include <string>
+#pragma warning(disable:4996) 
 using namespace std;
 
 
@@ -39,7 +42,7 @@ void Buyer::showCart()const
 
 	for (int i = 0; i < m_number_of_items; i++)
 		cout << i + 1 << ") " << m_cart[i]->getName() << m_cart[i]->getPrice() <<
-		m_cart[i]->getSeller()->getFirstName << " " << m_cart[i]->getSeller()->getLastName()
+		m_cart[i]->getSeller()->printSeller() << " " << m_cart[i]->getSeller()->getLastName()
 		<< endl;
 }
 
@@ -103,7 +106,7 @@ bool Buyer::setCart(Product** cart)
 Buyer::Buyer(char* userName, char* password, char* fname,
 	char* lname, const Address& address):m_address(address) // c'tor
 {
-	setUsername(username);
+	setUsername(userName);
 	setPassword(password);
 	setFname(fname);
 	setLname(lname);
@@ -129,7 +132,7 @@ Buyer::Buyer(const Buyer& p) // copy c'tor
 	setLname(p.m_lname);
 	setCart(p.m_cart);
 	setOrder(p.getOrders());
-	m_address = p.getAddress();
+	m_address(p.getAddress());
 
 	m_cartPsize = p.m_cartPsize;
 	m_number_of_items = p.m_number_of_items;
@@ -144,23 +147,24 @@ Buyer::~Buyer() // d'tor
 	delete[]m_lname;
 	delete[]m_username;
 	delete[]m_password;
-	delete m_address; // ??
+	
 	
 	for (i = 0; i < m_number_of_items; i++)
-		delete ]m_cart[i];
+		delete m_cart[i];
 	for (i = 0; i < m_num_checkout_orders; i++)
-		delete checkout_orders[i];
+		delete m_checkout_orders[i];
 }
 
 void Buyer::showBuyer()const
 {
 	cout << "Full Name: " << this->getFirstName() << " " << this->getLastName() << endl;
 	cout << "Username: " << this->getUsername();
-	cout << "Address: "<< endl << this->getAddress().printAddress() << endl;
+	this->getAddress().printAddress();
+	//cout << "Address: "<< endl << this->getAddress().printAddress() << endl;
 
 
 	for (int i = 0; i < m_number_of_items; i++)
-		cout << m_cart[i]->printProduct << endl;
+		m_cart[i]->printProduct();
 
 }
 
