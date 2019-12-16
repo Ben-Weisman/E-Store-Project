@@ -102,6 +102,13 @@ bool Buyer::setCart(Product** cart)
 	return true;
 }
 
+bool Buyer::setOrder(Order* order)
+{
+	if (!order)
+		return false;
+
+}
+
 Buyer::Buyer(char* userName, char* password, char* fname,
 	char* lname, const Address& address):m_address(address) // c'tor
 {
@@ -123,7 +130,7 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 }
 
-Buyer::Buyer(const Buyer& b :m_address(b.address) // copy c'tor
+Buyer::Buyer(const Buyer& b):m_address(b.m_address) // copy c'tor
 {
 	setUsername(b.m_username);
 	setPassword(b.m_password);
