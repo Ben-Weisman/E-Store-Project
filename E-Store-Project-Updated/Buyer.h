@@ -49,7 +49,7 @@ public:
 	bool setOrder(Order** order);
 
 	void addToCart(Product* item_to_add);
-	void addToCheckout(Order* checkout_order, int cart_index);
+	void addToCheckout(Order* checkout_order);
 
 	void removeFromCart(Product* item_to_remove);
 	

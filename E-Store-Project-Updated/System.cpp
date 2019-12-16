@@ -295,7 +295,7 @@ bool System::payment(const char* buyer_username)
 	if (buyer_index = isBuyerExist(buyer_username) == NOT_EXIST)
 		return false;
 
-	m_buyer_arr[buyer_index]->showOrderList();      // Ben do this function *****************************************************************
+	m_buyer_arr[buyer_index]->showOrderList();      // Ben do this function **** Nir - Please change it to showCheckoutOrders
 	int option;
 	do
 	{
@@ -346,7 +346,7 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 	int counter;
 	for (int i = 0; i < m_num_of_sellers; ++i)
 	{
-		for (int j = 0; j < m_seller_arr[i]->getNumOfProducts(); ++i) //Ben - We need this Method and func in seller
+		for (int j = 0; j < m_seller_arr[i]->getNumOfProducts(); ++i) //Nir - Please change it to getNumOfListedItems
 		{
 			if (strcmp(name_to_find, m_seller_arr[i]->getListedItems()[j]->getName()) == 0)
 			{
