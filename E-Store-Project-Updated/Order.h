@@ -2,6 +2,7 @@
 #define __Order_h
 
 #include "Product.h"
+#include "Buyer.h"
 
 class Buyer; //forword declaration
 
@@ -27,15 +28,16 @@ public:
 	inline bool setNumOfProducts(int num_of_prod);
 	inline bool setPaid(bool paid);
 public:
-	inline unsigned int getTotalPrice()const;
-	inline unsigned int getProductsPhySize()const;
-	inline unsigned int getNumOfProducts()const;
+	inline int getTotalPrice()const;
+	inline int getProductsPhySize()const;
+	inline int getNumOfProducts()const;
 	inline Buyer* const  getBuyer()const;
 	Product** getProductsArr()const;
 	bool getPaid()const;
 	
 public:
 	inline void showOrder()const;
+	void addToProdArr(Product* p);
 	void productsRealloc();
 
 };

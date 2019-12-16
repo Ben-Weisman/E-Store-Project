@@ -49,15 +49,15 @@ bool Order::setPaid(bool paid)
 
 //////////////////////////////////////////////////////////  getters  ///////////////////////////////////////////////////////////
 
-unsigned int Order::getTotalPrice()const
+int Order::getTotalPrice()const
 {
 	return m_total_price;
 }
-unsigned int Order::getProductsPhySize()const
+int Order::getProductsPhySize()const
 {
 	return m_products_phy_size;
 }
-unsigned int Order::getNumOfProducts()const
+int Order::getNumOfProducts()const
 {
 	return m_num_of_products;
 }
@@ -82,6 +82,16 @@ void Order::showOrder()const
 		cout << i + 1 << ") " << m_products_arr[i]->getName() << endl;
 	}
 	cout << m_total_price << endl;
+}
+
+void Order::addToProdArr(Product* p)
+{
+	if (m_num_of_products == m_products_phy_size)
+		productsRealloc();
+	m_products_arr[m_num_of_products++] = p;
+
+	m_buyer->removeFromCart(p);
+	m_total_price += p->getPrice();
 }
 
 void Order::productsRealloc()

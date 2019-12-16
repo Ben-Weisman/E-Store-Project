@@ -87,8 +87,7 @@ void Seller::addToListItemsArr(Product *item_to_add)
 {
 	if (m_num_of_listed_items == m_listed_items_pSize)
 		ListedItemsArrRealloc();
-	m_listed_items[m_num_of_listed_items++] = item_to_add; /*does copy c'tor get called 
-														   in such case? */
+	m_listed_items[m_num_of_listed_items++] = item_to_add;
 }
 
 void Seller::addToFeedArr(FeedBack* feed_to_add)
