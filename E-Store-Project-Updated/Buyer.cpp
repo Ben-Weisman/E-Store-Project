@@ -52,7 +52,7 @@ void Buyer::addToCart(Product* item_to_add)
 	m_cart[m_number_of_items++] = item_to_add;
 }
 
-void Buyer::addToCheckout(Order* checkout_order)
+void Buyer::addToCheckout(Order* checkout_order, int cart_index)
 {
 	if (m_num_checkout_orders == m_checkout_orders_pSize)
 		checkoutRealloc();
@@ -102,6 +102,13 @@ bool Buyer::setCart(Product** cart)
 	return true;
 }
 
+bool Buyer::setOrder(Order* order)
+{
+	if (!order)
+		return false;
+
+}
+
 Buyer::Buyer(char* userName, char* password, char* fname,
 	char* lname, const Address& address):m_address(address) // c'tor
 {
@@ -123,7 +130,7 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 }
 
-Buyer::Buyer(const Buyer& b :m_address(b.address) // copy c'tor
+Buyer::Buyer(const Buyer& b):m_address(b.m_address) // copy c'tor
 {
 	setUsername(b.m_username);
 	setPassword(b.m_password);
