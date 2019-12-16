@@ -52,12 +52,12 @@ int main()
 			char seller_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the seller: ";
 			cin >> seller_username;
-
+		
 			if(system.addProductToSeller(createProduct(seller_username), seller_username)==false)
 				cout << "No such seller username."; 
 			//Should we free the prod? *********************************************************************************
 			break;
-
+			
 		case 4: //add feedback to seller 
 			char b_username[MAX_NAMES_LEN];
 			cout << "Enter buyer's username: ";
@@ -67,7 +67,7 @@ int main()
 			cout << "Enter seller's username: ";
 			cin >> s_username;
 
-			if(system.addFeedbackToSeller(b_username, s_username, createFeedback(b_username))==false)
+			if(system.addFeedbackToSeller(b_username, s_username,createFeedback(b_username))==false)
 				cout << "No such seller or buyer username."; //LUXURY ------> which of them was missing
 			break;
 
