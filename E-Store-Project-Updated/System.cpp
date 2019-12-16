@@ -222,31 +222,36 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 			int counter = 1;
 				for (int j = 0; j < m_num_of_sellers; ++j)
 				{ 
-					for (int k = 0; k < m_seller_arr[j]->getNumOfListedItems(); ++k) // Nir: Ben, plaese add this method to seller class ****************************************************************************************8
+					bool found = false;
+					for (int k = 0; !found && k < m_seller_arr[j]->getNumOfListedItems(); ++k) // Nir: Ben, plaese add this method to seller class ****************************************************************************************8
 					{
 						if (strcmp(m_seller_arr[j]->getListedItems()[k]->getName(), prod_name) == 0) // Mabye we can improve the comlexity
+						{
 							cout << counter++ << ") ";
-						cout << m_seller_arr[j]->getUsername(); //printing all the sellers that have choosen product
+							m_seller_arr[j]->getListedItems()[k]->showProductToBuyer(); // Nir please add the func to Product *******************************************
+							found = true;
+						}
+						
 					}
-					//STUCKED HERE - how can i save the right sellers place? 
 
 					char choosen_seller_username[MAX_LEN];
+					int count = 0;
+					int seller_index;
 					do
 					{
-						cout << "please enter the choosen seller's username: ";
+						
+						if ((count++) > 0)     // not the first try  
+							cout << "No such seller's username.\n";
+
+						cout << "please enter one of the seller's username: ";
 						cin.getline(choosen_seller_username, MAX_LEN);
 
+					} while (seller_index=isSellerExist(choosen_seller_username)); // Until the user enter valid username - Nir Please change isExist func*****************************************8
 
 
-
-
-					} while ();
-
-							cout << "Sorry, invalid option.";
-
-						m_buyer_arr[i]->addToCart(/*right sellers product*/);
-						return true;
-					}
+					m_buyer_arr[i]->addToCart(m_seller_arr[seller_index]->getProduct(prod_name)); //Ben Please add the func ******************************************
+					return true;
+				}
 		}
 	}
 	return false;
