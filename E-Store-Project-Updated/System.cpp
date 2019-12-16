@@ -1,5 +1,5 @@
 #include "System.h"
-#include <string>
+#include <string.h>
 #include <iostream>
 using namespace std;
 
@@ -93,19 +93,19 @@ int System::getNumOfBuyers()const
 }
 
 
-/////////////////////////////////////////////////////////////menu functions/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////  MENU functions  /////////////////////////////////////////////////////////////
 
 
 			/************************************************************ 1 ********************************************************/
 
-bool System::isBuyerExist(const char* buyer_username)const
+const int System::isBuyerExist(const char* buyer_username)const
 {
 	for (int i = 0; i < m_num_of_buyers; ++i)
 	{
 		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
-			return false;
+			return i;
 	}
-	return true;
+	return NOT_EXIST;
 }
 
 void System::buyersRealloc()
@@ -138,14 +138,14 @@ bool System::addToBuyerArr(Buyer* new_buyer)
 
 /************************************************************ 2 ********************************************************/
 
-bool System::isSellerExist(const char* seller_username)const
+const int System::isSellerExist(const char* seller_username)const
 {
 	for (int i = 0; i < m_num_of_sellers; ++i)
 	{
 		if (strcmp(m_seller_arr[i]->getUsername(), seller_username) == 0)
-			return false;
+			return i;
 	}
-	return true;
+	return NOT_EXIST;
 }
 
 void System::sellersRealloc()
@@ -182,14 +182,14 @@ bool System::addToSellerArr(Seller* new_seller)
 
 bool System::addProductToSeller(Product* prod, const char* seller_username) 
 {
-	for (int i = 0; i < m_num_of_sellers; ++i)
-	{
-		if (strcmp(m_seller_arr[i]->getUsername(), seller_username) == 0)
+	int seller_index = isSellerExist(seller_username);
+
+		if (seller_index>=0)
 		{
-			m_seller_arr[i]->addToListItemsArr(prod); 
+			m_seller_arr[seller_index]->addToListItemsArr(prod); 
 			return true;
 		}
-	}
+	
 	return false;
 }
 
@@ -197,28 +197,30 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 
 bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback)
 {
-	if (isBuyerExist(buyer_username))
+	int buyer_index = isBuyerExist(buyer_username);
+	if (buyer_index == NOT_EXIST)
+		return false;
+	int seller_index = isSellerExist(seller_username);
+	if (seller_index == NOT_EXIST)
+		return false;
+	//if (buyer_index = isBuyerExist(buyer_username) == NOT_EXIST || seller_index = isSellerExist(seller_username) == NOT_EXIST) ------> Show aviv ????????????????????????????????/
+	
+	if (m_buyer_arr[buyer_index]->IsOrderedFrom(m_seller_arr[seller_index]->getUsername())) //Ben, please add this func
 	{
-		for (int i = 0; i < m_num_of_sellers; ++i) //until we found the seller (if exist) 
-		{
-			if (strcmp(m_seller_arr[i]->getUsername(),seller_username)==0)
-			{
-				m_seller_arr[i]->addToFeedArr(feedback);
-				return true;
-			}
-		}
+		m_seller_arr[seller_index]->addToFeedArr(feedback);
+		return true;
 	}
+
 	return false;
 }
-
 /*****************************************************************  5  *****************************************************/
 
 bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_username)
 {
-	for (int i = 0; i < m_num_of_buyers; ++i)
-	{
-		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
-		{
+	int choosen_buyer_index;
+	if (choosen_buyer_index = isSellerExist(buyer_username) >= 0)//check that work *********************************************************************
+		return false;
+
 			int counter = 1;
 				for (int j = 0; j < m_num_of_sellers; ++j)
 				{ 
@@ -236,24 +238,24 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 
 					char choosen_seller_username[MAX_LEN];
 					int count = 0;
-					int seller_index;
+					int choosen_seller_index; 
 					do
 					{
 						
-						if ((count++) > 0)     // not the first try  
+						if ((count++) > 0)     // Not the first try  
 							cout << "No such seller's username.\n";
 
 						cout << "please enter one of the seller's username: ";
 						cin.getline(choosen_seller_username, MAX_LEN);
+						cout << endl;
 
-					} while (seller_index=isSellerExist(choosen_seller_username)); // Until the user enter valid username - Nir Please change isExist func*****************************************8
+					} while (choosen_seller_index=isSellerExist(choosen_seller_username)>=0); // Until the user enter valid username - Nir Please change isExist func*****************************************8
 
-
-					m_buyer_arr[i]->addToCart(m_seller_arr[seller_index]->getProduct(prod_name)); //Ben Please add the func ******************************************
+					Product* prod_to_cart = new Product(m_seller_arr[choosen_seller_index]->getProduct(prod_name));
+					m_buyer_arr[choosen_buyer_index]->addToCart(prod_to_cart); //Ben Please add the func ******************************************
 					return true;
 				}
-		}
-	}
+		
 	return false;
 }
 
@@ -263,28 +265,30 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 /*****************************************************************  6  *****************************************************/
 bool System::newOrder(const char* buyer_username)
 {
-	for (int i = 0; i < m_num_of_buyers; ++i)
-	{
-		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
-		{
-			int option;
+	int choosen_buyer_index;
+	if (choosen_buyer_index = isSellerExist(buyer_username) >= 0)//check that work *********************************************************************
+		return false;
+
+	int option, i = 0;
 			do
 			{
-				m_buyer_arr[i]->showCart();
+				m_buyer_arr[choosen_buyer_index]->showCart();
 
 				cout << "\nPlease Choose product:\n Enter -1 to exit from order.\n";
 				cin >> option;
 
-				if ((option != -1 && option < 1) || option > m_buyer_arr[i]->getNumberOfItems()) // ----> validity check to "option" - can couse the program to fly
+				if ((option != EXIT && option < 1) || option > m_buyer_arr[i]->getNumberOfItems()) // ----> validity check to "option" - can couse the program to fly
 					cout << "Sorry, invalid option.";
-				//Order array?
+				
 
-			} while (option!=-1);
+
+
+				m_buyer_arr[choosen_buyer_index]->addToCheckout(new_order, choosen_buyer_index);
+			} while (option!=EXIT);
 
 
 			return true;
-		}
-	}
+
 }
 /*****************************************************************  7  *****************************************************/
 bool System::payment(const char* buyer_username)
@@ -319,7 +323,7 @@ void System::printBuyers()const
 {
 	for (int i = 0; i < m_num_of_buyers; ++i)
 	{
-		m_buyer_arr[i]->printBuyer();
+		m_buyer_arr[i]->showBuyer();
 		cout << endl;
 	}
 }
