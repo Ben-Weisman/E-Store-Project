@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Order::Order(Seller* s, Buyer* b) :m_seller(s), m_buyer(b)
+Order::Order(Buyer* b) :m_buyer(b) // Aviv ??????????????????????????????????????????????????????????????????????????????????????????????????????
 {
 	setTotalPrice(m_total_price);
 	setProductsPhySize(1);
@@ -10,16 +10,16 @@ Order::Order(Seller* s, Buyer* b) :m_seller(s), m_buyer(b)
 	setTotalPrice(0);
 	setPaid(false);
 	
-	m_product_arr = new Product*[m_product_phy_size]; 
+	m_products_arr = new Product*[m_products_phy_size]; 
 }
 
 
 Order::~Order()
 {
 	for (int i = 0; i < m_num_of_products; i++)
-		delete m_product_arr[i];
+		delete m_products_arr[i];
 
-	delete m_product_arr;
+	delete m_products_arr;
 }
 
 
@@ -33,7 +33,7 @@ bool Order::setTotalPrice(int total_price)
 }
 bool Order::setProductsPhySize(int phy_size)
 {
-	m_product_phy_size = phy_size;
+	m_products_phy_size = phy_size;
 }
 bool Order::setNumOfProducts(int num_of_prod)
 {
@@ -55,15 +55,11 @@ unsigned int Order::getTotalPrice()const
 }
 unsigned int Order::getProductsPhySize()const
 {
-	return m_product_phy_size;
+	return m_products_phy_size;
 }
 unsigned int Order::getNumOfProducts()const
 {
 	return m_num_of_products;
-}
- Seller* const Order::getSeller()const
-{
-	return m_seller;
 }
 Buyer* const  Order::getBuyer()const
 {
@@ -71,19 +67,31 @@ Buyer* const  Order::getBuyer()const
 }
 Product** Order::getProductsArr()const
 {
-	return m_product_arr;
+	return m_products_arr;
 }
 bool Order::getPaid()const
 {
 	return m_paid;
 }
 	
-
-void Order::printOrder()const
+/////////////////////////////////////////////////////////////////////// functions ////////////////////////////////////////////////////////////////////////////
+void Order::showOrder()const
 {
 	for (int i = 0; i < m_num_of_products; i++)
 	{
-		cout << i + 1 << ") " << m_product_arr[i]->getName() << endl;
+		cout << i + 1 << ") " << m_products_arr[i]->getName() << endl;
 	}
 	cout << m_total_price << endl;
+}
+
+void Order::productsRealloc()
+{
+	this->m_products_phy_size *= 2;
+	Product** tmp = new Product *[m_products_phy_size];
+
+	for (int i = 0; i < m_num_of_products; i++)
+		tmp[i] = m_products_arr[i];
+	delete m_products_arr;
+
+	m_products_arr = tmp;
 }

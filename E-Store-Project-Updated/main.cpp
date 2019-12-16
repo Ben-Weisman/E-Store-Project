@@ -100,7 +100,7 @@ int main()
 			cout << "Enter the username of the seller:";
 			cin >> s_username;
 
-			system.newOrder(b_username, s_username);
+			system.newOrder(b_username);
 		case 7:
 			//pay
 		case 8:

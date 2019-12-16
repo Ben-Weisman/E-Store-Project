@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "Product.h"
 #include <iostream>
 
 using namespace std;
@@ -28,3 +29,4 @@ void cleanBuffer()
 		c = getchar();
 	} while (c != EOF && c != '\n');
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

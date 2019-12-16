@@ -129,11 +129,11 @@ void Seller::OrdersArrRealloc()
 void Seller::printSeller()
 {
 	cout << "Name: " << this->getFirstName()<< " " << this->getLastName << endl << "Username: " << m_username << endl
-		<< "Password: " << m_password << endl << "Address: " << m_address.printAddress << endl
+		<< "Password: " << m_password << endl << "Address: " << m_address.showAddress << endl
 		<< "Listed Items: " << endl;
 	
 	for (int i = 0; i < m_num_of_listed_items; i++)
-		cout << m_listed_items[i]->printProduct << endl;
+		cout << m_listed_items[i]->showProduct << endl;
 	cout << "FeedBacks: " << endl;
 
 	for (int i = 0; i < m_num_of_feedbacks; i++)

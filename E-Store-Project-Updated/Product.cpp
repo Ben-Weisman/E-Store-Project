@@ -73,18 +73,9 @@ const char* Product::getSellerUsername()const
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-bool Product::setCategory(ecategory category)
-{
-	if (category <= 3 && category >= 0)
-	{
-		m_category = category;
-		return true;
-	}
-	return false; //in case that the category is not one from the list of categories
-}
+
 bool Product::setName(const char* name)
 {
-	//check if name=null?
 	bool flag = true;
 	int i = 0, letter_counter = 0;
 	while (flag&&name[i] != '\0') //Check product name validation (2 letters min, no spaces and numbers allowed)
@@ -114,21 +105,41 @@ bool Product::setPrice(int price)
 	return false; //Nothing free in the world! 
 }
 
-bool Product::setSellerUsername(char* seller_username) //private method  
+bool Product::setCategory(ecategory category) //private method that we used only once at the c'tor 
 {
+	if (category <= 3 && category >= 0)
+	{
+		m_category = category;
+		return true;
+	}
+	return false; //in case that the category is not one from the list of categories
+}
+
+bool Product::setSellerUsername(char* seller_username) //private method that we used only once at the c'tor 
+{
+	m_seller_username = strdup(seller_username);
+	return true;
 
 }
 
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-void Product::printProduct() const
+void Product::showProduct() const
 {
 	cout << "Product name: " << m_name << endl << "category: " << CATEGORY_ARR[m_category] <<  endl;
 	cout << "price: " << m_price << endl << "serial number: " << m_serial_number << endl;
 	cout << "The seller of this product is: " << m_seller_username << endl;
 }
 
-//Another print
+void Product::showProductToBuyer()const
+{
+	cout << "Product name: " << m_name << endl;
+	cout << "price: " << m_price << endl;
+	cout << "The seller of this product is: " << m_seller_username << endl;
+}
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////

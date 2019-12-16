@@ -164,19 +164,19 @@ void Buyer::showBuyer()const
 {
 	cout << "Full Name: " << this->getFirstName() << " " << this->getLastName() << endl;
 	cout << "Username: " << this->getUsername();
-	this->getAddress().printAddress();
+	this->getAddress().showAddress();
 	//cout << "Address: "<< endl << this->getAddress().printAddress() << endl;
 
 
 	for (int i = 0; i < m_number_of_items; i++)
-		m_cart[i]->printProduct();
+		m_cart[i]->showProduct();
 
 }
 
 void Buyer::showCheckoutOrders()const
 {
 	for (int i = 0; i < m_num_checkout_orders; i++)
-		m_checkout_orders[i]->printOrder();
+		m_checkout_orders[i]->showOrder();
 }
 
 void Buyer::cartRealloc()

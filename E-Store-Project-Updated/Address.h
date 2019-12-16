@@ -25,7 +25,7 @@ public:
 	inline const char* getStreet()const;
 	inline int getHouseNumber()const;
 public:
-	inline void printAddress()const;
+	inline void showAddress()const;
 
 };
 #endif // !__Address_h

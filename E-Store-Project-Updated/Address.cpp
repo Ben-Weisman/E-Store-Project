@@ -127,7 +127,7 @@ int Address::getHouseNumber()const
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-void Address::printAddress()const
+void Address::showAddress()const
 {
 	cout << m_country << ", " << m_city << ", " << m_house_number << " " << m_street << "st." << endl;
 }

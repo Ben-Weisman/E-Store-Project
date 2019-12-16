@@ -203,7 +203,7 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 	int seller_index = isSellerExist(seller_username);
 	if (seller_index == NOT_EXIST)
 		return false;
-	//if (buyer_index = isBuyerExist(buyer_username) == NOT_EXIST || seller_index = isSellerExist(seller_username) == NOT_EXIST) ------> Show aviv ????????????????????????????????/
+	//if (buyer_index = isBuyerExist(buyer_username) == NOT_EXIST || seller_index = isSellerExist(seller_username) == NOT_EXIST) ------> Show Aviv ????????????????????????????????/
 	
 	if (m_buyer_arr[buyer_index]->IsOrderedFrom(m_seller_arr[seller_index]->getUsername())) //Ben, please add this func
 	{
@@ -280,18 +280,13 @@ bool System::newOrder(const char* buyer_username)
 				if ((option != EXIT && option < 1) || option > m_buyer_arr[choosen_buyer_index]->getNumberOfItems()) // ----> validity check to "option" 
 					cout << "Sorry, invalid option.";
 				else
-				{
-					new_order->addToProdArr(m_buyer_arr[choosen_buyer_index]->getCart()[option - 1]);
-				}
-				
+					new_order->addToProdArr(m_buyer_arr[choosen_buyer_index]->getCart()[option - 1]); //Nir, do this func*************************************
 
 			} while (option!=EXIT);
 
-			m_buyer_arr[choosen_buyer_index]->addToCheckout(new_order, choosen_buyer_index);
-}
+			m_buyer_arr[choosen_buyer_index]->addToCheckout(new_order); // Ben, do this func ***************************************************************
 
 			return true;
-
 }
 /*****************************************************************  7  *****************************************************/
 bool System::payment(const char* buyer_username)
@@ -300,20 +295,17 @@ bool System::payment(const char* buyer_username)
 	if (buyer_index = isBuyerExist(buyer_username) == NOT_EXIST)
 		return false;
 
-	m_buyer_arr[i]->showOrderList();      // Waiting for Ben function
+	m_buyer_arr[buyer_index]->showOrderList();      // Ben do this function *****************************************************************
 	int option;
 	do
 	{
 		cout << "Please Choose your option: ";
 		cin >> option;
-	} while (option<1 || option>m_buyer_arr[i]->getNumberOfOrders()); //Need this also
+	} while (option<1 || option>m_buyer_arr[buyer_index]->getNumOfOrders()); // Ben do this function *****************************************************************
 
-	Product** prod_to_buy = m_buyer_arr[i]->getOrders();
-
-	for (int j = 0; j < m_buyer_arr[i]->getNumberOfOrders(); ++j)
-		m_buyer_arr[i]->removeFromCart(prod_to_buy[j]);
-
-	m_[option - 1]->setPaid(true);
+	for (int i = 0; i < m_buyer_arr[buyer_index]->getOrders()[option-1]->getNumOfProducts(); ++i)
+		m_buyer_arr[buyer_index]->getOrders()[option - 1]->setPaid(true);
+	
 	return true;
 }
 
@@ -321,22 +313,29 @@ bool System::payment(const char* buyer_username)
 
 void System::printBuyers()const
 {
-	for (int i = 0; i < m_num_of_buyers; ++i)
+	int i;
+	for (i = 0; i < m_num_of_buyers; ++i)
 	{
 		m_buyer_arr[i]->showBuyer();
 		cout << endl;
 	}
+	if (i == 0)
+		cout << "No Buyers in the system\n";
 }
 
 /*****************************************************************  9  *****************************************************/
 
 void System::printSellers()const
 {
-	for (int i = 0; i < m_num_of_sellers; ++i)
+	int i;
+	for (i = 0; i < m_num_of_sellers; ++i)
 	{
 		m_seller_arr[i]->printSeller();
 		cout << endl;
 	}
+	if (i == 0)
+		cout << "No Sellers in the system\n";
+	
 }
 
 
@@ -347,14 +346,16 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 	int counter;
 	for (int i = 0; i < m_num_of_sellers; ++i)
 	{
-		for (int j = 0; j < m_seller_arr[i]->getNumOfProductd(); ++i) //Ben - We need this Method and func in seller
+		for (int j = 0; j < m_seller_arr[i]->getNumOfProducts(); ++i) //Ben - We need this Method and func in seller
 		{
 			if (strcmp(name_to_find, m_seller_arr[i]->getListedItems()[j]->getName()) == 0)
 			{
 				cout << counter++ << ") ";
-				m_seller_arr[i]->getListedItems()[j]->printProduct(); 
+				m_seller_arr[i]->getListedItems()[j]->showProduct(); 
 				cout << endl;
 			}
 		}
 	}
+	if(!counter)
+		cout << "No such product in the system\n";
 }

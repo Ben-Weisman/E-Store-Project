@@ -26,7 +26,7 @@ inline const char* FeedBack::getProviderUsername()const { return m_provider_user
 void FeedBack::showFeedback()const // Nir: there was a lot of mess here, Every clss have his Show method, we should use them.
 {
 	cout << "Date provided: ";
-	this->m_date.printDate();      // Nir: I changed it from "cout<<printFeedbackDate->printDate" **************************************************************************************************************
+	this->m_date.showDate();      // Nir: I changed it from "cout<<printFeedbackDate->printDate" **************************************************************************************************************
 	cout << endl;
 
 	cout << "Provided by: " << m_provider_username << endl;	

@@ -5,20 +5,20 @@
 
 class Buyer; //forword declaration
 
-
 class Order
 {
-	Product** m_product_arr;
-	int m_product_phy_size;
+	Product** m_products_arr;
+	int m_products_phy_size;
 	int m_num_of_products;
 	int m_total_price;
-	Seller* const m_seller; // Can't change them pointing
 	Buyer* const m_buyer;  // Can't change them pointing
-	bool m_paid; // indication - the order already paid or not?
+	bool m_paid; // indication - the order already paid or not
 	
+private:
+	Order(const Order& o); // We don't want to anable copys of products
 	
 public:
-	Order(Seller* s, Buyer* b);
+	Order(Buyer* b);
 	~Order();
 
 public:
@@ -30,13 +30,14 @@ public:
 	inline unsigned int getTotalPrice()const;
 	inline unsigned int getProductsPhySize()const;
 	inline unsigned int getNumOfProducts()const;
-	inline Seller*const getSeller()const;
 	inline Buyer* const  getBuyer()const;
 	Product** getProductsArr()const;
 	bool getPaid()const;
 	
 public:
-	inline void printOrder()const;
+	inline void showOrder()const;
+	void productsRealloc();
+
 };
 
 #endif //!__Order_h

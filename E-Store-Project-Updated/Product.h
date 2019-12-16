@@ -24,11 +24,11 @@ public:
 	Product(Product&&p); //move c'tor
 
 public:
-	inline bool setCategory(ecategory category);
 	bool setName(const char* name);
 	inline bool setPrice(int price);
 
 private:
+	inline bool setCategory(ecategory category); //we didn't give the option to change the category
 	bool setSellerUsername(char* seller_username); //we didn't give the option to change the product seller's username
 
 public:
@@ -41,6 +41,7 @@ public:
 
 
 public:
-	inline void printProduct()const;
+	inline void showProduct()const;
+	inline void showProductToBuyer()const;
 };
 #endif // !__Product_h

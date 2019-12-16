@@ -23,7 +23,7 @@ public:
 	inline int getYear()const;
 	
 public:
-	inline void printDate()const;
+	inline void showDate()const;
 };
 
 #endif //!__Date_h

@@ -52,7 +52,7 @@ int Date::getYear()const
 
 }
 
-void Date::printDate()const
+void Date::showDate()const
 {
 	cout << m_day << "/" << m_month << "/" << m_year << endl;
 }
