@@ -23,10 +23,10 @@ inline const char* FeedBack::getFeedbackEvaluation()const { return m_feedback_ev
 inline const Date FeedBack::getFeedbackDate()const { return m_date; }
 inline const char* FeedBack::getProviderUsername()const { return m_provider_username; }
 
-void FeedBack::showFeedback()const // Nir: there was a lot of mess here, Every clss have his Show method, we should use them.
+void FeedBack::showFeedback()const 
 {
 	cout << "Date provided: ";
-	this->m_date.showDate();      // Nir: I changed it from "cout<<printFeedbackDate->printDate" **************************************************************************************************************
+	this->m_date.printDate();    
 	cout << endl;
 
 	cout << "Provided by: " << m_provider_username << endl;	
@@ -50,11 +50,16 @@ FeedBack::FeedBack(const FeedBack& f) :m_date(f.m_date) //copy c'tor
 {
 	setFeedbackProvider(m_provider_username);
 	setFeedbackEval(f.getFeedbackEvaluation());
-	//m_date = f.getFeedbackDate(); ************Nir: This line is a mistake. Contained Object should be initilized in the initline ^
 }
 
-// We can write a move c'tor 
+FeedBack::FeedBack(FeedBack&& f) // move c'tor
+{
+	m_feedback_evaluation = f.m_feedback_evaluation;
+	m_provider_username = f.m_provider_username;
 
+	f.m_feedback_evaluation = nullptr;
+	f.m_provider_username = nullptr;
+}
 
 
 

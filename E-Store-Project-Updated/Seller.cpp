@@ -12,11 +12,23 @@ const Address& Seller::getAddress()const { return m_address; }
 const Product** Seller::getListedItems()const { return m_listed_items; }
 const FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
 const Order** Seller::getOrders()const { return m_orders; }
+const int Seller::getNumOfListedItems()const { return m_num_of_listed_items; }
+
+const Product* Seller::getProduct(char *to_find)const
+{
+	for (int i = 0; i < m_num_of_listed_items; i++)
+	{
+		if (strcmp(this->getListedItems()[i]->getName(), to_find) == 0)
+			return this->getListedItems()[i];
+	}
+	return nullptr;
+}
 
 bool Seller::setPassword(const char* password)
 { 
 	if (strlen(password) == 0)
 		return false;
+	delete[]m_password;
 	m_password = strdup(password);
 	return true;
 }
@@ -25,6 +37,7 @@ bool Seller::setFname(const char* fname)
 {
 	if (strlen(fname) == 0)
 		return false;
+	delete[]m_fname;
 	m_fname = strdup(fname);
 	return true;
 }
@@ -33,6 +46,7 @@ bool Seller::setLname(const char* lname)
 {
 	if (strlen(lname) == 0)
 		return false;
+	delete[]m_lname;
 	m_lname = strdup(lname);
 	return true;
 }
@@ -126,21 +140,10 @@ void Seller::OrdersArrRealloc()
 	m_orders = tmp;
 }
 
-void Seller::printSeller()
+void Seller::showSeller()
 {
-	cout << "Name: " << this->getFirstName()<< " " << this->getLastName << endl << "Username: " << m_username << endl
-		<< "Password: " << m_password << endl << "Address: " << m_address.showAddress << endl
-		<< "Listed Items: " << endl;
-	
-	for (int i = 0; i < m_num_of_listed_items; i++)
-		cout << m_listed_items[i]->showProduct << endl;
-	cout << "FeedBacks: " << endl;
-
-	for (int i = 0; i < m_num_of_feedbacks; i++)
-	{
-		m_feedback_arr[i]; // --------------------?
-	}
-
+	cout << "Name: " << this->getFirstName() << " " << this->getLastName() <<
+		endl << "Username: " << this->getUsername() << endl << "Country: " << this->getAddress().getCountry() << endl;
 }
 
 Seller::Seller(char* username, char* password, char* fname, char* lname,
@@ -187,7 +190,7 @@ Seller::~Seller() // d'tor
 
 }
 
-Seller::Seller(const Seller& s):m_address(s.m_address) //copy c'tor	 *************************** Nir: Contained Object - initlized at the inline
+Seller::Seller(const Seller& s):m_address(s.m_address) 
 {
 	setUsername(s.m_username);
 	setPassword(s.m_password);
@@ -196,4 +199,14 @@ Seller::Seller(const Seller& s):m_address(s.m_address) //copy c'tor	 ***********
 
 	m_num_of_feedbacks = s.m_num_of_feedbacks;
 	m_feedbacks_phy_size = s.m_num_of_feedbacks;
+
+	m_num_of_listed_items = s.m_num_of_listed_items;
+	m_listed_items_pSize = s.m_listed_items_pSize;
+
+	m_num_of_orders = s.m_num_of_orders;
+	m_orders_pSize = s.m_orders_pSize;
+
+	setOrders(s.m_orders);
+	setFeedBacks(s.m_feedback_arr);
+	setListItems(s.m_listed_items);
 }

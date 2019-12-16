@@ -40,11 +40,13 @@ public:
 	inline const char* getUsername()const;
 	inline const Address getAddress()const;
 	inline Order** getOrders()const;
+	inline const int getNumOfItems()const;
+	inline const int getNumOfOrders()const;
 
 	bool setPassword(const char* password);
 	bool setFname(const char* fname);
 	bool setLname(const char* lname);
-	bool setOrder(Order* order);
+	bool setOrder(Order** order);
 
 	void addToCart(Product* item_to_add);
 	void addToCheckout(Order* checkout_order, int cart_index);
@@ -56,6 +58,8 @@ public:
 	void showCheckoutOrders()const;
 	void cartRealloc();
 	void checkoutRealloc();
+
+	bool isOrderedFrom(char* username);
 
 
 	
