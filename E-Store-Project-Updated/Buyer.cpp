@@ -14,6 +14,8 @@ const char* Buyer::getUsername()const { return m_username; }
 Product** Buyer::getCart()const { return m_cart; }
 const Address Buyer::getAddress()const { return m_address; }
 inline Order** Buyer::getOrders()const { return m_checkout_orders; }
+const int Buyer::getNumOfItems()const { return m_number_of_items; }
+const int Buyer::getNumOfOrders()const { return m_num_checkout_orders; }
 
 void Buyer::removeFromCart(Product* item_to_delete)
 {
@@ -102,10 +104,12 @@ bool Buyer::setCart(Product** cart)
 	return true;
 }
 
-bool Buyer::setOrder(Order* order)
+bool Buyer::setOrder(Order** order)
 {
 	if (!order)
 		return false;
+	m_checkout_orders = order;
+	return true;
 
 }
 
@@ -202,4 +206,19 @@ void Buyer::checkoutRealloc()
 	delete m_checkout_orders;
 
 	m_checkout_orders = tmp;
+}
+
+bool Buyer::isOrderedFrom(char* username)
+{
+	for (int i = 0; i < this->m_num_checkout_orders; i++)
+	{
+		for (int j=0; j< m_checkout_orders[i]->getNumOfProducts();j++)
+		{
+			if ((this->m_checkout_orders[i]->getProductsArr()[j]->getSellerUsername(), username) == 0)
+			{
+				if (this->m_checkout_orders[i]->getPaid())
+					return true;
+			}
+	}
+		return false;
 }

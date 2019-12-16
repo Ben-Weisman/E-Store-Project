@@ -30,6 +30,7 @@ private:
 	Order** m_orders;
 
 private:
+	// Setters
 	bool setUsername(char* username);
 	bool setFeedBacks(FeedBack** feed);
 	bool setOrders(Order** other);
@@ -45,6 +46,8 @@ public:
 	inline const Product **getListedItems()const;
 	inline const FeedBack** getFeedbacks()const;
 	inline const Order** getOrders()const;
+	inline const int getNumOfListedItems()const;
+	const Product* getProduct(char* to_find)const;
 
 public:
 	// Setters
@@ -53,16 +56,17 @@ public:
 	bool setLname(const char* lname);
 
 public:
-	// Realloc
+	//Arrays maintenance
 	void addToListItemsArr(Product* item_to_add);
 	void addToFeedArr(FeedBack* feed_to_add);
 	void addToOrdersArr(Order* order_request);
 	
+	// Realloc
 	void FeedbackArrRealloc();
 	void ListedItemsArrRealloc();
 	void OrdersArrRealloc();
 	
-	void printSeller();
+	void showSeller();
 	
 
 public:

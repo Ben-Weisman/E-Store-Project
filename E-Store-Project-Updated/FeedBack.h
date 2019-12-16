@@ -27,6 +27,7 @@ public:
 	FeedBack(char* feedback, const char* provider_username, const Date& date); //c'tor
 	~FeedBack(); //d'tor
 	FeedBack(const FeedBack& f); //copy c'tor
+	FeedBack(FeedBack&& f); // move c'tor
 };
 
 #endif// __FeedBack_h
