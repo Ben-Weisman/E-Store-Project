@@ -4,9 +4,10 @@
 #include "Seller.h"
 #include "Buyer.h"
 #include "Product.h"
-#include <string.h>
 
 const int MAX_LEN = 20;
+const int NOT_EXIST = -1;
+const int EXIT = -1;
 
 class System
 {
@@ -54,11 +55,11 @@ public:
 	/////////////////////////////////////////////////////////////menu functions/////////////////////////////////////////////////////////////
 public:
 	//1
-	bool isBuyerExist(const char* buyer_username)const;
+	const int isBuyerExist(const char* buyer_username)const; //the func returns the index of a specific buyer according to his username or -1 if didn't exist
 	void buyersRealloc();
 	bool addToBuyerArr(Buyer* new_buyer);
 	//2
-	bool isSellerExist(const char* seller_username)const;
+	const int isSellerExist(const char* seller_username)const; //the func returns the index of a specific seller according to his username or -1 if didn't exist
 	void sellersRealloc();
 	bool addToSellerArr(Seller* new_seller);
 	//3
@@ -81,4 +82,4 @@ public:
 
 }
 
-#endif // !__system_h
+#endif // !__System_h
