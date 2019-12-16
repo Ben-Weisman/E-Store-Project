@@ -212,13 +212,14 @@ bool Buyer::isOrderedFrom(char* username)
 {
 	for (int i = 0; i < this->m_num_checkout_orders; i++)
 	{
-		for (int j=0; j< m_checkout_orders[i]->getNumOfProducts();j++)
+		for (int j = 0; j < m_checkout_orders[i]->getNumOfProducts(); j++)
 		{
 			if ((this->m_checkout_orders[i]->getProductsArr()[j]->getSellerUsername(), username) == 0)
 			{
 				if (this->m_checkout_orders[i]->getPaid())
 					return true;
 			}
-	}
+		}
 		return false;
+	}
 }

@@ -43,9 +43,9 @@ public:
 	inline const char* getLastName()const;
 	inline const char* getUsername()const;
 	inline const Address& getAddress()const;
-	inline const Product **getListedItems()const;
-	inline const FeedBack** getFeedbacks()const;
-	inline const Order** getOrders()const;
+	inline Product **getListedItems()const;
+	inline FeedBack** getFeedbacks()const;
+	inline Order** getOrders()const;
 	inline const int getNumOfListedItems()const;
 	const Product* getProduct(char* to_find)const;
 

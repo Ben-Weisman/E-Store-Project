@@ -1,5 +1,7 @@
 #include "FeedBack.h"
 #include <iostream>
+#pragma warning(disable:4996) 
+
 using namespace std;
 
 bool FeedBack::setFeedbackEval(const char* eval)

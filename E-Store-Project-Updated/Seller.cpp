@@ -9,9 +9,9 @@ const char* Seller::getFirstName()const { return m_fname; }
 const char* Seller::getLastName()const { return m_lname; }
 const char* Seller::getUsername()const { return m_username; }
 const Address& Seller::getAddress()const { return m_address; }
-const Product** Seller::getListedItems()const { return m_listed_items; }
-const FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
-const Order** Seller::getOrders()const { return m_orders; }
+Product** Seller::getListedItems()const { return m_listed_items; }
+FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
+Order** Seller::getOrders()const { return m_orders; }
 const int Seller::getNumOfListedItems()const { return m_num_of_listed_items; }
 
 const Product* Seller::getProduct(char *to_find)const
