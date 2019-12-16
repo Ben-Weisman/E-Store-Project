@@ -41,7 +41,7 @@ public:
 	bool setLname(const char* lname);
 
 	void addToCart(Product* item_to_add);
-	void addToCheckout(Order* checkout_order);
+	void addToCheckout(Order* checkout_order, int cart_index);
 
 	void removeFromCart(Product* item_to_remove);
 	

@@ -52,7 +52,7 @@ void Buyer::addToCart(Product* item_to_add)
 	m_cart[m_number_of_items++] = item_to_add;
 }
 
-void Buyer::addToCheckout(Order* checkout_order)
+void Buyer::addToCheckout(Order* checkout_order, int cart_index)
 {
 	if (m_num_checkout_orders == m_checkout_orders_pSize)
 		checkoutRealloc();
