@@ -3,6 +3,7 @@
 #include "System.h"
 #include "Buyer.h"
 #include "Source.h"
+#include "Product.h"
 #include <iostream>
 using namespace std;
 
@@ -52,10 +53,12 @@ int main()
 			char seller_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the seller: ";
 			cin >> seller_username;
-
-			if(system.addProductToSeller(createProduct(seller_username), seller_username)==false)
-				cout << "No such seller username."; 
-			//Should we free the prod? *********************************************************************************
+			Product* p;
+			if (system.addProductToSeller(p=createProduct(seller_username), seller_username) == false)
+			{
+				cout << "No such seller username.";
+				delete[]p; //Should we free the prod? *****************************************************************************************
+			}
 			break;
 
 		case 4: //add feedback to seller 
@@ -66,21 +69,25 @@ int main()
 			char s_username[MAX_NAMES_LEN];
 			cout << "Enter seller's username: ";
 			cin >> s_username;
-
-			if(system.addFeedbackToSeller(b_username, s_username, createFeedback(b_username))==false)
+			FeedBack* f;
+			if (system.addFeedbackToSeller(b_username, s_username, f=createFeedback(b_username)) == false)
+			{
 				cout << "No such seller or buyer username."; //LUXURY ------> which of them was missing
+				delete[]f; //Should we free the prod? *****************************************************************************************
+			}
+
 			break;
 
 		case 5:
-			char username[MAX_NAMES_LEN];
+			char b_username[MAX_NAMES_LEN];
 			cout << "\nEnter the username of the buyer: ";
-			cin >> username;
+			cin >> b_username;
 
 			char prod_name[MAX_NAMES_LEN];
 			cout << "\nEnter the product name: ";
 			cin >> prod_name;
 
-			system.addProductToBuyersCart(prod_name, username);
+			system.addProductToBuyersCart(prod_name, b_username);
 			break;
 
 		case 6:
