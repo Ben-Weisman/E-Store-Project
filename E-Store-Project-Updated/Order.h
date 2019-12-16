@@ -3,14 +3,13 @@
 
 #include "Product.h"
 
-class Seller; //forword declaration
 class Buyer; //forword declaration
 
 
 class Order
 {
-	Product** m_wishlist_arr;
-	int m_wishlist_phy_size;
+	Product** m_product_arr;
+	int m_product_phy_size;
 	int m_num_of_products;
 	int m_total_price;
 	Seller* const m_seller; // Can't change them pointing

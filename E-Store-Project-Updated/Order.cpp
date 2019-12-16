@@ -10,16 +10,16 @@ Order::Order(Seller* s, Buyer* b) :m_seller(s), m_buyer(b)
 	setTotalPrice(0);
 	setPaid(false);
 	
-	m_wishlist_arr = new Product*[m_wishlist_phy_size]; 
+	m_product_arr = new Product*[m_product_phy_size]; 
 }
 
 
 Order::~Order()
 {
 	for (int i = 0; i < m_num_of_products; i++)
-		delete m_wishlist_arr[i];
+		delete m_product_arr[i];
 
-	delete m_wishlist_arr;
+	delete m_product_arr;
 }
 
 
@@ -33,7 +33,7 @@ bool Order::setTotalPrice(int total_price)
 }
 bool Order::setProductsPhySize(int phy_size)
 {
-	m_wishlist_phy_size = phy_size;
+	m_product_phy_size = phy_size;
 }
 bool Order::setNumOfProducts(int num_of_prod)
 {
@@ -55,7 +55,7 @@ unsigned int Order::getTotalPrice()const
 }
 unsigned int Order::getProductsPhySize()const
 {
-	return m_wishlist_phy_size;
+	return m_product_phy_size;
 }
 unsigned int Order::getNumOfProducts()const
 {
@@ -71,7 +71,7 @@ Buyer* const  Order::getBuyer()const
 }
 Product** Order::getProductsArr()const
 {
-	return m_wishlist_arr;
+	return m_product_arr;
 }
 bool Order::getPaid()const
 {
@@ -83,7 +83,7 @@ void Order::printOrder()const
 {
 	for (int i = 0; i < m_num_of_products; i++)
 	{
-		cout << i + 1 << ") " << m_wishlist_arr[i]->getName() << endl;
+		cout << i + 1 << ") " << m_product_arr[i]->getName() << endl;
 	}
 	cout << m_total_price << endl;
 }

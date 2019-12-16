@@ -260,16 +260,16 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 }
 
 
-
-
 /*****************************************************************  6  *****************************************************/
 bool System::newOrder(const char* buyer_username)
 {
 	int choosen_buyer_index;
-	if (choosen_buyer_index = isSellerExist(buyer_username) >= 0)//check that work *********************************************************************
+	if (choosen_buyer_index = isSellerExist(buyer_username) >= 0)//check if that work *********************************************************************
 		return false;
 
-	int option, i = 0;
+	int option;
+	int total_price;
+	Order* new_order=new Order(m_buyer_arr[choosen_buyer_index]); // FIX C'TOR **********************************************
 			do
 			{
 				m_buyer_arr[choosen_buyer_index]->showCart();
@@ -277,15 +277,18 @@ bool System::newOrder(const char* buyer_username)
 				cout << "\nPlease Choose product:\n Enter -1 to exit from order.\n";
 				cin >> option;
 
-				if ((option != EXIT && option < 1) || option > m_buyer_arr[i]->getNumberOfItems()) // ----> validity check to "option" - can couse the program to fly
+				if ((option != EXIT && option < 1) || option > m_buyer_arr[choosen_buyer_index]->getNumberOfItems()) // ----> validity check to "option" 
 					cout << "Sorry, invalid option.";
+				else
+				{
+					new_order->addToProdArr(m_buyer_arr[choosen_buyer_index]->getCart()[option - 1]);
+				}
 				
 
-
-
-				m_buyer_arr[choosen_buyer_index]->addToCheckout(new_order, choosen_buyer_index);
 			} while (option!=EXIT);
 
+			m_buyer_arr[choosen_buyer_index]->addToCheckout(new_order, choosen_buyer_index);
+}
 
 			return true;
 
@@ -293,29 +296,26 @@ bool System::newOrder(const char* buyer_username)
 /*****************************************************************  7  *****************************************************/
 bool System::payment(const char* buyer_username)
 {
-	for (int i = 0; i < m_num_of_buyers; ++i)
+	int buyer_index;
+	if (buyer_index = isBuyerExist(buyer_username) == NOT_EXIST)
+		return false;
+
+	m_buyer_arr[i]->showOrderList();      // Waiting for Ben function
+	int option;
+	do
 	{
-		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
-		{
-			m_buyer_arr[i]->showOrderList();      // Waiting for Ben function
-			int option;
-			do
-			{
-				cout << "Please Choose your option: ";
-				cin >> option;
-			} while (option<1 || option>m_buyer_arr[i]->getNumberOfOrders()); //Need this also
+		cout << "Please Choose your option: ";
+		cin >> option;
+	} while (option<1 || option>m_buyer_arr[i]->getNumberOfOrders()); //Need this also
 
-			Product** prod_to_buy = m_buyer_arr[i]->getOrders();
+	Product** prod_to_buy = m_buyer_arr[i]->getOrders();
 
-			for (int j = 0; j < m_buyer_arr[i]->getNumberOfOrders(); ++j)
-				m_buyer_arr[i]->removeFromCart(prod_to_buy[j]);
+	for (int j = 0; j < m_buyer_arr[i]->getNumberOfOrders(); ++j)
+		m_buyer_arr[i]->removeFromCart(prod_to_buy[j]);
 
-				m_[option - 1]->setPaid(true);
-			return true;
-		}
-	}
+	m_[option - 1]->setPaid(true);
+	return true;
 }
-
 
 /*****************************************************************  8  *****************************************************/
 
