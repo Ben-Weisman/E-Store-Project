@@ -14,19 +14,21 @@ class Order
 	int m_total_price;
 	Buyer* const m_buyer;  // Can't change them pointing
 	bool m_paid; // indication - the order already paid or not
-	
+
 private:
 	Order(const Order& o); // We don't want to anable copys of products
-	
+
 public:
 	Order(Buyer* b);
 	~Order();
 
 public:
 	inline bool setTotalPrice(int total_price);
+	inline bool setPaid(bool paid);
+private:
 	inline bool setProductsPhySize(int phy_size);
 	inline bool setNumOfProducts(int num_of_prod);
-	inline bool setPaid(bool paid);
+
 public:
 	inline int getTotalPrice()const;
 	inline int getProductsPhySize()const;
@@ -34,7 +36,7 @@ public:
 	inline Buyer* const  getBuyer()const;
 	Product** getProductsArr()const;
 	bool getPaid()const;
-	
+
 public:
 	inline void showOrder()const;
 	void addToProdArr(Product* p);

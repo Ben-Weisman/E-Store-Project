@@ -1,4 +1,4 @@
-//                                         --      Ofek The Officer     --
+
 
 #include "System.h"
 #include "Buyer.h"
@@ -7,14 +7,14 @@
 #include <iostream>
 using namespace std;
 
-const int MAX_NAMES_LEN = 20;
+//const int MAX_NAMES_LEN = 20;
 
 // We should move all this to Menu File 
 
 int main()
 {
 	System system("eben");
-	
+
 	bool exit_flag = true;
 	while (exit_flag)
 	{
@@ -29,14 +29,17 @@ int main()
 		cout << (i++) << ") Payment\n";
 		cout << (i++) << ") Show all buyers\n";
 		cout << (i++) << ") Show all sellers\n";
-		cout << (i++) << ") Show all products with you choosen name\n";
+		cout << (i++) << ") Show all products with you chosen name\n";
 		cout << (i++) << ") Exit\n\n";
 		cout << "Please enter your action: ";
 		int option;
 		cin >> option;
-		
+
 		switch (option)
 		{
+			char b_username[MAX_NAMES_LEN];
+			char s_username[MAX_NAMES_LEN];
+
 		case 1://add buyer
 
 			if (!(system.addToBuyerArr(createBuyer())))
@@ -50,11 +53,10 @@ int main()
 			break;
 
 		case 3: //add product to seller
-			char seller_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the seller: ";
-			cin >> seller_username;
+			cin >> s_username;
 			Product* p;
-			if (system.addProductToSeller(p=createProduct(seller_username), seller_username) == false)
+			if (system.addProductToSeller(p = createProduct(s_username), s_username) == false)
 			{
 				cout << "No such seller username.";
 				delete[]p; //Should we free the prod? *****************************************************************************************
@@ -62,24 +64,22 @@ int main()
 			break;
 
 		case 4: //add feedback to seller 
-			char b_username[MAX_NAMES_LEN];
 			cout << "Enter buyer's username: ";
 			cin >> b_username;
 
-			char s_username[MAX_NAMES_LEN];
 			cout << "Enter seller's username: ";
 			cin >> s_username;
 			FeedBack* f;
-			if (system.addFeedbackToSeller(b_username, s_username, f=createFeedback(b_username)) == false)
+			if (system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username)) == false)
 			{
-				cout << "No such seller or buyer username."; //LUXURY ------> which of them was missing
-				delete[]f; //Should we free the prod? *****************************************************************************************
+				cout << "No such seller or buyer username.";
+				delete[]f; //Should we free the feedback? *****************************************************************************************
 			}
 
 			break;
 
 		case 5:
-			char b_username[MAX_NAMES_LEN];
+
 			cout << "\nEnter the username of the buyer: ";
 			cin >> b_username;
 
@@ -92,11 +92,9 @@ int main()
 
 		case 6:
 			//order
-			char b_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the buyer:";
 			cin >> b_username;
 
-			char s_username[MAX_NAMES_LEN];
 			cout << "Enter the username of the seller:";
 			cin >> s_username;
 

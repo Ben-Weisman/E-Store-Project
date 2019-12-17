@@ -7,8 +7,8 @@ class FeedBack
 {
 private:
 
-	char* m_feedback_evaluation; 
-	char* m_provider_username; 
+	char* m_feedback_evaluation;
+	char* m_provider_username;
 	Date m_date;
 
 private:

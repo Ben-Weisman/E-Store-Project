@@ -1,10 +1,10 @@
 #include "Seller.h"
 #include <iostream>
-#include <string>
+#include <string.h>
 using namespace std;
 #pragma warning(disable:4996) 
 
- // ----------------- C'tor, Copy C'tor, D'tor -----------------
+// ----------------- C'tor, Copy C'tor, D'tor -----------------
 
 Seller::Seller(char* username, char* password, char* fname, char* lname,
 	const Address& address) : m_address(address) // c'tor
@@ -21,13 +21,13 @@ Seller::Seller(char* username, char* password, char* fname, char* lname,
 	m_num_of_orders = 0;
 	m_orders_pSize = 1;
 
-	m_orders = new Order * [m_orders_pSize];
+	m_orders = new Order *[m_orders_pSize];
 	m_orders[m_num_of_orders] = nullptr;
 
-	m_feedback_arr = new FeedBack * [m_feedbacks_phy_size];
+	m_feedback_arr = new FeedBack *[m_feedbacks_phy_size];
 	m_feedback_arr[m_num_of_feedbacks] = nullptr;
 
-	m_listed_items = new Product * [m_listed_items_pSize];
+	m_listed_items = new Product *[m_listed_items_pSize];
 	m_listed_items[m_num_of_listed_items] = nullptr;
 }
 
@@ -84,7 +84,7 @@ FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
 Order** Seller::getOrders()const { return m_orders; }
 const int Seller::getNumOfListedItems()const { return m_num_of_listed_items; }
 
-const Product* Seller::getProduct(char* to_find)const
+const Product* Seller::findProduct(const char* to_find)const
 { // search for a given product in seller's listed items and return its pointer. 
 	for (int i = 0; i < m_num_of_listed_items; i++)
 	{
@@ -200,7 +200,7 @@ void Seller::ListedItemsArrRealloc()
 { // Resize listed items arr using realloc logic. 
 
 	this->m_feedbacks_phy_size *= 2;
-	Product** tmp = new Product * [m_feedbacks_phy_size];
+	Product** tmp = new Product *[m_feedbacks_phy_size];
 
 	for (int i = 0; i < m_num_of_listed_items; i++)
 		tmp[i] = m_listed_items[i];
@@ -212,7 +212,7 @@ void Seller::ListedItemsArrRealloc()
 void Seller::OrdersArrRealloc()
 { // Resize orders arr using realloc logic. 
 	this->m_orders_pSize *= 2;
-	Order** tmp = new Order * [m_orders_pSize];
+	Order** tmp = new Order *[m_orders_pSize];
 
 	for (int i = 0; i < m_num_of_orders; i++)
 		tmp[i] = m_orders[i];

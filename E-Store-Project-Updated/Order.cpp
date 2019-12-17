@@ -2,15 +2,15 @@
 #include <iostream>
 using namespace std;
 
-Order::Order(Buyer* b) :m_buyer(b) // Aviv ??????????????????????????????????????????????????????????????????????????????????????????????????????
+Order::Order(Buyer* b) :m_buyer(b)
 {
 	setTotalPrice(m_total_price);
 	setProductsPhySize(1);
 	setNumOfProducts(0);
 	setTotalPrice(0);
 	setPaid(false);
-	
-	m_products_arr = new Product*[m_products_phy_size]; 
+
+	m_products_arr = new Product*[m_products_phy_size];
 }
 
 
@@ -28,20 +28,27 @@ Order::~Order()
 
 bool Order::setTotalPrice(int total_price)
 {
-	m_total_price = total_price;
-	return true; // unsigned - so can't be negative price
+	if (total_price > 0)
+	{
+		m_total_price = total_price;
+		return true;
+	}
+	return false;
 }
 bool Order::setProductsPhySize(int phy_size)
 {
 	m_products_phy_size = phy_size;
+	return true;
 }
 bool Order::setNumOfProducts(int num_of_prod)
 {
 	m_num_of_products = num_of_prod;
+	return true;
 }
 bool Order::setPaid(bool paid)
 {
 	m_paid = paid;
+	return true;
 }
 
 
@@ -73,7 +80,7 @@ bool Order::getPaid()const
 {
 	return m_paid;
 }
-	
+
 /////////////////////////////////////////////////////////////////////// functions ////////////////////////////////////////////////////////////////////////////
 void Order::showOrder()const
 {

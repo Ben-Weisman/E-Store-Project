@@ -20,9 +20,9 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 	m_num_checkout_orders = 0;
 	m_checkout_orders_pSize = 1;
 
-	m_cart = new Product * [m_cartPsize];
+	m_cart = new Product *[m_cartPsize];
 	m_cart[0] = nullptr;
-	m_checkout_orders = new Order * [m_checkout_orders_pSize];
+	m_checkout_orders = new Order *[m_checkout_orders_pSize];
 	m_checkout_orders[0] = nullptr;
 
 
@@ -170,7 +170,7 @@ void Buyer::removeFromCart(Product* item_to_delete)
 void Buyer::cartRealloc()
 { // Resize cart.
 	this->m_cartPsize *= 2;
-	Product** tmp = new Product * [m_cartPsize];
+	Product** tmp = new Product *[m_cartPsize];
 
 	for (int i = 0; i < m_number_of_items; i++)
 		tmp[i] = m_cart[i];
@@ -183,7 +183,7 @@ void Buyer::checkoutRealloc()
 { // Resize checkout arr.
 	m_checkout_orders_pSize *= 2;
 
-	Order** tmp = new Order * [m_checkout_orders_pSize];
+	Order** tmp = new Order *[m_checkout_orders_pSize];
 
 	for (int i = 0; i < m_num_checkout_orders; i++)
 		tmp[i] = m_checkout_orders[i];
@@ -223,7 +223,7 @@ void Buyer::showCheckoutOrders()const
 
 // ---------------------------------------------------------------------
 
-bool Buyer::isOrderedFrom(char* username)
+bool Buyer::isOrderedFrom(const char* username)const
 { // Check if there's an existing order from a given seller, and that it's paid for.
 	for (int i = 0; i < this->m_num_checkout_orders; i++)
 	{

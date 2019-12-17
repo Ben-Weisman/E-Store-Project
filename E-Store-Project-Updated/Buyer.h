@@ -27,7 +27,7 @@ private:
 	bool setCart(Product** cart);
 
 public:
-	
+
 	Buyer(char* userName, char* password, char* fname, char*
 		lname, const Address& address);
 	Buyer(const Buyer& b); // copy c'tor
@@ -54,7 +54,7 @@ public:
 	void addToCheckout(Order* checkout_order);
 
 	void removeFromCart(Product* item_to_remove);
-	
+
 	void cartRealloc();
 	void checkoutRealloc();
 
@@ -63,10 +63,11 @@ public:
 	void showCheckoutOrders()const;
 
 
-	bool isOrderedFrom(char* username);
+	bool isOrderedFrom(const char* username)const; //Nir:
+	//added 2 consts: 1) because the func do not change the object
+	//added 2 consts: 1) because we don't want anyoneto change the username that we searching for
 
 
-	
 };
 
 #endif //!__Buyer_h

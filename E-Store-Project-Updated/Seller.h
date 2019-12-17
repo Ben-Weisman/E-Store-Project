@@ -16,7 +16,7 @@ private:
 	char* m_lname;
 
 private:
-	int m_feedbacks_phy_size; 
+	int m_feedbacks_phy_size;
 	int m_num_of_feedbacks;
 	int m_num_of_listed_items;
 	int m_listed_items_pSize;
@@ -25,7 +25,7 @@ private:
 
 private:
 	Address m_address;
-	FeedBack** m_feedback_arr; 
+	FeedBack** m_feedback_arr;
 	Product** m_listed_items;
 	Order** m_orders;
 
@@ -52,7 +52,7 @@ public:
 	inline FeedBack** getFeedbacks()const;
 	inline Order** getOrders()const;
 	inline const int getNumOfListedItems()const;
-	const Product* getProduct(char* to_find)const;
+
 
 public:
 	// Setters
@@ -65,14 +65,16 @@ public:
 	void addToListItemsArr(Product* item_to_add);
 	void addToFeedArr(FeedBack* feed_to_add);
 	void addToOrdersArr(Order* order_request);
-	
+
 	// Realloc
 	void FeedbackArrRealloc();
 	void ListedItemsArrRealloc();
 	void OrdersArrRealloc();
-	
+
+	//func
+	const Product* findProduct(const char* to_find)const; // Ben i changed the name to be more intoitive (getProduct sound like getter method - one liner) + added the relevat consts
 	void showSeller();
-	
+
 };
 
 #endif // !__Seller_h

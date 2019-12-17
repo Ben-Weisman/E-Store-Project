@@ -15,7 +15,7 @@ private:
 	char* m_name;
 	int m_price;
 	int m_serial_number;
-	char* m_seller_username; 
+	char* m_seller_username;
 
 public:
 	Product(ecategory category, char* name, int price, char* seller_username); //c'tor
@@ -35,7 +35,6 @@ public:
 	inline ecategory getCategory()const;
 	inline const char* getName()const;
 	inline int getPrice()const;
-	inline int getSerialNumber()const;
 	inline int getSerialNumber()const;
 	inline const char* getSellerUsername()const;
 

@@ -2,6 +2,8 @@
 #include "utils.h"
 #include <iostream>
 using namespace std;
+
+#pragma warning(disable:4996) 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Address::Address(char* country, char* city, char* street, int number) //c'tor

@@ -24,7 +24,7 @@ FeedBack::FeedBack(const FeedBack& f) :m_date(f.m_date) //copy c'tor
 	setFeedbackEval(f.getFeedbackEvaluation());
 }
 
-FeedBack::FeedBack(FeedBack&& f) // move c'tor
+FeedBack::FeedBack(FeedBack&& f) : m_date(f.m_date) // move c'tor
 {
 	m_feedback_evaluation = f.m_feedback_evaluation;
 	m_provider_username = f.m_provider_username;
@@ -61,14 +61,14 @@ inline const char* FeedBack::getProviderUsername()const { return m_provider_user
 
 // ---------------------------------------------------------------
 
-void FeedBack::showFeedback()const 
+void FeedBack::showFeedback()const
 { // Print Feedback. 
 	cout << "Date provided: ";
 	this->m_date.showDate();
 	cout << endl;
 
-	cout << "Provided by: " << m_provider_username << endl;	
-	
+	cout << "Provided by: " << m_provider_username << endl;
+
 	this->getFeedbackEvaluation();
 }
 

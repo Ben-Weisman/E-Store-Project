@@ -33,7 +33,7 @@ bool Date::setYear(int year)
 	{
 		return false;
 	}
-	m_year=year;
+	m_year = year;
 	return true;
 }
 

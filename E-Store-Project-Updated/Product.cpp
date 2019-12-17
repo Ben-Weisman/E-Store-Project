@@ -1,5 +1,5 @@
 #include "Product.h"
-#include "utils.h"
+#include "Utils.h"
 #include <string>
 #include <iostream>
 #include "Seller.h"
@@ -12,7 +12,7 @@ int Product::COUNTER = 100000; // First serial number value
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Product::Product(ecategory category, char* name, int price, char* seller_username) :m_serial_number(++COUNTER)//c'tor
+Product::Product(ecategory category, char* name, int price, char* seller_username) :m_serial_number(++COUNTER) //c'tor
 {
 	setCategory(category);
 	setName(name);
@@ -26,7 +26,7 @@ Product::~Product() //d'tor
 	delete[]m_seller_username;
 }
 
-Product::Product(const Product&p):m_serial_number(p.m_serial_number) //copy c'tor
+Product::Product(const Product&p) :m_serial_number(p.m_serial_number) //copy c'tor
 {
 	setCategory(p.m_category);
 
@@ -37,7 +37,7 @@ Product::Product(const Product&p):m_serial_number(p.m_serial_number) //copy c'to
 	setSellerUsername(p.m_seller_username);
 }
 
-Product::Product(Product&&p) : m_serial_number (std::move(p.m_serial_number)) //move c'tor
+Product::Product(Product&&p) : m_serial_number(std::move(p.m_serial_number)) //move c'tor
 {
 	m_category = p.m_category;
 	m_name = m_name;
@@ -128,7 +128,7 @@ bool Product::setSellerUsername(char* seller_username) //private method that we 
 
 void Product::showProduct() const
 {
-	cout << "Product name: " << m_name << endl << "category: " << CATEGORY_ARR[m_category] <<  endl;
+	cout << "Product name: " << m_name << endl << "category: " << CATEGORY_ARR[m_category] << endl;
 	cout << "price: " << m_price << endl << "serial number: " << m_serial_number << endl;
 	cout << "The seller of this product is: " << m_seller_username << endl;
 }

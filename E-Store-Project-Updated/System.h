@@ -4,6 +4,7 @@
 #include "Seller.h"
 #include "Buyer.h"
 #include "Product.h"
+#include "Order.h"
 
 const int MAX_LEN = 20;
 const int NOT_EXIST = -1;
@@ -43,11 +44,11 @@ public:
 public:
 	inline const char* getName()const;
 
-	inline const Seller** getSellerArr()const;
+	inline Seller** getSellerArr()const;
 	inline int getSellersPhySize()const;
 	inline int getNumOfSellers()const;
 
-	inline const Buyer** getBuyerArr()const;
+	inline Buyer** getBuyerArr()const;
 	inline int getBuyersPhySize()const;
 	inline int getNumOfBuyers()const;
 
@@ -79,7 +80,6 @@ public:
 	//10
 	void printAllSpecificProduct(const char* name_to_find) const;
 
-
-}
+};
 
 #endif // !__System_h

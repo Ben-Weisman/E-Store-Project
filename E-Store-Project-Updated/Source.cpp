@@ -27,7 +27,7 @@ Address createAdress()
 	return Address(country, city, street, house_number);
 }
 
-Buyer* createBuyer() 
+Buyer* createBuyer()
 {
 	cleanBuffer();
 	char f_name[MAX_NAMES_LEN];
@@ -53,7 +53,7 @@ Buyer* createBuyer()
 	return new Buyer(user_name, pass, f_name, l_name, createAdress());
 }
 
-Seller* createSeller() 
+Seller* createSeller()
 {
 	cleanBuffer();
 	char f_name[MAX_NAMES_LEN];
@@ -75,7 +75,7 @@ Seller* createSeller()
 	cout << "\nPassword: ";
 	cin.getline(user_name, MAX_NAMES_LEN);
 
-	
+
 	return new Seller(user_name, pass, f_name, l_name, createAdress());
 }
 
@@ -110,7 +110,7 @@ Date createDate()
 	cout << "/";
 	cin >> year;
 	cout << endl;
-	
+
 	return Date(day, month, year);
 }
 
