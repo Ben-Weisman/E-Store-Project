@@ -5,7 +5,7 @@
 #include "Address.h"
 #include "Product.h"
 
-class Order; //forword declaration
+class Order; //forward declaration
 
 class Seller
 {
@@ -38,6 +38,11 @@ private:
 
 public:
 
+	~Seller(); // d'tor
+	Seller(char* userName, char* password, char* fname, char*
+		lname, const Address& address);
+	Seller(const Seller& s); //copy c'tor
+
 	// Getters
 	inline const char* getFirstName()const;
 	inline const char* getLastName()const;
@@ -68,12 +73,6 @@ public:
 	
 	void showSeller();
 	
-
-public:
-	~Seller(); // d'tor
-	Seller(char* userName, char* password, char* fname, char*
-		lname, const Address& address);
-	Seller(const Seller& s); //copy c'tor	
 };
 
 #endif // !__Seller_h

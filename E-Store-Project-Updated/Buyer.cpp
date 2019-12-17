@@ -6,115 +6,9 @@
 #pragma warning(disable:4996) 
 using namespace std;
 
-
-inline const int Buyer::getNumberOfItems()const { return m_number_of_items; }
-const char* Buyer::getFirstName()const { return m_fname; }
-const char* Buyer::getLastName()const { return m_lname; }
-const char* Buyer::getUsername()const { return m_username; }
-Product** Buyer::getCart()const { return m_cart; }
-const Address Buyer::getAddress()const { return m_address; }
-inline Order** Buyer::getOrders()const { return m_checkout_orders; }
-const int Buyer::getNumOfItems()const { return m_number_of_items; }
-const int Buyer::getNumOfOrders()const { return m_num_checkout_orders; }
-
-void Buyer::removeFromCart(Product* item_to_delete)
-{
-
-	for (int i = 0; i < m_number_of_items; i++)
-	{
-		if (m_cart[i]->getSerialNumber() == item_to_delete->getSerialNumber())
-		{			
-			Product* tmp;
-			for (int j = i; j < m_number_of_items - 1; j++)
-			{
-				tmp = m_cart[j];
-					m_cart[j] = m_cart[j + 1];
-				m_cart[j + 1] = tmp;
-			}
-			m_cart[m_number_of_items - 1] = nullptr;
-			m_number_of_items -= 1;
-			break;
-		}
-	}
-}
-
-void Buyer::showCart()const
-{
-	cout << "All products are in #/Name/Price/Seller format" << endl;
-
-	for (int i = 0; i < m_number_of_items; i++)
-		cout << i + 1 << ") " << m_cart[i]->getName() << m_cart[i]->getPrice() <<
-		m_cart[i]->getSellerUsername() << endl;
-}
-
-void Buyer::addToCart(Product* item_to_add)
-{ 
-	if (m_cartPsize == m_number_of_items)
-		cartRealloc();
-	m_cart[m_number_of_items++] = item_to_add;
-}
-
-void Buyer::addToCheckout(Order* checkout_order)
-{
-	if (m_num_checkout_orders == m_checkout_orders_pSize)
-		checkoutRealloc();
-	m_checkout_orders[m_num_checkout_orders++] = checkout_order;
-}
-
-bool Buyer::setPassword(const char* password)
-{
-	if (strlen(password) == 0)
-		return false;
-	delete[]m_password;
-	m_password = strdup(password);
-	return true;
-}
-
-bool Buyer::setFname(const char* fname)
-{
-	if (strlen(fname) == 0)
-		return false;
-	delete []m_fname;
-	m_fname = strdup(fname);
-	return true;
-}
-
-bool Buyer::setLname(const char* lname)
-{
-	if (strlen(lname) == 0)
-		return false;
-	delete[]m_lname;
-	m_lname = strdup(lname);
-	return true;
-}
-
-bool Buyer::setUsername(char* username)
-{
-	if (strlen(username) == 0)
-		return false;
-	m_username = strdup(username);
-	return true;
-}
-
-bool Buyer::setCart(Product** cart)
-{
-	if (!cart)
-		return false;
-	m_cart = cart;
-	return true;
-}
-
-bool Buyer::setOrder(Order** order)
-{
-	if (!order)
-		return false;
-	m_checkout_orders = order;
-	return true;
-
-}
-
+// -------------------- C'tor, Copy C'tor, D'tor --------------------
 Buyer::Buyer(char* userName, char* password, char* fname,
-	char* lname, const Address& address):m_address(address) // c'tor
+	char* lname, const Address& address) :m_address(address) // c'tor
 {
 	setUsername(userName);
 	setPassword(password);
@@ -134,7 +28,7 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 }
 
-Buyer::Buyer(const Buyer& b):m_address(b.m_address) // copy c'tor
+Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 {
 	setUsername(b.m_username);
 	setPassword(b.m_password);
@@ -156,37 +50,127 @@ Buyer::~Buyer() // d'tor
 	delete[]m_lname;
 	delete[]m_username;
 	delete[]m_password;
-	
-	
+
+
 	for (i = 0; i < m_number_of_items; i++)
 		delete m_cart[i];
 	for (i = 0; i < m_num_checkout_orders; i++)
 		delete m_checkout_orders[i];
 }
 
-void Buyer::showBuyer()const
-{
-	cout << "Full Name: " << this->getFirstName() << " " << this->getLastName() << endl;
-	cout << "Username: " << this->getUsername();
-	this->getAddress().showAddress();
-	//cout << "Address: "<< endl << this->getAddress().printAddress() << endl;
+// ------------------------------------------------------------
 
+//-------------------- Getters methods --------------------
 
-	for (int i = 0; i < m_number_of_items; i++)
-		m_cart[i]->showProduct();
+inline const int Buyer::getNumberOfItems()const { return m_number_of_items; }
+const char* Buyer::getFirstName()const { return m_fname; }
+const char* Buyer::getLastName()const { return m_lname; }
+const char* Buyer::getUsername()const { return m_username; }
+Product** Buyer::getCart()const { return m_cart; }
+const Address Buyer::getAddress()const { return m_address; }
+inline Order** Buyer::getOrders()const { return m_checkout_orders; }
+const int Buyer::getNumOfItems()const { return m_number_of_items; }
+const int Buyer::getNumOfOrders()const { return m_num_checkout_orders; }
+
+// ------------------------------------------------------------
+
+//----------------------- Setters Methods -----------------------
+
+bool Buyer::setPassword(const char* password)
+{ // Set password for buyer. Validation check - Not an empty string.
+	if (strlen(password) == 0)
+		return false;
+	delete[]m_password;
+	m_password = strdup(password);
+	return true;
+}
+
+bool Buyer::setFname(const char* fname)
+{ // Set first name for buyer. Validation check - Not an empty string.
+	if (strlen(fname) == 0)
+		return false;
+	delete[]m_fname;
+	m_fname = strdup(fname);
+	return true;
+}
+
+bool Buyer::setLname(const char* lname)
+{ // Set last name for buyer. Validation check - Not an empty string.
+	if (strlen(lname) == 0)
+		return false;
+	delete[]m_lname;
+	m_lname = strdup(lname);
+	return true;
+}
+
+bool Buyer::setUsername(char* username) // Private. initiated username cannot get changed afterwards. 
+{ // Set username for buyer. Validation check - Not an empty string.
+	if (strlen(username) == 0)
+		return false;
+	m_username = strdup(username);
+	return true;
+}
+
+bool Buyer::setCart(Product** cart)
+{ // Set cart for buyer. Validation check - cart exists.
+	if (!cart)
+		return false;
+	m_cart = cart;
+	return true;
+}
+
+bool Buyer::setOrder(Order** order)
+{ // Set cart for buyer. Validation check - orders exists.
+	if (!order)
+		return false;
+	m_checkout_orders = order;
+	return true;
 
 }
 
-void Buyer::showCheckoutOrders()const
-{
-	for (int i = 0; i < m_num_checkout_orders; i++)
-		m_checkout_orders[i]->showOrder();
+//---------------------------------------------------------------------
+
+// ----------------------- Buyer's arrays maintenance methods. ----------------------- 
+
+void Buyer::addToCart(Product* item_to_add)
+{ // Add to buyer's cart using realloc method.
+	if (m_cartPsize == m_number_of_items)
+		cartRealloc();
+	m_cart[m_number_of_items++] = item_to_add;
+}
+
+void Buyer::addToCheckout(Order* checkout_order)
+{ // Add to Buyer's checkout cart using realloc method.
+	if (m_num_checkout_orders == m_checkout_orders_pSize)
+		checkoutRealloc();
+	m_checkout_orders[m_num_checkout_orders++] = checkout_order;
+}
+
+void Buyer::removeFromCart(Product* item_to_delete)
+{ // Remove a product from buyer's cart by bubbling it to the end of the arr, and setting it to nullptr.
+
+	for (int i = 0; i < m_number_of_items; i++)
+	{
+		if (m_cart[i]->getSerialNumber() == item_to_delete->getSerialNumber())
+		{
+			Product* tmp;
+			for (int j = i; j < m_number_of_items - 1; j++)
+			{
+				tmp = m_cart[j];
+				m_cart[j] = m_cart[j + 1];
+				m_cart[j + 1] = tmp;
+			}
+			m_cart[m_number_of_items - 1] = nullptr;
+			m_number_of_items -= 1;
+			break;
+		}
+	}
 }
 
 void Buyer::cartRealloc()
-{
+{ // Resize cart.
 	this->m_cartPsize *= 2;
-	Product** tmp = new Product*[m_cartPsize];
+	Product** tmp = new Product * [m_cartPsize];
 
 	for (int i = 0; i < m_number_of_items; i++)
 		tmp[i] = m_cart[i];
@@ -196,7 +180,7 @@ void Buyer::cartRealloc()
 }
 
 void Buyer::checkoutRealloc()
-{
+{ // Resize checkout arr.
 	m_checkout_orders_pSize *= 2;
 
 	Order** tmp = new Order * [m_checkout_orders_pSize];
@@ -208,18 +192,49 @@ void Buyer::checkoutRealloc()
 	m_checkout_orders = tmp;
 }
 
+// ---------------------------------------------------------------------
+
+// ----------------------- Print methods. -----------------------
+
+void Buyer::showCart()const
+{ // Print buyer's cart.
+	cout << "All products are in #/Name/Price/Seller format" << endl;
+
+	for (int i = 0; i < m_number_of_items; i++)
+		cout << i + 1 << ") " << m_cart[i]->getName() << "\t" << m_cart[i]->getPrice() <<
+		"$\t" << m_cart[i]->getSellerUsername() << endl;
+}
+
+void Buyer::showBuyer()const
+{ // Print buyer's info.
+	cout << "Full Name: " << this->getFirstName() << " " << this->getLastName() << endl;
+	cout << "Username: " << this->getUsername();
+	cout << "From: " << this->getAddress().getCountry() << endl;
+}
+
+void Buyer::showCheckoutOrders()const
+{ // Show all orders that hasn't been paid yet.
+	for (int i = 0; i < m_num_checkout_orders; i++)
+	{
+		if (!this->m_checkout_orders[i]->getPaid())
+			m_checkout_orders[i]->showOrder();
+	}
+}
+
+// ---------------------------------------------------------------------
+
 bool Buyer::isOrderedFrom(char* username)
-{
+{ // Check if there's an existing order from a given seller, and that it's paid for.
 	for (int i = 0; i < this->m_num_checkout_orders; i++)
 	{
 		for (int j = 0; j < m_checkout_orders[i]->getNumOfProducts(); j++)
 		{
-			if ((this->m_checkout_orders[i]->getProductsArr()[j]->getSellerUsername(), username) == 0)
+			if (strcmp(this->m_checkout_orders[i]->getProductsArr()[j]->getSellerUsername(), username) == 0)
 			{
 				if (this->m_checkout_orders[i]->getPaid())
 					return true;
 			}
 		}
-		return false;
 	}
+	return false;
 }

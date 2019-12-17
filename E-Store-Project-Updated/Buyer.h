@@ -3,7 +3,7 @@
 #include "Address.h"
 #include "Product.h"
 
-class Order;//forward declaration
+class Order; //forward declaration
 
 class Buyer
 {
@@ -43,6 +43,8 @@ public:
 	inline const int getNumOfItems()const;
 	inline const int getNumOfOrders()const;
 
+public:
+
 	bool setPassword(const char* password);
 	bool setFname(const char* fname);
 	bool setLname(const char* lname);
@@ -53,11 +55,13 @@ public:
 
 	void removeFromCart(Product* item_to_remove);
 	
+	void cartRealloc();
+	void checkoutRealloc();
+
 	void showCart()const;
 	void showBuyer()const;
 	void showCheckoutOrders()const;
-	void cartRealloc();
-	void checkoutRealloc();
+
 
 	bool isOrderedFrom(char* username);
 

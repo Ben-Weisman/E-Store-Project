@@ -4,146 +4,7 @@
 using namespace std;
 #pragma warning(disable:4996) 
 
-
-const char* Seller::getFirstName()const { return m_fname; }
-const char* Seller::getLastName()const { return m_lname; }
-const char* Seller::getUsername()const { return m_username; }
-const Address& Seller::getAddress()const { return m_address; }
-Product** Seller::getListedItems()const { return m_listed_items; }
-FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
-Order** Seller::getOrders()const { return m_orders; }
-const int Seller::getNumOfListedItems()const { return m_num_of_listed_items; }
-
-const Product* Seller::getProduct(char *to_find)const
-{
-	for (int i = 0; i < m_num_of_listed_items; i++)
-	{
-		if (strcmp(this->getListedItems()[i]->getName(), to_find) == 0)
-			return this->getListedItems()[i];
-	}
-	return nullptr;
-}
-
-bool Seller::setPassword(const char* password)
-{ 
-	if (strlen(password) == 0)
-		return false;
-	delete[]m_password;
-	m_password = strdup(password);
-	return true;
-}
-
-bool Seller::setFname(const char* fname)
-{
-	if (strlen(fname) == 0)
-		return false;
-	delete[]m_fname;
-	m_fname = strdup(fname);
-	return true;
-}
-
-bool Seller::setLname(const char* lname)
-{
-	if (strlen(lname) == 0)
-		return false;
-	delete[]m_lname;
-	m_lname = strdup(lname);
-	return true;
-}
-
-bool Seller::setUsername(char* username)
-{
-	if (strlen(username) == 0)
-		return false;
-	m_username = strdup(username);
-	return true;
-}
-
-bool Seller::setFeedBacks(FeedBack** feed)
-{
-	if (!feed)
-		return false;
-	m_feedback_arr = feed;
-	return true;
-}
-
-bool Seller::setOrders(Order** other)
-{
-	if (!other)
-		return false;
-	m_orders = other;
-	return true;
-}
-
-bool Seller::setListItems(Product** listed_items)
-{
-	if (!listed_items)
-		return false;
-	m_listed_items = listed_items;
-	return true;
-}
-
-void Seller::addToListItemsArr(Product *item_to_add)
-{
-	if (m_num_of_listed_items == m_listed_items_pSize)
-		ListedItemsArrRealloc();
-	m_listed_items[m_num_of_listed_items++] = item_to_add;
-}
-
-void Seller::addToFeedArr(FeedBack* feed_to_add)
-{
-	if (m_feedbacks_phy_size == m_num_of_feedbacks)
-		FeedbackArrRealloc();
-	m_feedback_arr[m_num_of_feedbacks++] = feed_to_add;
-}
-
-void Seller::addToOrdersArr(Order* order_request)
-{
-	if (m_num_of_orders == m_orders_pSize)
-		OrdersArrRealloc();
-	m_orders[m_num_of_orders++] = order_request;
-}
-
-void Seller::FeedbackArrRealloc()
-{
-	m_feedbacks_phy_size *= 2;
-	FeedBack** tmp = new FeedBack*[m_feedbacks_phy_size];
-
-	for (int i = 0; i < m_num_of_feedbacks; i++)
-		tmp[i] = m_feedback_arr[i];
-	delete m_feedback_arr;
-	m_feedback_arr = tmp;
-}
-
-void Seller::ListedItemsArrRealloc()
-{
-	this->m_feedbacks_phy_size *= 2;
-	Product** tmp = new Product * [m_feedbacks_phy_size];
-
-	for (int i = 0; i < m_num_of_listed_items; i++)
-		tmp[i] = m_listed_items[i];
-	delete m_listed_items;
-
-	m_listed_items = tmp;
-}
-
-void Seller::OrdersArrRealloc()
-{
-	this->m_orders_pSize *= 2;
-	Order** tmp = new Order * [m_orders_pSize];
-
-	for (int i = 0; i < m_num_of_orders; i++)
-		tmp[i] = m_orders[i];
-	delete m_orders;
-
-	m_orders = tmp;
-}
-
-void Seller::showSeller()
-{
-	cout << "Name: " << this->getFirstName() << " " << this->getLastName() <<
-		endl << "Username: " << this->getUsername() << endl << "Country: " << this->getAddress().getCountry() << endl;
-}
+ // ----------------- C'tor, Copy C'tor, D'tor -----------------
 
 Seller::Seller(char* username, char* password, char* fname, char* lname,
 	const Address& address) : m_address(address) // c'tor
@@ -189,7 +50,7 @@ Seller::~Seller() // d'tor
 
 }
 
-Seller::Seller(const Seller& s):m_address(s.m_address) 
+Seller::Seller(const Seller& s) :m_address(s.m_address) // copy c'tor
 {
 	setUsername(s.m_username);
 	setPassword(s.m_password);
@@ -209,3 +70,164 @@ Seller::Seller(const Seller& s):m_address(s.m_address)
 	setFeedBacks(s.m_feedback_arr);
 	setListItems(s.m_listed_items);
 }
+
+// --------------------------------------------------------------------
+
+// -------------------- Getters Methods --------------------
+
+const char* Seller::getFirstName()const { return m_fname; }
+const char* Seller::getLastName()const { return m_lname; }
+const char* Seller::getUsername()const { return m_username; }
+const Address& Seller::getAddress()const { return m_address; }
+Product** Seller::getListedItems()const { return m_listed_items; }
+FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
+Order** Seller::getOrders()const { return m_orders; }
+const int Seller::getNumOfListedItems()const { return m_num_of_listed_items; }
+
+const Product* Seller::getProduct(char* to_find)const
+{ // search for a given product in seller's listed items and return its pointer. 
+	for (int i = 0; i < m_num_of_listed_items; i++)
+	{
+		if (strcmp(this->getListedItems()[i]->getName(), to_find) == 0)
+			return this->getListedItems()[i];
+	}
+	return nullptr;
+}
+
+// ------------------------------------------------------------
+
+// ----------------- Setters Methods -----------------
+
+bool Seller::setPassword(const char* password)
+{ // set password for seller. Validation check - not an empty string.
+	if (strlen(password) == 0)
+		return false;
+	delete[]m_password;
+	m_password = strdup(password);
+	return true;
+}
+
+bool Seller::setFname(const char* fname)
+{ // set first name for seller. Validation check - not an empty string.
+	if (strlen(fname) == 0)
+		return false;
+	delete[]m_fname;
+	m_fname = strdup(fname);
+	return true;
+}
+
+bool Seller::setLname(const char* lname)
+{ // set last name for seller. Validation check - not an empty string.
+	if (strlen(lname) == 0)
+		return false;
+	delete[]m_lname;
+	m_lname = strdup(lname);
+	return true;
+}
+
+bool Seller::setUsername(char* username) // private - username cannot get changed after initialization 
+{  // set username for seller. Validation check - not an empty string.
+	if (strlen(username) == 0)
+		return false;
+	m_username = strdup(username);
+	return true;
+}
+
+bool Seller::setFeedBacks(FeedBack** feed) // private - Feedbacks cannot get changed after initialization
+{  // set feedbacks for seller. Validation check - pointer exists.
+
+	if (!feed)
+		return false;
+	m_feedback_arr = feed;
+	return true;
+}
+
+bool Seller::setOrders(Order** other) // private - Orders cannot get changed after initialization
+{  // set orders for seller. Validation check - pointer exists.
+	if (!other)
+		return false;
+	m_orders = other;
+	return true;
+}
+
+bool Seller::setListItems(Product** listed_items) // private - listed items cannot get changed after initialization
+{  // set listed items for seller. Validation check - pointer exists.
+	if (!listed_items)
+		return false;
+	m_listed_items = listed_items;
+	return true;
+}
+
+// -------------------------------------------------------------
+
+// ----------------- Seller's arrays maintenance methods -----------------
+
+void Seller::addToListItemsArr(Product *item_to_add)
+{ // Add to listed items using realloc method. 
+	if (m_num_of_listed_items == m_listed_items_pSize)
+		ListedItemsArrRealloc();
+	m_listed_items[m_num_of_listed_items++] = item_to_add;
+}
+
+void Seller::addToFeedArr(FeedBack* feed_to_add)
+{ // Add to feedback arr using realloc method. 
+	if (m_feedbacks_phy_size == m_num_of_feedbacks)
+		FeedbackArrRealloc();
+	m_feedback_arr[m_num_of_feedbacks++] = feed_to_add;
+}
+
+void Seller::addToOrdersArr(Order* order_request)
+{ // Add to orders arr using realloc method. 
+
+	if (m_num_of_orders == m_orders_pSize)
+		OrdersArrRealloc();
+	m_orders[m_num_of_orders++] = order_request;
+}
+
+void Seller::FeedbackArrRealloc()
+{ // Resize feedback arr using realloc logic. 
+
+	m_feedbacks_phy_size *= 2;
+	FeedBack** tmp = new FeedBack*[m_feedbacks_phy_size];
+
+	for (int i = 0; i < m_num_of_feedbacks; i++)
+		tmp[i] = m_feedback_arr[i];
+	delete m_feedback_arr;
+	m_feedback_arr = tmp;
+}
+
+void Seller::ListedItemsArrRealloc()
+{ // Resize listed items arr using realloc logic. 
+
+	this->m_feedbacks_phy_size *= 2;
+	Product** tmp = new Product * [m_feedbacks_phy_size];
+
+	for (int i = 0; i < m_num_of_listed_items; i++)
+		tmp[i] = m_listed_items[i];
+	delete m_listed_items;
+
+	m_listed_items = tmp;
+}
+
+void Seller::OrdersArrRealloc()
+{ // Resize orders arr using realloc logic. 
+	this->m_orders_pSize *= 2;
+	Order** tmp = new Order * [m_orders_pSize];
+
+	for (int i = 0; i < m_num_of_orders; i++)
+		tmp[i] = m_orders[i];
+	delete m_orders;
+
+	m_orders = tmp;
+}
+
+// -------------------- Print methods --------------------
+
+void Seller::showSeller()
+{
+	cout << "Name: " << this->getFirstName() << " " << this->getLastName() <<
+		endl << "Username: " << this->getUsername()
+		<< endl << "Country: " << this->getAddress().getCountry() << endl;
+}
+
+

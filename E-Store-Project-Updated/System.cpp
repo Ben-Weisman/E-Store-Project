@@ -298,7 +298,7 @@ bool System::payment(const char* buyer_username)
 	m_buyer_arr[buyer_index]->showOrderList();      // Ben do this function **** Nir - Please change it to showCheckoutOrders
 	int option;
 	do
-	{
+	{ 
 		cout << "Please Choose your option: ";
 		cin >> option;
 	} while (option<1 || option>m_buyer_arr[buyer_index]->getNumOfOrders()); // Ben do this function *****************************************************************
