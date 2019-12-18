@@ -13,7 +13,7 @@ int main()
 	while (exit_flag)
 	{
 		int i = 1;
-		cout << "Actions menu:\n";
+		cout << "----------------------------------------------------------Actions menu:----------------------------------------------------------\n";
 		cout << (i++) << ") Add buyer\n";
 		cout << (i++) << ") Add seller\n";
 		cout << (i++) << ") Add product\n";
@@ -28,6 +28,7 @@ int main()
 		cout << "Please enter your action: ";
 		int option;
 		cin >> option;
+		cin.ignore();
 
 		switch (option)
 		{
@@ -37,13 +38,13 @@ int main()
 		case 1://add buyer
 
 			if (!(system.addToBuyerArr(createBuyer())))
-				cout << "Username already exist, please try again";
+				cout << "Username already exist, please try again\n";
 			break;
 
 		case 2://add seller
 
 			if (!(system.addToSellerArr(createSeller())))
-				cout << "Username already exist, please try again";
+				cout << "Username already exist, please try again\n";
 			break;
 
 		case 3: //add product to seller
@@ -93,14 +94,20 @@ int main()
 			cin >> s_username;
 
 			system.newOrder(b_username);
+			break;
 		case 7:
-			//pay
+			//payment
+			//system.payment();
 		case 8:
 			system.printBuyers();
+			break;
 		case 9:
 			system.printSellers();
+			break;
 		case 10:
-			//show specific product
+
+			//system.printAllSpecificProduct();
+			break;
 		case 11:
 			exit_flag = false;
 			break;

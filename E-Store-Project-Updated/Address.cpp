@@ -8,14 +8,11 @@ using namespace std;
 
 Address::Address(char* country, char* city, char* street, int number) //c'tor
 {
+
 	setCountry(country);
-
 	setCity(city);
-
 	setStreet(street);
-
 	setHouseNumber(number);
-
 }
 Address::Address(const Address&a) //copy c'tor
 {
@@ -50,7 +47,8 @@ Address::~Address()// d'tor
 
 bool Address::setCountry(const char* country)
 {
-	//need to check empy string
+	m_country = nullptr;
+
 	int i = 0;
 	while ((country[i] != '\0') && (isLetter(country[i]) || country[i] == ' '))
 	{
@@ -67,6 +65,8 @@ bool Address::setCountry(const char* country)
 }
 bool Address::setCity(const char* city)
 {
+	m_city = nullptr;
+	
 	int i = 0;
 	while ((city[i] != '\0') && (isLetter(city[i]) || city[i] == ' '))
 	{
@@ -83,6 +83,7 @@ bool Address::setCity(const char* city)
 }
 bool Address::setStreet(const char* street)
 {
+	m_street = nullptr;
 	int i = 0;
 
 	while (street[i] != '\0' && (isNumber(street[i]) || isLetter(street[i]) || street[i] == ' '))

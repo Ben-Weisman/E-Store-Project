@@ -40,13 +40,13 @@ Seller::~Seller() // d'tor
 	delete[]m_username;
 	delete[]m_password;
 
-	for (int i = 0; i < m_num_of_feedbacks; ++i)
+	for (int i = 0; i < m_num_of_feedbacks; i++)
 		delete m_feedback_arr[i];
 
-	for (int i = 0; i < m_num_of_listed_items; ++i)
+	for (int i = 0; i < m_num_of_listed_items; i++)
 		delete m_listed_items[i];
 
-	for (int i = 0; i < m_num_of_orders; ++i)
+	for (int i = 0; i < m_num_of_orders; i++)
 		delete m_orders[i];
 
 }

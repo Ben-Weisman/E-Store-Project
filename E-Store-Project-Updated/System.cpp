@@ -109,7 +109,7 @@ int System::getNumOfBuyers()const
 
 const int System::isBuyerExist(const char* buyer_username)const
 {
-	for (int i = 0; i < m_num_of_buyers; ++i)
+	for (int i = 0; i < m_num_of_buyers; i++)
 	{
 		if (strcmp(m_buyer_arr[i]->getUsername(), buyer_username) == 0)
 			return i;
@@ -134,7 +134,7 @@ void System::buyersRealloc()
 
 bool System::addToBuyerArr(Buyer* new_buyer)
 {
-	if (isBuyerExist(new_buyer->getUsername()))
+	if (isBuyerExist(new_buyer->getUsername())!=NOT_EXIST)
 		return false; // username already exist
 
 	if (m_num_of_buyers == m_buyers_phy_size)
@@ -149,7 +149,7 @@ bool System::addToBuyerArr(Buyer* new_buyer)
 
 const int System::isSellerExist(const char* seller_username)const
 {
-	for (int i = 0; i < m_num_of_sellers; ++i)
+	for (int i = 0; i < m_num_of_sellers; i++)
 	{
 		if (strcmp(m_seller_arr[i]->getUsername(), seller_username) == 0)
 			return i;
@@ -175,7 +175,7 @@ void System::sellersRealloc()
 
 bool System::addToSellerArr(Seller* new_seller)
 {
-	if (isSellerExist(new_seller->getUsername()))
+	if (isSellerExist(new_seller->getUsername()) != NOT_EXIST)
 		return false; // username already exist
 
 	if (m_num_of_sellers == m_sellers_phy_size)
@@ -238,7 +238,7 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 			if (strcmp(m_seller_arr[j]->getListedItems()[k]->getName(), prod_name) == 0) // Mabye we can improve the comlexity
 			{
 				cout << counter++ << ") ";
-				m_seller_arr[j]->getListedItems()[k]->showProductToBuyer(); // Nir please add the func to Product *******************************************
+				m_seller_arr[j]->getListedItems()[k]->showProductToBuyer(); 
 				found = true;
 			}
 
@@ -257,7 +257,7 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 			cin.getline(chosen_seller_username, MAX_LEN);
 			cout << endl;
 
-		} while (chosen_seller_index = isSellerExist(chosen_seller_username) >= 0); // Until the user enter valid username - Nir Please change isExist func*****************************************8
+		} while (chosen_seller_index = isSellerExist(chosen_seller_username) >= 0); 
 
 		Product* prod_to_cart = new Product(*(m_seller_arr[chosen_seller_index]->findProduct(prod_name))); //using copy c'tor
 		m_buyer_arr[buyer_index]->addToCart(prod_to_cart);
@@ -321,7 +321,7 @@ bool System::payment(const char* buyer_username)
 void System::printBuyers()const
 {
 	int i;
-	for (i = 0; i < m_num_of_buyers; ++i)
+	for (i = 0; i < m_num_of_buyers; i++)
 	{
 		m_buyer_arr[i]->showBuyer();
 		cout << endl;
@@ -335,7 +335,7 @@ void System::printBuyers()const
 void System::printSellers()const
 {
 	int i;
-	for (i = 0; i < m_num_of_sellers; ++i)
+	for (i = 0; i < m_num_of_sellers; i++)
 	{
 		m_seller_arr[i]->showSeller();
 		cout << endl;
@@ -351,9 +351,9 @@ void System::printSellers()const
 void System::printAllSpecificProduct(const char* name_to_find)const
 {
 	int counter = 1;
-	for (int i = 0; i < m_num_of_sellers; ++i)
+	for (int i = 0; i < m_num_of_sellers; i++)
 	{
-		for (int j = 0; j < m_seller_arr[i]->getNumOfListedItems(); ++i)
+		for (int j = 0; j < m_seller_arr[i]->getNumOfListedItems(); i++)
 		{
 			if (strcmp(name_to_find, m_seller_arr[i]->getListedItems()[j]->getName()) == 0)
 			{
