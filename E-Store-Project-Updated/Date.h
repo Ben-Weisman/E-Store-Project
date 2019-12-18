@@ -13,17 +13,17 @@ public:
 	~Date() = default;
 
 public:
-	inline bool setDay(int day);
-	inline bool setMonth(int month);
-	inline bool setYear(int year);
+	 bool setDay(int day);
+	 bool setMonth(int month);
+	 bool setYear(int year);
 
 public:
-	inline int getDay()const;
-	inline int getMonth()const;
-	inline int getYear()const;
+	 int getDay()const;
+	 int getMonth()const;
+	 int getYear()const;
 
 public:
-	inline void showDate()const;
+	 void showDate()const;
 };
 
 #endif //!__Date_h

@@ -25,22 +25,22 @@ public:
 
 public:
 	bool setName(const char* name);
-	inline bool setPrice(int price);
+	 bool setPrice(int price);
 
 private:
-	inline bool setCategory(ecategory category); //we didn't give the option to change the category
+	 bool setCategory(ecategory category); //we didn't give the option to change the category
 	bool setSellerUsername(char* seller_username); //we didn't give the option to change the product seller's username
 
 public:
-	inline ecategory getCategory()const;
-	inline const char* getName()const;
-	inline int getPrice()const;
-	inline int getSerialNumber()const;
-	inline const char* getSellerUsername()const;
+	 ecategory getCategory()const;
+	 const char* getName()const;
+	int getPrice()const;
+	 int getSerialNumber()const;
+	 const char* getSellerUsername()const;
 
 
 public:
-	inline void showProduct()const;
-	inline void showProductToBuyer()const;
+	void showProduct()const;
+	void showProductToBuyer()const;
 };
 #endif // !__Product_h

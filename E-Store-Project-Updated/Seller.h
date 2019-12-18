@@ -44,14 +44,14 @@ public:
 	Seller(const Seller& s); //copy c'tor
 
 	// Getters
-	inline const char* getFirstName()const;
-	inline const char* getLastName()const;
-	inline const char* getUsername()const;
-	inline const Address& getAddress()const;
-	inline Product **getListedItems()const;
-	inline FeedBack** getFeedbacks()const;
-	inline Order** getOrders()const;
-	inline const int getNumOfListedItems()const;
+	 const char* getFirstName()const;
+	 const char* getLastName()const;
+	 const char* getUsername()const;
+	 const Address& getAddress()const;
+	 Product **getListedItems()const;
+	 FeedBack** getFeedbacks()const;
+	 Order** getOrders()const;
+	 const int getNumOfListedItems()const;
 
 
 public:

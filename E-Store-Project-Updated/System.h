@@ -3,8 +3,7 @@
 
 #include "Seller.h"
 #include "Buyer.h"
-#include "Product.h"
-#include "Order.h"
+//#include "Product.h"
 
 const int MAX_LEN = 20;
 const int NOT_EXIST = -1;
@@ -42,15 +41,15 @@ public:
 	bool setBuyersPhySize(int physize);
 
 public:
-	inline const char* getName()const;
+	 const char* getName()const;
 
-	inline Seller** getSellerArr()const;
-	inline int getSellersPhySize()const;
-	inline int getNumOfSellers()const;
+	 Seller** getSellerArr()const;
+	 int getSellersPhySize()const;
+	 int getNumOfSellers()const;
 
-	inline Buyer** getBuyerArr()const;
-	inline int getBuyersPhySize()const;
-	inline int getNumOfBuyers()const;
+	 Buyer** getBuyerArr()const;
+	 int getBuyersPhySize()const;
+	 int getNumOfBuyers()const;
 
 
 	/////////////////////////////////////////////////////////////menu functions/////////////////////////////////////////////////////////////

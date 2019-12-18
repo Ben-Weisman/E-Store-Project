@@ -1,4 +1,6 @@
 #include "Order.h"
+#include "Buyer.h"
+
 #include <iostream>
 using namespace std;
 

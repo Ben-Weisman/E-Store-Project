@@ -1,8 +1,9 @@
 #include "Product.h"
 #include "Utils.h"
-#include <string>
+#include <string.h>
 #include <iostream>
-#include "Seller.h"
+
+
 using namespace std;
 #pragma warning(disable:4996) 
 

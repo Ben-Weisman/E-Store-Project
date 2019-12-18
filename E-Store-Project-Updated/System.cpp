@@ -1,8 +1,9 @@
 #include "System.h"
+#include "Order.h"
 #include <string.h>
 #include <iostream>
-using namespace std;
 
+using namespace std;
 #pragma warning(disable:4996) 
 
 System::System(const char* name = "eBen") //Default name

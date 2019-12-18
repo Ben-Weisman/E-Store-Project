@@ -1,13 +1,7 @@
-
-
 #include "System.h"
-#include "Buyer.h"
 #include "Source.h"
-#include "Product.h"
 #include <iostream>
 using namespace std;
-
-//const int MAX_NAMES_LEN = 20;
 
 // We should move all this to Menu File 
 

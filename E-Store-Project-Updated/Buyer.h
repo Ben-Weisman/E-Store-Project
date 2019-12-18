@@ -33,15 +33,15 @@ public:
 	Buyer(const Buyer& b); // copy c'tor
 	~Buyer();
 
-	inline Product** getCart()const;
-	inline const int getNumberOfItems()const;
-	inline const char* getFirstName()const;
-	inline const char* getLastName()const;
-	inline const char* getUsername()const;
-	inline const Address getAddress()const;
-	inline Order** getOrders()const;
-	inline const int getNumOfItems()const;
-	inline const int getNumOfOrders()const;
+	 Product** getCart()const;
+	 const int getNumberOfItems()const;
+	 const char* getFirstName()const;
+	 const char* getLastName()const;
+	 const char* getUsername()const;
+	 const Address getAddress()const;
+	 Order** getOrders()const;
+	 const int getNumOfItems()const;
+	 const int getNumOfOrders()const;
 
 public:
 

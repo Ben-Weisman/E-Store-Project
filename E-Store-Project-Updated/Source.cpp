@@ -1,5 +1,6 @@
 #include "Source.h"
 #include <iostream>
+
 using namespace std;
 
 
@@ -89,7 +90,7 @@ Product* createProduct(char* seller_username)
 
 	cleanBuffer();
 	char name[MAX_NAMES_LEN];
-	cout << "Name: ";
+	cout << "Name of the product: ";
 	cin.getline(name, MAX_NAMES_LEN);
 
 	int price;

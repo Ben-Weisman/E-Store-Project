@@ -1,8 +1,9 @@
 #include "FeedBack.h"
 #include <iostream>
-#pragma warning(disable:4996) 
 
 using namespace std;
+#pragma warning(disable:4996) 
+
 
 // --------------------- C'tor, Copy C'tor, D'tor, Move C'tor ---------------------
 
@@ -55,9 +56,9 @@ bool FeedBack::setFeedbackProvider(const char* provider_username)
 // -----------------------------------------------------------
 
 // --------------------- Getters Methods ---------------------
-inline const char* FeedBack::getFeedbackEvaluation()const { return m_feedback_evaluation; }
-inline const Date FeedBack::getFeedbackDate()const { return m_date; }
-inline const char* FeedBack::getProviderUsername()const { return m_provider_username; }
+const char* FeedBack::getFeedbackEvaluation()const { return m_feedback_evaluation; }
+const Date FeedBack::getFeedbackDate()const { return m_date; }
+const char* FeedBack::getProviderUsername()const { return m_provider_username; }
 
 // ---------------------------------------------------------------
 

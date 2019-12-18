@@ -2,7 +2,8 @@
 #include "Seller.h"
 #include "Order.h"
 #include <iostream>
-#include <string>
+#include <string.h>
+
 #pragma warning(disable:4996) 
 using namespace std;
 
@@ -62,13 +63,13 @@ Buyer::~Buyer() // d'tor
 
 //-------------------- Getters methods --------------------
 
-inline const int Buyer::getNumberOfItems()const { return m_number_of_items; }
+const int Buyer::getNumberOfItems()const { return m_number_of_items; }
 const char* Buyer::getFirstName()const { return m_fname; }
 const char* Buyer::getLastName()const { return m_lname; }
 const char* Buyer::getUsername()const { return m_username; }
 Product** Buyer::getCart()const { return m_cart; }
 const Address Buyer::getAddress()const { return m_address; }
-inline Order** Buyer::getOrders()const { return m_checkout_orders; }
+Order** Buyer::getOrders()const { return m_checkout_orders; }
 const int Buyer::getNumOfItems()const { return m_number_of_items; }
 const int Buyer::getNumOfOrders()const { return m_num_checkout_orders; }
 

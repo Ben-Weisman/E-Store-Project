@@ -18,14 +18,14 @@ public:
 	bool setCountry(const char* country);
 	bool setCity(const char* city);
 	bool setStreet(const char* street);
-	inline bool setHouseNumber(const int number);
+	 bool setHouseNumber(const int number);
 public:
-	inline const char* getCountry()const;
-	inline const char* getCity()const;
-	inline const char* getStreet()const;
-	inline int getHouseNumber()const;
+	 const char* getCountry()const;
+	 const char* getCity()const;
+	 const char* getStreet()const;
+	 int getHouseNumber()const;
 public:
-	inline void showAddress()const;
+	 void showAddress()const;
 
 };
 #endif // !__Address_h
