@@ -8,7 +8,7 @@ using namespace std;
 
 Address::Address(char* country, char* city, char* street, int number) //c'tor
 {
-
+	cout << "\n########################################### IN ADDRESS C'TOR ###########################################\n";
 	setCountry(country);
 	setCity(city);
 	setStreet(street);
@@ -16,6 +16,7 @@ Address::Address(char* country, char* city, char* street, int number) //c'tor
 }
 Address::Address(const Address&a) //copy c'tor
 {
+	cout << "\n########################################### IN ADDRESS COPY ###########################################\n";
 	setCountry(a.m_country);
 
 	setCity(a.m_city);
@@ -27,6 +28,7 @@ Address::Address(const Address&a) //copy c'tor
 }
 Address::Address(Address&&a) //move c'tor
 {
+	cout << "\n########################################### IN ADDRESS MOVE ###########################################\n";
 	m_country = a.m_country;
 	m_city = a.m_city;
 	m_street = a.m_street;
@@ -38,6 +40,7 @@ Address::Address(Address&&a) //move c'tor
 }
 Address::~Address()// d'tor
 {
+	cout << "\n########################################### IN ADDRESS D'TOR ###########################################\n";
 	delete[]m_country;
 	delete[]m_city;
 	delete[]m_street;

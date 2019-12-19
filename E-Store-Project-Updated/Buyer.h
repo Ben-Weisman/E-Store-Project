@@ -38,7 +38,7 @@ public:
 	 const char* getFirstName()const;
 	 const char* getLastName()const;
 	 const char* getUsername()const;
-	 const Address getAddress()const;
+	 const Address& getAddress()const;
 	 Order** getOrders()const;
 	 const int getNumOfItems()const;
 	 const int getNumOfOrders()const;

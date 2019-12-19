@@ -20,6 +20,7 @@ System::System(const char* name = "eBen") //Default name
 }
 System::~System()// d'tor
 {
+	cout << "\n########################################### IN SYSTEM D'TOR ###########################################\n";
 	delete[] m_name; //free name
 
 	// free buyers arr: 

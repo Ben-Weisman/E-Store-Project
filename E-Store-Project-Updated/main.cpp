@@ -13,7 +13,7 @@ int main()
 	while (exit_flag)
 	{
 		int i = 1;
-		cout << "----------------------------------------------------------Actions menu:----------------------------------------------------------\n";
+		cout << "\n----------------------------------------------------------Actions menu:----------------------------------------------------------\n";
 		cout << (i++) << ") Add buyer\n";
 		cout << (i++) << ") Add seller\n";
 		cout << (i++) << ") Add product\n";
@@ -34,6 +34,7 @@ int main()
 		{
 			char b_username[MAX_NAMES_LEN];
 			char s_username[MAX_NAMES_LEN];
+			char prod_name[MAX_NAMES_LEN];
 
 		case 1://add buyer
 
@@ -73,20 +74,18 @@ int main()
 
 			break;
 
-		case 5:
-
+		case 5: //add tp cart
 			cout << "\nEnter the username of the buyer: ";
 			cin >> b_username;
 
-			char prod_name[MAX_NAMES_LEN];
+			
 			cout << "\nEnter the product name: ";
 			cin >> prod_name;
 
 			system.addProductToBuyersCart(prod_name, b_username);
 			break;
 
-		case 6:
-			//order
+		case 6:	//order
 			cout << "Enter the username of the buyer:";
 			cin >> b_username;
 
@@ -95,20 +94,30 @@ int main()
 
 			system.newOrder(b_username);
 			break;
-		case 7:
-			//payment
-			//system.payment();
-		case 8:
-			system.printBuyers();
-			break;
-		case 9:
-			system.printSellers();
-			break;
-		case 10:
+		case 7:	//payment
+			cout << "Enter the username of the buyer:";
+			cin >> b_username;
 
-			//system.printAllSpecificProduct();
+			system.payment(b_username);
+
+			break;
+		case 8: //print all buyers
+			system.printBuyers();
+
+			break;
+		case 9://print all sellers
+			system.printSellers();
+
+			break;
+		case 10: // print all products from specific name  
+			cout << "\nEnter the product name: ";
+			cin >> prod_name;
+
+			system.printAllSpecificProduct(prod_name);
+
 			break;
 		case 11:
+			cout << "\Thanks for using "<<system.getName()<<", Bye Bye (:";
 			exit_flag = false;
 			break;
 		default:
