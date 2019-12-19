@@ -68,7 +68,7 @@ int main()
 			FeedBack* f;
 			if (system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username)) == false)
 			{
-				cout << "No such seller or buyer username.";
+				cout << "Invalid action, " << b_username << "didn't buy from " << s_username << endl;
 				delete[]f; //Should we free the feedback? *****************************************************************************************
 			}
 

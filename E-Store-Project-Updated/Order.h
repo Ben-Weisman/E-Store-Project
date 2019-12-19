@@ -10,7 +10,7 @@ class Order
 	Product** m_products_arr;
 	int m_products_phy_size;
 	int m_num_of_products;
-	int m_total_price;
+	double m_total_price;
 	Buyer* const m_buyer;  // Can't change them pointing
 	bool m_paid; // indication - the order already paid or not
 
@@ -22,14 +22,14 @@ public:
 	~Order();
 
 public:
-	 bool setTotalPrice(int total_price);
+	 bool setTotalPrice(double total_price);
 	 bool setPaid(bool paid);
 private:
 	 bool setProductsPhySize(int phy_size);
 	 bool setNumOfProducts(int num_of_prod);
 
 public:
-	 int getTotalPrice()const;
+	double getTotalPrice()const;
 	 int getProductsPhySize()const;
 	int getNumOfProducts()const;
 	 Buyer* const  getBuyer()const;

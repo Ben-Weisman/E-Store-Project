@@ -13,19 +13,19 @@ private:
 private:
 	ecategory m_category;
 	char* m_name;
-	int m_price;
+	double m_price;
 	int m_serial_number;
 	char* m_seller_username;
 
 public:
-	Product(ecategory category, char* name, int price, char* seller_username); //c'tor
+	Product(ecategory category, char* name, double price, char* seller_username); //c'tor
 	~Product(); //d'tor
 	Product(const Product&p); //copy c'tor
 	Product(Product&&p); //move c'tor
 
 public:
 	bool setName(const char* name);
-	 bool setPrice(int price);
+	 bool setPrice(double price);
 
 private:
 	 bool setCategory(ecategory category); //we didn't give the option to change the category
@@ -34,7 +34,7 @@ private:
 public:
 	 ecategory getCategory()const;
 	 const char* getName()const;
-	int getPrice()const;
+	 double getPrice()const;
 	 int getSerialNumber()const;
 	 const char* getSellerUsername()const;
 

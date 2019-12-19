@@ -354,7 +354,8 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 	int counter = 1;
 	for (int i = 0; i < m_num_of_sellers; i++)
 	{
-		for (int j = 0; j < m_seller_arr[i]->getNumOfListedItems(); i++)
+		int num_of_prod = m_seller_arr[i]->getNumOfListedItems();
+		for (int j = 0; j < num_of_prod; j++)
 		{
 			if (strcmp(name_to_find, m_seller_arr[i]->getListedItems()[j]->getName()) == 0)
 			{

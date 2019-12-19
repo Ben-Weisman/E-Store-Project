@@ -90,18 +90,17 @@ Product* createProduct(char* seller_username)
 	cout << "Name of the product: ";
 	cin.getline(name, MAX_NAMES_LEN);
 
-	int price;
+	double price;
 	cout << "Price: ";
 	cin >> price;
 	cin.ignore();
 
-	return new Product(category, name, price, seller_username); //Ben we need to check that here the function overloading works (because i didnt sent pointer to seler)
+	return new Product(category, name, price, seller_username); 
 }
 
 
 Date createDate()
 {
-	cin.ignore();
 	int day, month, year;
 	cin >> day;
 	cout << "/";
@@ -109,16 +108,16 @@ Date createDate()
 	cout << "/";
 	cin >> year;
 	cout << endl;
+	cin.ignore();
 
 	return Date(day, month, year);
 }
 
 FeedBack* createFeedback(const char* b_username)
 {
-	cin.ignore();
 	char feedback[MAX_NAMES_LEN];
 	cout << "Please write your feedback:\n ";
-	cin.getline(feedback, MAX_FEEDBACK_LEN); // Do we want do seek for an option to write free text (with few lines? LUXURY)
+	cin.getline(feedback, MAX_FEEDBACK_LEN); 
 
 	return new FeedBack(feedback, b_username, createDate());
 }
