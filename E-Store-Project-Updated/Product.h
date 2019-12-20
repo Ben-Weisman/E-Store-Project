@@ -32,11 +32,11 @@ private:
 	bool setSellerUsername(char* seller_username); //we didn't give the option to change the product seller's username
 
 public:
-	 ecategory getCategory()const;
-	 const char* getName()const;
-	 double getPrice()const;
-	 int getSerialNumber()const;
-	 const char* getSellerUsername()const;
+	inline ecategory getCategory()const { return m_category; }
+	inline const char* getName()const{ return m_name; }
+	inline double getPrice()const{ return m_price; }
+	inline int getSerialNumber()const{ return m_serial_number; }
+	inline const char* getSellerUsername()const{ return m_seller_username; }
 
 
 public:

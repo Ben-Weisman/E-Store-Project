@@ -1,5 +1,7 @@
 #ifndef __Address_h
 #define __Address_h
+#include <iostream>
+using namespace std;
 
 class Address
 {
@@ -20,12 +22,12 @@ public:
 	bool setStreet(const char* street);
 	 bool setHouseNumber(const int number);
 public:
-	 const char* getCountry()const;
-	 const char* getCity()const;
-	 const char* getStreet()const;
-	 int getHouseNumber()const;
+	inline const char* getCountry()const { return m_country; }
+	inline const char* getCity()const { return m_city; }
+	inline const char* getStreet()const{ return m_street;}
+	inline int getHouseNumber()const { return m_house_number; }
 public:
-	 void showAddress()const;
+	inline void showAddress()const {cout << m_country << ", " << m_city << ", " << m_house_number << " " << m_street << " st" << endl;}
 
 };
 #endif // !__Address_h

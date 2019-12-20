@@ -2,7 +2,6 @@
 #include "Seller.h"
 #include "Order.h"
 #include <iostream>
-#include <string.h>
 
 #pragma warning(disable:4996) 
 using namespace std;
@@ -11,6 +10,8 @@ using namespace std;
 Buyer::Buyer(char* userName, char* password, char* fname,
 	char* lname, const Address& address) :m_address(address) // c'tor
 {
+	cout << "\n########################################### IN BUYER C'TOR ###########################################\n";
+
 	setUsername(userName);
 	setPassword(password);
 	setFname(fname);
@@ -31,6 +32,8 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 {
+	cout << "\n########################################### IN BUYER COPY ###########################################\n";
+
 	setUsername(b.m_username);
 	setPassword(b.m_password);
 	setFname(b.m_fname);
@@ -46,6 +49,8 @@ Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 
 Buyer::~Buyer() // d'tor
 {
+	cout << "\n########################################### IN BUYER D'TOR ###########################################\n";
+
 	int i;
 	delete[]m_fname;
 	delete[]m_lname;
@@ -59,21 +64,6 @@ Buyer::~Buyer() // d'tor
 		delete m_checkout_orders[i];
 }
 
-// ------------------------------------------------------------
-
-//-------------------- Getters methods --------------------
-
-const int Buyer::getNumberOfItems()const { return m_number_of_items; }
-const char* Buyer::getFirstName()const { return m_fname; }
-const char* Buyer::getLastName()const { return m_lname; }
-const char* Buyer::getUsername()const { return m_username; }
-Product** Buyer::getCart()const { return m_cart; }
-const Address& Buyer::getAddress()const { return m_address; }
-Order** Buyer::getOrders()const { return m_checkout_orders; }
-const int Buyer::getNumOfItems()const { return m_number_of_items; }
-const int Buyer::getNumOfOrders()const { return m_num_checkout_orders; }
-
-// ------------------------------------------------------------
 
 //----------------------- Setters Methods -----------------------
 
@@ -129,7 +119,6 @@ bool Buyer::setOrder(Order** order)
 
 }
 
-//---------------------------------------------------------------------
 
 // ----------------------- Buyer's arrays maintenance methods. ----------------------- 
 
@@ -193,9 +182,8 @@ void Buyer::checkoutRealloc()
 	m_checkout_orders = tmp;
 }
 
-// ---------------------------------------------------------------------
 
-// ----------------------- Print methods. -----------------------
+// ----------------------- Printing methods. -----------------------
 
 void Buyer::showCart()const
 { // Print buyer's cart.

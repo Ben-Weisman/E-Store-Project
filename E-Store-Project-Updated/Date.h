@@ -1,5 +1,7 @@
 #ifndef __Date_h
 #define __Date_h
+#include <iostream>
+using namespace std;
 
 class Date
 {
@@ -18,12 +20,12 @@ public:
 	 bool setYear(int year);
 
 public:
-	 int getDay()const;
-	 int getMonth()const;
-	 int getYear()const;
+	inline int getDay()const { return m_day; }
+	inline int getMonth()const { return m_month; }
+	inline int getYear()const { return m_year; }
 
 public:
-	 void showDate()const;
+	inline void showDate()const { cout << m_day << "/" << m_month << "/" << m_year << endl; }
 };
 
 #endif //!__Date_h

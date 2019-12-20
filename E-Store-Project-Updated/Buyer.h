@@ -33,15 +33,17 @@ public:
 	Buyer(const Buyer& b); // copy c'tor
 	~Buyer();
 
-	 Product** getCart()const;
-	 const int getNumberOfItems()const;
-	 const char* getFirstName()const;
-	 const char* getLastName()const;
-	 const char* getUsername()const;
-	 const Address& getAddress()const;
-	 Order** getOrders()const;
-	 const int getNumOfItems()const;
-	 const int getNumOfOrders()const;
+public:
+
+	inline const int getNumberOfItems()const { return m_number_of_items; }
+	inline const char* getFirstName()const { return m_fname; }
+	inline const char* getLastName()const { return m_lname; }
+	inline const char* getUsername()const { return m_username; }
+	inline Product** getCart()const { return m_cart; }
+	inline const Address& getAddress()const { return m_address; }
+	inline Order** getOrders()const { return m_checkout_orders; }
+	inline const int getNumOfItems()const { return m_number_of_items; }
+	inline const int getNumOfOrders()const { return m_num_checkout_orders; }
 
 public:
 
@@ -50,23 +52,20 @@ public:
 	bool setLname(const char* lname);
 	bool setOrder(Order** order);
 
+public:
+
 	void addToCart(Product* item_to_add);
 	void addToCheckout(Order* checkout_order);
-
 	void removeFromCart(Product* item_to_remove);
-
 	void cartRealloc();
 	void checkoutRealloc();
+	bool isOrderedFrom(const char* username)const;
+
+public:
 
 	void showCart()const;
 	void showBuyer()const;
 	void showCheckoutOrders()const;
-
-
-	bool isOrderedFrom(const char* username)const; //Nir:
-	//added 2 consts: 1) because the func do not change the object
-	//added 2 consts: 1) because we don't want anyoneto change the username that we searching for
-
 
 };
 

@@ -21,9 +21,11 @@ public:
 	FeedBack(const FeedBack& f); //copy c'tor
 	FeedBack(FeedBack&& f); // move c'tor
 
-	 const char* getFeedbackEvaluation()const;
-	 const Date getFeedbackDate()const;
-	 const char* getProviderUsername()const;
+public: 
+
+	inline const char* getFeedbackEvaluation()const { return m_feedback_evaluation; }
+	inline const Date& getFeedbackDate()const { return m_date; }
+	inline const char* getProviderUsername()const { return m_provider_username; }
 
 	void showFeedback()const;
 
