@@ -16,7 +16,7 @@ int Product::COUNTER = 100000; // First serial number value
 
 Product::Product(ecategory category, char* name, double price, char* seller_username) :m_serial_number(++COUNTER) //c'tor
 {
-	cout << "\n########################################### IN PRODUCT C'TOR ###########################################\n";
+	cout << "\n########################################### IN PRODUCT C'TOR ###########################################"<< endl;
 
 	setCategory(category);
 	setName(name);
@@ -26,7 +26,7 @@ Product::Product(ecategory category, char* name, double price, char* seller_user
 
 Product::~Product() //d'tor
 {
-	cout << "\n########################################### IN PRODUCT D'TOR ###########################################\n";
+	cout << "\n########################################### IN PRODUCT D'TOR ###########################################"<< endl;
 
 	delete[]m_name;
 	delete[]m_seller_username;
@@ -34,7 +34,7 @@ Product::~Product() //d'tor
 
 Product::Product(const Product&p) :m_serial_number(p.m_serial_number) //copy c'tor
 {
-	cout << "\n########################################### IN PRODUCT COPY ###########################################\n";
+	cout << "\n########################################### IN PRODUCT COPY ###########################################"<< endl;
 
 	setCategory(p.m_category);
 
@@ -47,7 +47,7 @@ Product::Product(const Product&p) :m_serial_number(p.m_serial_number) //copy c't
 
 Product::Product(Product&&p) : m_serial_number(std::move(p.m_serial_number)) //move c'tor
 {
-	cout << "\n########################################### IN PRODUCR MOVE ###########################################\n";
+	cout << "\n########################################### IN PRODUCR MOVE ###########################################"<< endl;
 
 	m_category = p.m_category;
 	m_name = m_name;

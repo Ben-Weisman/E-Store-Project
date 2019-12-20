@@ -10,7 +10,7 @@ using namespace std;
 
 System::System(const char* name = "eBen") //Default name
 {
-	cout << "\n########################################### IN SYSTEM C'TOR ###########################################\n";
+	cout << "\n########################################### IN SYSTEM C'TOR ###########################################"<< endl;
 
 	setName(name);
 
@@ -24,7 +24,7 @@ System::System(const char* name = "eBen") //Default name
 }
 System::~System()// d'tor
 {
-	cout << "\n########################################### IN SYSTEM D'TOR ###########################################\n";
+	cout << "\n########################################### IN SYSTEM D'TOR ###########################################"<< endl;
 	delete[] m_name; //free name
 
 	// free buyers arr: 
@@ -224,7 +224,7 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 		{
 
 			if ((count++) > 0)     // Not the first try  
-				cout << "No such seller's username.\n";
+				cout << "No such seller's username."<< endl;
 
 			cout << "please enter one of the seller's username: ";
 			cin.ignore();
@@ -256,7 +256,7 @@ bool System::newOrder(const char* buyer_username)
 	{ // The user check from list until he deciede to exit 
 		m_buyer_arr[buyer_index]->showCart();
 
-		cout << "\nPlease Choose product:\n Enter -1 to exit from order.\n";
+		cout << "\nPlease Choose product:\n Enter -1 to exit from order."<< endl;
 		cin >> option;
 		cin.ignore();
 
@@ -305,7 +305,7 @@ void System::printBuyers()const
 		cout << endl;
 	}
 	if (i == 0)
-		cout << "No Buyers in the system\n";
+		cout << "No Buyers in the system"<< endl;
 }
 
 /*****************************************************************  9  *****************************************************/
@@ -319,7 +319,7 @@ void System::printSellers()const
 		cout << endl;
 	}
 	if (i == 0)
-		cout << "No Sellers in the system\n";
+		cout << "No Sellers in the system"<< endl;
 
 }
 
@@ -343,5 +343,5 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 		}
 	}
 	if (!counter) 
-		cout << "No such product in the system\n";
+		cout << "No such product in the system"<< endl;
 }

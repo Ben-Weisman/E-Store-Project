@@ -10,7 +10,7 @@ using namespace std;
 Buyer::Buyer(char* userName, char* password, char* fname,
 	char* lname, const Address& address) :m_address(address) // c'tor
 {
-	cout << "\n########################################### IN BUYER C'TOR ###########################################\n";
+	cout << "\n########################################### IN BUYER C'TOR ###########################################"<< endl;
 
 	setUsername(userName);
 	setPassword(password);
@@ -32,7 +32,7 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 {
-	cout << "\n########################################### IN BUYER COPY ###########################################\n";
+	cout << "\n########################################### IN BUYER COPY ###########################################"<< endl;
 
 	setUsername(b.m_username);
 	setPassword(b.m_password);
@@ -49,7 +49,7 @@ Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 
 Buyer::~Buyer() // d'tor
 {
-	cout << "\n########################################### IN BUYER D'TOR ###########################################\n";
+	cout << "\n########################################### IN BUYER D'TOR ###########################################"<< endl;
 
 	int i;
 	delete[]m_fname;
@@ -190,7 +190,7 @@ void Buyer::showCart()const
 
 	if (m_number_of_items == 0)
 		cout << "\n\nNo products to show, your cart is currently empty.\n" <<
-		"Please go to your checkout cart to continue with your order\n\n";
+		"Please go to your checkout cart to continue with your order\n"<< endl;
 	else{
 		cout << "All products are in #/Name/Price/Seller format" << endl;
 	

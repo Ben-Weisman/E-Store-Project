@@ -10,7 +10,7 @@ using namespace std;
 Seller::Seller(char* username, char* password, char* fname, char* lname,
 	const Address& address) : m_address(address) // c'tor
 {
-	cout << "\n########################################### IN SELLER C'TOR ###########################################\n";
+	cout << "\n########################################### IN SELLER C'TOR ###########################################"<< endl;
 
 	setUsername(username);
 	setPassword(password);
@@ -37,7 +37,7 @@ Seller::Seller(char* username, char* password, char* fname, char* lname,
 
 Seller::~Seller() // d'tor
 {
-	cout << "\n########################################### IN SELLER D'TOR ###########################################\n";
+	cout << "\n########################################### IN SELLER D'TOR ###########################################"<< endl;
 
 	delete[]m_fname;
 	delete[]m_lname;
@@ -57,7 +57,7 @@ Seller::~Seller() // d'tor
 
 Seller::Seller(const Seller& s) :m_address(s.m_address) // copy c'tor
 {
-	cout << "\n########################################### IN SELLER COPY ###########################################\n";
+	cout << "\n########################################### IN SELLER COPY ###########################################"<< endl;
 
 	setUsername(s.m_username);
 	setPassword(s.m_password);

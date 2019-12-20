@@ -80,7 +80,7 @@ Product* createProduct(char* seller_username)
 {
 	Product::ecategory category;
 	int temp;
-	cout << "\nCategory:\n1)Kids\n2)Electricity\n3)Office\n4)Clothing\n";
+	cout << "\nCategory:\n1)Kids\n2)Electricity\n3)Office\n4)Clothing"<< endl;
 	cin >> temp;
 	cin.ignore();
 	category = (Product::ecategory)(temp - 1);
@@ -117,8 +117,7 @@ FeedBack* createFeedback(const char* b_username)
 {
 	
 	char feedback[MAX_FEEDBACK_LEN];
-	cout << "Please write your feedback:                          ";
-	cin.ignore(2, '\n');
+	cout << "Please write your feedback: ";
 
 	cin.getline(feedback, MAX_FEEDBACK_LEN);
 

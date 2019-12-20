@@ -15,18 +15,18 @@ int main()
 	while (exit_flag)
 	{
 		int i = 1;
-		cout << "\n----------------------------------------------------------Actions menu:----------------------------------------------------------\n";
-		cout << (i++) << ") Add buyer\n";
-		cout << (i++) << ") Add seller\n";
-		cout << (i++) << ") Add product to seller\n";
-		cout << (i++) << ") Add feedback\n";
-		cout << (i++) << ") Add to cart\n";
-		cout << (i++) << ") Order products\n";
-		cout << (i++) << ") Payment\n";
-		cout << (i++) << ") Show all buyers\n";
-		cout << (i++) << ") Show all sellers\n";
-		cout << (i++) << ") Show all products with you chosen name\n";
-		cout << (i++) << ") Exit\n\n";
+		cout << "\n----------------------------------------------------------Actions menu:----------------------------------------------------------"<< endl;
+		cout << (i++) << ") Add buyer"<< endl;
+		cout << (i++) << ") Add seller"<< endl;
+		cout << (i++) << ") Add product to seller"<< endl;
+		cout << (i++) << ") Add feedback" << endl;
+		cout << (i++) << ") Add to cart"<< endl;
+		cout << (i++) << ") Order products"<< endl;
+		cout << (i++) << ") Payment"<< endl;
+		cout << (i++) << ") Show all buyers"<< endl;
+		cout << (i++) << ") Show all sellers"<< endl;
+		cout << (i++) << ") Show all products with you chosen name"<< endl;
+		cout << (i++) << ") Exit" << endl << endl;
 		cout << "Please enter your action: ";
 		int option;
 		cin >> option;
@@ -41,13 +41,13 @@ int main()
 		case 1://add buyer
 
 			if (!(system.addToBuyerArr(createBuyer())))
-				cout << "Username already exist, please try again\n";
+				cout << "Username already exist, please try again"<< endl;
 			break;
 		
 		case 2://add seller
 
 			if (!(system.addToSellerArr(createSeller())))
-				cout << "Username already exist, please try again\n";
+				cout << "Username already exist, please try again"<< endl;
 			break;
 		
 		case 3: //add product to seller
@@ -79,7 +79,7 @@ int main()
 
 			break;
 
-		case 5: //add tp cart
+		case 5: //add to cart
 			cout << "\nEnter the username of the buyer: ";
 			cin.getline(b_username,MAX_NAMES_LEN);
 
@@ -94,9 +94,6 @@ int main()
 		case 6:	//order
 			cout << "Enter the username of the buyer:";
 			cin.getline(b_username,MAX_NAMES_LEN);
-
-			cout << "Enter the username of the seller:";
-			cin.getline(s_username,MAX_NAMES_LEN);
 
 			system.newOrder(b_username);
 
@@ -131,7 +128,7 @@ int main()
 			exit_flag = false;
 			break;
 		default:
-			cout << "Ops... No such action\n\n";
+			cout << "Ops... No such action\n"<< endl;
 			break;
 		}
 
