@@ -16,7 +16,7 @@ int main()
 		cout << "\n----------------------------------------------------------Actions menu:----------------------------------------------------------\n";
 		cout << (i++) << ") Add buyer\n";
 		cout << (i++) << ") Add seller\n";
-		cout << (i++) << ") Add product\n";
+		cout << (i++) << ") Add product to seller\n";
 		cout << (i++) << ") Add feedback\n";
 		cout << (i++) << ") Add to cart\n";
 		cout << (i++) << ") Order products\n";
@@ -29,25 +29,25 @@ int main()
 		int option;
 		cin >> option;
 		cin.ignore();
-
+			
 		switch (option)
 		{
 			char b_username[MAX_NAMES_LEN];
 			char s_username[MAX_NAMES_LEN];
 			char prod_name[MAX_NAMES_LEN];
-
+		
 		case 1://add buyer
 
 			if (!(system.addToBuyerArr(createBuyer())))
 				cout << "Username already exist, please try again\n";
 			break;
-
+		
 		case 2://add seller
 
 			if (!(system.addToSellerArr(createSeller())))
 				cout << "Username already exist, please try again\n";
 			break;
-
+		
 		case 3: //add product to seller
 			cout << "Enter the username of the seller: ";
 			cin >> s_username;
@@ -55,21 +55,21 @@ int main()
 			if (system.addProductToSeller(p = createProduct(s_username), s_username) == false)
 			{
 				cout << "No such seller username.";
-				delete[]p; //Should we free the prod? *****************************************************************************************
+				delete p; //Should we free the prod? *****************************************************************************************
 			}
 			break;
-
+		
 		case 4: //add feedback to seller 
 			cout << "Enter buyer's username: ";
 			cin >> b_username;
-
+			
 			cout << "Enter seller's username: ";
 			cin >> s_username;
 			FeedBack* f;
 			if (system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username)) == false)
 			{
 				cout << "Invalid action, " << b_username << "didn't buy from " << s_username << endl;
-				delete[]f; //Should we free the feedback? *****************************************************************************************
+				delete f; //Should we free the feedback? *****************************************************************************************
 			}
 
 			break;

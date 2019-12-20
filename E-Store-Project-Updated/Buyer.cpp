@@ -199,11 +199,17 @@ void Buyer::checkoutRealloc()
 
 void Buyer::showCart()const
 { // Print buyer's cart.
-	cout << "All products are in #/Name/Price/Seller format" << endl;
 
-	for (int i = 0; i < m_number_of_items; i++)
-		cout << i + 1 << ") " << m_cart[i]->getName() << "\t" << m_cart[i]->getPrice() <<
-		"$\t" << m_cart[i]->getSellerUsername() << endl;
+	if (m_number_of_items == 0)
+		cout << "\n\nNo products to show, your cart is currently empty.\n" <<
+		"Please go to your checkout cart to continue with your order\n\n";
+	else{
+		cout << "All products are in #/Name/Price/Seller format" << endl;
+	
+		for (int i = 0; i < m_number_of_items; i++)
+			cout << i + 1 << ") " << this->m_cart[i]->getName() << "\t" << this->m_cart[i]->getPrice() <<
+			"$\t" << this->m_cart[i]->getSellerUsername() << endl;
+	}
 }
 
 void Buyer::showBuyer()const

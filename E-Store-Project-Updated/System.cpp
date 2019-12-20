@@ -226,8 +226,8 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 
 bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_username)
 {
-	int buyer_index;
-	if (buyer_index = isSellerExist(buyer_username) >= 0)//check that work *********************************************************************
+	int buyer_index = isBuyerExist(buyer_username);
+	if (buyer_index == NOT_EXIST)//check that work *********************************************************************
 		return false;
 
 	int counter = 1;
@@ -251,14 +251,15 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 		do
 		{
 
-			if ((count++) > 0)     // Not the first try  
+			if ((count++) > 1)     // Not the first try  
 				cout << "No such seller's username.\n";
 
-			cout << "please enter one of the seller's username: ";
+			cout << "Please enter the desired Seller you want to buy from: ";
+			cin.ignore();
 			cin.getline(chosen_seller_username, MAX_LEN);
 			cout << endl;
 
-		} while (chosen_seller_index = isSellerExist(chosen_seller_username) >= 0); 
+		} while (chosen_seller_index = isSellerExist(chosen_seller_username)== NOT_EXIST); 
 
 		Product* prod_to_cart = new Product(*(m_seller_arr[chosen_seller_index]->findProduct(prod_name))); //using copy c'tor
 		m_buyer_arr[buyer_index]->addToCart(prod_to_cart);
@@ -272,8 +273,8 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 /*****************************************************************  6  *****************************************************/
 bool System::newOrder(const char* buyer_username)
 {
-	int buyer_index = isSellerExist(buyer_username); //Check if the buyer exist 
-	if (buyer_index >= 0)
+	int buyer_index = isBuyerExist(buyer_username); //Check if the buyer exist 
+	if (buyer_index == NOT_EXIST)
 		return false;
 
 	int option;
@@ -282,13 +283,14 @@ bool System::newOrder(const char* buyer_username)
 	{ // The user check from list until he deciede to exit 
 		m_buyer_arr[buyer_index]->showCart();
 
-		cout << "\nPlease Choose product:\n Enter -1 to exit from order.\n";
+		cout << "\nPlease Choose an option:\nEnter -1 to exit.\n";
 		cin >> option;
 
-		if ((option != EXIT && option < 1) || option > m_buyer_arr[buyer_index]->getNumberOfItems()) // option validity check 
-			cout << "Sorry, invalid option.";
-		else
+		if (option > 0 && option <= m_buyer_arr[buyer_index]->getNumberOfItems())
 			new_order->addToProdArr(m_buyer_arr[buyer_index]->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
+		
+		else if ((option != EXIT && option < 1) || option > m_buyer_arr[buyer_index]->getNumberOfItems()) // option validity check 
+			cout << "Sorry, invalid option.";
 
 	} while (option != EXIT);
 

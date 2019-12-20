@@ -90,7 +90,7 @@ void Order::showOrder()const
 	{
 		cout << i + 1 << ") " << m_products_arr[i]->getName() << endl;
 	}
-	cout << m_total_price << endl;
+	cout << "Total Price of the order: " <<m_total_price << "$" << endl;
 }
 
 void Order::addToProdArr(Product* p)
