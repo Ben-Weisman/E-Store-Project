@@ -11,17 +11,19 @@ class Order
 	int m_products_phy_size;
 	int m_num_of_products;
 	double m_total_price;
-	Buyer* const m_buyer;  // Can't change them pointing
+	Buyer* const m_buyer;  // Can't change buyer
 	bool m_paid; // indication - the order already paid or not
 
 private:
 	Order(const Order& o); // We don't want to anable copys of products
 
 public:
+
 	Order(Buyer* b);
 	~Order();
 
 public:
+
 	 bool setTotalPrice(double total_price);
 	 bool setPaid(bool paid);
 private:
@@ -29,14 +31,16 @@ private:
 	 bool setNumOfProducts(int num_of_prod);
 
 public:
-	double getTotalPrice()const;
-	 int getProductsPhySize()const;
-	int getNumOfProducts()const;
-	 Buyer* const  getBuyer()const;
-	Product** getProductsArr()const;
-	bool getPaid()const;
+
+	inline double getTotalPrice()const{ return m_total_price; }
+	inline  int getProductsPhySize()const{ return m_products_phy_size; }
+	inline int getNumOfProducts()const{ return m_num_of_products; }
+	inline  Buyer* const  getBuyer()const{ return m_buyer; }
+	inline Product** getProductsArr()const { return m_products_arr; }
+	inline 	bool getPaid()const{ return m_paid; }
 
 public:
+
 	void showOrder()const;
 	void addToProdArr(Product* p);
 	void productsRealloc();

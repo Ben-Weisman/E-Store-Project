@@ -1,14 +1,17 @@
 #include "Date.h"
-#include <iostream>
 
-using namespace std;
+// --------------------- C'tor ---------------------
 
 Date::Date(int day, int month, int year)
 {
+	cout << "\n########################################### IN DATE C'TOR ###########################################\n";
+
 	setDay(day);
 	setMonth(month);
 	setYear(year);
 }
+  
+// -----------------------------setters----------------------------------
 
 bool Date::setDay(int day)
 {
@@ -30,7 +33,7 @@ bool  Date::setMonth(int month)
 }
 bool Date::setYear(int year)
 {
-	if (year < 2019) //Before the year of the platfom creation ?
+	if (year < 0)  
 	{
 		return false;
 	}
@@ -38,22 +41,3 @@ bool Date::setYear(int year)
 	return true;
 }
 
-
-int Date::getDay()const
-{
-	return m_day;
-}
-int Date::getMonth()const
-{
-	return m_month;
-}
-int Date::getYear()const
-{
-	return m_year;
-
-}
-
-void Date::showDate()const
-{
-	cout << m_day << "/" << m_month << "/" << m_year << endl;
-}

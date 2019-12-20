@@ -10,6 +10,8 @@ using namespace std;
 Seller::Seller(char* username, char* password, char* fname, char* lname,
 	const Address& address) : m_address(address) // c'tor
 {
+	cout << "\n########################################### IN SELLER C'TOR ###########################################\n";
+
 	setUsername(username);
 	setPassword(password);
 	setFname(fname);
@@ -35,6 +37,8 @@ Seller::Seller(char* username, char* password, char* fname, char* lname,
 
 Seller::~Seller() // d'tor
 {
+	cout << "\n########################################### IN SELLER D'TOR ###########################################\n";
+
 	delete[]m_fname;
 	delete[]m_lname;
 	delete[]m_username;
@@ -53,6 +57,8 @@ Seller::~Seller() // d'tor
 
 Seller::Seller(const Seller& s) :m_address(s.m_address) // copy c'tor
 {
+	cout << "\n########################################### IN SELLER COPY ###########################################\n";
+
 	setUsername(s.m_username);
 	setPassword(s.m_password);
 	setFname(s.m_fname);
@@ -72,30 +78,6 @@ Seller::Seller(const Seller& s) :m_address(s.m_address) // copy c'tor
 	setListItems(s.m_listed_items);
 }
 
-// --------------------------------------------------------------------
-
-// -------------------- Getters Methods --------------------
-
-const char* Seller::getFirstName()const { return m_fname; }
-const char* Seller::getLastName()const { return m_lname; }
-const char* Seller::getUsername()const { return m_username; }
-const Address& Seller::getAddress()const { return m_address; }
-Product** Seller::getListedItems()const { return m_listed_items; }
-FeedBack** Seller::getFeedbacks()const { return m_feedback_arr; }
-Order** Seller::getOrders()const { return m_orders; }
-const int Seller::getNumOfListedItems()const { return m_num_of_listed_items; }
-
-const Product* Seller::findProduct(const char* to_find)const
-{ // search for a given product in seller's listed items and return its pointer. 
-	for (int i = 0; i < m_num_of_listed_items; i++)
-	{
-		if (strcmp(this->getListedItems()[i]->getName(), to_find) == 0)
-			return this->getListedItems()[i];
-	}
-	return nullptr;
-}
-
-// ------------------------------------------------------------
 
 // ----------------- Setters Methods -----------------
 
@@ -159,9 +141,8 @@ bool Seller::setListItems(Product** listed_items) // private - listed items cann
 	return true;
 }
 
-// -------------------------------------------------------------
 
-// ----------------- Seller's arrays maintenance methods -----------------
+// ----------------- Seller's maintenance methods -----------------
 
 void Seller::addToListItemsArr(Product *item_to_add)
 { // Add to listed items using realloc method. 
@@ -222,7 +203,17 @@ void Seller::OrdersArrRealloc()
 	m_orders = tmp;
 }
 
-// -------------------- Print methods --------------------
+const Product* Seller::findProduct(const char* to_find)const
+{ // search for a given product in seller's listed items and return its pointer. 
+	for (int i = 0; i < m_num_of_listed_items; i++)
+	{
+		if (strcmp(this->getListedItems()[i]->getName(), to_find) == 0)
+			return this->getListedItems()[i];
+	}
+	return nullptr;
+}
+
+// -------------------- Printing methods --------------------
 
 void Seller::showSeller()
 {

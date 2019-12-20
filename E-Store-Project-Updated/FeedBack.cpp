@@ -1,6 +1,5 @@
 #include "FeedBack.h"
 #include <iostream>
-
 using namespace std;
 #pragma warning(disable:4996) 
 
@@ -9,24 +8,32 @@ using namespace std;
 
 FeedBack::FeedBack(char* feedback, const char* provider_username, const Date& date) : m_date(date) //c'tor
 {
+	cout << "\n########################################### IN FEEDBACK C'TOR ###########################################\n";
+
 	setFeedbackEval(feedback);
 	setFeedbackProvider(provider_username);
 }
 
 FeedBack::~FeedBack() //d'tor
 {
+	cout << "\n########################################### IN FEEDBACK D'TOR ###########################################\n";
+
 	delete[]m_feedback_evaluation;
 	delete[]m_provider_username;
 }
 
 FeedBack::FeedBack(const FeedBack& f) :m_date(f.m_date) //copy c'tor
 {
+	cout << "\n########################################### IN FEEDBACK COPY ###########################################\n";
+
 	setFeedbackProvider(m_provider_username);
 	setFeedbackEval(f.getFeedbackEvaluation());
 }
 
 FeedBack::FeedBack(FeedBack&& f) : m_date(f.m_date) // move c'tor
 {
+	cout << "\n########################################### IN FEEDBACK MOVE ###########################################\n";
+
 	m_feedback_evaluation = f.m_feedback_evaluation;
 	m_provider_username = f.m_provider_username;
 
@@ -34,9 +41,9 @@ FeedBack::FeedBack(FeedBack&& f) : m_date(f.m_date) // move c'tor
 	f.m_provider_username = nullptr;
 }
 
-// ---------------------------------------------------------------
 
 // --------------------- Private Setters Methods ---------------------
+
 bool FeedBack::setFeedbackEval(const char* eval)
 { // Set feedback evaluation. Validation check - not an empty string.
 	if (strlen(eval) == 0)
@@ -53,14 +60,8 @@ bool FeedBack::setFeedbackProvider(const char* provider_username)
 	return true;
 }
 
-// -----------------------------------------------------------
 
-// --------------------- Getters Methods ---------------------
-const char* FeedBack::getFeedbackEvaluation()const { return m_feedback_evaluation; }
-const Date FeedBack::getFeedbackDate()const { return m_date; }
-const char* FeedBack::getProviderUsername()const { return m_provider_username; }
-
-// ---------------------------------------------------------------
+// ---------------------------printing methods------------------------------------
 
 void FeedBack::showFeedback()const
 { // Print Feedback. 

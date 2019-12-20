@@ -41,42 +41,45 @@ public:
 	bool setBuyersPhySize(int physize);
 
 public:
-	 const char* getName()const;
-
-	 Seller** getSellerArr()const;
-	 int getSellersPhySize()const;
-	 int getNumOfSellers()const;
-
-	 Buyer** getBuyerArr()const;
-	 int getBuyersPhySize()const;
-	 int getNumOfBuyers()const;
+	inline const char* getName()const{ return m_name; }
+	inline  Seller** getSellerArr()const{ return m_seller_arr; }
+	inline  int getSellersPhySize()const{ return m_sellers_phy_size; }
+	inline  int getNumOfSellers()const{ return m_num_of_sellers; }
+	inline  Buyer** getBuyerArr()const{ return m_buyer_arr; }
+	inline  int getBuyersPhySize()const{ return m_buyers_phy_size; }
+	inline  int getNumOfBuyers()const{ return m_num_of_buyers; }
 
 
-	/////////////////////////////////////////////////////////////menu functions/////////////////////////////////////////////////////////////
-public:
-	//1
-	const int isBuyerExist(const char* buyer_username)const; //the func returns the index of a specific buyer according to his username or -1 if didn't exist
+	// ---------------------------------- maintanance functions ------------------------------------
+
+	const int isBuyerExist(const char* buyer_username)const;
 	void buyersRealloc();
-	bool addToBuyerArr(Buyer* new_buyer);
-	//2
-	const int isSellerExist(const char* seller_username)const; //the func returns the index of a specific seller according to his username or -1 if didn't exist
+	const int isSellerExist(const char* seller_username)const;
 	void sellersRealloc();
+
+
+	 // ---------------------------------- MENU functions ------------------------------------
+
+public:
+	/*1*/                                       
+	bool addToBuyerArr(Buyer* new_buyer);
+	/*2*/
 	bool addToSellerArr(Seller* new_seller);
-	//3
+	/*3*/
 	bool addProductToSeller(Product* prod, const char* seller_username);
-	//4
+	/*4*/
 	bool addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback);
-	//5
+	/*5*/
 	bool addProductToBuyersCart(const char* prod_name, const char* buyer_username);
-	//6
+	/*6*/
 	bool newOrder(const char* buyer_username);
-	//7
+	/*7*/
 	bool payment(const char* buyer_username);
-	//8
+	/*8*/
 	void printBuyers()const;
-	//9
+	/*9*/
 	void printSellers()const;
-	//10
+	/*10*/
 	void printAllSpecificProduct(const char* name_to_find) const;
 
 };

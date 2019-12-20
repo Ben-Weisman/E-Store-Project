@@ -1,10 +1,8 @@
 #include "Address.h"
 #include "Utils.h"
-#include <iostream>
-using namespace std;
-
 #pragma warning(disable:4996) 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// --------------------- C'tor, Copy C'tor, D'tor, Move C'tor ---------------------
 
 Address::Address(char* country, char* city, char* street, int number) //c'tor
 {
@@ -46,16 +44,16 @@ Address::~Address()// d'tor
 	delete[]m_street;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// -----------------------------setters----------------------------------
 
 bool Address::setCountry(const char* country)
 {
 	int i = 0;
-	while ((country[i] != '\0') && (isLetter(country[i]) || country[i] == ' '))
+	while ((country[i] != '\0') && (isLetter(country[i]) || country[i] == ' ')) // Validity check
 	{
 		i++;
 	}
-	if (country[i] != '\0' || i <= 2)
+	if (country[i] != '\0' || i <= 2)// Validity check
 	{
 		return false;
 	} //We assumed that There is no country with numbers/signs/less then 3 letters
@@ -68,11 +66,11 @@ bool Address::setCountry(const char* country)
 bool Address::setCity(const char* city)
 {	
 	int i = 0;
-	while ((city[i] != '\0') && (isLetter(city[i]) || city[i] == ' '))
+	while ((city[i] != '\0') && (isLetter(city[i]) || city[i] == ' '))// Validity check
 	{
 		i++;
 	}
-	if (city[i] != '\0' || i <= 1)
+	if (city[i] != '\0' || i <= 1)// Validity check
 	{
 		return false;
 	} //We assumed that There is no city with numbers/signs/less then 2 letters 
@@ -87,11 +85,11 @@ bool Address::setStreet(const char* street)
 	
 	int i = 0;
 
-	while (street[i] != '\0' && (isNumber(street[i]) || isLetter(street[i]) || street[i] == ' '))
+	while (street[i] != '\0' && (isNumber(street[i]) || isLetter(street[i]) || street[i] == ' '))// Validity check
 	{
 		i++;
 	}
-	if (street[i] != '\0' || i <= 1)
+	if (street[i] != '\0' || i <= 1)// Validity check
 	{
 		return false;
 	} //We assumed that There street can be a word with numbers/letters and with more the 1 letter 
@@ -103,36 +101,10 @@ bool Address::setStreet(const char* street)
 }
 bool Address::setHouseNumber(const int number)
 {
-	if (number <= 0)
+	if (number <= 0)// Validity check
 		return false;
 
 	m_house_number = number;
 	return true;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const char* Address::getCountry()const
-{
-	return m_country;
-}
-const char* Address::getCity()const
-{
-	return m_city;
-}
-const char* Address::getStreet()const
-{
-	return m_street;
-}
-int Address::getHouseNumber()const
-{
-	return m_house_number;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-void Address::showAddress()const
-{
-	cout << m_country << ", " << m_city << ", " << m_house_number << " " << m_street << "st." << endl;
-}

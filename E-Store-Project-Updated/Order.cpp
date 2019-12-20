@@ -4,8 +4,13 @@
 #include <iostream>
 using namespace std;
 
+// ----------------------------------------- c'tor & d'tor ---------------------------------
+
+
 Order::Order(Buyer* b) :m_buyer(b)
 {
+	cout << "\n########################################### IN ORDER C'TOR ###########################################\n";
+
 	setTotalPrice(m_total_price);
 	setProductsPhySize(1);
 	setNumOfProducts(0);
@@ -18,6 +23,8 @@ Order::Order(Buyer* b) :m_buyer(b)
 
 Order::~Order()
 {
+	cout << "\n########################################### IN ORDER D'TOR ###########################################\n";
+
 	for (int i = 0; i < m_num_of_products; i++)
 		delete m_products_arr[i];
 
@@ -26,7 +33,7 @@ Order::~Order()
 
 
 
-//////////////////////////////////////////////////////////  setters  ///////////////////////////////////////////////////////////
+// ----------------------------------------- setters ---------------------------------
 
 bool Order::setTotalPrice(double total_price)
 {
@@ -54,36 +61,8 @@ bool Order::setPaid(bool paid)
 }
 
 
+// ----------------------------------------- printing methods ---------------------------------
 
-
-//////////////////////////////////////////////////////////  getters  ///////////////////////////////////////////////////////////
-
-double Order::getTotalPrice()const
-{
-	return m_total_price;
-}
-int Order::getProductsPhySize()const
-{
-	return m_products_phy_size;
-}
-int Order::getNumOfProducts()const
-{
-	return m_num_of_products;
-}
-Buyer* const  Order::getBuyer()const
-{
-	return m_buyer;
-}
-Product** Order::getProductsArr()const
-{
-	return m_products_arr;
-}
-bool Order::getPaid()const
-{
-	return m_paid;
-}
-
-/////////////////////////////////////////////////////////////////////// functions ////////////////////////////////////////////////////////////////////////////
 void Order::showOrder()const
 {
 	for (int i = 0; i < m_num_of_products; i++)
@@ -92,6 +71,9 @@ void Order::showOrder()const
 	}
 	cout << "Total Price of the order: " <<m_total_price << "$" << endl;
 }
+
+
+// ----------------------------------------- more functions ---------------------------------
 
 void Order::addToProdArr(Product* p)
 {
