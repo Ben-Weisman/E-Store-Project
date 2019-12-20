@@ -1,6 +1,5 @@
 #include "System.h"
 #include "Order.h"
-#include <string.h>
 #include <iostream>
 
 using namespace std;

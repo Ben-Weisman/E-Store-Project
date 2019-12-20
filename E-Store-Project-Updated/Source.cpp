@@ -115,13 +115,12 @@ Date createDate()
 
 FeedBack* createFeedback(const char* b_username)
 {
-	char feedback[MAX_NAMES_LEN];
-	cout << "Please write your feedback:\n ";
-	cin.getline(feedback, MAX_FEEDBACK_LEN); 
+	
+	char feedback[MAX_FEEDBACK_LEN];
+	cout << "Please write your feedback:                          ";
+	cin.ignore(2, '\n');
+
+	cin.getline(feedback, MAX_FEEDBACK_LEN);
 
 	return new FeedBack(feedback, b_username, createDate());
 }
-
-
-// General note: I think we should consult about the order of the input's.. 
-// Example: Does it make sence to get the addess after username?, or feedback before date? 
