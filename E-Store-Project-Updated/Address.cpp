@@ -50,8 +50,6 @@ Address::~Address()// d'tor
 
 bool Address::setCountry(const char* country)
 {
-	m_country = nullptr;
-
 	int i = 0;
 	while ((country[i] != '\0') && (isLetter(country[i]) || country[i] == ' '))
 	{
@@ -62,14 +60,13 @@ bool Address::setCountry(const char* country)
 		return false;
 	} //We assumed that There is no country with numbers/signs/less then 3 letters
 
+	m_country = nullptr;
 	delete[] m_country;
 	m_country = strdup(country);
 	return true;
 }
 bool Address::setCity(const char* city)
-{
-	m_city = nullptr;
-	
+{	
 	int i = 0;
 	while ((city[i] != '\0') && (isLetter(city[i]) || city[i] == ' '))
 	{
@@ -80,13 +77,14 @@ bool Address::setCity(const char* city)
 		return false;
 	} //We assumed that There is no city with numbers/signs/less then 2 letters 
 
+	m_city = nullptr;
 	delete[] m_city;
 	m_city = strdup(city);
 	return true;
 }
 bool Address::setStreet(const char* street)
 {
-	m_street = nullptr;
+	
 	int i = 0;
 
 	while (street[i] != '\0' && (isNumber(street[i]) || isLetter(street[i]) || street[i] == ' '))
@@ -98,6 +96,7 @@ bool Address::setStreet(const char* street)
 		return false;
 	} //We assumed that There street can be a word with numbers/letters and with more the 1 letter 
 
+	m_street = nullptr;
 	delete[] m_street;
 	m_street = strdup(street);
 	return true;
