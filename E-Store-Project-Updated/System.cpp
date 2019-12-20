@@ -228,10 +228,12 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 				cout << "No such seller's username.\n";
 
 			cout << "please enter one of the seller's username: ";
+			cin.ignore();
+
 			cin.getline(chosen_seller_username, MAX_LEN);
 			cout << endl;
 
-		} while (chosen_seller_index = isSellerExist(chosen_seller_username) != NOT_EXIST); //Check the valid seller username entered
+		} while (chosen_seller_index = isSellerExist(chosen_seller_username) == NOT_EXIST); //Check the valid seller username entered
 
 		Product* prod_to_cart = new Product(*(m_seller_arr[chosen_seller_index]->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
 		m_buyer_arr[buyer_index]->addToCart(prod_to_cart); // Add the product to the buyer's caart
@@ -245,7 +247,7 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 /*****************************************************************  6  *****************************************************/
 bool System::newOrder(const char* buyer_username)
 {// Make new order to buyer (choosing from his own cart)
-	int buyer_index = isSellerExist(buyer_username); //Check if the buyer exist 
+	int buyer_index = isBuyerExist(buyer_username); //Check if the buyer exist 
 	if (buyer_index >= 0)
 		return false;
 
@@ -257,6 +259,7 @@ bool System::newOrder(const char* buyer_username)
 
 		cout << "\nPlease Choose product:\n Enter -1 to exit from order.\n";
 		cin >> option;
+		cin.ignore();
 
 		if ((option != EXIT && option < 1) || option > m_buyer_arr[buyer_index]->getNumberOfItems()) // option validity check 
 			cout << "Sorry, invalid option.";
@@ -282,6 +285,8 @@ bool System::payment(const char* buyer_username)
 	{ //choose which order to pay
 		cout << "Please Choose your option: ";
 		cin >> option;
+		cin.ignore();
+
 	} while (option<1 || option>m_buyer_arr[buyer_index]->getNumOfOrders()); // option validity check
 
 
