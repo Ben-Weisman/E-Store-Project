@@ -15,7 +15,7 @@ int main()
 	while (exit_flag)
 	{
 		int i = 1;
-		cout << "\n----------------------------------------------------------Actions menu:----------------------------------------------------------"<< endl;
+		cout << "----------------------------------------------------------Actions menu:----------------------------------------------------------"<< endl;
 		cout << (i++) << ") Add buyer"<< endl;
 		cout << (i++) << ") Add seller"<< endl;
 		cout << (i++) << ") Add product to seller"<< endl;
@@ -30,8 +30,8 @@ int main()
 		cout << "Please enter your action: ";
 		int option;
 		cin >> option;
-		cin.ignore();
-			
+		cin.ignore(1,'\n');
+
 		switch (option)
 		{
 			char b_username[MAX_NAMES_LEN];
@@ -56,7 +56,7 @@ int main()
 			Product* p;
 			if (system.addProductToSeller(p = createProduct(s_username), s_username) == false)
 			{
-				cout << "No such seller username.";
+				cout << "No such seller username." << endl;
 				delete p; 
 			}
 
@@ -80,14 +80,17 @@ int main()
 			break;
 
 		case 5: //add to cart
-			cout << "\nEnter the username of the buyer: ";
+			cout << "Enter the username of the buyer: ";
 			cin.getline(b_username,MAX_NAMES_LEN);
 
 			
-			cout << "\nEnter the product name: ";
+			cout << "Enter the product name: ";
 			cin.getline(prod_name, MAX_NAMES_LEN);
 
-			system.addProductToBuyersCart(prod_name, b_username);
+			if (system.addProductToBuyersCart(prod_name, b_username) == false)
+			{
+				cout << "Buyer or prod not exist in the system." << endl;
+			}
 
 			break;
 
@@ -116,7 +119,7 @@ int main()
 
 			break;
 		case 10: // print all products from specific name  
-			cout << "\nEnter the product name: ";
+			cout << "Enter the product name: ";
 			cin.getline(prod_name,MAX_NAMES_LEN);
 
 			system.printAllSpecificProduct(prod_name);
@@ -124,11 +127,11 @@ int main()
 			break;
 
 		case 11:
-			cout << "Thanks for using "<<system.getName()<<", Bye Bye (:";
+			cout << "Thanks for using "<<system.getName()<<", Bye Bye (:" << endl;
 			exit_flag = false;
 			break;
 		default:
-			cout << "Ops... No such action\n"<< endl;
+			cout << "Ops... No such action" << endl << endl;
 			break;
 		}
 

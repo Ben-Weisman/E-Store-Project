@@ -6,7 +6,7 @@
 
 Address::Address(char* country, char* city, char* street, int number) //c'tor
 {
-	cout << "\n########################################### IN ADDRESS C'TOR ###########################################"<< endl;
+	cout << endl << "########################################### IN ADDRESS C'TOR ###########################################"<< endl;
 	setCountry(country);
 	setCity(city);
 	setStreet(street);
@@ -14,7 +14,7 @@ Address::Address(char* country, char* city, char* street, int number) //c'tor
 }
 Address::Address(const Address&a) //copy c'tor
 {
-	cout << "\n########################################### IN ADDRESS COPY ###########################################"<< endl;
+	cout << endl << "########################################### IN ADDRESS COPY ###########################################"<< endl;
 	setCountry(a.m_country);
 
 	setCity(a.m_city);
@@ -26,7 +26,7 @@ Address::Address(const Address&a) //copy c'tor
 }
 Address::Address(Address&&a) //move c'tor
 {
-	cout << "\n########################################### IN ADDRESS MOVE ###########################################"<< endl;
+	cout << endl << "########################################### IN ADDRESS MOVE ###########################################"<< endl;
 	m_country = a.m_country;
 	m_city = a.m_city;
 	m_street = a.m_street;
@@ -38,7 +38,7 @@ Address::Address(Address&&a) //move c'tor
 }
 Address::~Address()// d'tor
 {
-	cout << "\n########################################### IN ADDRESS D'TOR ###########################################"<< endl;
+	cout << endl << "########################################### IN ADDRESS D'TOR ###########################################"<< endl;
 	delete[]m_country;
 	delete[]m_city;
 	delete[]m_street;

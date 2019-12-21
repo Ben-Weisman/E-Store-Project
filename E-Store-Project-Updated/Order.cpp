@@ -9,7 +9,7 @@ using namespace std;
 
 Order::Order(Buyer* b) :m_buyer(b)
 {
-	cout << "\n########################################### IN ORDER C'TOR ###########################################"<< endl;
+	cout << endl << "########################################### IN ORDER C'TOR ###########################################"<< endl;
 
 	setTotalPrice(m_total_price);
 	setProductsPhySize(1);
@@ -23,7 +23,7 @@ Order::Order(Buyer* b) :m_buyer(b)
 
 Order::~Order()
 {
-	cout << "\n########################################### IN ORDER D'TOR ###########################################"<< endl;
+	cout << endl << "########################################### IN ORDER D'TOR ###########################################"<< endl;
 
 	for (int i = 0; i < m_num_of_products; i++)
 		delete m_products_arr[i];

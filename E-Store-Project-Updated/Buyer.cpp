@@ -10,7 +10,7 @@ using namespace std;
 Buyer::Buyer(char* userName, char* password, char* fname,
 	char* lname, const Address& address) :m_address(address) // c'tor
 {
-	cout << "\n########################################### IN BUYER C'TOR ###########################################"<< endl;
+	cout << endl << "########################################### IN BUYER C'TOR ###########################################"<< endl;
 
 	setUsername(userName);
 	setPassword(password);
@@ -32,7 +32,7 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 {
-	cout << "\n########################################### IN BUYER COPY ###########################################"<< endl;
+	cout << endl << "########################################### IN BUYER COPY ###########################################"<< endl;
 
 	setUsername(b.m_username);
 	setPassword(b.m_password);
@@ -49,7 +49,7 @@ Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 
 Buyer::~Buyer() // d'tor
 {
-	cout << "\n########################################### IN BUYER D'TOR ###########################################"<< endl;
+	cout << endl << "########################################### IN BUYER D'TOR ###########################################"<< endl;
 
 	int i;
 	delete[]m_fname;
@@ -122,11 +122,12 @@ bool Buyer::setOrder(Order** order)
 
 // ----------------------- Buyer's arrays maintenance methods. ----------------------- 
 
-void Buyer::addToCart(Product* item_to_add)
+bool Buyer::addToCart(Product* item_to_add)
 { // Add to buyer's cart using realloc method.
 	if (m_cartPsize == m_number_of_items)
 		cartRealloc();
 	m_cart[m_number_of_items++] = item_to_add;
+	return true;
 }
 
 void Buyer::addToCheckout(Order* checkout_order)
@@ -189,8 +190,8 @@ void Buyer::showCart()const
 { // Print buyer's cart.
 
 	if (m_number_of_items == 0)
-		cout << "\n\nNo products to show, your cart is currently empty.\n" <<
-		"Please go to your checkout cart to continue with your order\n"<< endl;
+		cout << endl << "No products to show, your cart is currently empty." << endl <<
+		"Please go to your checkout cart to continue with your order" << endl;
 	else{
 		cout << "All products are in #/Name/Price/Seller format" << endl;
 	

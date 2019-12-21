@@ -21,7 +21,7 @@ Address createAdress()
 	int house_number;
 	cout << "House number: ";
 	cin >> house_number;
-	cin.ignore();
+	cin.ignore(1,'\n');
 
 	return Address(country, city, street, house_number);
 }
@@ -80,9 +80,9 @@ Product* createProduct(char* seller_username)
 {
 	Product::ecategory category;
 	int temp;
-	cout << "\nCategory:\n1)Kids\n2)Electricity\n3)Office\n4)Clothing"<< endl;
+	cout << endl << "Category:" << endl << "1)Kids" << endl << "2)Electricity" << endl << "3)Office" << endl << "4)Clothing" << endl;
 	cin >> temp;
-	cin.ignore();
+	cin.ignore(1,'\n');
 	category = (Product::ecategory)(temp - 1);
 
 	
@@ -93,7 +93,7 @@ Product* createProduct(char* seller_username)
 	double price;
 	cout << "Price: ";
 	cin >> price;
-	cin.ignore();
+	cin.ignore(1,'\n');
 
 	return new Product(category, name, price, seller_username); 
 }
@@ -108,7 +108,7 @@ Date createDate()
 	cout << "/";
 	cin >> year;
 	cout << endl;
-	cin.ignore();
+	cin.ignore(1,'\n');
 
 	return Date(day, month, year);
 }

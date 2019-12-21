@@ -54,7 +54,7 @@ public:
 
 public:
 
-	void addToCart(Product* item_to_add);
+	bool addToCart(Product* item_to_add);
 	void addToCheckout(Order* checkout_order);
 	void removeFromCart(Product* item_to_remove);
 	void cartRealloc();
