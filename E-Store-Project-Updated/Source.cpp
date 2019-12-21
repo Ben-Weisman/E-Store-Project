@@ -102,10 +102,11 @@ Product* createProduct(char* seller_username)
 Date createDate()
 {
 	int day, month, year;
+	cout << " - day: ";
 	cin >> day;
-	cout << "/";
+	cout << " - month: ";
 	cin >> month;
-	cout << "/";
+	cout << " - year: ";
 	cin >> year;
 	cout << endl;
 	cin.ignore(1,'\n');

@@ -76,6 +76,9 @@ int main()
 				cout << "Invalid action, " << b_username << "didn't buy from " << s_username << endl;
 				delete f; 
 			}
+			else
+				cout << "Feedback successfully added." ;
+
 
 			break;
 
@@ -111,10 +114,12 @@ int main()
 			break;
 
 		case 8: //print all buyers
+			cout << endl;
 			system.printBuyers();
 
 			break;
 		case 9://print all sellers
+			cout << endl;
 			system.printSellers();
 
 			break;
@@ -122,6 +127,7 @@ int main()
 			cout << "Enter the product name: ";
 			cin.getline(prod_name,MAX_NAMES_LEN);
 
+			cout << endl;
 			system.printAllSpecificProduct(prod_name);
 
 			break;

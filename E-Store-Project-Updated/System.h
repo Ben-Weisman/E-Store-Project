@@ -8,6 +8,7 @@
 const int MAX_LEN = 20;
 const int NOT_EXIST = -1;
 const int EXIT = -1;
+const int EMPTY = 0;
 const int MAX_TRIES = 3;
 
 class System

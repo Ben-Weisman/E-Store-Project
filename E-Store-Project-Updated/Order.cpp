@@ -67,9 +67,9 @@ void Order::showOrder()const
 {
 	for (int i = 0; i < m_num_of_products; i++)
 	{
-		cout << i + 1 << ") " << m_products_arr[i]->getName() << endl;
+		cout << i + 1 << ") " << endl <<"\t"<< m_products_arr[i]->getName() << endl;
 	}
-	cout << "Total Price of the order: " <<m_total_price << "$" << endl;
+	cout << "\tTotal Price of the order: " <<m_total_price << "$" << endl;
 }
 
 

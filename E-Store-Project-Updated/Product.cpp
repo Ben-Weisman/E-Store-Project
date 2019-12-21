@@ -120,7 +120,7 @@ bool Product::setSellerUsername(char* seller_username) //private method that we 
 
 void Product::showProduct() const
 {
-	cout << endl << "Product name: " << m_name << endl << "\tcategory: " << CATEGORY_ARR[m_category] << endl;
+	cout << endl << "\tProduct name: " << m_name << endl << "\tcategory: " << CATEGORY_ARR[m_category] << endl;
 	cout << "\tprice: " << m_price << "$" << endl << "\tserial number: " << m_serial_number << endl;
 	cout << "\tThe seller of this product is: " << m_seller_username << endl;
 }

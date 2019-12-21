@@ -6,7 +6,7 @@ using namespace std;
 
 // --------------------- C'tor, Copy C'tor, D'tor, Move C'tor ---------------------
 
-FeedBack::FeedBack(char* feedback, const char* provider_username, const Date& date) : m_date(date) ///c'tor
+FeedBack::FeedBack(char* feedback, const char* provider_username, const Date& date) : m_date(date) //c'tor
 {
 	cout << endl << "########################################### IN FEEDBACK C'TOR ###########################################"<< endl;
 

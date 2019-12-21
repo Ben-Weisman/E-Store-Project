@@ -232,7 +232,7 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 			if ((count++) > 0)     // Not the first try  
 				cout << "No such seller's username."<< endl;
 
-			cout << "please enter the desired seller you want to buy from: ";
+			cout << "please enter the desired seller's username that you want to buy from: ";
 			cin.getline(chosen_seller_username, MAX_LEN);
 			cout << endl;
 			
@@ -268,17 +268,20 @@ bool System::newOrder(const char* buyer_username)
 	{ // The user check from list until he deciede to exit 
 		m_buyer_arr[buyer_index]->showCart();
 
-		cout << "Please Choose product:" << endl << " Enter -1 to exit from order." << endl;
+		cout << endl << "Please Choose the number of the product from the list:" << endl << "Enter -1 to exit from order." << endl;
 		cin >> option;
 		cin.ignore(1,'\n');
 
 		if (option > 0 && option <= m_buyer_arr[buyer_index]->getNumberOfItems())
+		{
 			new_order->addToProdArr(m_buyer_arr[buyer_index]->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
+			cout << "Item added to the Order successfully." << endl;
+		}
 
 		else if ((option != EXIT && option < 1) || option > m_buyer_arr[buyer_index]->getNumberOfItems()) // option validity check 
 			cout << "Sorry, invalid option.";
 
-	} while (option != EXIT);
+	} while (option != EXIT && m_buyer_arr[buyer_index]->getNumberOfItems() != EMPTY); // While the user still have products to choose 
 
 	m_buyer_arr[buyer_index]->addToCheckout(new_order); //Add the order to the buyer's orders array
 
@@ -301,7 +304,7 @@ bool System::payment(const char* buyer_username)
 	int option, count = 1;
 	do
 	{ //choose which order to pay
-		cout << "Please choose an order to pay for: ";
+		cout << endl << "Please choose the number of the order to pay for: ";
 		cin >> option;
 		cin.ignore(1,'\n');
 
@@ -329,6 +332,7 @@ void System::printBuyers()const
 	int i;
 	for (i = 0; i < m_num_of_buyers; i++)
 	{
+		cout << i + 1 << ") ";
 		m_buyer_arr[i]->showBuyer();
 		cout << endl;
 	}

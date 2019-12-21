@@ -203,9 +203,9 @@ void Buyer::showCart()const
 
 void Buyer::showBuyer()const
 { // Print buyer's info.
-	cout << "Full Name: " << this->getFirstName() << " " << this->getLastName() << endl;
-	cout << "Username: " << this->getUsername() << endl;
-	cout << "From: " << this->getAddress().getCountry() << endl;
+	cout << "\tFull Name: " << this->getFirstName() << " " << this->getLastName() << endl;
+	cout << "\tUsername: " << this->getUsername() << endl;
+	cout << "\tFrom: " << this->getAddress().getCountry() << endl;
 }
 
 void Buyer::showCheckoutOrders()const

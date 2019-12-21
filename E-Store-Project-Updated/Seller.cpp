@@ -217,9 +217,9 @@ const Product* Seller::findProduct(const char* to_find)const
 
 void Seller::showSeller()
 {
-	cout << "Name: " << this->getFirstName() << " " << this->getLastName() <<
-		endl << "Username: " << this->getUsername()
-		<< endl << "Country: " << this->getAddress().getCountry() << endl;
+	cout << "\tName: " << this->getFirstName() << " " << this->getLastName() <<
+		endl << "\tUsername: " << this->getUsername()
+		<< endl << "\tCountry: " << this->getAddress().getCountry() << endl;
 }
 
 
