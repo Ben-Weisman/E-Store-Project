@@ -25,7 +25,7 @@ int main()
 		cout << (i++) << ") Payment"<< endl;
 		cout << (i++) << ") Show all buyers"<< endl;
 		cout << (i++) << ") Show all sellers"<< endl;
-		cout << (i++) << ") Show all products with you chosen name"<< endl;
+		cout << (i++) << ") Show all products by name"<< endl;
 		cout << (i++) << ") Exit" << endl << endl;
 		cout << "Please enter your action: ";
 		int option;

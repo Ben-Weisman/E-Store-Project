@@ -247,8 +247,18 @@ bool Buyer::isOrderedFrom(const char* username)const
 }
 
 bool Buyer::isEmptyCheckoutOrders()
+{ //  Is empty even if there are actual orders in the arr, but they're all paid for. 
+	for (int i = 0; i < this->getNumOfOrders(); i++)
+	{
+		if (!this->getOrders()[i]->getPaid())
+			return false;
+	}
+	return true;
+}
+
+bool Buyer::isEmptyCart()
 {
-	if (m_num_checkout_orders == 0)
+	if (this->m_number_of_items == 0)
 		return true;
 	return false;
 }

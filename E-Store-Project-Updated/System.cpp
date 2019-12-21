@@ -261,7 +261,12 @@ bool System::newOrder(const char* buyer_username)
 	int buyer_index = isBuyerExist(buyer_username); //Check if the buyer exist 
 	if (buyer_index == NOT_EXIST)
 		return false;
-
+	if (getBuyerArr()[buyer_index]->isEmptyCart())
+	{
+		cout << "\n\n\t No items in cart, You need to add an item to make an order.\n\n";
+		return false;
+	}
+	
 	int option;
 	Order* new_order = new Order(m_buyer_arr[buyer_index]); // Make new order using c'tor
 	do

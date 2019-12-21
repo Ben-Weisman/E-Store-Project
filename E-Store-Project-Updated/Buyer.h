@@ -42,7 +42,6 @@ public:
 	inline Product** getCart()const { return m_cart; }
 	inline const Address& getAddress()const { return m_address; }
 	inline Order** getOrders()const { return m_checkout_orders; }
-	inline const int getNumOfItems()const { return m_number_of_items; }
 	inline const int getNumOfOrders()const { return m_num_checkout_orders; }
 
 public:
@@ -61,6 +60,7 @@ public:
 	void checkoutRealloc();
 	bool isOrderedFrom(const char* username)const;
 	bool isEmptyCheckoutOrders();
+	bool isEmptyCart();
 
 public:
 
