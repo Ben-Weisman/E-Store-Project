@@ -80,9 +80,7 @@ int main()
 			// else, print an error message. 
 			b_index = system.isBuyerExist(b_username);
 			if (!system.getBuyerArr()[b_index]->isOrderedFrom(s_username))
-			{
 				cout << "Invalid action, " << b_username << " didn't buy from " << s_username << endl; 
-			}
 			else
 			{
 				system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username));
