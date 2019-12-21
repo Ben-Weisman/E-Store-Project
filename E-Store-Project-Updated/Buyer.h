@@ -60,6 +60,7 @@ public:
 	void cartRealloc();
 	void checkoutRealloc();
 	bool isOrderedFrom(const char* username)const;
+	bool isEmptyCheckoutOrders();
 
 public:
 

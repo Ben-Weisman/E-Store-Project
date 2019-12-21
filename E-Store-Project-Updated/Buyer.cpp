@@ -191,7 +191,7 @@ void Buyer::showCart()const
 
 	if (m_number_of_items == 0)
 		cout << endl << "No products to show, your cart is currently empty." << endl <<
-		"Please go to your checkout cart to continue with your order" << endl;
+		"Please search for products to buy or go to your checkout cart to continue with your order" << endl;
 	else{
 		cout << "All products are in #/Name/Price/Seller format" << endl;
 	
@@ -213,7 +213,10 @@ void Buyer::showCheckoutOrders()const
 	for (int i = 0; i < m_num_checkout_orders; i++)
 	{
 		if (!this->m_checkout_orders[i]->getPaid())
-			m_checkout_orders[i]->showOrder();
+		{
+			cout << "\t Order #" << i + 1 << endl;
+			this->m_checkout_orders[i]->showOrder();
+		}
 	}
 }
 
@@ -232,5 +235,12 @@ bool Buyer::isOrderedFrom(const char* username)const
 			}
 		}
 	}
+	return false;
+}
+
+bool Buyer::isEmptyCheckoutOrders()
+{
+	if (m_num_checkout_orders == 0)
+		return true;
 	return false;
 }

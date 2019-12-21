@@ -69,8 +69,8 @@ int main()
 			cout << "Enter seller's username: ";
 			cin.getline(s_username,MAX_NAMES_LEN);
 			
+			//FeedBack* f = createFeedback(b_username);
 			FeedBack* f;
-
 			if (system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username)) == false)
 			{
 				cout << "Invalid action, " << b_username << "didn't buy from " << s_username << endl;
