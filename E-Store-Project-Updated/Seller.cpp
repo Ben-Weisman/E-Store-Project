@@ -144,26 +144,34 @@ bool Seller::setListItems(Product** listed_items) // private - listed items cann
 
 // ----------------- Seller's maintenance methods -----------------
 
-void Seller::addToListItemsArr(Product *item_to_add)
+bool Seller::addToListItemsArr(Product *item_to_add)
 { // Add to listed items using realloc method. 
+	if (!item_to_add)
+		return false;
 	if (m_num_of_listed_items == m_listed_items_pSize)
 		ListedItemsArrRealloc();
 	m_listed_items[m_num_of_listed_items++] = item_to_add;
+	return true;
 }
 
-void Seller::addToFeedArr(FeedBack* feed_to_add)
+bool Seller::addToFeedArr(FeedBack* feed_to_add)
 { // Add to feedback arr using realloc method. 
+	if (!feed_to_add)
+		return false;
 	if (m_feedbacks_phy_size == m_num_of_feedbacks)
 		FeedbackArrRealloc();
 	m_feedback_arr[m_num_of_feedbacks++] = feed_to_add;
+	return true;
 }
 
-void Seller::addToOrdersArr(Order* order_request)
+bool Seller::addToOrdersArr(Order* order_request)
 { // Add to orders arr using realloc method. 
-
+	if (!order_request)
+		return false;
 	if (m_num_of_orders == m_orders_pSize)
 		OrdersArrRealloc();
 	m_orders[m_num_of_orders++] = order_request;
+	return true;
 }
 
 void Seller::FeedbackArrRealloc()

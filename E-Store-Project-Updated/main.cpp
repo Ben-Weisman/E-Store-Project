@@ -37,6 +37,7 @@ int main()
 			char b_username[MAX_NAMES_LEN];
 			char s_username[MAX_NAMES_LEN];
 			char prod_name[MAX_NAMES_LEN];
+			int b_index; // Latest update.
 		
 		case 1://add buyer
 
@@ -63,21 +64,41 @@ int main()
 			break;
 		
 		case 4: //add feedback to seller 
+			FeedBack * f;
 			cout << "Enter buyer's username: ";
 			cin.getline(b_username,MAX_NAMES_LEN);
 			
 			cout << "Enter seller's username: ";
 			cin.getline(s_username,MAX_NAMES_LEN);
 			
-			//FeedBack* f = createFeedback(b_username);
-			FeedBack* f;
-			if (system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username)) == false)
+
+			// NIR Please Review this update. 
+			//######## Latest update ########
+			// Before creating a feedback, first check if there was indeed an 
+			// order made by THIS BUYER from THIS SERLLER.
+			// If so, continue with creating the feedback as usual. 
+			// else, print an error message. 
+			b_index = system.isBuyerExist(b_username);
+			if (!system.getBuyerArr()[b_index]->isOrderedFrom(s_username))
 			{
-				cout << "Invalid action, " << b_username << "didn't buy from " << s_username << endl;
+				cout << "Invalid action, " << b_username << " didn't buy from " << s_username << endl; 
+			}
+			else
+			{
+				system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username));
+				cout << "Feedback added successfully.";
+			}
+			//################################
+
+			// ################ Previous version ################
+			/*if (system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username)) == false)
+			{
+				cout << "Invalid action, " << b_username << " didn't buy from " << s_username << endl;
 				delete f; 
 			}
 			else
-				cout << "Feedback successfully added." ;
+				cout << "Feedback added successfully." ;
+			########################################################*/
 
 
 			break;

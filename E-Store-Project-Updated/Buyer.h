@@ -55,8 +55,8 @@ public:
 public:
 
 	bool addToCart(Product* item_to_add);
-	void addToCheckout(Order* checkout_order);
-	void removeFromCart(Product* item_to_remove);
+	bool addToCheckout(Order* checkout_order);
+	bool removeFromCart(Product* item_to_remove);
 	void cartRealloc();
 	void checkoutRealloc();
 	bool isOrderedFrom(const char* username)const;

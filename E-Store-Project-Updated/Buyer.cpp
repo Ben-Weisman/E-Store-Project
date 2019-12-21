@@ -124,26 +124,33 @@ bool Buyer::setOrder(Order** order)
 
 bool Buyer::addToCart(Product* item_to_add)
 { // Add to buyer's cart using realloc method.
+	if (!item_to_add)
+		return false;
 	if (m_cartPsize == m_number_of_items)
 		cartRealloc();
 	m_cart[m_number_of_items++] = item_to_add;
 	return true;
 }
 
-void Buyer::addToCheckout(Order* checkout_order)
+bool Buyer::addToCheckout(Order* checkout_order)
 { // Add to Buyer's checkout cart using realloc method.
+	if (!checkout_order)
+		return false;
 	if (m_num_checkout_orders == m_checkout_orders_pSize)
 		checkoutRealloc();
 	m_checkout_orders[m_num_checkout_orders++] = checkout_order;
+	return true;
 }
 
-void Buyer::removeFromCart(Product* item_to_delete)
-{ // Remove a product from buyer's cart by bubbling it to the end of the arr, and setting it to nullptr.
-
+bool Buyer::removeFromCart(Product* item_to_delete)
+{ /* Remove a product from buyer's cart by bubbling it to the end of the arr,
+	and setting it to nullptr.*/
+	bool flag = false;
 	for (int i = 0; i < m_number_of_items; i++)
 	{
 		if (m_cart[i]->getSerialNumber() == item_to_delete->getSerialNumber())
 		{
+			flag = true;
 			Product* tmp;
 			for (int j = i; j < m_number_of_items - 1; j++)
 			{
@@ -156,6 +163,7 @@ void Buyer::removeFromCart(Product* item_to_delete)
 			break;
 		}
 	}
+	return flag;
 }
 
 void Buyer::cartRealloc()
@@ -214,7 +222,7 @@ void Buyer::showCheckoutOrders()const
 	{
 		if (!this->m_checkout_orders[i]->getPaid())
 		{
-			cout << "\t Order #" << i + 1 << endl;
+			cout << "\n\t Order #" << i + 1 << endl;
 			this->m_checkout_orders[i]->showOrder();
 		}
 	}

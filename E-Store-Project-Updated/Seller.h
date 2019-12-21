@@ -62,9 +62,9 @@ public:
 
 public:
 	//Arrays maintenance
-	void addToListItemsArr(Product* item_to_add);
-	void addToFeedArr(FeedBack* feed_to_add);
-	void addToOrdersArr(Order* order_request);
+	bool addToListItemsArr(Product* item_to_add);
+	bool addToFeedArr(FeedBack* feed_to_add);
+	bool addToOrdersArr(Order* order_request);
 
 	// Realloc
 	void FeedbackArrRealloc();
