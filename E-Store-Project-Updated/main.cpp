@@ -71,33 +71,14 @@ int main()
 			cout << "Enter seller's username: ";
 			cin.getline(s_username,MAX_NAMES_LEN);
 			
-
-			// NIR Please Review this update. 
-			//######## Latest update ########
-			// Before creating a feedback, first check if there was indeed an 
-			// order made by THIS BUYER from THIS SERLLER.
-			// If so, continue with creating the feedback as usual. 
-			// else, print an error message. 
 			b_index = system.isBuyerExist(b_username);
-			if (!system.getBuyerArr()[b_index]->isOrderedFrom(s_username))
+			if (!system.getBuyerArr()[b_index]->isOrderedFrom(s_username)) //check if there was indeed an order made by THIS BUYER from THIS SERLLER.
 				cout << "Invalid action, " << b_username << " didn't buy from " << s_username << endl; 
 			else
 			{
 				system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username));
-				cout << "Feedback added successfully.";
+				cout << "Feedback added successfully." << endl;
 			}
-			//################################
-
-			// ################ Previous version ################
-			/*if (system.addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username)) == false)
-			{
-				cout << "Invalid action, " << b_username << " didn't buy from " << s_username << endl;
-				delete f; 
-			}
-			else
-				cout << "Feedback added successfully." ;
-			########################################################*/
-
 
 			break;
 

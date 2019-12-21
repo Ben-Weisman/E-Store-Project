@@ -122,5 +122,6 @@ FeedBack* createFeedback(const char* b_username)
 
 	cin.getline(feedback, MAX_FEEDBACK_LEN);
 
+	cout << "Enter date (dd/mm/yyyy):" << endl;
 	return new FeedBack(feedback, b_username, createDate());
 }
