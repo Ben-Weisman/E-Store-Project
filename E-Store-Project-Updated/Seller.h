@@ -36,7 +36,8 @@ private:
 	bool setOrders(Order** other);
 	bool setListItems(Product **listed_items);
 
-public:
+public:		
+
 
 	~Seller(); // d'tor
 	Seller(char* userName, char* password, char* fname, char*

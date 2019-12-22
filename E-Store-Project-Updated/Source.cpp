@@ -2,6 +2,7 @@
 #include <iostream>
 
 using namespace std;
+#pragma warning(disable:4996) 
 
 
 Address createAdress()
@@ -101,27 +102,25 @@ Product* createProduct(char* seller_username)
 
 Date createDate()
 {
-	int day, month, year;
-	cout << " - day: ";
-	cin >> day;
-	cout << " - month: ";
-	cin >> month;
-	cout << " - year: ";
-	cin >> year;
-	cout << endl;
-	cin.ignore(1,'\n');
+	char date[DATE_STRING_LEN];
+	char* day, *month, *year;
 
-	return Date(day, month, year);
+	cout << "Enter date in this format: dd/mm/yyyy" << endl;
+	cin.getline(date, DATE_STRING_LEN);
+
+	day = strtok(date, "/");
+	month = strtok(nullptr, "/");
+	year = strtok(nullptr, "\0");
+
+	return Date(atoi(day), atoi(month), atoi(year));
+
 }
 
 FeedBack* createFeedback(const char* b_username)
 {
-	
 	char feedback[MAX_FEEDBACK_LEN];
 	cout << "Please write your feedback: ";
-
 	cin.getline(feedback, MAX_FEEDBACK_LEN);
 
-	cout << "Enter date (dd/mm/yyyy):" << endl;
 	return new FeedBack(feedback, b_username, createDate());
 }

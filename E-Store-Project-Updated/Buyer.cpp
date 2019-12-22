@@ -1,4 +1,5 @@
 #include "Buyer.h"
+#include "Utils.h"
 #include "Seller.h"
 #include "Order.h"
 #include <iostream>
@@ -10,7 +11,6 @@ using namespace std;
 Buyer::Buyer(char* userName, char* password, char* fname,
 	char* lname, const Address& address) :m_address(address) // c'tor
 {
-	cout << endl << "########################################### IN BUYER C'TOR ###########################################"<< endl;
 
 	setUsername(userName);
 	setPassword(password);
@@ -32,7 +32,6 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 {
-	cout << endl << "########################################### IN BUYER COPY ###########################################"<< endl;
 
 	setUsername(b.m_username);
 	setPassword(b.m_password);
@@ -49,7 +48,6 @@ Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
 
 Buyer::~Buyer() // d'tor
 {
-	cout << endl << "########################################### IN BUYER D'TOR ###########################################"<< endl;
 
 	int i;
 	delete[]m_fname;
@@ -77,18 +75,36 @@ bool Buyer::setPassword(const char* password)
 }
 
 bool Buyer::setFname(const char* fname)
-{ // Set first name for buyer. Validation check - Not an empty string.
-	if (strlen(fname) == 0)
+{ // set first name for seller. Validation check 
+	int i = 0;
+
+	while (fname[i] != '\0' && isLetter(fname[i]))
+	{
+		i++;
+	}
+	if (fname[i] != '\0' || i <= 1)
+	{
 		return false;
+	} //We assumed that the fname can be a word with only letters (more than 1 character) 
+
 	delete[]m_fname;
 	m_fname = strdup(fname);
 	return true;
 }
 
 bool Buyer::setLname(const char* lname)
-{ // Set last name for buyer. Validation check - Not an empty string.
-	if (strlen(lname) == 0)
+{ // set last name for seller. Validation check 
+	int i = 0;
+
+	while (lname[i] != '\0' && (isLetter(lname[i]) || lname[i] != ' '))
+	{
+		i++;
+	}
+	if (lname[i] != '\0' || i <= 1)
+	{
 		return false;
+	} //We assumed that the lname can be a word with letters and spaces (more than 1 character) 
+
 	delete[]m_lname;
 	m_lname = strdup(lname);
 	return true;
@@ -168,7 +184,7 @@ bool Buyer::removeFromCart(Product* item_to_delete)
 
 void Buyer::cartRealloc()
 { // Resize cart.
-	this->m_cartPsize *= 2;
+	m_cartPsize *= 2;
 	Product** tmp = new Product *[m_cartPsize];
 
 	for (int i = 0; i < m_number_of_items; i++)
@@ -204,16 +220,16 @@ void Buyer::showCart()const
 		cout << "All products are in #/Name/Price/Seller format" << endl;
 	
 		for (int i = 0; i < m_number_of_items; i++)
-			cout << i + 1 << ") " << this->m_cart[i]->getName() << "\t" << this->m_cart[i]->getPrice() <<
-			"$\t" << this->m_cart[i]->getSellerUsername() << endl;
+			cout << i + 1 << ") " << m_cart[i]->getName() << "\t" << m_cart[i]->getPrice() <<
+			"$\t" << m_cart[i]->getSellerUsername() << endl;
 	}
 }
 
 void Buyer::showBuyer()const
 { // Print buyer's info.
-	cout << "\tFull Name: " << this->getFirstName() << " " << this->getLastName() << endl;
-	cout << "\tUsername: " << this->getUsername() << endl;
-	cout << "\tFrom: " << this->getAddress().getCountry() << endl;
+	cout << "\tFull Name: " << m_fname << " " << m_lname << endl;
+	cout << "\tUsername: " << m_username << endl;
+	cout << "\tFrom: " << m_address.getCountry() << endl;
 }
 
 void Buyer::showCheckoutOrders()const

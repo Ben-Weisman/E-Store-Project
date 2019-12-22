@@ -9,8 +9,6 @@ using namespace std;
 
 Order::Order(Buyer* b) :m_buyer(b)
 {
-	cout << endl << "########################################### IN ORDER C'TOR ###########################################"<< endl;
-
 	setTotalPrice(m_total_price);
 	setProductsPhySize(1);
 	setNumOfProducts(0);
@@ -23,8 +21,6 @@ Order::Order(Buyer* b) :m_buyer(b)
 
 Order::~Order()
 {
-	cout << endl << "########################################### IN ORDER D'TOR ###########################################"<< endl;
-
 	for (int i = 0; i < m_num_of_products; i++)
 		delete m_products_arr[i];
 
@@ -37,7 +33,7 @@ Order::~Order()
 
 bool Order::setTotalPrice(double total_price)
 {
-	if (total_price > 0)
+	if (total_price > 0) // Validity check
 	{
 		m_total_price = total_price;
 		return true;

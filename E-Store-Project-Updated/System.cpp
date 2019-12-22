@@ -1,4 +1,5 @@
 #include "System.h"
+#include "Source.h"
 #include "Order.h"
 #include <iostream>
 
@@ -10,8 +11,6 @@ using namespace std;
 
 System::System(const char* name = "eBen") //Default name
 {
-	cout << endl << "########################################### IN SYSTEM C'TOR ###########################################" << endl;
-
 	setName(name);
 
 	setSellersPhySize(1);
@@ -24,7 +23,6 @@ System::System(const char* name = "eBen") //Default name
 }
 System::~System()// d'tor
 {
-	cout << endl << "########################################### IN SYSTEM D'TOR ###########################################" << endl;
 	delete[] m_name; //free name
 
 	// free buyers arr: 
@@ -334,8 +332,8 @@ bool System::payment(const char* buyer_username)
 
 void System::printBuyers()const
 {// Print all the buyers in the system 
-	int i;
-	for (i = 0; i < m_num_of_buyers; i++)
+	int i=0;
+	for (i ; i < m_num_of_buyers; i++)
 	{
 		cout << i + 1 << ") ";
 		m_buyer_arr[i]->showBuyer();
@@ -349,8 +347,8 @@ void System::printBuyers()const
 
 void System::printSellers()const
 {// Print all the sellers in the system 
-	int i;
-	for (i = 0; i < m_num_of_sellers; i++)
+	int i=0;
+	for (i ; i < m_num_of_sellers; i++)
 	{
 		m_seller_arr[i]->showSeller();
 		cout << endl;
@@ -381,4 +379,141 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 	}
 	if (!counter) 
 		cout << "No such product in the system"<< endl;
+}
+
+
+/* ###  PRINT  ### */
+
+void System::interactiveMenu()
+{
+	bool exit_flag = true;
+	while (exit_flag)
+	{
+		int i = 1;
+		cout << "----------------------------------------------------------Actions menu:----------------------------------------------------------" << endl;
+		cout << (i++) << ") Add buyer" << endl;
+		cout << (i++) << ") Add seller" << endl;
+		cout << (i++) << ") Add product to seller" << endl;
+		cout << (i++) << ") Add feedback" << endl;
+		cout << (i++) << ") Add to cart" << endl;
+		cout << (i++) << ") Order products" << endl;
+		cout << (i++) << ") Payment" << endl;
+		cout << (i++) << ") Show all buyers" << endl;
+		cout << (i++) << ") Show all sellers" << endl;
+		cout << (i++) << ") Show all products by name" << endl;
+		cout << (i++) << ") Exit" << endl << endl;
+		cout << "Please enter your action: ";
+		int option;
+		cin >> option;
+		cin.ignore(1, '\n');
+
+		switch (option)
+		{
+			char b_username[MAX_NAMES_LEN];
+			char s_username[MAX_NAMES_LEN];
+			char prod_name[MAX_NAMES_LEN];
+			int b_index; // Latest update.
+
+		case 1://add buyer
+
+			if (!(addToBuyerArr(createBuyer())))
+				cout << "Username already exist, please try again" << endl;
+			break;
+
+		case 2://add seller
+
+			if (!(addToSellerArr(createSeller())))
+				cout << "Username already exist, please try again" << endl;
+			break;
+
+		case 3: //add product to seller
+			cout << "Enter the username of the seller: ";
+			cin.getline(s_username, MAX_NAMES_LEN);
+			Product* p;
+			if (addProductToSeller(p = createProduct(s_username), s_username) == false)
+			{
+				cout << "No such seller username." << endl;
+				delete p;
+			}
+
+			break;
+
+		case 4: //add feedback to seller 
+			FeedBack * f;
+			cout << "Enter buyer's username: ";
+			cin.getline(b_username, MAX_NAMES_LEN);
+
+			cout << "Enter seller's username: ";
+			cin.getline(s_username, MAX_NAMES_LEN);
+
+			b_index = isBuyerExist(b_username);
+			if (!getBuyerArr()[b_index]->isOrderedFrom(s_username)) //check if there was indeed an order made by THIS BUYER from THIS SERLLER.
+				cout << "Invalid action, " << b_username << " didn't buy from " << s_username << endl;
+			else
+			{
+				addFeedbackToSeller(b_username, s_username, f = createFeedback(b_username));
+				cout << "Feedback added successfully." << endl;
+			}
+
+			break;
+
+		case 5: //add to cart
+			cout << "Enter the username of the buyer: ";
+			cin.getline(b_username, MAX_NAMES_LEN);
+
+
+			cout << "Enter the product name: ";
+			cin.getline(prod_name, MAX_NAMES_LEN);
+
+			if (addProductToBuyersCart(prod_name, b_username) == false)
+			{
+				cout << "Buyer or prod not exist in the system." << endl;
+			}
+
+			break;
+
+		case 6:	//order
+			cout << "Enter the username of the buyer:";
+			cin.getline(b_username, MAX_NAMES_LEN);
+
+			newOrder(b_username);
+
+			break;
+
+		case 7:	//payment
+			cout << "Enter the username of the buyer:";
+			cin.getline(b_username, MAX_NAMES_LEN);
+
+			payment(b_username);
+
+			break;
+
+		case 8: //print all buyers
+			cout << endl;
+			printBuyers();
+
+			break;
+		case 9://print all sellers
+			cout << endl;
+			printSellers();
+
+			break;
+		case 10: // print all products from specific name  
+			cout << "Enter the product name: ";
+			cin.getline(prod_name, MAX_NAMES_LEN);
+
+			cout << endl;
+			printAllSpecificProduct(prod_name);
+
+			break;
+
+		case 11:
+			cout << endl << "Thanks for using " << m_name << ", Bye Bye (:" << endl;
+			exit_flag = false;
+			break;
+		default:
+			cout << endl << "Ops... No such action" << endl << endl;
+			break;
+		}
+	}
 }

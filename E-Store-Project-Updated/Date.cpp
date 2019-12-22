@@ -4,7 +4,6 @@
 
 Date::Date(int day, int month, int year)
 {
-	cout << endl << "########################################### IN DATE C'TOR ###########################################"<< endl;
 
 	setDay(day);
 	setMonth(month);
@@ -15,8 +14,9 @@ Date::Date(int day, int month, int year)
 
 bool Date::setDay(int day)
 {
-	if (day < 1 || day>31)
-	{
+	if (day < 1 || day>31) 
+	{// Validity check
+
 		return false;
 	}
 	m_day = day;
@@ -25,7 +25,8 @@ bool Date::setDay(int day)
 bool  Date::setMonth(int month)
 {
 	if (month < 1 || month>12)
-	{
+	{// Validity check
+
 		return false;
 	}
 	m_month = month;
@@ -34,7 +35,8 @@ bool  Date::setMonth(int month)
 bool Date::setYear(int year)
 {
 	if (year < 0)  
-	{
+	{// Validity check
+
 		return false;
 	}
 	m_year = year;

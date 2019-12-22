@@ -6,7 +6,6 @@
 
 Address::Address(char* country, char* city, char* street, int number) //c'tor
 {
-	cout << endl << "########################################### IN ADDRESS C'TOR ###########################################"<< endl;
 	setCountry(country);
 	setCity(city);
 	setStreet(street);
@@ -14,7 +13,6 @@ Address::Address(char* country, char* city, char* street, int number) //c'tor
 }
 Address::Address(const Address&a) //copy c'tor
 {
-	cout << endl << "########################################### IN ADDRESS COPY ###########################################"<< endl;
 	setCountry(a.m_country);
 
 	setCity(a.m_city);
@@ -26,7 +24,6 @@ Address::Address(const Address&a) //copy c'tor
 }
 Address::Address(Address&&a) //move c'tor
 {
-	cout << endl << "########################################### IN ADDRESS MOVE ###########################################"<< endl;
 	m_country = a.m_country;
 	m_city = a.m_city;
 	m_street = a.m_street;
@@ -38,7 +35,6 @@ Address::Address(Address&&a) //move c'tor
 }
 Address::~Address()// d'tor
 {
-	cout << endl << "########################################### IN ADDRESS D'TOR ###########################################"<< endl;
 	delete[]m_country;
 	delete[]m_city;
 	delete[]m_street;
@@ -92,7 +88,7 @@ bool Address::setStreet(const char* street)
 	if (street[i] != '\0' || i <= 1)// Validity check
 	{
 		return false;
-	} //We assumed that There street can be a word with numbers/letters and with more the 1 letter 
+	} //We assumed that the street can be a word with numbers/letters and with more the 1 letter 
 
 	m_street = nullptr;
 	delete[] m_street;

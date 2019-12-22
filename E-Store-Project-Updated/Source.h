@@ -5,8 +5,10 @@
 #include "Utils.h"
 
 
-const int MAX_NAMES_LEN = 30;
-const int MAX_FEEDBACK_LEN = 90;
+const int MAX_NAMES_LEN = 31;
+const int MAX_FEEDBACK_LEN = 91;
+const int DATE_STRING_LEN = 11; //      dd/mm/yyyy
+
 
 Address createAdress();
 Buyer* createBuyer();

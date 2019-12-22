@@ -1,4 +1,5 @@
 #include "Seller.h"
+#include "Utils.h"
 #include <iostream>
 
 
@@ -10,8 +11,6 @@ using namespace std;
 Seller::Seller(char* username, char* password, char* fname, char* lname,
 	const Address& address) : m_address(address) // c'tor
 {
-	cout << endl << "########################################### IN SELLER C'TOR ###########################################"<< endl;
-
 	setUsername(username);
 	setPassword(password);
 	setFname(fname);
@@ -37,8 +36,6 @@ Seller::Seller(char* username, char* password, char* fname, char* lname,
 
 Seller::~Seller() // d'tor
 {
-	cout << endl << "########################################### IN SELLER D'TOR ###########################################"<< endl;
-
 	delete[]m_fname;
 	delete[]m_lname;
 	delete[]m_username;
@@ -57,8 +54,6 @@ Seller::~Seller() // d'tor
 
 Seller::Seller(const Seller& s) :m_address(s.m_address) // copy c'tor
 {
-	cout << endl << "########################################### IN SELLER COPY ###########################################"<< endl;
-
 	setUsername(s.m_username);
 	setPassword(s.m_password);
 	setFname(s.m_fname);
@@ -85,24 +80,43 @@ bool Seller::setPassword(const char* password)
 { // set password for seller. Validation check - not an empty string.
 	if (strlen(password) == 0)
 		return false;
+
 	delete[]m_password;
 	m_password = strdup(password);
 	return true;
 }
 
 bool Seller::setFname(const char* fname)
-{ // set first name for seller. Validation check - not an empty string.
-	if (strlen(fname) == 0)
+{ // set first name for seller. Validation check 
+	int i = 0;
+
+	while (fname[i] != '\0' && isLetter(fname[i]) )
+	{
+		i++;
+	}
+	if (fname[i] != '\0' || i <= 1)
+	{
 		return false;
+	} //We assumed that the fname can be a word with only letters (more than 1 character) 
+
 	delete[]m_fname;
 	m_fname = strdup(fname);
 	return true;
 }
 
 bool Seller::setLname(const char* lname)
-{ // set last name for seller. Validation check - not an empty string.
-	if (strlen(lname) == 0)
+{ // set last name for seller. Validation check 
+	int i = 0;
+
+	while (lname[i] != '\0' && (isLetter(lname[i]) || lname[i] == ' '))
+	{
+		i++;
+	}
+	if (lname[i] != '\0' || i <= 1)
+	{
 		return false;
+	} //We assumed that the lname can be a word with letters and spaces (more than 1 character) 
+
 	delete[]m_lname;
 	m_lname = strdup(lname);
 	return true;
@@ -189,7 +203,7 @@ void Seller::FeedbackArrRealloc()
 void Seller::ListedItemsArrRealloc()
 { // Resize listed items arr using realloc logic. 
 
-	this->m_feedbacks_phy_size *= 2;
+	m_feedbacks_phy_size *= 2;
 	Product** tmp = new Product *[m_feedbacks_phy_size];
 
 	for (int i = 0; i < m_num_of_listed_items; i++)
@@ -201,7 +215,7 @@ void Seller::ListedItemsArrRealloc()
 
 void Seller::OrdersArrRealloc()
 { // Resize orders arr using realloc logic. 
-	this->m_orders_pSize *= 2;
+	m_orders_pSize *= 2;
 	Order** tmp = new Order *[m_orders_pSize];
 
 	for (int i = 0; i < m_num_of_orders; i++)
@@ -215,8 +229,8 @@ const Product* Seller::findProduct(const char* to_find)const
 { // search for a given product in seller's listed items and return its pointer. 
 	for (int i = 0; i < m_num_of_listed_items; i++)
 	{
-		if (strcmp(this->getListedItems()[i]->getName(), to_find) == 0)
-			return this->getListedItems()[i];
+		if (strcmp(m_listed_items[i]->getName(), to_find) == 0)
+			return this->m_listed_items[i];
 	}
 	return nullptr;
 }
@@ -225,9 +239,9 @@ const Product* Seller::findProduct(const char* to_find)const
 
 void Seller::showSeller()
 {
-	cout << "\tName: " << this->getFirstName() << " " << this->getLastName() <<
-		endl << "\tUsername: " << this->getUsername()
-		<< endl << "\tCountry: " << this->getAddress().getCountry() << endl;
+	cout << "\tName: " << m_fname << " " << m_lname <<
+		endl << "\tUsername: " << m_username
+		<< endl << "\tCountry: " << m_address.getCountry() << endl;
 }
 
 

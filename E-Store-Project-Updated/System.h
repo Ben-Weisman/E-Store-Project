@@ -5,7 +5,7 @@
 #include "Buyer.h"
 //#include "Product.h"
 
-const int MAX_LEN = 20;
+const int MAX_LEN = 21;
 const int NOT_EXIST = -1;
 const int EXIT = -1;
 const int EMPTY = 0;
@@ -83,6 +83,9 @@ public:
 	void printSellers()const;
 	/*10*/
 	void printAllSpecificProduct(const char* name_to_find) const;
+
+	// Print:
+	void interactiveMenu();
 
 };
 

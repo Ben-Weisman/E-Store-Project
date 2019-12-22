@@ -8,32 +8,24 @@ using namespace std;
 
 FeedBack::FeedBack(char* feedback, const char* provider_username, const Date& date) : m_date(date) //c'tor
 {
-	cout << endl << "########################################### IN FEEDBACK C'TOR ###########################################"<< endl;
-
 	setFeedbackEval(feedback);
 	setFeedbackProvider(provider_username);
 }
 
 FeedBack::~FeedBack() //d'tor
 {
-	cout << endl << "########################################### IN FEEDBACK D'TOR ###########################################"<< endl;
-
 	delete[]m_feedback_evaluation;
 	delete[]m_provider_username;
 }
 
 FeedBack::FeedBack(const FeedBack& f) :m_date(f.m_date) //copy c'tor
 {
-	cout << endl << "########################################### IN FEEDBACK COPY ###########################################"<< endl;
-
 	setFeedbackProvider(m_provider_username);
 	setFeedbackEval(f.getFeedbackEvaluation());
 }
 
 FeedBack::FeedBack(FeedBack&& f) : m_date(f.m_date) // move c'tor
 {
-	cout << endl << "########################################### IN FEEDBACK MOVE ###########################################"<< endl;
-
 	m_feedback_evaluation = f.m_feedback_evaluation;
 	m_provider_username = f.m_provider_username;
 
@@ -66,7 +58,7 @@ bool FeedBack::setFeedbackProvider(const char* provider_username)
 void FeedBack::showFeedback()const
 { // Print Feedback. 
 	cout << "Date provided: ";
-	this->m_date.showDate();
+	m_date.showDate();
 	cout << endl;
 
 	cout << "Provided by: " << m_provider_username << endl;

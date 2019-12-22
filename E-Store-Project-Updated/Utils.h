@@ -3,7 +3,6 @@
 
 bool isLetter(char ch);
 bool isNumber(char ch);
-void cleanBuffer();
 
 #endif // !__Utils_h
 
