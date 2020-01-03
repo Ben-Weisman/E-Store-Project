@@ -272,9 +272,37 @@ bool Buyer::isEmptyCheckoutOrders()
 	return true;
 }
 
+int const Buyer::getTotalCartValue()const
+{ 
+	int res = 0;
+
+	for (int i = 0; i < this->getNumberOfItems(); i++)
+		res += this->m_cart[i]->getPrice();
+	for (int i = 0; i < this->getNumOfOrders(); i++)
+	{
+		if (!this->m_checkout_orders[i]->getPaid())
+		{
+			for (int j = 0; j < this->m_checkout_orders[i]->getNumOfProducts(); j++)
+				res += this->m_checkout_orders[i]->getProductsArr()[j]->getPrice();
+		}
+	}
+}
+
 bool Buyer::isEmptyCart()
 {
 	if (this->m_number_of_items == 0)
 		return true;
 	return false;
+}
+
+bool Buyer::operator>(const Buyer& other)const
+{
+	return this->getTotalCartValue() > other.getTotalCartValue();
+}
+
+ostream& operator<<(ostream& os, const Buyer& buyer)
+{ // Need to check the way to print address.
+	os << "Full Name: " << buyer.getFirstName() << buyer.getLastName()<<
+		"\nUsername: " << buyer.getUsername() << "\nCountry: " << buyer.getAddress().getCountry();
+	return os;
 }

@@ -43,6 +43,7 @@ public:
 	inline const Address& getAddress()const { return m_address; }
 	inline Order** getOrders()const { return m_checkout_orders; }
 	inline const int getNumOfOrders()const { return m_num_checkout_orders; }
+	int const getTotalCartValue()const;
 
 public:
 
@@ -65,9 +66,12 @@ public:
 public:
 
 	void showCart()const;
-	void showBuyer()const;
+	void showBuyer()const; // to delete
 	void showCheckoutOrders()const;
 
+public:
+	friend ostream& operator<<(ostream& os, const Buyer& buyer);
+	bool operator>(const Buyer& other)const;
 };
 
 #endif //!__Buyer_h

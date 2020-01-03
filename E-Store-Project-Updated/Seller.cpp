@@ -244,4 +244,11 @@ void Seller::showSeller()
 		<< endl << "\tCountry: " << m_address.getCountry() << endl;
 }
 
+ostream& operator<<(ostream& os, Seller& seller)
+{
+	os << "Full Name: " << seller.getFirstName() << seller.getLastName() <<
+		"\nUsername: " << seller.getUsername() << "\nCountry: " << seller.getAddress().getCountry();
+	return os;
+}
+
 

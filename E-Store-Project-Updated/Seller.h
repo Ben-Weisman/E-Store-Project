@@ -76,6 +76,8 @@ public:
 	const Product* findProduct(const char* to_find)const; // Ben i changed the name to be more intoitive (getProduct sound like getter method - one liner) + added the relevat consts
 	void showSeller();
 
+	//operators
+	friend ostream& operator<<(ostream& os, const Seller& buyer);
 };
 
 #endif // !__Seller_h
