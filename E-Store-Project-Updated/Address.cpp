@@ -40,6 +40,16 @@ Address::~Address()// d'tor
 	delete[]m_street;
 }
 
+// -----------------------------operators----------------------------------
+
+
+ostream& operator<<(ostream& os, const Address& address)
+{
+	os << address.m_country << ", " << address.m_city << ", " << address.m_house_number << " " << address.m_street << " st" << endl;
+
+	return os;
+}
+
 // -----------------------------setters----------------------------------
 
 bool Address::setCountry(const char* country)

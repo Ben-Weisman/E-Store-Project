@@ -300,8 +300,9 @@ bool Buyer::operator>(const Buyer& other)const
 	return this->getTotalCartValue() > other.getTotalCartValue();
 }
 
-ostream& operator<<(ostream& os, const Buyer& buyer)
-{ // Need to check the way to print address.
+ostream& operator<<(ostream& os, const Buyer& buyer)  
+{ // # Nir: this is a friend func, you can use the private members of buyer without the getters (dont forget to include iostream.h at the h file for that) 
+// Need to check the way to print address. .-----------------------------> // # Nir:I made operator << in Address for you (: 
 	os << "Full Name: " << buyer.getFirstName() << buyer.getLastName()<<
 		"\nUsername: " << buyer.getUsername() << "\nCountry: " << buyer.getAddress().getCountry();
 	return os;

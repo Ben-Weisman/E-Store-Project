@@ -17,6 +17,9 @@ public:
 	Address(const Address&a); //copy c'tor
 	Address(Address&&a); //move c'tor
 public:
+	friend ostream& operator<<(ostream& os, const Address& address);
+
+public:
 	bool setCountry(const char* country);
 	bool setCity(const char* city);
 	bool setStreet(const char* street);
@@ -27,7 +30,7 @@ public:
 	inline const char* getStreet()const{ return m_street;}
 	inline int getHouseNumber()const { return m_house_number; }
 public:
-	inline void showAddress()const {cout << m_country << ", " << m_city << ", " << m_house_number << " " << m_street << " st" << endl;}
+	//inline void showAddress()const {cout << m_country << ", " << m_city << ", " << m_house_number << " " << m_street << " st" << endl;} # Added operator << instead
 
 };
 #endif // !__Address_h

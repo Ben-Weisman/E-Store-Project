@@ -1,10 +1,7 @@
 #include "Product.h"
 #include "Utils.h"
 #include <string.h>
-#include <iostream>
 
-
-using namespace std;
 #pragma warning(disable:4996) 
 
 // --------------------- static ---------------------
@@ -50,6 +47,17 @@ Product::Product(Product&&p) : m_serial_number(std::move(p.m_serial_number)) //m
 	p.m_seller_username = nullptr;
 }
 
+// ---------------------------------- operators ------------------------------------------
+
+
+ostream& operator<<(ostream& os, const Product& product)
+{ 
+    os << endl << "\tProduct name: " << product.m_name << endl << "\tcategory: " << product.CATEGORY_ARR[product.m_category] << endl;
+	os << "\tprice: " << product.m_price << "$" << endl << "\tserial number: " << product.m_serial_number << endl;
+	os << "\tThe seller of this product is: " << product.m_seller_username << endl;
+	
+	return os;
+}
 
 // ---------------------------------- public setters ------------------------------------------
 
@@ -109,13 +117,6 @@ bool Product::setSellerUsername(char* seller_username) //private method that we 
 
 
 // ----------------------- Printing methods -----------------------
-
-void Product::showProduct() const
-{
-	cout << endl << "\tProduct name: " << m_name << endl << "\tcategory: " << CATEGORY_ARR[m_category] << endl;
-	cout << "\tprice: " << m_price << "$" << endl << "\tserial number: " << m_serial_number << endl;
-	cout << "\tThe seller of this product is: " << m_seller_username << endl;
-}
 
 void Product::showProductToBuyer()const
 {

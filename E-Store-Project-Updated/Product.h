@@ -1,6 +1,9 @@
 #ifndef __Product_h
 #define __Product_h
 
+#include <iostream>
+using namespace std;
+
 class Product
 {
 public:
@@ -24,6 +27,9 @@ public:
 	Product(Product&&p); //move c'tor
 
 public:
+	friend ostream& operator<<(ostream& os, const Product& product);
+
+public:
 	bool setName(const char* name);
 	 bool setPrice(double price);
 
@@ -40,7 +46,7 @@ public:
 
 
 public:
-	void showProduct()const;
+	//void showProduct()const; # transfer that func to << operator
 	void showProductToBuyer()const;
 };
 #endif // !__Product_h
