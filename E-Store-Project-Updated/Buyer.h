@@ -2,6 +2,7 @@
 #define __Buyer_h
 #include "Address.h"
 #include "Product.h"
+#include <iostream>
 
 class Order; //forward declaration
 

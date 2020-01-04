@@ -245,10 +245,10 @@ void Seller::showSeller()
 }
 
 ostream& operator<<(ostream& os, Seller& seller) 
-{ // # Nir: this is a friend func, you can use the private members of seller without the getters (dont forget to include iostream.h at the h file for that) 
+{ 
 
-	os << "Full Name: " << seller.getFirstName() << seller.getLastName() <<
-		"\nUsername: " << seller.getUsername() << "\nCountry: " << seller.getAddress().getCountry();
+	os << "Full Name: " << seller.m_fname << seller.m_lname <<
+		"\nUsername: " << seller.m_username << "Address: " << seller.m_address;
 	return os;
 }
 
