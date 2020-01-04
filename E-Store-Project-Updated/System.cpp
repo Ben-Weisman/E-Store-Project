@@ -55,6 +55,17 @@ bool System::operator+=(Buyer* new_buyer)// Add buyer to system buyers array
 	return true; // new buyer entered
 }
 
+bool System::operator+=(Seller* new_seller)
+{// Add seller to sellers arr using += operator.
+	if (isSellerExist(new_seller->getUsername()) != NOT_EXIST)
+		return false;
+	if (m_num_of_sellers == m_sellers_phy_size)
+		sellersRealloc();
+	m_seller_arr[m_num_of_sellers++] = new_seller;
+
+	return true;
+}
+
 // ---------------------------------- setters ------------------------------------------
 
 bool System::setName(const char* name)

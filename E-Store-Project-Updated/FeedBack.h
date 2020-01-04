@@ -29,6 +29,7 @@ public:
 
 	void showFeedback()const;
 
+	friend ostream& operator<<(ostream& os, FeedBack& feedback);
 
 };
 

@@ -35,7 +35,7 @@ public:
 
 public:
 	bool operator+=(Buyer* new_buyer); //# Nir: First menu option 
-	//# Nir: Need to create OPERATOR += To Seller also
+	bool operator+=(Seller* new_seller);//# Nir: Need to create OPERATOR += To Seller also
 public:
 	bool setName(const char* name);
 

@@ -66,6 +66,13 @@ void FeedBack::showFeedback()const
 	this->getFeedbackEvaluation();
 }
 
+ostream& operator<<(ostream& os, FeedBack& feedback)
+{
+	os << "Provided by: " << feedback.m_provider_username << "\nThe feedback:\n" << feedback.m_feedback_evaluation
+		<< endl;
+	return os;
+}
+
 
 
 

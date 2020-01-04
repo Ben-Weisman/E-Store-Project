@@ -78,7 +78,7 @@ public:
 	void showSeller();
 
 	//operators
-	friend ostream& operator<<(ostream& os, const Seller& buyer);
+	friend ostream& operator<<(ostream& os, const Seller& seller);
 };
 
 #endif // !__Seller_h

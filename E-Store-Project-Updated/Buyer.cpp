@@ -297,7 +297,9 @@ bool Buyer::isEmptyCart()
 
 bool Buyer::operator>(const Buyer& other)const
 {
-	return this->getTotalCartValue() > other.getTotalCartValue(); // # Nir: I think you can use the private members
+	return this->getTotalCartValue() > other.getTotalCartValue(); 
+	// # Nir: I think you can use the private members
+	// ^^ Ben: No, we don't have a member that saves the total price of the cart.
 }
 
 ostream& operator<<(ostream& os, const Buyer& buyer)  
