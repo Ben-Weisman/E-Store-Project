@@ -297,7 +297,7 @@ bool Buyer::isEmptyCart()
 
 bool Buyer::operator>(const Buyer& other)const
 {
-	return this->getTotalCartValue() > other.getTotalCartValue();
+	return this->getTotalCartValue() > other.getTotalCartValue(); // # Nir: I think you can use the private members
 }
 
 ostream& operator<<(ostream& os, const Buyer& buyer)  

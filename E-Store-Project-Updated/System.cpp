@@ -39,6 +39,22 @@ System::~System()// d'tor
 
 	delete[]m_seller_arr;
 }
+
+// ---------------------------------- operators ------------------------------------------
+
+bool System::operator+=(Buyer* new_buyer)// Add buyer to system buyers array
+{
+	if (isBuyerExist(new_buyer->getUsername()) != NOT_EXIST)
+		return false; // username already exist
+
+	if (m_num_of_buyers == m_buyers_phy_size)
+		buyersRealloc();
+
+	m_buyer_arr[m_num_of_buyers++] = new_buyer;
+
+	return true; // new buyer entered
+}
+
 // ---------------------------------- setters ------------------------------------------
 
 bool System::setName(const char* name)
@@ -129,18 +145,18 @@ void System::sellersRealloc()
 
 /************************************************************ 1 ********************************************************/
 
-bool System::addToBuyerArr(Buyer* new_buyer)
-{ // Add buyer to system buyers array
-	if (isBuyerExist(new_buyer->getUsername())!=NOT_EXIST)
-		return false; // username already exist
-
-	if (m_num_of_buyers == m_buyers_phy_size)
-		buyersRealloc();
-
-	m_buyer_arr[m_num_of_buyers++] = new_buyer;
-
-	return true; // new buyer entered
-}
+//bool System::addToBuyerArr(Buyer* new_buyer)
+//{ // Add buyer to system buyers array
+//	if (isBuyerExist(new_buyer->getUsername())!=NOT_EXIST)
+//		return false; // username already exist
+//
+//	if (m_num_of_buyers == m_buyers_phy_size)
+//		buyersRealloc();
+//
+//	m_buyer_arr[m_num_of_buyers++] = new_buyer;
+//
+//	return true; // new buyer entered
+//}
 
 /************************************************************ 2 ********************************************************/
 
@@ -159,6 +175,11 @@ bool System::addToSellerArr(Seller* new_seller)
 }
 
 /************************************************************ 3 ********************************************************/
+// Add sellerbuyer 
+
+
+/************************************************************ 4 ********************************************************/
+
 
 bool System::addProductToSeller(Product* prod, const char* seller_username)
 {// Add new product to exist seller 
@@ -173,7 +194,7 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 	return false; //no such seller / invalid product
 }
 
-/******************************************************************  4  ***********************************************************/
+/******************************************************************  5  ***********************************************************/
 
 bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback)
 {// Add feedback to exist seller from exist buyer that allready buyed from him 
@@ -195,7 +216,7 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 
 	return false;
 }
-/*****************************************************************  5  *****************************************************/
+/*****************************************************************  6  *****************************************************/
 
 bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_username)
 {// add product to exist buyer's cart 
@@ -253,7 +274,7 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 }
 
 
-/*****************************************************************  6  *****************************************************/
+/*****************************************************************  7  *****************************************************/
 bool System::newOrder(const char* buyer_username)
 {// Make new order to buyer (choosing from his own cart)
 	int buyer_index = isBuyerExist(buyer_username); //Check if the buyer exist 
@@ -290,7 +311,7 @@ bool System::newOrder(const char* buyer_username)
 
 	return true;
 }
-/*****************************************************************  7  *****************************************************/
+/*****************************************************************  8  *****************************************************/
 bool System::payment(const char* buyer_username)
 {//Pay on unpaid order
 	int buyer_index = isBuyerExist(buyer_username);
@@ -328,7 +349,7 @@ bool System::payment(const char* buyer_username)
 	return true;
 }
 
-/*****************************************************************  8  *****************************************************/
+/*****************************************************************  9  *****************************************************/
 
 void System::printBuyers()const
 {// Print all the buyers in the system 
@@ -336,22 +357,22 @@ void System::printBuyers()const
 	for (i ; i < m_num_of_buyers; i++)
 	{
 		cout << i + 1 << ") ";
-		m_buyer_arr[i]->showBuyer();
-		cout << endl;
+		//m_buyer_arr[i]->showBuyer();
+		cout << m_buyer_arr[i] << endl;
 	}
 	if (i == 0)
 		cout << "No Buyers in the system"<< endl;
 }
 
-/*****************************************************************  9  *****************************************************/
+/*****************************************************************  10  *****************************************************/
 
 void System::printSellers()const
 {// Print all the sellers in the system 
 	int i=0;
 	for (i ; i < m_num_of_sellers; i++)
 	{
-		m_seller_arr[i]->showSeller();
-		cout << endl;
+		//m_seller_arr[i]->showSeller();
+		cout << m_seller_arr[i] << endl;
 	}
 	if (i == 0)
 		cout << "No Sellers in the system"<< endl;
@@ -359,7 +380,11 @@ void System::printSellers()const
 }
 
 
-/*****************************************************************  10  *****************************************************/
+/*****************************************************************  11  *****************************************************/
+//Show all SELLERSBUYERS
+
+/*****************************************************************  12  *****************************************************/
+
 
 void System::printAllSpecificProduct(const char* name_to_find)const
 {// Print all products with the chosen name that in the system 
@@ -372,7 +397,8 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 			if (strcmp(name_to_find, m_seller_arr[i]->getListedItems()[j]->getName()) == 0) // if choosen product name exist
 			{
 				cout << counter++ << ") ";
-				m_seller_arr[i]->getListedItems()[j]->showProduct(); // Print 
+				//m_seller_arr[i]->getListedItems()[j]->showProduct(); // Nir: # Replaced by operator <<
+				cout << m_seller_arr[i]->getListedItems()[j];  // Nir: # using operator <<
 				cout << endl;
 			}
 		}
@@ -382,7 +408,7 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 }
 
 
-/* ###  PRINT  ### */
+/* ----- PRINT ------ */
 
 void System::interactiveMenu()
 {
@@ -416,7 +442,9 @@ void System::interactiveMenu()
 
 		case 1://add buyer
 
-			if (!(addToBuyerArr(createBuyer())))
+			//if (!(addToBuyerArr(createBuyer())))
+			Buyer* new_buyer = createBuyer();
+			if(!((*this)+=new_buyer)) //using system's += operator ( check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
 

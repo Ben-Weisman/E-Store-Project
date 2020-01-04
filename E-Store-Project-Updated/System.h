@@ -34,6 +34,9 @@ public:
 	~System();// d'tor
 
 public:
+	bool operator+=(Buyer* new_buyer); //# Nir: First menu option 
+	//# Nir: Need to create OPERATOR += To Seller also
+public:
 	bool setName(const char* name);
 
 	bool setNumOfSellers(int num_of_sellers);
@@ -64,9 +67,9 @@ public:
 
 public:
 	/*1*/                                       
-	bool addToBuyerArr(Buyer* new_buyer);
+	/*bool addToBuyerArr(Buyer* new_buyer);*/   //  # Nir: Replaced by operator += 
 	/*2*/
-	bool addToSellerArr(Seller* new_seller);
+	bool addToSellerArr(Seller* new_seller);     // # Nir: Should be replaced by operator += 
 	/*3*/
 	bool addProductToSeller(Product* prod, const char* seller_username);
 	/*4*/
