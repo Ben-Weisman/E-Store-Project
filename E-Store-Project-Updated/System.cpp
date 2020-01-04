@@ -39,6 +39,22 @@ System::~System()// d'tor
 
 	delete[]m_seller_arr;
 }
+
+// ---------------------------------- operators ------------------------------------------
+
+bool System::operator+=(Buyer* new_buyer)// Add buyer to system buyers array
+{
+	if (isBuyerExist(new_buyer->getUsername()) != NOT_EXIST)
+		return false; // username already exist
+
+	if (m_num_of_buyers == m_buyers_phy_size)
+		buyersRealloc();
+
+	m_buyer_arr[m_num_of_buyers++] = new_buyer;
+
+	return true; // new buyer entered
+}
+
 // ---------------------------------- setters ------------------------------------------
 
 bool System::setName(const char* name)
@@ -129,18 +145,18 @@ void System::sellersRealloc()
 
 /************************************************************ 1 ********************************************************/
 
-bool System::addToBuyerArr(Buyer* new_buyer)
-{ // Add buyer to system buyers array
-	if (isBuyerExist(new_buyer->getUsername())!=NOT_EXIST)
-		return false; // username already exist
-
-	if (m_num_of_buyers == m_buyers_phy_size)
-		buyersRealloc();
-
-	m_buyer_arr[m_num_of_buyers++] = new_buyer;
-
-	return true; // new buyer entered
-}
+//bool System::addToBuyerArr(Buyer* new_buyer)
+//{ // Add buyer to system buyers array
+//	if (isBuyerExist(new_buyer->getUsername())!=NOT_EXIST)
+//		return false; // username already exist
+//
+//	if (m_num_of_buyers == m_buyers_phy_size)
+//		buyersRealloc();
+//
+//	m_buyer_arr[m_num_of_buyers++] = new_buyer;
+//
+//	return true; // new buyer entered
+//}
 
 /************************************************************ 2 ********************************************************/
 
@@ -372,7 +388,8 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 			if (strcmp(name_to_find, m_seller_arr[i]->getListedItems()[j]->getName()) == 0) // if choosen product name exist
 			{
 				cout << counter++ << ") ";
-				m_seller_arr[i]->getListedItems()[j]->showProduct(); // Print 
+				//m_seller_arr[i]->getListedItems()[j]->showProduct(); // Nir: # Replaced by operator <<
+				cout << m_seller_arr[i]->getListedItems()[j];  // Nir: # using operator <<
 				cout << endl;
 			}
 		}
@@ -382,7 +399,7 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 }
 
 
-/* ###  PRINT  ### */
+/* ----- PRINT ------ */
 
 void System::interactiveMenu()
 {
@@ -416,7 +433,9 @@ void System::interactiveMenu()
 
 		case 1://add buyer
 
-			if (!(addToBuyerArr(createBuyer())))
+			//if (!(addToBuyerArr(createBuyer())))
+			Buyer* new_buyer = createBuyer();
+			if(!((*this)+=new_buyer)) //using system's += operator ( check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
 
