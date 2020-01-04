@@ -28,6 +28,7 @@ public:
 
 public:
 	friend ostream& operator<<(ostream& os, const Product& product);
+	const Product& operator=(const Product& p);
 
 public:
 	bool setName(const char* name);
