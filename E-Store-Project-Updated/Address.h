@@ -17,6 +17,7 @@ public:
 	Address(const Address&a); //copy c'tor
 	Address(Address&&a); //move c'tor
 public:
+	const Address& operator=(const Address& a);
 	friend ostream& operator<<(ostream& os, const Address& address);
 
 public:
