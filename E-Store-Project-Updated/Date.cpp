@@ -4,7 +4,6 @@
 
 Date::Date(int day, int month, int year)
 {
-
 	setDay(day);
 	setMonth(month);
 	setYear(year);

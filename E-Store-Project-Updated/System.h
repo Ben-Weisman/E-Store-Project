@@ -3,7 +3,6 @@
 
 #include "Seller.h"
 #include "Buyer.h"
-//#include "Product.h"
 
 const int MAX_LEN = 21;
 const int NOT_EXIST = -1;
