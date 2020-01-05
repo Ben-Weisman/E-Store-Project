@@ -308,3 +308,32 @@ ostream& operator<<(ostream& os, const Buyer& buyer)
 		"\nUsername: " << buyer.m_username << buyer.m_address;
 	return os;
 }
+const Buyer& Buyer::operator=(const Buyer& other)
+{ // Our logic is that we NEVER override an existing buyer, meaning the assignment operator 
+	// will always assign to an empty buyer object. Thus there's no actual need to free any
+	// allocated memory. Currently I wrote the full version of the operator, for practice.
+	// Maybe we should leave it with the full version (with all the deleteions) for best practice.
+	if (this != &other)
+	{
+		delete[]m_username;
+		m_username = strdup(other.m_username);
+		delete[]m_password;
+		m_password = strdup(other.m_password);
+		delete[]m_fname;
+		m_fname = strdup(other.m_fname);
+		delete[]m_lname;
+		m_lname = strdup(other.m_lname);
+
+		m_cartPsize = other.m_cartPsize;
+		m_number_of_items = other.m_number_of_items;
+		m_num_checkout_orders = other.m_num_checkout_orders;
+		m_checkout_orders_pSize = other.m_checkout_orders_pSize;
+
+
+		m_address;
+		for (int i=0;i<m_number_of_items;i++)
+			delete
+		m_cart;
+			m_checkout_orders;
+	}
+}

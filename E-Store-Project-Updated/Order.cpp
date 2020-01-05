@@ -9,7 +9,6 @@ using namespace std;
 
 Order::Order(Buyer* b) :m_buyer(b)
 {
-	setTotalPrice(m_total_price);
 	setProductsPhySize(1);
 	setNumOfProducts(0);
 	setTotalPrice(0);
@@ -27,6 +26,32 @@ Order::~Order()
 	delete m_products_arr;
 }
 
+Order::Order(const Order& o):m_buyer(o.m_buyer)
+{
+	*this = o;
+}
+
+
+// ----------------------------------------- operators ---------------------------------
+
+const Order& Order::operator=(const Order& o) 
+{
+	if (this != &o)
+	{
+		setTotalPrice(o.m_total_price);
+		setProductsPhySize(o.m_products_phy_size);
+		setNumOfProducts(o.m_num_of_products);
+		setPaid(false);
+		//# Nir: what about the buyer pointer ? 
+
+		m_products_arr = new Product*[m_products_phy_size];
+		for (int i = 0; i < m_num_of_products; i++)
+		{
+			m_products_arr[i] = o.m_products_arr[i]; // use product = operator
+		}
+	}
+	return *this;
+}
 
 
 // ----------------------------------------- setters ---------------------------------

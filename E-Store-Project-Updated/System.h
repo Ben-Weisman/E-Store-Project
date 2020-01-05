@@ -3,7 +3,6 @@
 
 #include "Seller.h"
 #include "Buyer.h"
-//#include "Product.h"
 
 const int MAX_LEN = 21;
 const int NOT_EXIST = -1;
@@ -27,7 +26,9 @@ private:
 
 
 private:
-	System(const System&) = default; // Under private cause we don't want anyone to duplicate our system  ----> delete is beter option?
+	// Under private cause we don't want anyone to duplicate our system 
+	System(const System&s); 
+	const System& operator=(const System& s);
 
 public:
 	System(const char* name); //c'tor

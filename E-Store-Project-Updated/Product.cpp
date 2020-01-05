@@ -25,15 +25,9 @@ Product::~Product() //d'tor
 	delete[]m_seller_username;
 }
 
-Product::Product(const Product&p) :m_serial_number(p.m_serial_number) //copy c'tor
+Product::Product(const Product&p)  //copy c'tor
 {
-	setCategory(p.m_category);
-
-	setName(p.m_name);
-
-	setPrice(p.m_price);
-
-	setSellerUsername(p.m_seller_username);
+	*this = p; //using = operator
 }
 
 Product::Product(Product&&p) : m_serial_number(std::move(p.m_serial_number)) //move c'tor
@@ -49,6 +43,22 @@ Product::Product(Product&&p) : m_serial_number(std::move(p.m_serial_number)) //m
 
 // ---------------------------------- operators ------------------------------------------
 
+const Product& Product::operator=(const Product& p)
+{
+	if (this != &p)
+	{ 
+		setCategory(p.m_category);
+
+		setName(p.m_name);
+
+		setPrice(p.m_price);
+
+		setSellerUsername(p.m_seller_username);
+
+		m_serial_number = p.m_serial_number; 
+	}
+	return *this;
+}
 
 ostream& operator<<(ostream& os, const Product& product)
 { 
@@ -107,13 +117,11 @@ bool Product::setCategory(ecategory category) //private method that we used only
 	return false; //in case that the category is not one from the list of categories
 }
 
-bool Product::setSellerUsername(char* seller_username) //private method that we used only once at the c'tor 
+bool Product::setSellerUsername(char* seller_username) //private method that we use only once at the c'tor 
 {
 	m_seller_username = strdup(seller_username);
 	return true;
-
 }
-
 
 
 // ----------------------- Printing methods -----------------------

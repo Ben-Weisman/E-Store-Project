@@ -73,6 +73,7 @@ public:
 public:
 	friend ostream& operator<<(ostream& os, const Buyer& buyer);
 	bool operator>(const Buyer& other)const;
+	const Buyer& operator=(const Buyer& other);
 };
 
 #endif //!__Buyer_h

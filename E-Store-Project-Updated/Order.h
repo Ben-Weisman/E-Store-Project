@@ -15,7 +15,9 @@ class Order
 	bool m_paid; // indication - the order already paid or not
 
 private:
-	Order(const Order& o); // We don't want to anable copys of products
+	// We don't want to the user option to dupicate orders
+	Order(const Order& o); 
+	const Order& operator=(const Order& o);
 
 public:
 
