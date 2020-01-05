@@ -13,14 +13,7 @@ Address::Address(char* country, char* city, char* street, int number) //c'tor
 }
 Address::Address(const Address&a) //copy c'tor
 {
-	setCountry(a.m_country);
-
-	setCity(a.m_city);
-
-	setStreet(a.m_street);
-
-	setHouseNumber(a.m_house_number);
-
+	*this = a; //using = operator
 }
 Address::Address(Address&&a) //move c'tor
 {
@@ -42,6 +35,20 @@ Address::~Address()// d'tor
 
 // -----------------------------operators----------------------------------
 
+const Address& Address::operator=(const Address& a)
+{
+	if (this != &a)
+	{
+		setCountry(a.m_country);
+
+		setCity(a.m_city);
+
+		setStreet(a.m_street);
+
+		setHouseNumber(a.m_house_number);
+	}
+	return *this;
+}
 
 ostream& operator<<(ostream& os, const Address& address)
 {
