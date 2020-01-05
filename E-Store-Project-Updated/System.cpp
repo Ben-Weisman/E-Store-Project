@@ -21,6 +21,12 @@ System::System(const char* name = "eBen") //Default name
 	setNumOfBuyers(0);
 	m_buyer_arr = new Buyer*[m_buyers_phy_size];
 }
+
+System::System(const System&s)
+{
+	*this = s; //using system = operator
+}
+
 System::~System()// d'tor
 {
 	delete[] m_name; //free name
@@ -41,7 +47,18 @@ System::~System()// d'tor
 }
 
 // ---------------------------------- operators ------------------------------------------
+const System& System::operator=(const System& s)
+{
 
+	if (this != &s)
+	{
+		setName(s.m_name);
+
+     // # Nir: wating to generic users ARR
+
+	}
+	return *this;
+}
 bool System::operator+=(Buyer* new_buyer)// Add buyer to system buyers array
 {
 	if (isBuyerExist(new_buyer->getUsername()) != NOT_EXIST)
