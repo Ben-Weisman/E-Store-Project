@@ -9,13 +9,8 @@ using namespace std;
 // ----------------- C'tor, Copy C'tor, D'tor -----------------
 
 Seller::Seller(char* username, char* password, char* fname, char* lname,
-	const Address& address) : m_address(address) // c'tor
+	const Address& address) :User(username, password, fname, lname, address) // c'tor
 {
-	setUsername(username);
-	setPassword(password);
-	setFname(fname);
-	setLname(lname);
-
 	m_num_of_feedbacks = 0;
 	m_num_of_listed_items = 0;
 	m_feedbacks_phy_size = 1;
@@ -36,11 +31,6 @@ Seller::Seller(char* username, char* password, char* fname, char* lname,
 
 Seller::~Seller() // d'tor
 {
-	delete[]m_fname;
-	delete[]m_lname;
-	delete[]m_username;
-	delete[]m_password;
-
 	for (int i = 0; i < m_num_of_feedbacks; i++)
 		delete m_feedback_arr[i];
 
@@ -49,16 +39,10 @@ Seller::~Seller() // d'tor
 
 	for (int i = 0; i < m_num_of_orders; i++)
 		delete m_orders[i];
-
 }
 
-Seller::Seller(const Seller& s) :m_address(s.m_address) // copy c'tor
+Seller::Seller(const Seller& s) :User(s) // copy c'tor
 {
-	setUsername(s.m_username);
-	setPassword(s.m_password);
-	setFname(s.m_fname);
-	setLname(s.m_lname);
-
 	m_num_of_feedbacks = s.m_num_of_feedbacks;
 	m_feedbacks_phy_size = s.m_num_of_feedbacks;
 
@@ -75,60 +59,6 @@ Seller::Seller(const Seller& s) :m_address(s.m_address) // copy c'tor
 
 
 // ----------------- Setters Methods -----------------
-
-bool Seller::setPassword(const char* password)
-{ // set password for seller. Validation check - not an empty string.
-	if (strlen(password) == 0)
-		return false;
-
-	delete[]m_password;
-	m_password = strdup(password);
-	return true;
-}
-
-bool Seller::setFname(const char* fname)
-{ // set first name for seller. Validation check 
-	int i = 0;
-
-	while (fname[i] != '\0' && isLetter(fname[i]) )
-	{
-		i++;
-	}
-	if (fname[i] != '\0' || i <= 1)
-	{
-		return false;
-	} //We assumed that the fname can be a word with only letters (more than 1 character) 
-
-	delete[]m_fname;
-	m_fname = strdup(fname);
-	return true;
-}
-
-bool Seller::setLname(const char* lname)
-{ // set last name for seller. Validation check 
-	int i = 0;
-
-	while (lname[i] != '\0' && (isLetter(lname[i]) || lname[i] == ' '))
-	{
-		i++;
-	}
-	if (lname[i] != '\0' || i <= 1)
-	{
-		return false;
-	} //We assumed that the lname can be a word with letters and spaces (more than 1 character) 
-
-	delete[]m_lname;
-	m_lname = strdup(lname);
-	return true;
-}
-
-bool Seller::setUsername(char* username) // private - username cannot get changed after initialization 
-{  // set username for seller. Validation check - not an empty string.
-	if (strlen(username) == 0)
-		return false;
-	m_username = strdup(username);
-	return true;
-}
 
 bool Seller::setFeedBacks(FeedBack** feed) // private - Feedbacks cannot get changed after initialization
 {  // set feedbacks for seller. Validation check - pointer exists.
@@ -223,6 +153,12 @@ void Seller::OrdersArrRealloc()
 	delete m_orders;
 
 	m_orders = tmp;
+}
+
+void Seller::showListedItems()
+{
+	for (int i = 0; i < m_num_of_listed_items; i++)
+		cout << m_listed_items[i];
 }
 
 const Product* Seller::findProduct(const char* to_find)const

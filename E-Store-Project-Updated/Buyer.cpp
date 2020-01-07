@@ -9,14 +9,8 @@ using namespace std;
 
 // -------------------- C'tor, Copy C'tor, D'tor --------------------
 Buyer::Buyer(char* userName, char* password, char* fname,
-	char* lname, const Address& address) :m_address(address) // c'tor
+	char* lname, const Address& address) // c'tor
 {
-
-	setUsername(userName);
-	setPassword(password);
-	setFname(fname);
-	setLname(lname);
-
 	m_number_of_items = 0;
 	m_cartPsize = 1;
 	m_num_checkout_orders = 0;
@@ -30,13 +24,8 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 }
 
-Buyer::Buyer(const Buyer& b) :m_address(b.m_address) // copy c'tor
+Buyer::Buyer(const Buyer& b): User(b)// copy c'tor
 {
-
-	setUsername(b.m_username);
-	setPassword(b.m_password);
-	setFname(b.m_fname);
-	setLname(b.m_lname);
 	setCart(b.m_cart);
 	setOrder(b.getOrders());
 
@@ -315,25 +304,21 @@ const Buyer& Buyer::operator=(const Buyer& other)
 	// Maybe we should leave it with the full version (with all the deleteions) for best practice.
 	if (this != &other)
 	{
-		delete[]m_username;
-		m_username = strdup(other.m_username);
-		delete[]m_password;
-		m_password = strdup(other.m_password);
-		delete[]m_fname;
-		m_fname = strdup(other.m_fname);
-		delete[]m_lname;
-		m_lname = strdup(other.m_lname);
+		User::operator=(other);
 
 		m_cartPsize = other.m_cartPsize;
 		m_number_of_items = other.m_number_of_items;
 		m_num_checkout_orders = other.m_num_checkout_orders;
 		m_checkout_orders_pSize = other.m_checkout_orders_pSize;
 
-
-		m_address;
 		for (int i=0;i<m_number_of_items;i++)
 			delete
 		m_cart;
 			m_checkout_orders;
+			///////////////////// Finish this!!!! /////////////////
+
 	}
+	return *this;
+
 }
+
