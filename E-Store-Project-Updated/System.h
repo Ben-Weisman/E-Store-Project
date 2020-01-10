@@ -3,6 +3,7 @@
 
 #include "Seller.h"
 #include "Buyer.h"
+#include "Buyer_Seller.h"
 
 const int MAX_LEN = 21;
 const int NOT_EXIST = -1;
@@ -15,14 +16,22 @@ class System
 private:
 	const char* m_name; //System name
 
-	Seller** m_seller_arr; // Sellers array
-	int m_sellers_phy_size; // Sellers array physic size
-	int m_num_of_sellers; // Sellers array logic size
+	// Using polymorphistic array: 
+	User** m_user_arr; // Users array
+	int m_users_phy_size; // Users array physic size
+	int m_num_of_users; // Users array logic size
+
+	
+	//OLD:
+
+	//Seller** m_seller_arr; // Sellers array
+	//int m_sellers_phy_size; // Sellers array physic size
+	//int m_num_of_sellers; // Sellers array logic size
 
 
-	Buyer** m_buyer_arr; // Buyers array
-	int m_buyers_phy_size; // Sellers array physic size
-	int m_num_of_buyers; // Sellers array logic size
+	//Buyer** m_buyer_arr; // Buyers array
+	//int m_buyers_phy_size; // Sellers array physic size
+	//int m_num_of_buyers; // Sellers array logic size
 
 
 private:
@@ -35,34 +44,27 @@ public:
 	~System();// d'tor
 
 public:
-	bool operator+=(Buyer* new_buyer); //# Nir: First menu option 
-	bool operator+=(Seller* new_seller);//# Nir: Need to create OPERATOR += To Seller also
+	bool operator+=(User* new_user); //# Nir: I think its should be generic for all 3 options
 public:
 	bool setName(const char* name);
 
-	bool setNumOfSellers(int num_of_sellers);
-	bool setSellersPhySize(int physize);
+	bool setNumOfUsers(int num_of_users);
+	bool setUsersPhySize(int u_physize);
 
-	bool setNumOfBuyers(int num_of_buyers);
-	bool setBuyersPhySize(int physize);
 
 public:
 	inline const char* getName()const{ return m_name; }
-	inline  Seller** getSellerArr()const{ return m_seller_arr; }
-	inline  int getSellersPhySize()const{ return m_sellers_phy_size; }
-	inline  int getNumOfSellers()const{ return m_num_of_sellers; }
-	inline  Buyer** getBuyerArr()const{ return m_buyer_arr; }
-	inline  int getBuyersPhySize()const{ return m_buyers_phy_size; }
-	inline  int getNumOfBuyers()const{ return m_num_of_buyers; }
+	
+	inline  User** getUsersArr()const{ return m_user_arr; }
+	inline  int getUsersPhySize()const{ return m_users_phy_size; }
+	inline  int getNumOfUsers()const{ return m_num_of_users; }
 
 
 	// ---------------------------------- maintanance functions ------------------------------------
 
-	const int isBuyerExist(const char* buyer_username)const;
-	void buyersRealloc();
-	const int isSellerExist(const char* seller_username)const;
-	void sellersRealloc();
-
+	const int isUserExist(const char* username)const;
+	void usersRealloc();
+	
 
 	 // ---------------------------------- MENU functions ------------------------------------
 
@@ -70,7 +72,7 @@ public:
 	/*1*/                                       
 	/*bool addToBuyerArr(Buyer* new_buyer);*/   //  # Nir: Replaced by operator += 
 	/*2*/
-	bool addToSellerArr(Seller* new_seller);     // # Nir: Should be replaced by operator += 
+	/*bool addToSellerArr(Seller* new_seller);*/     // # Nir: Should be replaced by operator += 
 	/*3*/
 	bool addProductToSeller(Product* prod, const char* seller_username);
 	/*4*/

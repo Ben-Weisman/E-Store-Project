@@ -27,6 +27,31 @@ Address createAdress()
 	return Address(country, city, street, house_number);
 }
 
+User* createUser()
+{
+	char f_name[MAX_NAMES_LEN];
+	cout << "First name: ";
+	cin.getline(f_name, MAX_NAMES_LEN);
+
+
+	char l_name[MAX_NAMES_LEN];
+	cout << "Last name: ";
+	cin.getline(l_name, MAX_NAMES_LEN);
+
+
+	char user_name[MAX_NAMES_LEN];
+	cout << "UserName: ";
+	cin.getline(user_name, MAX_NAMES_LEN);
+
+
+	char pass[MAX_NAMES_LEN];
+	cout << "Password: ";
+	cin.getline(pass, MAX_NAMES_LEN);
+
+	return new User(user_name, pass, f_name, l_name, createAdress());
+}
+
+/*############################# OLD #####################################
 Buyer* createBuyer()
 {
 	char f_name[MAX_NAMES_LEN];
@@ -75,7 +100,7 @@ Seller* createSeller()
 
 
 	return new Seller(user_name, pass, f_name, l_name, createAdress());
-}
+} */
 
 Product* createProduct(char* seller_username)
 {

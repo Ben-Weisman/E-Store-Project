@@ -23,7 +23,7 @@ public:
 	
 public:
 
-	bool setUsername(char* username);
+	bool setUsername(const char* username);
 	bool setPassword(const char* password);
 	bool setFname(const char* fname);
 	bool setLname(const char* lname);

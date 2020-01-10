@@ -93,7 +93,7 @@ bool User::setUsername(const char* username) // private - username cannot get ch
 	return true;
 }
 
-bool User::setAddress(const Address& address) // ####### Need to implement
+bool User::setAddress(const Address& address) 
 {
 	m_address = address;
 	return true;
