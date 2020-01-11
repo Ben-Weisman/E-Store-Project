@@ -285,6 +285,7 @@ bool Buyer::operator>(const Buyer& other)const
 
 ostream& operator<<(ostream& os, const Buyer& buyer)  
 { 
+	
 	os << "Full Name: " << buyer.m_fname << buyer.m_lname <<
 		"\nUsername: " << buyer.m_username << buyer.m_address;
 	return os;

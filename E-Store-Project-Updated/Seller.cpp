@@ -171,9 +171,8 @@ void Seller::showSeller()
 
 ostream& operator<<(ostream& os, Seller& seller) 
 { 
-
-	os << "Full Name: " << seller.m_fname << seller.m_lname <<
-		"\nUsername: " << seller.m_username << "Address: " << seller.m_address;
+	
+	os << "Full Name: " << (User&)seller;
 	return os;
 }
 const Seller& Seller::operator=(const Seller& other)

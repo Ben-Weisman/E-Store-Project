@@ -72,7 +72,7 @@ ostream& operator<<(ostream& os, FeedBack& feedback)
 	return os;
 }
 const FeedBack& FeedBack::operator=(const FeedBack& other)
-{ // Need to check the right way to init Address
+{ 
 	if (this != &other)
 	{
 		setFeedbackEval(other.m_feedback_evaluation);
