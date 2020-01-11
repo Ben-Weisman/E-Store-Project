@@ -2,9 +2,6 @@
 #define __User_h
 #include <iostream>
 #include "Address.h"
-#include "Product.h"
-#include "Buyer.h"
-#include "Seller.h"
 #include "Order.h"
 #include "FeedBack.h"
 
@@ -50,57 +47,14 @@ public:
 public:
 	//-------------------- Buyer Methods --------------------//
 	// Defining all Buyer's methods as pure virtual in User class.
-	virtual inline const int getNumberOfItems()const = 0;
-	virtual inline Product** getCart()const = 0;
-	virtual inline Order** getBuyerOrders()const = 0;
-	virtual inline const int getNumOfOrders()const = 0;
-	virtual int const getTotalCartValue()const = 0;
-	
-	virtual bool setOrder(Order** order) = 0;
 
-	virtual bool addToCart(Product* item_to_add) = 0;
-	virtual bool addToCheckout(Order* checkout_order) = 0;
-	virtual bool removeFromCart(Product* item_to_remove) = 0;
-	virtual void cartRealloc() = 0;
-	virtual void checkoutRealloc() = 0;
-	virtual bool isOrderedFrom(const char* username)const = 0;
-	virtual bool isEmptyCheckoutOrders() = 0;
-	virtual bool isEmptyCart() = 0;
-
-public:
-
-	virtual void showCart()const = 0;
-	virtual void showBuyer()const = 0; // NO delete?
-	virtual void showCheckoutOrders()const = 0;
+	//virtual bool setOrder(Order** order) = 0;// same both for seller and buyer
 
 public:
 	//-------------------- Seller Methods --------------------//
 	// Defining all Seller's methods as pure virtual in User class.
-	virtual inline  Product** getListedItems()const = 0;
-	virtual inline  FeedBack** getFeedbacks()const = 0;
-	virtual inline  Order** getSellerOrders()const = 0;
-	virtual inline  const int getNumOfListedItems()const = 0;
-
-public:
-			//Arrays maintenance
-	virtual bool addToListItemsArr(Product* item_to_add) = 0;
-	virtual bool addToFeedArr(FeedBack* feed_to_add) = 0;
-	virtual bool addToOrdersArr(Order* order_request) = 0;
-
-			// Realloc
-	virtual void FeedbackArrRealloc() = 0;
-	virtual void ListedItemsArrRealloc() = 0;
-	virtual void OrdersArrRealloc() = 0;
-
-			//func
-	virtual const Product* findProduct(const char* to_find)const = 0;
-	virtual void showSeller() = 0;
-	virtual void showListedItems() = 0;
-
 protected:
-	virtual bool setFeedBacks(FeedBack** feed) = 0;
-	virtual bool setOrders(Order** other) = 0;
-	virtual bool setListItems(Product** listed_items) = 0;
+	virtual bool setOrders(Order** other) = 0; // same both for seller and buyer
 };
 
 #endif // !__User_h

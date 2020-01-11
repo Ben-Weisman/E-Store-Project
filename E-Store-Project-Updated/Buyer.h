@@ -39,8 +39,7 @@ public:
 
 public:
 
-	virtual bool setOrder(Order** order);
-
+	virtual bool setOrders(Order** other) // private - Orders cannot get changed after initialization
 public:
 
 	virtual bool addToCart(Product* item_to_add);
@@ -59,7 +58,6 @@ public:
 	virtual void showCheckoutOrders()const;
 
 public:
-	friend ostream& operator<<(ostream& os, const Buyer& buyer);
 	bool operator>(const Buyer& other)const;
 	const Buyer& operator=(const Buyer& other);
 

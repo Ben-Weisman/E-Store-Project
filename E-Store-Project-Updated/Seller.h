@@ -26,9 +26,9 @@ protected:
 protected:
 	// Setters
 	
-	bool setFeedBacks(FeedBack** feed);
-	bool setOrders(Order** other);
-	bool setListItems(Product **listed_items);
+	virtual bool setFeedBacks(FeedBack** feed);
+	virtual bool setOrders(Order** other);
+	virtual bool setListItems(Product **listed_items);
 
 public:		
 	~Seller(); // d'tor
@@ -38,26 +38,26 @@ public:
 
 	// Getters
 
-	inline  Product **getListedItems()const{ return m_listed_items; }
-	inline  FeedBack** getFeedbacks()const{ return m_feedback_arr; }
-	inline  Order** getSellerOrders ()const{ return m_orders; }
-	inline  const int getNumOfListedItems()const{ return m_num_of_listed_items; }
+	virtual inline  Product **getListedItems()const{ return m_listed_items; }
+	virtual inline  FeedBack** getFeedbacks()const{ return m_feedback_arr; }
+	virtual inline  Order** getSellerOrders ()const{ return m_orders; }
+	virtual inline  const int getNumOfListedItems()const{ return m_num_of_listed_items; }
 
 public:
 	//Arrays maintenance
-	bool addToListItemsArr(Product* item_to_add);
-	bool addToFeedArr(FeedBack* feed_to_add);
-	bool addToOrdersArr(Order* order_request);
+	virtual bool addToListItemsArr(Product* item_to_add);
+	virtual bool addToFeedArr(FeedBack* feed_to_add);
+	virtual bool addToOrdersArr(Order* order_request);
 
 	// Realloc
-	void FeedbackArrRealloc();
-	void ListedItemsArrRealloc();
-	void OrdersArrRealloc();
+	virtual void FeedbackArrRealloc();
+	virtual void ListedItemsArrRealloc();
+	virtual void OrdersArrRealloc();
 
 	//func
-	const Product* findProduct(const char* to_find)const; 
-	void showSeller();
-	void showListedItems();
+	virtual const Product* findProduct(const char* to_find)const;
+	virtual void showSeller();
+	virtual void showListedItems();
 
 	//operators
 	friend ostream& operator<<(ostream& os, const Seller& seller);
