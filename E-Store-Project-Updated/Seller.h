@@ -57,12 +57,13 @@ public:
 	void OrdersArrRealloc();
 
 	//func
-	const Product* findProduct(const char* to_find)const; // Ben i changed the name to be more intoitive (getProduct sound like getter method - one liner) + added the relevat consts
+	const Product* findProduct(const char* to_find)const; 
 	void showSeller();
 	void showListedItems();
 
 	//operators
 	friend ostream& operator<<(ostream& os, const Seller& seller);
+	const Seller& operator=(const Seller& other);
 };
 
 #endif // !__Seller_h

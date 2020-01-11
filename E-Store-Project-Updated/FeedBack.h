@@ -30,6 +30,7 @@ public:
 	void showFeedback()const;
 
 	friend ostream& operator<<(ostream& os, FeedBack& feedback);
+	const FeedBack& operator=(const FeedBack& other);
 
 };
 

@@ -26,13 +26,7 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 
 Buyer::Buyer(const Buyer& b): User(b)// copy c'tor
 {
-	setCart(b.m_cart);
-	setOrder(b.getOrders());
-
-	m_cartPsize = b.m_cartPsize;
-	m_number_of_items = b.m_number_of_items;
-	m_num_checkout_orders = b.m_num_checkout_orders;
-	m_checkout_orders_pSize = b.m_checkout_orders_pSize;
+	*this = b;
 }
 
 Buyer::~Buyer() // d'tor
@@ -287,8 +281,6 @@ bool Buyer::isEmptyCart()
 bool Buyer::operator>(const Buyer& other)const
 {
 	return this->getTotalCartValue() > other.getTotalCartValue(); 
-	// # Nir: I think you can use the private members
-	// ^^ Ben: No, we don't have a member that saves the total price of the cart.
 }
 
 ostream& operator<<(ostream& os, const Buyer& buyer)  
@@ -298,10 +290,7 @@ ostream& operator<<(ostream& os, const Buyer& buyer)
 	return os;
 }
 const Buyer& Buyer::operator=(const Buyer& other)
-{ // Our logic is that we NEVER override an existing buyer, meaning the assignment operator 
-	// will always assign to an empty buyer object. Thus there's no actual need to free any
-	// allocated memory. Currently I wrote the full version of the operator, for practice.
-	// Maybe we should leave it with the full version (with all the deleteions) for best practice.
+{ 
 	if (this != &other)
 	{
 		User::operator=(other);
@@ -311,11 +300,13 @@ const Buyer& Buyer::operator=(const Buyer& other)
 		m_num_checkout_orders = other.m_num_checkout_orders;
 		m_checkout_orders_pSize = other.m_checkout_orders_pSize;
 
-		for (int i=0;i<m_number_of_items;i++)
-			delete
-		m_cart;
-			m_checkout_orders;
-			///////////////////// Finish this!!!! /////////////////
+		m_cart = new Product *[m_cartPsize];
+		m_checkout_orders = new Order * [m_checkout_orders_pSize];
+
+		for (int i = 0; i < m_number_of_items; i++)
+			m_cart[i] = other.m_cart[i];
+		for (int i = 0; i < m_num_checkout_orders; i++)
+			m_checkout_orders[i] = other.m_checkout_orders[i];
 
 	}
 	return *this;
