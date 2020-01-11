@@ -177,10 +177,15 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 
 	// Polymorphistic check if this is Seller/BuyerSeller:
 	Seller* tmp1 = dynamic_cast<Seller*>(m_user_arr[seller_index]);
-	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[seller_index]);
-	if (tmp1 || tmp2)
+	if (tmp1)
 	{ // If the right type
-		m_user_arr[seller_index]->addToListItemsArr(prod); 
+		tmp1->addToListItemsArr(prod);
+		return true; // new product enterd to the seller
+	}
+	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[seller_index]);
+	if (tmp2)
+	{ // If the right type
+		tmp2->addToListItemsArr(prod);
 		return true; // new product enterd to the seller
 	}
 
@@ -204,7 +209,6 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 	int seller_index = isUserExist(seller_username);
 	if (seller_index == NOT_EXIST)
 		return false;// no such user
-
 	// Polymorphistic check if this is Seller/BuyerSeller && 
 	Seller* tmp3 = dynamic_cast<Seller*>(m_user_arr[seller_index]);
 	Buyer_Seller* tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[seller_index]);
@@ -213,11 +217,22 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 
 	if (buyer_index == seller_index)
 		return false;// Buyer_Seller can't feedback himself
-
-	if (m_user_arr[buyer_index]->isOrderedFrom(m_user_arr[seller_index]->getUsername())) //Check if the buyer allready buyed from this user
+	
+	if ((tmp1&&tmp3)||(tmp2&&tmp3))
+	{ 
+		if (tmp1->isOrderedFrom(tmp3->getUsername()) || tmp2->isOrderedFrom(tmp3->getUsername()))
+		{
+			tmp3->addToFeedArr(feedback);
+			return true;
+		}
+	}
+	if ((tmp1&&tmp4) || (tmp2&&tmp4))
 	{
-		m_user_arr[seller_index]->addToFeedArr(feedback);
-		return true;
+		if (tmp1->isOrderedFrom(tmp4->getUsername()) || tmp2->isOrderedFrom(tmp4->getUsername()))
+		{
+			tmp4->addToFeedArr(feedback);
+			return true;
+		}
 	}
 
 	return false;
