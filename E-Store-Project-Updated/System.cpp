@@ -278,10 +278,11 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 			Buyer_Seller* tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[chosen_seller_index]);
 			type_flag = (!tmp3 && !tmp4);  // ### CHECK that line! 
 			
+			
 		} while (chosen_seller_index == NOT_EXIST && type_flag); //Lettin the user 3 times to enter the chosen seller from list
-
+		 
 		Product* prod_to_cart = new Product(*(m_user_arr[chosen_seller_index]->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
-		if (m_user_arr[buyer_index]->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
+		if ((m_user_arr[buyer_index])->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
 		{
 			cout << "Product entered to cart seccessfully!" << endl;
 			return true;

@@ -47,13 +47,12 @@ bool Buyer::setCart(Product** cart)
 	return true;
 }
 
-bool Buyer::setOrder(Order** order)
-{ // Set cart for buyer. Validation check - orders exists.
-	if (!order)
+bool Buyer::setOrders(Order** other) // private - Orders cannot get changed after initialization
+{  // set orders for seller. Validation check - pointer exists.
+	if (!other)
 		return false;
-	m_checkout_orders = order;
+	m_orders = other;
 	return true;
-
 }
 
 
@@ -221,13 +220,6 @@ bool Buyer::operator>(const Buyer& other)const
 	return this->getTotalCartValue() > other.getTotalCartValue(); 
 }
 
-ostream& operator<<(ostream& os, const Buyer& buyer)  
-{ 
-	
-	os << "Full Name: " << buyer.m_fname << buyer.m_lname <<
-		"\nUsername: " << buyer.m_username << buyer.m_address;
-	return os;
-}
 const Buyer& Buyer::operator=(const Buyer& other)
 { 
 	if (this != &other)

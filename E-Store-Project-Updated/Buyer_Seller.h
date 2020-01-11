@@ -13,7 +13,7 @@ public:
 	Buyer_Seller(const Buyer& b, const Seller& s); //##Nir: maybe we should change, according to System.cpp line 490  
 
 	const Buyer_Seller& operator=(const Buyer_Seller& bs);
-	virtual void toOs(ostream& os)const {};
+	void toOs(ostream& os)const;
 
 };
 
