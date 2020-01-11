@@ -105,4 +105,9 @@ void User::showUser()
 		endl << "\tUsername: " << m_username
 		<< endl << "\tAddress\n: " << m_address << endl;
 }
-
+ostream& operator<<(ostream& os, const User& user)
+{
+	os << user.m_fname << " " << user.m_lname << "\n" << user.m_username
+		<< user.m_address;
+	return os;
+}

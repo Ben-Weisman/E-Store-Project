@@ -6,6 +6,5 @@ Nir:
 - System changes without polymorphism
 
 Ben:
-- Finish operators of Buyer, Seller.
+- Finish operators of Buyer, Seller. - DONE
 - Finish User
-- 

@@ -55,7 +55,7 @@ public:
 public:
 
 	void showCart()const;
-	void showBuyer()const; // to delete
+	void showBuyer()const; // NO delete
 	void showCheckoutOrders()const;
 
 public:

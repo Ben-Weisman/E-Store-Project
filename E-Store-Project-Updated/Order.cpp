@@ -42,12 +42,12 @@ const Order& Order::operator=(const Order& o)
 		setProductsPhySize(o.m_products_phy_size);
 		setNumOfProducts(o.m_num_of_products);
 		setPaid(false);
-		//# Nir: what about the buyer pointer ? 
+		//# Nir: what about the buyer pointer ? ----> Ben: simple pointer assignment-> m_buyer = o.m_buyer..
 
 		m_products_arr = new Product*[m_products_phy_size];
 		for (int i = 0; i < m_num_of_products; i++)
 		{
-			m_products_arr[i] = o.m_products_arr[i]; // use product = operator
+			m_products_arr[i] = o.m_products_arr[i]; // use product = operator. ## Ben: Are we sure this is the right way?
 		}
 	}
 	return *this;

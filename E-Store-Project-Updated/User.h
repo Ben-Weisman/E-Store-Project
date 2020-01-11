@@ -35,7 +35,7 @@ public:
 	inline  const Address& getAddress()const { return m_address; }
 
 public:
-	void showUser(); // Not finished - polymorphism
+	void showUser() const = 0; // Not finished - polymorphism
 	const User& operator=(const User& other);
 	friend ostream& operator<<(ostream& os, const User& buyer);
 };

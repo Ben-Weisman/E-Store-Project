@@ -20,8 +20,7 @@ FeedBack::~FeedBack() //d'tor
 
 FeedBack::FeedBack(const FeedBack& f) :m_date(f.m_date) //copy c'tor
 {
-	setFeedbackProvider(m_provider_username);
-	setFeedbackEval(f.getFeedbackEvaluation());
+	*this = f;
 }
 
 FeedBack::FeedBack(FeedBack&& f) : m_date(f.m_date) // move c'tor
@@ -72,7 +71,15 @@ ostream& operator<<(ostream& os, FeedBack& feedback)
 		<< endl;
 	return os;
 }
-
+const FeedBack& FeedBack::operator=(const FeedBack& other)
+{ 
+	if (this != &other)
+	{
+		setFeedbackEval(other.m_feedback_evaluation);
+		setFeedbackProvider(other.m_provider_username);
+	}
+	return *this;
+}
 
 
 

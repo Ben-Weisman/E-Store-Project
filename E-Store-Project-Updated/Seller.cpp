@@ -43,18 +43,7 @@ Seller::~Seller() // d'tor
 
 Seller::Seller(const Seller& s) :User(s) // copy c'tor
 {
-	m_num_of_feedbacks = s.m_num_of_feedbacks;
-	m_feedbacks_phy_size = s.m_num_of_feedbacks;
-
-	m_num_of_listed_items = s.m_num_of_listed_items;
-	m_listed_items_pSize = s.m_listed_items_pSize;
-
-	m_num_of_orders = s.m_num_of_orders;
-	m_orders_pSize = s.m_orders_pSize;
-
-	setOrders(s.m_orders);
-	setFeedBacks(s.m_feedback_arr);
-	setListItems(s.m_listed_items);
+	*this = s;
 }
 
 
@@ -182,10 +171,37 @@ void Seller::showSeller()
 
 ostream& operator<<(ostream& os, Seller& seller) 
 { 
-
-	os << "Full Name: " << seller.m_fname << seller.m_lname <<
-		"\nUsername: " << seller.m_username << "Address: " << seller.m_address;
+	
+	os << "Full Name: " << (User&)seller;
 	return os;
+}
+const Seller& Seller::operator=(const Seller& other)
+{
+	if (this != &other)
+	{
+		User::operator=(other);
+
+		m_feedbacks_phy_size = other.m_feedbacks_phy_size;
+		m_num_of_feedbacks = other.m_num_of_feedbacks;
+		m_num_of_listed_items = other.m_num_of_listed_items;
+		m_listed_items_pSize = other.m_listed_items_pSize;
+		m_num_of_orders = other.m_num_of_orders;
+		m_orders_pSize = other.m_orders_pSize;
+
+		m_listed_items = new Product * [m_listed_items_pSize];
+		m_orders = new Order * [m_orders_pSize];
+		m_feedback_arr = new FeedBack * [m_feedbacks_phy_size];
+
+		for (int i = 0; i < m_num_of_feedbacks; i++)
+			m_feedback_arr[i] = other.m_feedback_arr[i];
+
+		for (int i = 0; i < m_num_of_listed_items; i++)
+			m_listed_items[i] = other.m_listed_items[i];
+
+		for (int i = 0; i < m_num_of_orders; i++)
+			m_orders[i] = other.m_orders[i];
+	}
+	return *this;
 }
 
 
