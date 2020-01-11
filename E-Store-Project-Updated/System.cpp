@@ -252,19 +252,38 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 		return false; //no such buyer
 	
 	int counter = 1;
+	Seller* tmp3;
+	Buyer_Seller* tmp4;
 	for (int j = 0; j < m_num_of_users; j++)
 	{
 		bool found = false;
-		for (int k = 0; !found && k < m_user_arr[j]->getNumOfListedItems(); k++)  // show all products with this name fron all the sellers
+		tmp3 = dynamic_cast<Seller*>(m_user_arr[j]);
+		tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[j]);
+		if (tmp3)
 		{
-			if (strcmp(m_user_arr[j]->getListedItems()[k]->getName(), prod_name) == 0)
+			for (int k = 0; !found && k < tmp3->getNumOfListedItems(); k++)  // show all products with this name fron all the sellers
 			{
-				cout << counter++ << ") ";
-				m_user_arr[j]->getListedItems()[k]->showProductToBuyer();
-				cout << endl;
-				found = true;
+				if (strcmp(tmp3->getListedItems()[k]->getName(), prod_name) == 0)
+				{
+					cout << counter++ << ") ";
+					tmp3->getListedItems()[k]->showProductToBuyer();
+					cout << endl;
+					found = true;
+				}
 			}
-
+		}
+		if (tmp4)
+		{
+			for (int k = 0; !found && k < tmp4->getNumOfListedItems(); k++)  // show all products with this name fron all the sellers
+			{
+				if (strcmp(tmp4->getListedItems()[k]->getName(), prod_name) == 0)
+				{
+					cout << counter++ << ") ";
+					tmp4->getListedItems()[k]->showProductToBuyer();
+					cout << endl;
+					found = true;
+				}
+			}
 		}
 	}
 		char chosen_seller_username[MAX_LEN];
@@ -289,19 +308,50 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 
 			chosen_seller_index = isUserExist(chosen_seller_username);
 
-			Seller* tmp3 = dynamic_cast<Seller*>(m_user_arr[chosen_seller_index]);
-			Buyer_Seller* tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[chosen_seller_index]);
+			tmp3 = dynamic_cast<Seller*>(m_user_arr[chosen_seller_index]);
+			tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[chosen_seller_index]);
+
 			type_flag = (!tmp3 && !tmp4);  // ### CHECK that line! 
-			
-			
+
 		} while (chosen_seller_index == NOT_EXIST && type_flag); //Lettin the user 3 times to enter the chosen seller from list
 		 
-		Product* prod_to_cart = new Product(*(m_user_arr[chosen_seller_index]->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
-		if ((m_user_arr[buyer_index])->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
+		if (tmp1&&tmp3)
 		{
-			cout << "Product entered to cart seccessfully!" << endl;
-			return true;
+			Product* prod_to_cart = new Product(*(tmp3->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
+			if (tmp1->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
+			{
+				cout << "Product entered to cart seccessfully!" << endl;
+				return true;
+			}
 		}
+		if (tmp1&&tmp4)
+		{
+			Product* prod_to_cart = new Product(*(tmp4->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
+			if (tmp1->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
+			{
+				cout << "Product entered to cart seccessfully!" << endl;
+				return true;
+			}
+		}
+		if (tmp2&&tmp3)
+		{
+			Product* prod_to_cart = new Product(*(tmp3->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
+			if (tmp2->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
+			{
+				cout << "Product entered to cart seccessfully!" << endl;
+				return true;
+			}
+		}
+		if (tmp2&&tmp4)
+		{
+			Product* prod_to_cart = new Product(*(tmp4->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
+			if (tmp2->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
+			{
+				cout << "Product entered to cart seccessfully!" << endl;
+				return true;
+			}
+		}
+
 	return false; // invalid input / buyer or product not exist
 }
 
@@ -318,40 +368,72 @@ bool System::newOrder(const char* buyer_username)
 	if (!tmp1 && !tmp2)
 		return false; //no such buyer
 
-	if (getUsersArr()[buyer_index]->isEmptyCart())
-	{
-		cout << "\n\n\t No items in cart, You need to add an item to make an order.\n\n";
-		return false;
-	}
-	
-	// Make new order using c'tor :
 	Order* new_order;
-	if (tmp1)
-		new_order = new Order(tmp1); 
-	else //tmp2!=NULL
-		new_order = new Order(tmp2); 
-
 	int option;
-	do
-	{ // The user check from list until he deciede to exit 
-		m_user_arr[buyer_index]->showCart();
 
-		cout << endl << "Please Choose the number of the product from the list:" << endl << "Enter -1 to exit from order." << endl;
-		cin >> option;
-		cin.ignore(1,'\n');
-
-		if (option > 0 && option <= m_user_arr[buyer_index]->getNumberOfItems())
+	//Buyer:
+	if (tmp1)
+	{
+		if (tmp1->isEmptyCart())
 		{
-			new_order->addToProdArr(m_user_arr[buyer_index]->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
-			cout << "Item added to the Order successfully." << endl;
+			cout << "\n\n\t No items in cart, You need to add an item to make an order.\n\n";
+			return false;
 		}
+		new_order = new Order(tmp1);// Make new order using c'tor
 
-		else if ((option != EXIT && option < 1) || option > m_user_arr[buyer_index]->getNumberOfItems()) // option validity check 
-			cout << "Sorry, invalid option.";
+		do
+		{ // The user check from list until he deciede to exit 
+			tmp1->showCart();
 
-	} while (option != EXIT && m_user_arr[buyer_index]->getNumberOfItems() != EMPTY); // While the user still have products to choose 
+			cout << endl << "Please Choose the number of the product from the list:" << endl << "Enter -1 to exit from order." << endl;
+			cin >> option;
+			cin.ignore(1, '\n');
 
-	m_user_arr[buyer_index]->addToCheckout(new_order); //Add the order to the buyer's orders array
+			if (option > 0 && option <= tmp1->getNumberOfItems())
+			{
+				new_order->addToProdArr(tmp1->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
+				cout << "Item added to the Order successfully." << endl;
+			}
+
+			else if ((option != EXIT && option < 1) || option > tmp1->getNumberOfItems()) // option validity check 
+				cout << "Sorry, invalid option.";
+
+		} while (option != EXIT && tmp1->getNumberOfItems() != EMPTY); // While the user still have products to choose 
+	}
+	//Buyer_Seller:
+	if (tmp2)
+	{
+		if (tmp2->isEmptyCart())
+		{
+			cout << "\n\n\t No items in cart, You need to add an item to make an order.\n\n";
+			return false;
+		}
+		new_order = new Order(tmp2);// Make new order using c'tor
+
+		do
+		{ // The user check from list until he deciede to exit 
+			tmp2->showCart();
+
+			cout << endl << "Please Choose the number of the product from the list:" << endl << "Enter -1 to exit from order." << endl;
+			cin >> option;
+			cin.ignore(1, '\n');
+
+			if (option > 0 && option <= tmp2->getNumberOfItems())
+			{
+				new_order->addToProdArr(tmp2->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
+				cout << "Item added to the Order successfully." << endl;
+			}
+
+			else if ((option != EXIT && option < 1) || option > tmp2->getNumberOfItems()) // option validity check 
+				cout << "Sorry, invalid option.";
+
+		} while (option != EXIT && tmp2->getNumberOfItems() != EMPTY); // While the user still have products to choose 
+	}
+
+	if (tmp1) //Buyer
+		tmp1->addToCheckout(new_order); //Add the order to the buyer's orders array
+	if (tmp2)// Buyer_Seller
+	tmp2->addToCheckout(new_order); //Add the order to the buyerseller's orders array
 
 	return true;
 }
