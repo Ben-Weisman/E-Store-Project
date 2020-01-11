@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Address" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAgAAAAAAAiAAAAAqAAAAAAAAAAQAAACAAAgBABAgAg=</HashCode>
+      <FileName>Address.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buyer" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oAACKAECsAIAAABAQACQBAAAgAAiAEBCAAAwABEAAAg=</HashCode>
+      <FileName>Buyer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Buyer_Seller" Collapsed="true">
+    <Position X="1.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Buyer_Seller.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Date" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQCAIAAAAAAAAAAEQAAAEAAAAgABCAAAAAQgQAA=</HashCode>
+      <FileName>Date.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FeedBack" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAQEAAIAEAAAAAAoAAAAAAAAAAAAAAQgAwAACAAAA=</HashCode>
+      <FileName>FeedBack.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Order" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgEAAAABQAAAACACAAEEASAEAEIAABAEAEQkQAAAAAA=</HashCode>
+      <FileName>Order.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Product" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAACBABAAAABACAABARAAAAgQAARAAIAsAQAAAAA=</HashCode>
+      <FileName>Product.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Seller" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAgAAMAKAAAAAgKCIAQAgAQACBQAQEACgABAIjAE=</HashCode>
+      <FileName>Seller.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIABAAgAEIBAAYAAAACAARCAEEAAiArAAAAkAABEAIg=</HashCode>
+      <FileName>System.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="User" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IACRKgECsAIgAABBwKCABQAQAAACAUASAEKgAlEEAIk=</HashCode>
+      <FileName>User.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

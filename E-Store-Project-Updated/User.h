@@ -44,7 +44,7 @@ public:
 	// Defining all Buyer's methods as pure virtual in User class.
 	virtual inline const int getNumberOfItems()const = 0;
 	virtual inline Product** getCart()const = 0;
-	virtual inline Order** getOrders()const = 0;
+	virtual inline Order** getCheckoutOrders()const = 0;
 	virtual inline const int getNumOfOrders()const = 0;
 	virtual int const getTotalCartValue()const = 0;
 	
