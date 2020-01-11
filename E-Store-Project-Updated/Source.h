@@ -11,8 +11,9 @@ const int DATE_STRING_LEN = 11; //      dd/mm/yyyy
 
 
 Address createAdress();
-Buyer* createBuyer();
-Seller* createSeller();
+User* createUser();
+//Buyer* createBuyer(); // ### OLD
+//Seller* createSeller(); // ### OLD
 Product* createProduct(char* seller_username);
 Date createDate();
 FeedBack* createFeedback(const char* b_username);

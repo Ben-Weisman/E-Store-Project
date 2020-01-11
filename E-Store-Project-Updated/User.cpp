@@ -33,6 +33,7 @@ const User& User::operator=(const User& other)
 		setFname(other.m_fname);
 		setLname(other.m_lname);
 
+		//m_address = other.m_address;
 		//setAddress(other.m_address); ### Need to check correct way to init the address.
 	}
 	return *this;
@@ -92,7 +93,7 @@ bool User::setUsername(const char* username) // private - username cannot get ch
 	return true;
 }
 
-bool User::setAddress(const Address& address) // ####### Need to implement
+bool User::setAddress(const Address& address) 
 {
 	m_address = address;
 	return true;
