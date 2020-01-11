@@ -1,10 +1,13 @@
 #ifndef __Buyer_h
 #define __Buyer_h
-#include "Address.h"
-#include "Product.h"
 #include "User.h"
 #include <iostream>
-
+/*
+#include "User.h"
+#include "Address.h"
+#include "Product.h"
+#include <iostream>
+*/
 class Order; //forward declaration
 
 class Buyer : virtual public User
