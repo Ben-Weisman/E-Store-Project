@@ -15,12 +15,10 @@ class Order
 	bool m_paid; // indication - the order already paid or not
 
 private:
-	// We don't want to the user option to dupicate orders
 	Order(const Order& o); 
 	const Order& operator=(const Order& o);
 
 public:
-
 	Order(Buyer* b);
 	~Order();
 
