@@ -31,7 +31,7 @@ protected:
 	virtual bool setListItems(Product **listed_items);
 
 public:		
-	~Seller(); // d'tor
+	virtual ~Seller(); // d'tor
 	Seller(const char* userName, const char* password, const char* fname, const char*
 		lname, const Address& address);
 	Seller(const Seller& s); //copy c'tor
