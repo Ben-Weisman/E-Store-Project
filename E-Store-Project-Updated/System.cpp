@@ -43,43 +43,60 @@ System::~System()// d'tor
 
 // ---------------------------------- operators ------------------------------------------
 
- //                          #### Nir: wating to generic users ARR ###
 
-//const System& System::operator=(const System& s)
-//{
-//
-//	if (this != &s)
-//	{
-//		setName(s.m_name);
-//
-//    
-//
-//	}
-//	return *this;
-//}
-//bool System::operator+=(Buyer* new_buyer)// Add buyer to system buyers array
-//{
-//	if (isBuyerExist(new_buyer->getUsername()) != NOT_EXIST)
-//		return false; // username already exist
-//
-//	if (m_num_of_buyers == m_buyers_phy_size)
-//		buyersRealloc();
-//
-//	m_buyer_arr[m_num_of_buyers++] = new_buyer;
-//
-//	return true; // new buyer entered
-//}
-//
-//bool System::operator+=(Seller* new_seller)
-//{// Add seller to sellers arr using += operator.
-//	if (isSellerExist(new_seller->getUsername()) != NOT_EXIST)
-//		return false;
-//	if (m_num_of_sellers == m_sellers_phy_size)
-//		sellersRealloc();
-//	m_seller_arr[m_num_of_sellers++] = new_seller;
-//
-//	return true;
-//}
+const System& System::operator=(const System& s)
+{
+
+	if (this != &s)
+	{
+		setName(s.m_name);
+		setNumOfUsers(s.m_num_of_users);
+		setUsersPhySize(s.m_users_phy_size);
+		
+		for (int i = 0; i < m_num_of_users; i++)
+			*(m_user_arr + i) = *(s.m_user_arr + i);
+	}
+	return *this;
+}
+
+bool System::operator+=(Buyer* new_buyer)// Add buyer to system buyers array
+{
+	if (isUserExist(new_buyer->getUsername()) != NOT_EXIST)
+		return false; // username already exist
+
+	if (m_num_of_users == m_users_phy_size)
+		usersRealloc();
+
+	m_user_arr[m_num_of_users++] = new_buyer;
+
+	return true; // new buyer entered
+}
+
+bool System::operator+=(Seller* new_seller)
+{// Add seller to sellers arr using += operator.
+	if (isUserExist(new_seller->getUsername()) != NOT_EXIST)
+		return false;
+
+	if (m_num_of_users == m_users_phy_size)
+		usersRealloc();
+
+	m_user_arr[m_num_of_users++] = new_seller;
+
+	return true; // new seller entered
+}
+
+bool System::operator+=(Buyer_Seller* new_buyer_seller)
+{// Add seller to sellers arr using += operator.
+	if (isUserExist(new_buyer_seller->getUsername()) != NOT_EXIST)
+		return false;
+
+	if (m_num_of_users == m_users_phy_size)
+		usersRealloc();
+
+	m_user_arr[m_num_of_users++] = new_buyer_seller;
+
+	return true; // new buyer_seller entered
+}
 
 // ---------------------------------- setters ------------------------------------------
 
@@ -145,9 +162,9 @@ void System::usersRealloc()
 
 /************************************************************ 3 ********************************************************/
 
-// Add buyer_seller 
-// ## we need to discuss about the options here (Do we want to approve
-//trasictions from seller/buyer to buyer_seller? )
+// Using System += Operator (with Buyer_Seller)
+
+// ## we need to discuss about the options here (Do we want to approve trasictions from seller/buyer to buyer_seller? )
 
 /************************************************************ 4 ********************************************************/
 
@@ -155,16 +172,19 @@ void System::usersRealloc()
 bool System::addProductToSeller(Product* prod, const char* seller_username)
 {// Add new product to exist seller 
 	int seller_index = isUserExist(seller_username);
+	if (seller_index == NOT_EXIST)
+		return false;//no such user
 
-	//## Polymorphistic check if this is Seller/BuyerSeller
-
-	if (seller_index >= 0)
-	{
-		m_user_arr[seller_index]->addToListItemsArr(prod); //### POLY
+	// Polymorphistic check if this is Seller/BuyerSeller:
+	Seller* tmp1 = dynamic_cast<Seller*>(m_user_arr[seller_index]);
+	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[seller_index]);
+	if (tmp1 || tmp2)
+	{ // If the right type
+		m_user_arr[seller_index]->addToListItemsArr(prod); 
 		return true; // new product enterd to the seller
 	}
 
-	return false; //no such seller / invalid product
+	return false;  // no such seller OR invalid product
 }
 
 /******************************************************************  5  ***********************************************************/
@@ -172,19 +192,27 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback)
 {// Add feedback to exist seller from exist buyer that allready buyed from him 
 	int buyer_index = isUserExist(buyer_username);
+	if (buyer_index == NOT_EXIST )
+		return false; // no such user
 
-	//## Polymorphistic check if this is Buyer/BuyerSeller
-
-
-	if (buyer_index == NOT_EXIST)
+	// Polymorphistic check if this is Buyer/BuyerSeller:
+	Buyer* tmp1 = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);
+	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[buyer_index]);
+	if (!tmp1&&!tmp2)
 		return false; // no such buyer
 
 	int seller_index = isUserExist(seller_username);
-
-	//## Polymorphistic check if this is Seller/BuyerSeller && check that not the same User
-
 	if (seller_index == NOT_EXIST)
+		return false;// no such user
+
+	// Polymorphistic check if this is Seller/BuyerSeller && 
+	Seller* tmp3 = dynamic_cast<Seller*>(m_user_arr[seller_index]);
+	Buyer_Seller* tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[seller_index]);
+	if (!tmp3 && !tmp4)
 		return false;// no such seller
+
+	if (buyer_index == seller_index)
+		return false;// Buyer_Seller can't feedback himself
 
 	if (m_user_arr[buyer_index]->isOrderedFrom(m_user_arr[seller_index]->getUsername())) //Check if the buyer allready buyed from this user
 	{
@@ -198,13 +226,15 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 
 bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_username)
 {// add product to exist buyer's cart 
-	int buyer_index;
-
-	buyer_index = isUserExist(buyer_username);
+	int buyer_index = isUserExist(buyer_username);
 	if (buyer_index == NOT_EXIST)
-		return false;
-	//## Polymorphistic check if this is Buyer/BuyerSeller
+		return false;// no such user
 
+	// Polymorphistic check if this is Buyer/BuyerSeller:
+	Buyer* tmp1 = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);
+	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[buyer_index]);
+	if (!tmp1 && !tmp2)
+		return false; //no such buyer
 
 	int counter = 1;
 	for (int j = 0; j < m_num_of_users; j++)
@@ -225,10 +255,11 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 		char chosen_seller_username[MAX_LEN];
 		int count = 0;
 		int chosen_seller_index;
+		bool type_flag = true;
 		do
 		{
 
-			if ((count++) > 0)     // Not the first try  
+			if ((count++) > 0)   // Not the first try  
 				cout << "No such seller's username."<< endl;
 
 			cout << "please enter the desired seller's username that you want to buy from: ";
@@ -240,9 +271,14 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 				cout << "Sorry, invalid inputs" << endl;
 				return false;
 			}
+
 			chosen_seller_index = isUserExist(chosen_seller_username);
-			//## Polymorphistic check if this is Seller/BuyerSeller && check that not the same User
-		} while (chosen_seller_index == NOT_EXIST); //Lettin the user 3 times to enter thechosen seller from list
+
+			Seller* tmp3 = dynamic_cast<Seller*>(m_user_arr[chosen_seller_index]);
+			Buyer_Seller* tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[chosen_seller_index]);
+			type_flag = (!tmp3 && !tmp4);  // ### CHECK that line! 
+			
+		} while (chosen_seller_index == NOT_EXIST && type_flag); //Lettin the user 3 times to enter the chosen seller from list
 
 		Product* prod_to_cart = new Product(*(m_user_arr[chosen_seller_index]->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
 		if (m_user_arr[buyer_index]->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
@@ -260,8 +296,12 @@ bool System::newOrder(const char* buyer_username)
 {// Make new order to buyer (choosing from his own cart)
 	int buyer_index = isUserExist(buyer_username); //Check if the buyer exist 
 	if (buyer_index == NOT_EXIST)
-		return false;
-	//## Polymorphistic check if this is Buyer/BuyerSeller
+		return false; // no such user
+	//## Polymorphistic check if this is Buyer/BuyerSeller:
+	Buyer* tmp1 = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);
+	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[buyer_index]);
+	if (!tmp1 && !tmp2)
+		return false; //no such buyer
 
 
 	if (getUsersArr()[buyer_index]->isEmptyCart())

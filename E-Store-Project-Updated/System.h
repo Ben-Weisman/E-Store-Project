@@ -31,8 +31,10 @@ public:
 	~System();// d'tor
 
 public:
-	bool operator+=(Buyer* new_buyer); // use POLY
-	bool operator+=(Seller* new_seller); // use POLY 
+	bool operator+=(Buyer* new_buyer);
+	bool operator+=(Seller* new_seller); 
+	bool operator+=(Buyer_Seller* new_buyer_seller);
+
 public:
 	bool setName(const char* name);
 
