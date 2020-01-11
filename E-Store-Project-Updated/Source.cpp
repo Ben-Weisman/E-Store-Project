@@ -50,6 +50,7 @@ Buyer_Seller* createBuyerSeller()
 
 	/*Buyer* b=new Buyer(user_name, pass, f_name, l_name, createAdress());
 	Seller* s=new Seller(user_name, pass, f_name, l_name, createAdress());*/
+
 	// ## Nir: Ben, I need some code review here according to your Buyer_Seller changes
 	return new Buyer_Seller(Buyer(user_name, pass, f_name, l_name, createAdress()),
 		Seller(user_name, pass, f_name, l_name, createAdress()));

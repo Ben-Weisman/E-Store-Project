@@ -1,7 +1,6 @@
 # E-Store-Project
 To do:
 Nir:
-- Source
 - Menue changes
 - System changes without polymorphism
 

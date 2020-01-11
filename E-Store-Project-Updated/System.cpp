@@ -13,14 +13,13 @@ System::System(const char* name = "eBen") //Default name
 {
 	setName(name);
 
-	//OLD:
-	//setSellersPhySize(1);
-	//setNumOfSellers(0);
-	//m_seller_arr = new Seller*[m_sellers_phy_size];
-
-	//setBuyersPhySize(1);
-	//setNumOfBuyers(0);
-	//m_buyer_arr = new Buyer*[m_buyers_phy_size];
+	m_user_arr; // Users array
+	int m_users_phy_size; // Users array physic size
+	int m_num_of_users;
+	
+	setUsersPhySize(1);
+	setNumOfUsers(0);
+	m_user_arr = new User*[m_users_phy_size];
 }
 
 System::System(const System&s)
@@ -138,38 +137,17 @@ void System::usersRealloc()
 
 /************************************************************ 1 ********************************************************/
 
-//bool System::addToBuyerArr(Buyer* new_buyer)
-//{ // Add buyer to system buyers array
-//	if (isBuyerExist(new_buyer->getUsername())!=NOT_EXIST)
-//		return false; // username already exist
-//
-//	if (m_num_of_buyers == m_buyers_phy_size)
-//		buyersRealloc();
-//
-//	m_buyer_arr[m_num_of_buyers++] = new_buyer;
-//
-//	return true; // new buyer entered
-//}
+// Using System += Operator (with Buyer)
 
 /************************************************************ 2 ********************************************************/
 
-//bool System::addToSellerArr(Seller* new_seller)
-//{// Add buyer to system sellers array
-//	if (isSellerExist(new_seller->getUsername()) != NOT_EXIST)
-//		return false; // username already exist
-//
-//	if (m_num_of_sellers == m_sellers_phy_size)
-//		sellersRealloc();
-//
-//	m_seller_arr[m_num_of_sellers++] = new_seller;
-//
-//	return true; // new seller entered
-//
-//}
+// Using System += Operator (with Seller)
 
 /************************************************************ 3 ********************************************************/
-// Add sellerbuyer 
 
+// Add buyer_seller 
+// ## we need to discuss about the options here (Do we want to approve
+//trasictions from seller/buyer to buyer_seller? )
 
 /************************************************************ 4 ********************************************************/
 
@@ -457,8 +435,9 @@ void System::interactiveMenu()
 		cout << (i++) << ") Show all buyers" << endl; //9
 		cout << (i++) << ") Show all sellers" << endl; //10
 		cout << (i++) << ") Show all products by name" << endl; //11
-		cout << (i++) << ") Exit" << endl << endl; //12
-		cout << "Please enter your action: "; //13
+		cout << (i++) << ") Compare between tow carts" << endl << endl; //12
+		cout << (i++) << ") Exit" << endl << endl; //13
+		cout << "Please enter your action: "; //14
 		int option;
 		cin >> option;
 		cin.ignore(1, '\n');
@@ -473,23 +452,24 @@ void System::interactiveMenu()
 		case 1://add buyer (Check for += operator)
 			
 			//if (!(addToBuyerArr(createBuyer())))
-			Buyer* new_buyer(createUser());
+			Buyer* new_buyer(createBuyer());
 			if(!((*this)+=new_buyer)) //using system's += operator ( check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
 
 		case 2://add seller (Check for += operator)
 
-			Seller* new_seller(createUser());
+			Seller* new_seller(createSeller());
 			if (!((*this) += new_seller)) //using system's += operator ( check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
 
 		case 3://add buyer-seller
 
-			Buyer_Seller* new_bs(createUser()); // # Nir: I think we should change the ctor according to that
-			if (!((*this) += new_bs)) //using system's += operator ( check if the user already exist )
+			Buyer_Seller* new_bs(createBuyerSeller()); // # Nir: I think we should change the ctor according to that
+			if (/* check if the user already exist*/ ) 
 				cout << "Username already exist, please try again" << endl;
+               //## Impliment 
 			break;
 
 		case 4: //add product to seller
