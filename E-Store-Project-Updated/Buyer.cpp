@@ -51,7 +51,7 @@ bool Buyer::setOrders(Order** other) // private - Orders cannot get changed afte
 {  // set orders for seller. Validation check - pointer exists.
 	if (!other)
 		return false;
-	m_orders = other;
+	m_checkout_orders = other;
 	return true;
 }
 
@@ -206,6 +206,7 @@ int const Buyer::getTotalCartValue()const
 				res += this->m_checkout_orders[i]->getProductsArr()[j]->getPrice();
 		}
 	}
+	return res;
 }
 
 bool Buyer::isEmptyCart()

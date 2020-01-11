@@ -1,5 +1,7 @@
 #include "User.h"
 #include "Utils.h"
+#pragma warning(disable:4996) 
+
 
 User::User(const char* username,const char* password,const char* fname,const char* lname,
 	const Address& address) : m_address(address) // c'tor

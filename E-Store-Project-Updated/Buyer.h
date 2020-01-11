@@ -21,6 +21,7 @@ protected:
 
 protected:
 	virtual bool setCart(Product** cart);
+	virtual bool setOrders(Order** other); // private - Orders cannot get changed after initialization
 
 public:
 
@@ -36,10 +37,6 @@ public:
 	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
 	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
 	virtual int const getTotalCartValue()const;
-
-public:
-
-	virtual bool setOrders(Order** other) // private - Orders cannot get changed after initialization
 public:
 
 	virtual bool addToCart(Product* item_to_add);
@@ -60,8 +57,7 @@ public:
 public:
 	bool operator>(const Buyer& other)const;
 	const Buyer& operator=(const Buyer& other);
-
-	virtual void toOs(ostream& os)const {};
+	virtual void toOs(ostream& os)const;
 
 };
 
