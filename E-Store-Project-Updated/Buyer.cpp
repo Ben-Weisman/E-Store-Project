@@ -3,13 +3,14 @@
 #include "Seller.h"
 #include "Order.h"
 #include <iostream>
-
+#include <typeinfo>
 #pragma warning(disable:4996) 
+
 using namespace std;
 
 // -------------------- C'tor, Copy C'tor, D'tor --------------------
-Buyer::Buyer(char* userName, char* password, char* fname,
-	char* lname, const Address& address) // c'tor
+Buyer::Buyer(const char* userName,const char* password, const char* fname,
+	const char* lname, const Address& address): User(userName, password, fname, lname, address)
 {
 	m_number_of_items = 0;
 	m_cartPsize = 1;
@@ -20,86 +21,23 @@ Buyer::Buyer(char* userName, char* password, char* fname,
 	m_cart[0] = nullptr;
 	m_checkout_orders = new Order *[m_checkout_orders_pSize];
 	m_checkout_orders[0] = nullptr;
-
-
 }
 
-Buyer::Buyer(const Buyer& b): User(b)// copy c'tor
+Buyer::Buyer(const Buyer& b): User(b) // copy c'tor
 {
 	*this = b;
 }
 
 Buyer::~Buyer() // d'tor
 {
-
-	int i;
-	delete[]m_fname;
-	delete[]m_lname;
-	delete[]m_username;
-	delete[]m_password;
-
-
-	for (i = 0; i < m_number_of_items; i++)
+	for (int i = 0; i < m_number_of_items; i++)
 		delete m_cart[i];
-	for (i = 0; i < m_num_checkout_orders; i++)
+	for (int i = 0; i < m_num_checkout_orders; i++)
 		delete m_checkout_orders[i];
 }
 
 
 //----------------------- Setters Methods -----------------------
-
-bool Buyer::setPassword(const char* password)
-{ // Set password for buyer. Validation check - Not an empty string.
-	if (strlen(password) == 0)
-		return false;
-	delete[]m_password;
-	m_password = strdup(password);
-	return true;
-}
-
-bool Buyer::setFname(const char* fname)
-{ // set first name for seller. Validation check 
-	int i = 0;
-
-	while (fname[i] != '\0' && isLetter(fname[i]))
-	{
-		i++;
-	}
-	if (fname[i] != '\0' || i <= 1)
-	{
-		return false;
-	} //We assumed that the fname can be a word with only letters (more than 1 character) 
-
-	delete[]m_fname;
-	m_fname = strdup(fname);
-	return true;
-}
-
-bool Buyer::setLname(const char* lname)
-{ // set last name for seller. Validation check 
-	int i = 0;
-
-	while (lname[i] != '\0' && (isLetter(lname[i]) || lname[i] != ' '))
-	{
-		i++;
-	}
-	if (lname[i] != '\0' || i <= 1)
-	{
-		return false;
-	} //We assumed that the lname can be a word with letters and spaces (more than 1 character) 
-
-	delete[]m_lname;
-	m_lname = strdup(lname);
-	return true;
-}
-
-bool Buyer::setUsername(char* username) // Private. initiated username cannot get changed afterwards. 
-{ // Set username for buyer. Validation check - Not an empty string.
-	if (strlen(username) == 0)
-		return false;
-	m_username = strdup(username);
-	return true;
-}
 
 bool Buyer::setCart(Product** cart)
 { // Set cart for buyer. Validation check - cart exists.
@@ -249,7 +187,7 @@ bool Buyer::isEmptyCheckoutOrders()
 { //  Is empty even if there are actual orders in the arr, but they're all paid for. 
 	for (int i = 0; i < this->getNumOfOrders(); i++)
 	{
-		if (!this->getOrders()[i]->getPaid())
+		if (!this->getBuyerOrders()[i]->getPaid())
 			return false;
 	}
 	return true;
@@ -315,7 +253,7 @@ const Buyer& Buyer::operator=(const Buyer& other)
 }
  void Buyer::toOs(ostream& os)const
 {
-	 // Implement prints
+	 os << typeid(*this).name() + 6;
 
 }
 

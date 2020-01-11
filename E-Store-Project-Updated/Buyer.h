@@ -24,7 +24,7 @@ protected:
 
 public:
 
-	Buyer(char* userName, char* password, char* fname, char*
+	Buyer(const char* userName, const char* password, const char* fname, const char*
 		lname, const Address& address);
 	Buyer(const Buyer& b); // copy c'tor
 	virtual ~Buyer();
@@ -33,7 +33,7 @@ public:
 
 	virtual inline const int getNumberOfItems()const { return m_number_of_items; }
 	virtual inline Product** getCart()const { return m_cart; }
-	virtual inline Order** getCheckoutOrders()const { return m_checkout_orders; }
+	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
 	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
 	virtual int const getTotalCartValue()const;
 

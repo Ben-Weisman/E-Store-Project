@@ -98,15 +98,11 @@ bool User::setAddress(const Address& address)
 	return true;
 }
 
-void User::showUser()
-{ // Not finished - Agreed to wait with the show methods - polymorphism
-	cout << "\tName: " << m_fname << " " << m_lname <<
-		endl << "\tUsername: " << m_username
-		<< endl << "\tAddress\n: " << m_address << endl;
-}
+
 ostream& operator<<(ostream& os, const User& user)
 {
-	os << user.m_fname << " " << user.m_lname << "\n" << user.m_username
-		<< user.m_address;
+	os << "Full name: " << user.m_fname << " " << user.m_lname <<
+		"\nUsername: " << user.m_username	<< "\nAddress: \n" << user.m_address;
+	user.toOs(os);
 	return os;
 }

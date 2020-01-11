@@ -8,7 +8,7 @@ using namespace std;
 
 // ----------------- C'tor, Copy C'tor, D'tor -----------------
 
-Seller::Seller(char* username, char* password, char* fname, char* lname,
+Seller::Seller(const char* username, const char* password, const char* fname, const char* lname,
 	const Address& address) :User(username, password, fname, lname, address) // c'tor
 {
 	m_num_of_feedbacks = 0;
@@ -204,8 +204,7 @@ const Seller& Seller::operator=(const Seller& other)
 }
 void Seller::toOs(ostream& os)const
 {
-	// Implement prints
-
+	os << typeid(*this).name() + 6;
 }
 
 
