@@ -77,6 +77,7 @@ const FeedBack& FeedBack::operator=(const FeedBack& other)
 	{
 		setFeedbackEval(other.m_feedback_evaluation);
 		setFeedbackProvider(other.m_provider_username);
+		m_date = other.m_date;
 	}
 	return *this;
 }

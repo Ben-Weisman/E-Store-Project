@@ -10,7 +10,7 @@ class Order; //forward declaration
 
 class Seller : virtual public User
 {
-private:
+protected:
 	int m_feedbacks_phy_size;
 	int m_num_of_feedbacks;
 	int m_num_of_listed_items;
@@ -18,12 +18,12 @@ private:
 	int m_num_of_orders;
 	int m_orders_pSize;
 	
-private:
+protected:
 	FeedBack** m_feedback_arr;
 	Product** m_listed_items;
 	Order** m_orders;
 
-private:
+protected:
 	// Setters
 	
 	bool setFeedBacks(FeedBack** feed);
@@ -64,6 +64,8 @@ public:
 	//operators
 	friend ostream& operator<<(ostream& os, const Seller& seller);
 	const Seller& operator=(const Seller& other);
+	virtual void toOs(ostream& os)const;
+
 };
 
 #endif // !__Seller_h
