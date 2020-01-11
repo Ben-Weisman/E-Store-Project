@@ -21,19 +21,6 @@ private:
 	int m_users_phy_size; // Users array physic size
 	int m_num_of_users; // Users array logic size
 
-	
-	//OLD:
-
-	//Seller** m_seller_arr; // Sellers array
-	//int m_sellers_phy_size; // Sellers array physic size
-	//int m_num_of_sellers; // Sellers array logic size
-
-
-	//Buyer** m_buyer_arr; // Buyers array
-	//int m_buyers_phy_size; // Sellers array physic size
-	//int m_num_of_buyers; // Sellers array logic size
-
-
 private:
 	// Under private cause we don't want anyone to duplicate our system 
 	System(const System&s); 
@@ -44,7 +31,8 @@ public:
 	~System();// d'tor
 
 public:
-	bool operator+=(User* new_user); //# Nir: I think its should be generic for all 3 options
+	bool operator+=(Buyer* new_buyer); // use POLY
+	bool operator+=(Seller* new_seller); // use POLY 
 public:
 	bool setName(const char* name);
 
@@ -87,6 +75,8 @@ public:
 	void printBuyers()const;
 	/*9*/
 	void printSellers()const;
+	/**/
+	void printBuyerSellers()const;
 	/*10*/
 	void printAllSpecificProduct(const char* name_to_find) const;
 

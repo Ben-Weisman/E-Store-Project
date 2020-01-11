@@ -27,7 +27,7 @@ Address createAdress()
 	return Address(country, city, street, house_number);
 }
 
-User* createUser()
+Buyer_Seller* createBuyerSeller()
 {
 	char f_name[MAX_NAMES_LEN];
 	cout << "First name: ";
@@ -48,10 +48,13 @@ User* createUser()
 	cout << "Password: ";
 	cin.getline(pass, MAX_NAMES_LEN);
 
-	return new User(user_name, pass, f_name, l_name, createAdress());
+	/*Buyer* b=new Buyer(user_name, pass, f_name, l_name, createAdress());
+	Seller* s=new Seller(user_name, pass, f_name, l_name, createAdress());*/
+	// ## Nir: Ben, I need some code review here according to your Buyer_Seller changes
+	return new Buyer_Seller(Buyer(user_name, pass, f_name, l_name, createAdress()),
+		Seller(user_name, pass, f_name, l_name, createAdress()));
 }
 
-/*############################# OLD #####################################
 Buyer* createBuyer()
 {
 	char f_name[MAX_NAMES_LEN];
@@ -100,7 +103,7 @@ Seller* createSeller()
 
 
 	return new Seller(user_name, pass, f_name, l_name, createAdress());
-} */
+} 
 
 Product* createProduct(char* seller_username)
 {

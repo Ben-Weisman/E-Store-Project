@@ -7,10 +7,10 @@
 
 using namespace std;
 
-class Buyer_Seller : public Seller, public Buyer
+class Buyer_Seller : public Buyer, public Seller
 {
 public:
-	Buyer_Seller(const Seller &s,const Buyer &b);
+	Buyer_Seller(const Buyer &b, const Seller &s); //##Nir: maybe we should change, according to System.cpp line 490  
 	~Buyer_Seller();
 	Buyer_Seller(const Buyer_Seller& bs);
 

@@ -470,24 +470,24 @@ void System::interactiveMenu()
 			char prod_name[MAX_NAMES_LEN];
 			int b_index; // Latest update.
 
-		case 1://add buyer
-
+		case 1://add buyer (Check for += operator)
+			
 			//if (!(addToBuyerArr(createBuyer())))
-			Buyer* new_buyer = createUser();
+			Buyer* new_buyer(createUser());
 			if(!((*this)+=new_buyer)) //using system's += operator ( check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
 
-		case 2://add seller
+		case 2://add seller (Check for += operator)
 
-			Seller* new_seller = createUser();
+			Seller* new_seller(createUser());
 			if (!((*this) += new_seller)) //using system's += operator ( check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
 
 		case 3://add buyer-seller
 
-			Buyer_Seller* new_bs = createUser();
+			Buyer_Seller* new_bs(createUser()); // # Nir: I think we should change the ctor according to that
 			if (!((*this) += new_bs)) //using system's += operator ( check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
@@ -560,12 +560,16 @@ void System::interactiveMenu()
 			printBuyers();
 
 			break;
-		case 10://print all sellers
+		case 10://print all sellers (Check for Buyer << operator)
 			cout << endl;
 			printSellers();
 
+		case 11://print all sellers (Check for Seller << operator)
+			cout << endl;
+			printBuyerSellers();
+
 			break;
-		case 11: // print all products from specific name  
+		case 12: // print all products from specific name  (Check for Product << operator)
 			cout << "Enter the product name: ";
 			cin.getline(prod_name, MAX_NAMES_LEN);
 
@@ -574,10 +578,14 @@ void System::interactiveMenu()
 
 			break;
 
-		case 12:
+		case 13: // "Which cart cheeper?" (Check for > operator)
+			
+
+		case 14: //
 			cout << endl << "Thanks for using " << m_name << ", Bye Bye (:" << endl;
 			exit_flag = false;
 			break;
+
 		default:
 			cout << endl << "Ops... No such action" << endl << endl;
 			break;
