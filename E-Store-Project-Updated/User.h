@@ -43,18 +43,6 @@ public:
 	const User& operator=(const User& other);
 	friend ostream& operator<<(ostream& os, const User& buyer);
 	virtual void toOs(ostream& os)const {};
-
-public:
-	//-------------------- Buyer Methods --------------------//
-	// Defining all Buyer's methods as pure virtual in User class.
-
-	//virtual bool setOrder(Order** order) = 0;// same both for seller and buyer
-
-public:
-	//-------------------- Seller Methods --------------------//
-	// Defining all Seller's methods as pure virtual in User class.
-protected:
-	virtual bool setOrders(Order** other) = 0; // same both for seller and buyer
 };
 
 #endif // !__User_h
