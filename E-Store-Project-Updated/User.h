@@ -2,6 +2,13 @@
 #define __User_h
 #include <iostream>
 #include "Address.h"
+#include "Product.h"
+#include "Buyer.h"
+#include "Seller.h"
+#include "Order.h"
+#include "FeedBack.h"
+
+
 using namespace std;
 
 class User
@@ -20,6 +27,7 @@ protected:
 	User(const User& u); //copy c'tor
 
 protected:
+	// Assume no changes are allowed after first initialization.
 	bool setUsername(const char* username);
 	bool setPassword(const char* password);
 	bool setFname(const char* fname);
@@ -44,7 +52,7 @@ public:
 	// Defining all Buyer's methods as pure virtual in User class.
 	virtual inline const int getNumberOfItems()const = 0;
 	virtual inline Product** getCart()const = 0;
-	virtual inline Order** getCheckoutOrders()const = 0;
+	virtual inline Order** getBuyerOrders()const = 0;
 	virtual inline const int getNumOfOrders()const = 0;
 	virtual int const getTotalCartValue()const = 0;
 	
@@ -70,7 +78,7 @@ public:
 	// Defining all Seller's methods as pure virtual in User class.
 	virtual inline  Product** getListedItems()const = 0;
 	virtual inline  FeedBack** getFeedbacks()const = 0;
-	virtual inline  Order** getOrders()const = 0;
+	virtual inline  Order** getSellerOrders()const = 0;
 	virtual inline  const int getNumOfListedItems()const = 0;
 
 public:
@@ -94,7 +102,5 @@ protected:
 	virtual bool setOrders(Order** other) = 0;
 	virtual bool setListItems(Product** listed_items) = 0;
 };
-
-
 
 #endif // !__User_h

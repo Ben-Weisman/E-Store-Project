@@ -31,10 +31,8 @@ protected:
 	bool setListItems(Product **listed_items);
 
 public:		
-
-
 	~Seller(); // d'tor
-	Seller(char* userName, char* password, char* fname, char*
+	Seller(const char* userName, const char* password, const char* fname, const char*
 		lname, const Address& address);
 	Seller(const Seller& s); //copy c'tor
 
@@ -42,7 +40,7 @@ public:
 
 	inline  Product **getListedItems()const{ return m_listed_items; }
 	inline  FeedBack** getFeedbacks()const{ return m_feedback_arr; }
-	inline  Order** getOrders()const{ return m_orders; }
+	inline  Order** getSellerOrders ()const{ return m_orders; }
 	inline  const int getNumOfListedItems()const{ return m_num_of_listed_items; }
 
 public:

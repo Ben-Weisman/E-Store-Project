@@ -32,6 +32,7 @@ public:
 	friend ostream& operator<<(ostream& os, FeedBack& feedback);
 	const FeedBack& operator=(const FeedBack& other);
 
+
 };
 
 #endif// __FeedBack_h
