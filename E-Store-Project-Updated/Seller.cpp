@@ -171,7 +171,6 @@ void Seller::showSeller()
 
 ostream& operator<<(ostream& os, Seller& seller) 
 { 
-	
 	os << "Full Name: " << (User&)seller;
 	return os;
 }
@@ -193,15 +192,20 @@ const Seller& Seller::operator=(const Seller& other)
 		m_feedback_arr = new FeedBack * [m_feedbacks_phy_size];
 
 		for (int i = 0; i < m_num_of_feedbacks; i++)
-			m_feedback_arr[i] = other.m_feedback_arr[i];
+			*(m_feedback_arr+i) = *(other.m_feedback_arr+i);
 
 		for (int i = 0; i < m_num_of_listed_items; i++)
-			m_listed_items[i] = other.m_listed_items[i];
+			*(m_listed_items+i) = *(other.m_listed_items+i);
 
 		for (int i = 0; i < m_num_of_orders; i++)
-			m_orders[i] = other.m_orders[i];
+			*(m_orders+i) = *(other.m_orders+i);
 	}
 	return *this;
+}
+void Seller::toOs(ostream& os)const
+{
+	// Implement prints
+
 }
 
 

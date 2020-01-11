@@ -305,12 +305,17 @@ const Buyer& Buyer::operator=(const Buyer& other)
 		m_checkout_orders = new Order * [m_checkout_orders_pSize];
 
 		for (int i = 0; i < m_number_of_items; i++)
-			m_cart[i] = other.m_cart[i];
+			*(m_cart+i) = *(other.m_cart+i);
 		for (int i = 0; i < m_num_checkout_orders; i++)
-			m_checkout_orders[i] = other.m_checkout_orders[i];
+			*(m_checkout_orders+i) = *(other.m_checkout_orders+i);
 
 	}
 	return *this;
+
+}
+ void Buyer::toOs(ostream& os)const
+{
+	 // Implement prints
 
 }
 

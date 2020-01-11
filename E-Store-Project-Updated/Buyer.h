@@ -9,7 +9,7 @@ class Order; //forward declaration
 
 class Buyer : virtual public User
 {
-private:
+protected:
 
 	int m_cartPsize;
 	int m_number_of_items;
@@ -19,49 +19,52 @@ private:
 	Product** m_cart;
 	Order** m_checkout_orders;
 
-private:
-	bool setCart(Product** cart);
+protected:
+	virtual bool setCart(Product** cart);
 
 public:
 
 	Buyer(char* userName, char* password, char* fname, char*
 		lname, const Address& address);
 	Buyer(const Buyer& b); // copy c'tor
-	~Buyer();
+	virtual ~Buyer();
 
 public:
 
-	inline const int getNumberOfItems()const { return m_number_of_items; }
-	inline Product** getCart()const { return m_cart; }
-	inline Order** getOrders()const { return m_checkout_orders; }
-	inline const int getNumOfOrders()const { return m_num_checkout_orders; }
-	int const getTotalCartValue()const;
+	virtual inline const int getNumberOfItems()const { return m_number_of_items; }
+	virtual inline Product** getCart()const { return m_cart; }
+	virtual inline Order** getOrders()const { return m_checkout_orders; }
+	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
+	virtual int const getTotalCartValue()const;
 
 public:
 
-	bool setOrder(Order** order);
+	virtual bool setOrder(Order** order);
 
 public:
 
-	bool addToCart(Product* item_to_add);
-	bool addToCheckout(Order* checkout_order);
-	bool removeFromCart(Product* item_to_remove);
-	void cartRealloc();
-	void checkoutRealloc();
-	bool isOrderedFrom(const char* username)const;
-	bool isEmptyCheckoutOrders();
-	bool isEmptyCart();
+	virtual bool addToCart(Product* item_to_add);
+	virtual bool addToCheckout(Order* checkout_order);
+	virtual bool removeFromCart(Product* item_to_remove);
+	virtual void cartRealloc();
+	virtual void checkoutRealloc();
+	virtual bool isOrderedFrom(const char* username)const;
+	virtual bool isEmptyCheckoutOrders();
+	virtual bool isEmptyCart();
 
 public:
 
-	void showCart()const;
-	void showBuyer()const; // NO delete
-	void showCheckoutOrders()const;
+	virtual void showCart()const;
+	virtual void showBuyer()const; // NO delete
+	virtual void showCheckoutOrders()const;
 
 public:
 	friend ostream& operator<<(ostream& os, const Buyer& buyer);
 	bool operator>(const Buyer& other)const;
 	const Buyer& operator=(const Buyer& other);
+
+	virtual void toOs(ostream& os)const {};
+
 };
 
 #endif //!__Buyer_h
