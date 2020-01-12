@@ -60,31 +60,34 @@ public:
 
 public:
 	/*1*/                                       
-	/*bool addToBuyerArr(Buyer* new_buyer);*/   //  # Nir: Replaced by operator += 
+	//operator += (Add Buyer)
 	/*2*/
-	/*bool addToSellerArr(Seller* new_seller);*/     // # Nir: Should be replaced by operator += 
+	//operator += (Add Seller)
 	/*3*/
-	bool addProductToSeller(Product* prod, const char* seller_username);
+	//operator +=  (Add Buyer_Seller)
 	/*4*/
-	bool addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback);
+	bool addProductToSeller(Product* prod, const char* seller_username);
 	/*5*/
-	bool addProductToBuyersCart(const char* prod_name, const char* buyer_username);
+	bool addFeedbackToSeller(const char* buyer_username, const char* seller_username, FeedBack* feedback);
 	/*6*/
-	bool newOrder(const char* buyer_username);
+	bool addProductToBuyersCart(const char* prod_name, const char* buyer_username);
 	/*7*/
-	bool payment(const char* buyer_username);
+	bool newOrder(const char* buyer_username);
 	/*8*/
-	void printBuyers()const;
+	bool payment(const char* buyer_username);
 	/*9*/
-	void printSellers()const;
-	/**/
-	void printBuyerSellers()const;
+	void printBuyers()const;
 	/*10*/
+	void printSellers()const;
+	/*11*/
+	void printBuyerSellers()const;
+	/*12*/
 	void printAllSpecificProduct(const char* name_to_find) const;
+	/*13*/
+	void compareBuyersByCart(const char* username1, const char* username2)const;
 
 	// Print:
 	void interactiveMenu();
-
 };
 
 #endif // !__System_h

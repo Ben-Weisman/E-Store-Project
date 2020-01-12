@@ -44,7 +44,9 @@ bool User::setPassword(const char* password)
 { // set password for seller. Validation check - not an empty string.
 	if (strlen(password) == 0)
 		return false;
-
+	//################################## 
+	m_password = nullptr;
+	//################################## 
 	delete[]m_password;
 	m_password = strdup(password);
 	return true;
@@ -62,7 +64,9 @@ bool User::setFname(const char* fname)
 	{
 		return false;
 	} //We assumed that the fname can be a word with only letters (more than 1 character) 
-
+	//################################## 
+	m_fname = nullptr;
+	//################################## 
 	delete[]m_fname;
 	m_fname = strdup(fname);
 	return true;
@@ -81,6 +85,9 @@ bool User::setLname(const char* lname)
 		return false;
 	} //We assumed that the lname can be a word with letters and spaces (more than 1 character) 
 
+//################################## 
+	m_lname = nullptr;
+//################################## 
 	delete[]m_lname;
 	m_lname = strdup(lname);
 	return true;
@@ -90,6 +97,10 @@ bool User::setUsername(const char* username) // private - username cannot get ch
 {  // set username for seller. Validation check - not an empty string.
 	if (strlen(username) == 0)
 		return false;
+	//################################## 
+	m_username = nullptr;
+	//################################## 
+	delete[]m_username;
 	m_username = strdup(username);
 	return true;
 }

@@ -48,9 +48,9 @@ Buyer_Seller* createBuyerSeller()
 	cout << "Password: ";
 	cin.getline(pass, MAX_NAMES_LEN);
 
-	// ## Nir: Ben, I need some code review here according to your Buyer_Seller changes
-	return new Buyer_Seller(Buyer(user_name, pass, f_name, l_name, createAdress()),
-		Seller(user_name, pass, f_name, l_name, createAdress()));
+	Address a = createAdress();
+
+	return new Buyer_Seller(Buyer(user_name, pass, f_name, l_name, a), Seller(user_name, pass, f_name, l_name, a));
 }
 
 Buyer* createBuyer()

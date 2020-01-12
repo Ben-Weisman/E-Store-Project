@@ -10,6 +10,7 @@ Nir:
 Ben:
 - Finish User
 - Change copy that use = 
+- Fix Show Methods (Sent you picture at the phone)
 
 
 Both:

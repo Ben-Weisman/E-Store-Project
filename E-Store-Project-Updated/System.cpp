@@ -265,7 +265,13 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 			if(chosen_seller_index != NOT_EXIST)
 			tmp_s = dynamic_cast<Seller*>(m_user_arr[chosen_seller_index]);
 
-		} while (chosen_seller_index == NOT_EXIST && !tmp_s); //Lettin the user 3 times to enter the chosen seller from list 
+			if (chosen_seller_index == buyer_index)
+			{
+				cout << "Can't buy from yourself !" << endl;
+				chosen_seller_index = NOT_EXIST;
+			}
+
+		} while (chosen_seller_index == NOT_EXIST || !tmp_s); //Lettin the user 3 times to enter the chosen seller from list 
 		//while choosen seller isnt exist or the he is not seller 
 		 
 		if (tmp_b&&tmp_s)
@@ -319,10 +325,13 @@ bool System::newOrder(const char* buyer_username)
 			}
 
 			else if ((option != EXIT && option < 1) || option > tmp_b->getNumberOfItems()) // option validity check 
-				cout << "Sorry, invalid option.";
+				cout << "Sorry, invalid option."<<endl;
 
 		} while (option != EXIT && tmp_b->getNumberOfItems() != EMPTY); // While the user still have products to choose 
 	}
+
+	if(tmp_b->getNumberOfItems() == EMPTY)
+		cout << "Your cart is empty."<<endl;
 	
 	if (tmp_b) //Buyer
 		tmp_b->addToCheckout(new_order); //Add the order to the buyer's orders array
@@ -376,14 +385,17 @@ bool System::payment(const char* buyer_username)
 
 void System::printBuyers()const
 {// Print all the buyers in the system 
-	int i=0;
+	int i=0, counter=1;
 	for (i ; i < m_num_of_users; i++)
 	{
 		Buyer* tmp_b = dynamic_cast<Buyer*>(m_user_arr[i]);
 		if (tmp_b) //Polymorphistic check if this is Buyer/BuyerSeller
 		{
-			cout << i + 1 << ") ";
-			cout << *tmp_b << endl; //buyer << operator
+			cout << counter++ << ") ";
+		//	cout << *tmp_b << endl; //buyer << operator
+			//###########################
+			tmp_b->showBuyer();
+			//###########################
 		}
 	}
 	if (i == 0)
@@ -394,14 +406,17 @@ void System::printBuyers()const
 
 void System::printSellers()const
 {// Print all the sellers in the system 
-	int i=0;
+	int i=0, counter=1;
 	for (i ; i < m_num_of_users; i++)
 	{
 		Seller* tmp_s = dynamic_cast<Seller*>(m_user_arr[i]); 
 		if (tmp_s)//Polymorphistic check if this is Seller/BuyerSeller
 		{
-			cout << i + 1 << ") ";
-			cout << *tmp_s << endl; //seller << operator
+			cout << counter++ << ") ";
+			//cout << *tmp_s << endl; //seller << operator
+			//###########################
+			tmp_s->showSeller();
+			//###########################
 		}
 	}
 	if (i == 0)
@@ -412,14 +427,19 @@ void System::printSellers()const
 /*****************************************************************  11  *****************************************************/
 void System::printBuyerSellers()const
 {// Print all the buyersellers in the system 
-	int i = 0;
+	int i = 0, counter=1;
 	for (i; i < m_num_of_users; i++)
 	{
 		Buyer_Seller* tmp_bs = dynamic_cast<Buyer_Seller*>(m_user_arr[i]); 
 		if (tmp_bs)//Polymorphistic check if this is BuyerSeller
 		{
-			cout << i + 1 << ") ";
-			cout << *tmp_bs << endl; //buyer_seller << operator
+			cout << counter++ << ") ";
+			//cout << *tmp_bs << endl; //buyer_seller << operator
+			//###########################
+			tmp_bs->showBuyer();
+			tmp_bs->showSeller();
+			//###########################
+
 		}
 	}
 	if (i == 0)
@@ -455,6 +475,31 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 		cout << "No such product in the system"<< endl;
 }
 
+/*****************************************************************  13  *****************************************************/
+
+void System::compareBuyersByCart(const char* username1, const char* username2)const
+{// Compare tow buyers according to thier cart 
+	int first_buyer_index = isUserExist(username1), second_buyer_index = isUserExist(username2);
+	if (first_buyer_index == NOT_EXIST || second_buyer_index == NOT_EXIST)
+	{
+		cout << "At least one of the buyer not exist" << endl;
+		return;//no such user
+	}
+		
+	Buyer* tmp_b1 = dynamic_cast<Buyer*>(m_user_arr[first_buyer_index]), *tmp_b2 = dynamic_cast<Buyer*>(m_user_arr[second_buyer_index]);
+	if (!tmp_b1 || !tmp_b2)//Polymorphistic check if this is Buyer/BuyerSeller
+	{
+		cout << "At least one of the buyer not exist" << endl;
+		return; //at-least one buyer not exist
+	}
+		
+
+	if (*tmp_b1 > *tmp_b2)
+		cout << username1 << " cart total price is greater from" << username2 << " cart." << endl;
+	else
+		cout << username2 << " cart total price is greater from or equals to" << username1 << " cart." << endl;
+}
+/**********************************************************************************************************************/
 
                                                  /* ----- PRINT ------ */
 
@@ -475,16 +520,17 @@ void System::interactiveMenu()
 		cout << (i++) << ") Payment" << endl; //8
 		cout << (i++) << ") Show all buyers" << endl; //9
 		cout << (i++) << ") Show all sellers" << endl; //10
-		cout << (i++) << ") Show all products by name" << endl; //11
-		cout << (i++) << ") Compare between tow carts" << endl << endl; //12
-		cout << (i++) << ") Exit" << endl << endl; //13
-		cout << "Please enter your action: "; //14
+		cout << (i++) << ") Show all buyer-sellers" << endl; //11
+		cout << (i++) << ") Show all products by name" << endl; //12
+		cout << (i++) << ") Compare between tow carts" << endl << endl; //13
+		cout << (i++) << ") Exit" << endl << endl; //14
+		cout << "Please enter your action: "; 
 		int option;
 		cin >> option;
 		cin.ignore(1, '\n');
 
 		//////////////For the switch cases///////////////
-		char b_username[MAX_NAMES_LEN];
+		char b_username[MAX_NAMES_LEN], b2_username[MAX_NAMES_LEN];
 		char s_username[MAX_NAMES_LEN];
 		char prod_name[MAX_NAMES_LEN];
 		int b_index; // Latest update.
@@ -560,7 +606,7 @@ void System::interactiveMenu()
 			cout << "Enter the product name: ";
 			cin.getline(prod_name, MAX_NAMES_LEN);
 
-			if (addProductToBuyersCart(prod_name, b_username) == false)
+			if (!addProductToBuyersCart(prod_name, b_username))
 			{
 				cout << "Buyer or prod not exist in the system." << endl;
 			}
@@ -592,7 +638,7 @@ void System::interactiveMenu()
 			cout << endl;
 			printSellers();
 
-		case 11://print all sellers (Check for Seller << operator)
+		case 11://print all buyer-sellers (Check for Seller << operator)
 			cout << endl;
 			printBuyerSellers();
 
@@ -606,10 +652,17 @@ void System::interactiveMenu()
 
 			break;
 
-		case 13: // "Which cart cheeper?" (Check for > operator)
+		case 13: 
+			cout << "Enter first buyer's username: ";
+			cin.getline(b_username, MAX_NAMES_LEN);
+
+			cout << "Enter second seller's username: ";
+			cin.getline(b2_username, MAX_NAMES_LEN);
+			
+			compareBuyersByCart(b_username, b2_username);
 			
 
-		case 14: //
+		case 14: // exit
 			cout << endl << "Thanks for using " << m_name << ", Bye Bye (:" << endl;
 			exit_flag = false;
 			break;
