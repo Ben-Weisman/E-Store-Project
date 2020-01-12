@@ -12,11 +12,6 @@ using namespace std;
 System::System(const char* name = "eBen") //Default name
 {
 	setName(name);
-
-	m_user_arr; // Users array
-	int m_users_phy_size; // Users array physic size
-	int m_num_of_users;
-	
 	setUsersPhySize(1);
 	setNumOfUsers(0);
 	m_user_arr = new User*[m_users_phy_size];
@@ -176,16 +171,10 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 		return false;//no such user
 
 	// Polymorphistic check if this is Seller/BuyerSeller:
-	Seller* tmp1 = dynamic_cast<Seller*>(m_user_arr[seller_index]);
-	if (tmp1)
+	Seller* tmp_s = dynamic_cast<Seller*>(m_user_arr[seller_index]);
+	if (tmp_s)
 	{ // If the right type
-		tmp1->addToListItemsArr(prod);
-		return true; // new product enterd to the seller
-	}
-	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[seller_index]);
-	if (tmp2)
-	{ // If the right type
-		tmp2->addToListItemsArr(prod);
+		tmp_s->addToListItemsArr(prod);
 		return true; // new product enterd to the seller
 	}
 
@@ -199,41 +188,25 @@ bool System::addFeedbackToSeller(const char* buyer_username, const char* seller_
 	int buyer_index = isUserExist(buyer_username);
 	if (buyer_index == NOT_EXIST )
 		return false; // no such user
-
-	// Polymorphistic check if this is Buyer/BuyerSeller:
-	Buyer* tmp1 = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);
-	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[buyer_index]);
-	if (!tmp1&&!tmp2)
+	Buyer* tmp_b = dynamic_cast<Buyer*>(m_user_arr[buyer_index]); // Polymorphistic check if this is Buyer/BuyerSeller
+	if (!tmp_b)
 		return false; // no such buyer
 
 	int seller_index = isUserExist(seller_username);
 	if (seller_index == NOT_EXIST)
 		return false;// no such user
-	// Polymorphistic check if this is Seller/BuyerSeller && 
-	Seller* tmp3 = dynamic_cast<Seller*>(m_user_arr[seller_index]);
-	Buyer_Seller* tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[seller_index]);
-	if (!tmp3 && !tmp4)
+	Seller* tmp_s = dynamic_cast<Seller*>(m_user_arr[seller_index]);// Polymorphistic check if this is Seller/BuyerSeller:
+	if (!tmp_s)
 		return false;// no such seller
 
 	if (buyer_index == seller_index)
 		return false;// Buyer_Seller can't feedback himself
 	
-	if ((tmp1&&tmp3)||(tmp2&&tmp3))
-	{ 
-		if (tmp1->isOrderedFrom(tmp3->getUsername()) || tmp2->isOrderedFrom(tmp3->getUsername()))
+		if (tmp_b->isOrderedFrom(tmp_s->getUsername()))
 		{
-			tmp3->addToFeedArr(feedback);
+			tmp_s->addToFeedArr(feedback);
 			return true;
 		}
-	}
-	if ((tmp1&&tmp4) || (tmp2&&tmp4))
-	{
-		if (tmp1->isOrderedFrom(tmp4->getUsername()) || tmp2->isOrderedFrom(tmp4->getUsername()))
-		{
-			tmp4->addToFeedArr(feedback);
-			return true;
-		}
-	}
 
 	return false;
 }
@@ -245,41 +218,24 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 	if (buyer_index == NOT_EXIST)
 		return false;// no such user
 
-	// Polymorphistic check if this is Buyer/BuyerSeller:
-	Buyer* tmp1 = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);
-	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[buyer_index]);
-	if (!tmp1 && !tmp2)
+	Buyer* tmp_b = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);// Polymorphistic check if this is Buyer/BuyerSeller:
+	if (!tmp_b)
 		return false; //no such buyer
 	
 	int counter = 1;
-	Seller* tmp3;
-	Buyer_Seller* tmp4;
+	Seller* tmp_s=nullptr;
 	for (int j = 0; j < m_num_of_users; j++)
 	{
 		bool found = false;
-		tmp3 = dynamic_cast<Seller*>(m_user_arr[j]);
-		tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[j]);
-		if (tmp3)
+		tmp_s = dynamic_cast<Seller*>(m_user_arr[j]);// Polymorphistic check if this is Seller/BuyerSeller:
+		if (tmp_s)
 		{
-			for (int k = 0; !found && k < tmp3->getNumOfListedItems(); k++)  // show all products with this name fron all the sellers
+			for (int k = 0; !found && k < tmp_s->getNumOfListedItems(); k++)  // show all products with this name fron all the sellers
 			{
-				if (strcmp(tmp3->getListedItems()[k]->getName(), prod_name) == 0)
+				if (strcmp(tmp_s->getListedItems()[k]->getName(), prod_name) == 0)
 				{
 					cout << counter++ << ") ";
-					tmp3->getListedItems()[k]->showProductToBuyer();
-					cout << endl;
-					found = true;
-				}
-			}
-		}
-		if (tmp4)
-		{
-			for (int k = 0; !found && k < tmp4->getNumOfListedItems(); k++)  // show all products with this name fron all the sellers
-			{
-				if (strcmp(tmp4->getListedItems()[k]->getName(), prod_name) == 0)
-				{
-					cout << counter++ << ") ";
-					tmp4->getListedItems()[k]->showProductToBuyer();
+					tmp_s->getListedItems()[k]->showProductToBuyer();
 					cout << endl;
 					found = true;
 				}
@@ -289,7 +245,6 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 		char chosen_seller_username[MAX_LEN];
 		int count = 0;
 		int chosen_seller_index;
-		bool type_flag = true;
 		do
 		{
 
@@ -307,45 +262,16 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 			}
 
 			chosen_seller_index = isUserExist(chosen_seller_username);
+			if(chosen_seller_index != NOT_EXIST)
+			tmp_s = dynamic_cast<Seller*>(m_user_arr[chosen_seller_index]);
 
-			tmp3 = dynamic_cast<Seller*>(m_user_arr[chosen_seller_index]);
-			tmp4 = dynamic_cast<Buyer_Seller*>(m_user_arr[chosen_seller_index]);
-
-			type_flag = (!tmp3 && !tmp4);  // ### CHECK that line! 
-
-		} while (chosen_seller_index == NOT_EXIST && type_flag); //Lettin the user 3 times to enter the chosen seller from list
+		} while (chosen_seller_index == NOT_EXIST && !tmp_s); //Lettin the user 3 times to enter the chosen seller from list 
+		//while choosen seller isnt exist or the he is not seller 
 		 
-		if (tmp1&&tmp3)
+		if (tmp_b&&tmp_s)
 		{
-			Product* prod_to_cart = new Product(*(tmp3->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
-			if (tmp1->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
-			{
-				cout << "Product entered to cart seccessfully!" << endl;
-				return true;
-			}
-		}
-		if (tmp1&&tmp4)
-		{
-			Product* prod_to_cart = new Product(*(tmp4->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
-			if (tmp1->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
-			{
-				cout << "Product entered to cart seccessfully!" << endl;
-				return true;
-			}
-		}
-		if (tmp2&&tmp3)
-		{
-			Product* prod_to_cart = new Product(*(tmp3->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
-			if (tmp2->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
-			{
-				cout << "Product entered to cart seccessfully!" << endl;
-				return true;
-			}
-		}
-		if (tmp2&&tmp4)
-		{
-			Product* prod_to_cart = new Product(*(tmp4->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
-			if (tmp2->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
+			Product* prod_to_cart = new Product(*(tmp_s->findProduct(prod_name))); //Using copy c'tor to put the product at the cart
+			if (tmp_b->addToCart(prod_to_cart) == true) // Add the product to the buyer's cart
 			{
 				cout << "Product entered to cart seccessfully!" << endl;
 				return true;
@@ -355,85 +281,51 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 	return false; // invalid input / buyer or product not exist
 }
 
-
 /*****************************************************************  7  *****************************************************/
+
 bool System::newOrder(const char* buyer_username)
 {// Make new order to buyer (choosing from his own cart)
 	int buyer_index = isUserExist(buyer_username); //Check if the buyer exist 
 	if (buyer_index == NOT_EXIST)
 		return false; // no such user
-	//## Polymorphistic check if this is Buyer/BuyerSeller:
-	Buyer* tmp1 = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);
-	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[buyer_index]);
-	if (!tmp1 && !tmp2)
+	Buyer* tmp_b = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);// Polymorphistic check if this is Buyer/BuyerSeller
+	if (!tmp_b)
 		return false; //no such buyer
 
-	Order* new_order;
+	Order* new_order = nullptr;
 	int option;
 
-	//Buyer:
-	if (tmp1)
+	if (tmp_b)
 	{
-		if (tmp1->isEmptyCart())
+		if (tmp_b->isEmptyCart())
 		{
 			cout << "\n\n\t No items in cart, You need to add an item to make an order.\n\n";
 			return false;
 		}
-		new_order = new Order(tmp1);// Make new order using c'tor
+		new_order = new Order(tmp_b);// Make new order using c'tor
 
 		do
 		{ // The user check from list until he deciede to exit 
-			tmp1->showCart();
+			tmp_b->showCart();
 
 			cout << endl << "Please Choose the number of the product from the list:" << endl << "Enter -1 to exit from order." << endl;
 			cin >> option;
 			cin.ignore(1, '\n');
 
-			if (option > 0 && option <= tmp1->getNumberOfItems())
+			if (option > 0 && option <= tmp_b->getNumberOfItems())
 			{
-				new_order->addToProdArr(tmp1->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
+				new_order->addToProdArr(tmp_b->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
 				cout << "Item added to the Order successfully." << endl;
 			}
 
-			else if ((option != EXIT && option < 1) || option > tmp1->getNumberOfItems()) // option validity check 
+			else if ((option != EXIT && option < 1) || option > tmp_b->getNumberOfItems()) // option validity check 
 				cout << "Sorry, invalid option.";
 
-		} while (option != EXIT && tmp1->getNumberOfItems() != EMPTY); // While the user still have products to choose 
+		} while (option != EXIT && tmp_b->getNumberOfItems() != EMPTY); // While the user still have products to choose 
 	}
-	//Buyer_Seller:
-	if (tmp2)
-	{
-		if (tmp2->isEmptyCart())
-		{
-			cout << "\n\n\t No items in cart, You need to add an item to make an order.\n\n";
-			return false;
-		}
-		new_order = new Order(tmp2);// Make new order using c'tor
-
-		do
-		{ // The user check from list until he deciede to exit 
-			tmp2->showCart();
-
-			cout << endl << "Please Choose the number of the product from the list:" << endl << "Enter -1 to exit from order." << endl;
-			cin >> option;
-			cin.ignore(1, '\n');
-
-			if (option > 0 && option <= tmp2->getNumberOfItems())
-			{
-				new_order->addToProdArr(tmp2->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
-				cout << "Item added to the Order successfully." << endl;
-			}
-
-			else if ((option != EXIT && option < 1) || option > tmp2->getNumberOfItems()) // option validity check 
-				cout << "Sorry, invalid option.";
-
-		} while (option != EXIT && tmp2->getNumberOfItems() != EMPTY); // While the user still have products to choose 
-	}
-
-	if (tmp1) //Buyer
-		tmp1->addToCheckout(new_order); //Add the order to the buyer's orders array
-	if (tmp2)// Buyer_Seller
-	tmp2->addToCheckout(new_order); //Add the order to the buyerseller's orders array
+	
+	if (tmp_b) //Buyer
+		tmp_b->addToCheckout(new_order); //Add the order to the buyer's orders array
 
 	return true;
 }
@@ -445,20 +337,17 @@ bool System::payment(const char* buyer_username)
 	if (buyer_index == NOT_EXIST)
 		return false;//no such user
 
-	//## Polymorphistic check if this is Buyer/BuyerSeller:
-	Buyer* tmp1 = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);
-	Buyer_Seller* tmp2 = dynamic_cast<Buyer_Seller*>(m_user_arr[buyer_index]);
-	if (!tmp1 && !tmp2)
+	Buyer* tmp_b = dynamic_cast<Buyer*>(m_user_arr[buyer_index]);
+	if (!tmp_b)//Polymorphistic check if this is Buyer/BuyerSeller
 		return false; //no such buyer
 
-
-	if (m_user_arr[buyer_index]->isEmptyCheckoutOrders())
+	if (tmp_b->isEmptyCheckoutOrders())
 	{
 		cout << "\nCheckout cart is empty.\n";
 		return false;
 	}
 
-	m_user_arr[buyer_index]->showCheckoutOrders(); // Show all of specific buyer orders 
+	tmp_b->showCheckoutOrders(); // Show all of specific buyer orders 
 	int option, count = 1;
 	do
 	{ //choose which order to pay
@@ -466,7 +355,7 @@ bool System::payment(const char* buyer_username)
 		cin >> option;
 		cin.ignore(1,'\n');
 
-		if (option < 0 || option > m_user_arr[buyer_index]->getNumOfOrders())
+		if (option < 0 || option > tmp_b->getNumOfOrders())
 			count++;
 
 		if (count == MAX_TRIES) //faild to choose 3 times
@@ -475,10 +364,10 @@ bool System::payment(const char* buyer_username)
 			return false;
 		}
 
-	} while (option<1 || option>m_user_arr[buyer_index]->getNumOfOrders()); // option validity check
+	} while (option<1 || option>tmp_b->getNumOfOrders()); // option validity check
 
 
-	m_user_arr[buyer_index]->getBuyerOrders()[option - 1]->setPaid(true); // Sign the chosen order to "paid" lable
+	tmp_b->getBuyerOrders()[option - 1]->setPaid(true); // Sign the chosen order to "paid" lable
 	cout << "Order paid successfully." << endl;
 	return true;
 }
@@ -490,8 +379,12 @@ void System::printBuyers()const
 	int i=0;
 	for (i ; i < m_num_of_users; i++)
 	{
-		cout << i + 1 << ") ";
-		cout << m_user_arr[i] << endl; // ## Dynamic cast?
+		Buyer* tmp_b = dynamic_cast<Buyer*>(m_user_arr[i]);
+		if (tmp_b) //Polymorphistic check if this is Buyer/BuyerSeller
+		{
+			cout << i + 1 << ") ";
+			cout << *tmp_b << endl; //buyer << operator
+		}
 	}
 	if (i == 0)
 		cout << "No Buyers in the system"<< endl;
@@ -504,8 +397,12 @@ void System::printSellers()const
 	int i=0;
 	for (i ; i < m_num_of_users; i++)
 	{
-		cout << i + 1 << ") ";
-		cout << m_user_arr[i] << endl; // ## Dynamic cast?
+		Seller* tmp_s = dynamic_cast<Seller*>(m_user_arr[i]); 
+		if (tmp_s)//Polymorphistic check if this is Seller/BuyerSeller
+		{
+			cout << i + 1 << ") ";
+			cout << *tmp_s << endl; //seller << operator
+		}
 	}
 	if (i == 0)
 		cout << "No Sellers in the system"<< endl;
@@ -518,8 +415,12 @@ void System::printBuyerSellers()const
 	int i = 0;
 	for (i; i < m_num_of_users; i++)
 	{
-		cout << i + 1 << ") ";
-		cout << m_user_arr[i] << endl; // ## Dynamic cast?
+		Buyer_Seller* tmp_bs = dynamic_cast<Buyer_Seller*>(m_user_arr[i]); 
+		if (tmp_bs)//Polymorphistic check if this is BuyerSeller
+		{
+			cout << i + 1 << ") ";
+			cout << *tmp_bs << endl; //buyer_seller << operator
+		}
 	}
 	if (i == 0)
 		cout << "No Sellers in the system" << endl;
@@ -534,16 +435,19 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 	int counter = 1;
 	for (int i = 0; i < m_num_of_users; i++) // Check every seller in the system
 	{
-		//##Some Buyer / BuyerSeller POLY check
-		int num_of_prod = m_user_arr[i]->getNumOfListedItems();  // How many product the seller have
-		for (int j = 0; j < num_of_prod; j++)
+		int num_of_prod;
+		Seller* tmp_s = dynamic_cast<Seller*> (m_user_arr[i]); 
+		if (tmp_s) //Polymorphistic check if this is Seller/BuyerSeller
 		{
-			if (strcmp(name_to_find, m_user_arr[i]->getListedItems()[j]->getName()) == 0) // if choosen product name exist
+			num_of_prod = tmp_s->getNumOfListedItems();  // How many product the seller have
+			for (int j = 0; j < num_of_prod; j++)
 			{
-				cout << counter++ << ") ";
-				//m_seller_arr[i]->getListedItems()[j]->showProduct(); // Nir: # Replaced by operator <<
-				cout << m_user_arr[i]->getListedItems()[j]; 
-				cout << endl;
+				if (strcmp(name_to_find, tmp_s->getListedItems()[j]->getName()) == 0) // if choosen product name exist
+				{
+					cout << counter++ << ") ";
+					cout << tmp_s->getListedItems()[j];
+					cout << endl;
+				}
 			}
 		}
 	}
@@ -552,7 +456,7 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 }
 
 
-/* ----- PRINT ------ */
+                                                 /* ----- PRINT ------ */
 
 void System::interactiveMenu()
 {
@@ -579,31 +483,35 @@ void System::interactiveMenu()
 		cin >> option;
 		cin.ignore(1, '\n');
 
+		//////////////For the switch cases///////////////
+		char b_username[MAX_NAMES_LEN];
+		char s_username[MAX_NAMES_LEN];
+		char prod_name[MAX_NAMES_LEN];
+		int b_index; // Latest update.
+		Buyer_Seller* new_bs = nullptr;
+		Seller* new_seller = nullptr;
+		Buyer* new_buyer = nullptr, *tmp_b=nullptr;
+		/////////////////////////////////////////////////
 		switch (option)
 		{
-			char b_username[MAX_NAMES_LEN];
-			char s_username[MAX_NAMES_LEN];
-			char prod_name[MAX_NAMES_LEN];
-			int b_index; // Latest update.
 
 		case 1://add buyer (Check for += operator)
 			
-			//if (!(addToBuyerArr(createBuyer())))
-			Buyer* new_buyer(createBuyer());
-			if(!((*this)+=new_buyer)) //using system's += operator ( check if the user already exist )
+			new_buyer = createBuyer();
+			if(!((*this)+=new_buyer)) //using system's += operator (also check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
 
 		case 2://add seller (Check for += operator)
 
-			Seller* new_seller(createSeller());
-			if (!((*this) += new_seller)) //using system's += operator ( check if the user already exist )
+			new_seller = createSeller();
+			if (!((*this) += new_seller)) //using system's += operator (also check if the user already exist )
 				cout << "Username already exist, please try again" << endl;
 			break;
 
 		case 3://add buyer-seller
 
-			Buyer_Seller* new_bs(createBuyerSeller()); // # Nir: I think we should change the ctor according to that
+			new_bs = createBuyerSeller();
 			if (!((*this) += new_bs))
 				cout << "Username already exist, please try again" << endl;
                //## Impliment 
@@ -630,8 +538,11 @@ void System::interactiveMenu()
 			cin.getline(s_username, MAX_NAMES_LEN);
 
 			b_index = isUserExist(b_username);
-			//## POLY check
-			if (!getUsersArr()[b_index]->isOrderedFrom(s_username)) //check if there was indeed an order made by THIS BUYER from THIS SERLLER.
+
+			if(b_index!=NOT_EXIST)
+			tmp_b = dynamic_cast<Buyer*>(m_user_arr[b_index]);
+			
+			if (b_index == NOT_EXIST||!tmp_b||!(tmp_b->isOrderedFrom(s_username))) //check if there was indeed an order made by THIS BUYER from THIS SERLLER.
 				cout << "Invalid action, " << b_username << " didn't buy from " << s_username << endl;
 			else
 			{
