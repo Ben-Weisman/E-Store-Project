@@ -60,7 +60,6 @@ public:
 	virtual void showListedItems();
 
 	//operators
-	friend ostream& operator<<(ostream& os, const Seller& seller);
 	const Seller& operator=(const Seller& other);
 	virtual void toOs(ostream& os)const;
 
