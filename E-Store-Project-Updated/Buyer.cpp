@@ -23,9 +23,21 @@ Buyer::Buyer(const char* userName,const char* password, const char* fname,
 	m_checkout_orders[0] = nullptr;
 }
 
-Buyer::Buyer(const Buyer& b): User(b) // copy c'tor
-{
-	*this = b;
+Buyer::Buyer(const Buyer& other): User(other) // copy c'tor
+{ // Don't call the assignment operator because it calls the assignment of User, and we want to keep
+	// the call in the init list.
+	m_cartPsize = other.m_cartPsize;
+	m_number_of_items = other.m_number_of_items;
+	m_num_checkout_orders = other.m_num_checkout_orders;
+	m_checkout_orders_pSize = other.m_checkout_orders_pSize;
+
+	m_cart = new Product * [m_cartPsize];
+	m_checkout_orders = new Order * [m_checkout_orders_pSize];
+
+	for (int i = 0; i < m_number_of_items; i++)
+		*(m_cart + i) = *(other.m_cart + i);
+	for (int i = 0; i < m_num_checkout_orders; i++)
+		*(m_checkout_orders + i) = *(other.m_checkout_orders + i);
 }
 
 Buyer::~Buyer() // d'tor
@@ -37,8 +49,8 @@ Buyer::~Buyer() // d'tor
 }
 
 // ----------------------------------------------------------------------//
-
 //----------------------- Setters Methods ------------------------------//
+// --------------------------------------------------------------------//
 
 bool Buyer::setCart(Product** cart)
 { // Set cart for buyer. Validation check - cart exists.
@@ -48,7 +60,7 @@ bool Buyer::setCart(Product** cart)
 	return true;
 }
 
-bool Buyer::setOrders(Order** other) // private - Orders cannot get changed after initialization
+bool Buyer::setOrders(Order** other) // protected - Orders cannot get changed after initialization
 {  // set orders for seller. Validation check - pointer exists.
 	if (!other)
 		return false;
@@ -187,37 +199,37 @@ bool Buyer::isEmptyCheckoutOrders()
 	return true;
 }
 
-int const Buyer::getTotalCartValue()const
-{ 
-	int res = 0;
+double const Buyer::getTotalCartValue()const
+{ // Get the total price of the cart.
+	double res = 0;
 
 	for (int i = 0; i < this->getNumberOfItems(); i++)
-		res +=(int)this->m_cart[i]->getPrice();
+		res +=this->m_cart[i]->getPrice();
 	for (int i = 0; i < this->getNumOfOrders(); i++)
 	{
 		if (!this->m_checkout_orders[i]->getPaid())
 		{
 			for (int j = 0; j < this->m_checkout_orders[i]->getNumOfProducts(); j++)
-				res += (int)this->m_checkout_orders[i]->getProductsArr()[j]->getPrice();
+				res += this->m_checkout_orders[i]->getProductsArr()[j]->getPrice();
 		}
 	}
 	return res;
 }
 
 bool Buyer::isEmptyCart()
-{
+{ // Check for empty cart.
 	if (this->m_number_of_items == 0)
 		return true;
 	return false;
 }
 
 bool Buyer::operator>(const Buyer& other)const
-{
+{ // Compare between two cart values of different Buyers.
 	return this->getTotalCartValue() > other.getTotalCartValue(); 
 }
 
 const Buyer& Buyer::operator=(const Buyer& other)
-{ 
+{ // Assignment operator - Call for the User's assignment operator and use the Product assignment as well.
 	if (this != &other)
 	{
 		User::operator=(other);
@@ -239,8 +251,8 @@ const Buyer& Buyer::operator=(const Buyer& other)
 	return *this;
 
 }
- void Buyer::toOs(ostream& os)const
-{
+void Buyer::toOs(ostream& os)const
+{ // Print user type. 
 	 os << "\n\tUser type: " <<typeid(*this).name() + 6;
 
 }

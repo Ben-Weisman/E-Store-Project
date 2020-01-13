@@ -144,7 +144,7 @@ void Seller::OrdersArrRealloc()
 	m_orders = tmp;
 }
 
-void Seller::showListedItems()
+void Seller::showListedItems() const
 {
 	for (int i = 0; i < m_num_of_listed_items; i++)
 		cout << m_listed_items[i];
@@ -161,13 +161,6 @@ const Product* Seller::findProduct(const char* to_find)const
 }
 
 // -------------------- Printing methods --------------------
-
-void Seller::showSeller()
-{
-	cout << "\tName: " << m_fname << " " << m_lname <<
-		endl << "\tUsername: " << m_username
-		<< endl << "\tCountry: " << m_address.getCountry() << endl;
-}
 
 ostream& operator<<(ostream& os, Seller& seller) 
 { 

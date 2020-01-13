@@ -23,7 +23,7 @@ protected:
 	virtual bool setOrders(Order** other); 
 
 public:
-
+	//			c'tor, copy, d'tor			//
 	Buyer(const char* userName, const char* password, const char* fname, const char*
 		lname, const Address& address);
 	Buyer(const Buyer& b); // copy c'tor
@@ -36,7 +36,7 @@ public:
 	virtual inline Product** getCart()const { return m_cart; }
 	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
 	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
-	virtual int const getTotalCartValue()const;
+	virtual double const getTotalCartValue()const;
 public:
 	//			Arrays maintenance			//
 	virtual bool addToCart(Product* item_to_add);
@@ -61,6 +61,7 @@ public:
 	bool operator>(const Buyer& other)const;
 	const Buyer& operator=(const Buyer& other);
 	virtual void toOs(ostream& os)const;
+
 	// Declare System class as a friend in order to give it access to the copy c'tor // 
 	friend class System;
 };

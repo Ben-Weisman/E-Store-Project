@@ -54,11 +54,6 @@ void Buyer_Seller::cartRealloc()
 	 Buyer::showCart();
 }
 
- void Buyer_Seller::showBuyer()const
-{ // Print buyer's info.
-	 Buyer::showBuyer();
-}
-
  void Buyer_Seller::showCheckoutOrders()const
 { // Show all orders that hasn't been paid yet.
 	 Buyer::showCheckoutOrders();
@@ -76,7 +71,7 @@ void Buyer_Seller::cartRealloc()
 	 return Buyer::isEmptyCheckoutOrders();
 }
 
- int const Buyer_Seller::getTotalCartValue()const
+ double const Buyer_Seller::getTotalCartValue()const
 {
 	 return Buyer::getTotalCartValue();
 }
@@ -116,7 +111,7 @@ void Buyer_Seller::cartRealloc()
 	 Seller::OrdersArrRealloc();
 }
 
- void Buyer_Seller::showListedItems()
+ void Buyer_Seller::showListedItems() const
 {
 	 Seller::showListedItems();
 }
@@ -126,11 +121,5 @@ void Buyer_Seller::cartRealloc()
 	 return Seller::findProduct(to_find);
 }
 
-// -------------------- Printing methods --------------------
-
- void Buyer_Seller::showSeller()
-{
-	 Seller::showSeller();
-}
 
 

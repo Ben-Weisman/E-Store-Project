@@ -39,8 +39,7 @@ public:
 
 	//func
 	virtual const Product* findProduct(const char* to_find)const;
-	virtual void showSeller();
-	virtual void showListedItems();
+	virtual void showListedItems() const;
 
 	
 	// ---------------------------------------------------------------------------- //
@@ -53,7 +52,7 @@ public:
 	virtual inline Product** getCart()const { return m_cart; }
 	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
 	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
-	virtual int const getTotalCartValue()const;
+	virtual double const getTotalCartValue()const;
 public:
 
 	virtual bool addToCart(Product* item_to_add);
@@ -68,7 +67,6 @@ public:
 public:
 
 	virtual void showCart()const;
-	virtual void showBuyer()const; // NO delete
 	virtual void showCheckoutOrders()const;
 
 public:
