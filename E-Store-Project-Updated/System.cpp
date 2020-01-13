@@ -159,8 +159,7 @@ void System::usersRealloc()
 
 // Using System += Operator (with Buyer_Seller)
 
-// 
-//we need to discuss about the options here (Do we want to approve trasictions from seller/buyer to buyer_seller? )
+// we need to discuss about the options here (Do we want to approve trasictions from seller/buyer to buyer_seller? )
 
 /************************************************************ 4 ********************************************************/
 
@@ -394,9 +393,6 @@ void System::printBuyers()const
 		{
 			cout << counter++ << ") ";
 			cout << *tmp_b << endl; //buyer << operator
-			//###########################
-		//	tmp_b->showBuyer();
-			//###########################
 		}
 	}
 	if (i == 0)
@@ -414,10 +410,7 @@ void System::printSellers()const
 		if (tmp_s)//Polymorphistic check if this is Seller/BuyerSeller
 		{
 			cout << counter++ << ") ";
-			//cout << *tmp_s << endl; //seller << operator
-			//###########################
-			tmp_s->showSeller();
-			//###########################
+		   // cout << *tmp_s << endl; //seller << operator
 		}
 	}
 	if (i == 0)
@@ -436,11 +429,6 @@ void System::printBuyerSellers()const
 		{
 			cout << counter++ << ") ";
 			//cout << *tmp_bs << endl; //buyer_seller << operator
-			//###########################
-			tmp_bs->showBuyer();
-			tmp_bs->showSeller();
-			//###########################
-
 		}
 	}
 	if (i == 0)
@@ -493,7 +481,6 @@ void System::compareBuyersByCart(const char* username1, const char* username2)co
 		cout << "At least one of the buyer not exist" << endl;
 		return; //at-least one buyer not exist
 	}
-		
 
 	if (*tmp_b1 > *tmp_b2)
 		cout << username1 << " cart total price is greater from " << username2 << " cart." << endl << endl;
