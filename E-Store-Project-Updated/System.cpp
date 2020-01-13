@@ -160,7 +160,7 @@ void System::usersRealloc()
 // Using System += Operator (with Buyer_Seller)
 
 // 
-we need to discuss about the options here (Do we want to approve trasictions from seller/buyer to buyer_seller? )
+//we need to discuss about the options here (Do we want to approve trasictions from seller/buyer to buyer_seller? )
 
 /************************************************************ 4 ********************************************************/
 
