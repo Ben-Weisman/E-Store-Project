@@ -1,7 +1,7 @@
 #include "Buyer_Seller.h"
 #pragma warning(disable:4996) 
 
-Buyer_Seller::Buyer_Seller(const Buyer& b, const Seller& s) : User(b),
+Buyer_Seller::Buyer_Seller(const Buyer& b, const Seller& s) : User(s),
 Seller(s), Buyer(b) {} // #### Check why when sending User(s), there's an error. 
 
 const Buyer_Seller& Buyer_Seller::operator=(const Buyer_Seller& other)
@@ -132,4 +132,5 @@ void Buyer_Seller::cartRealloc()
 {
 	 Seller::showSeller();
 }
+
 

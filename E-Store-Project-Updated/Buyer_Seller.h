@@ -13,7 +13,6 @@ class Buyer_Seller : public Seller, public Buyer
 public:
 	Buyer_Seller(const Buyer& b, const Seller& s); //##Nir: maybe we should change, according to System.cpp line 490  
 
-	const Buyer_Seller& operator=(const Buyer_Seller& bs);
 public:
 
 	// ---------------------------------------------------------------------------- //
@@ -73,8 +72,7 @@ public:
 	virtual void showCheckoutOrders()const;
 
 public:
-	bool operator>(const Buyer& other)const; // modify to Buyer_Seller
-	const Buyer& operator=(const Buyer& other); // modify to Buyer_Seller
+	const Buyer_Seller& operator=(const Buyer_Seller& other); // modify to Buyer_Seller
 	virtual void toOs(ostream& os)const;// modify to Buyer_Seller
 };
 

@@ -14,11 +14,11 @@ protected:
 	char* m_password;
 	char* m_fname;
 	char* m_lname;
-
 	Address m_address;
-
+	
+protected:
 	User(const char* userName, const char* password, const char* fname, const char*
-		lname, const Address& address);
+		lname, const Address& address); // User is an abstract class - prevent from creating User obj.
 	User(const User& u); //copy c'tor
 
 protected:
@@ -27,7 +27,7 @@ protected:
 	bool setPassword(const char* password);
 	bool setFname(const char* fname);
 	bool setLname(const char* lname);
-	bool setAddress(const Address& address); // ####### Need to implement
+	bool setAddress(const Address& address);
 
 public:
 	virtual ~User(); // d'tor

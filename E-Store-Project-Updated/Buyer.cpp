@@ -36,8 +36,9 @@ Buyer::~Buyer() // d'tor
 		delete m_checkout_orders[i];
 }
 
+// ----------------------------------------------------------------------//
 
-//----------------------- Setters Methods -----------------------
+//----------------------- Setters Methods ------------------------------//
 
 bool Buyer::setCart(Product** cart)
 { // Set cart for buyer. Validation check - cart exists.
@@ -56,7 +57,7 @@ bool Buyer::setOrders(Order** other) // private - Orders cannot get changed afte
 }
 
 
-// ----------------------- Buyer's arrays maintenance methods. ----------------------- 
+// ----------------------- Arrays maintenance methods. ----------------------- //
 
 bool Buyer::addToCart(Product* item_to_add)
 { // Add to buyer's cart using realloc method.
