@@ -14,7 +14,7 @@ const Buyer_Seller& Buyer_Seller::operator=(const Buyer_Seller& other)
 
 void Buyer_Seller::toOs(ostream& os)const
 {
-	os << "User type: " << typeid(*this).name() + 6;
+	os << "\n\tUser type: " << typeid(*this).name() + 6;
 }
 
 

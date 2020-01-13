@@ -49,9 +49,7 @@ bool User::setPassword(const char* password)
 { // set password for seller. Validation check - not an empty string.
 	if (strlen(password) == 0)
 		return false;
-	//################################## 
 	m_password = nullptr;
-	//################################## 
 	delete[]m_password;
 	m_password = strdup(password);
 	return true;
@@ -69,9 +67,7 @@ bool User::setFname(const char* fname)
 	{
 		return false;
 	} //We assumed that the fname can be a word with only letters (more than 1 character) 
-	//################################## 
 	m_fname = nullptr;
-	//################################## 
 	delete[]m_fname;
 	m_fname = strdup(fname);
 	return true;
@@ -116,8 +112,8 @@ bool User::setAddress(const Address& address)
 
 ostream& operator<<(ostream& os, const User& user)
 {
-	os << "Full name: " << user.m_fname << " " << user.m_lname <<
-		"\nUsername: " << user.m_username	<< "\nAddress: " << user.m_address;
+	os << "\tFull name: " << user.m_fname << " " << user.m_lname <<
+		"\n\tUsername: " << user.m_username	<< "\n\tAddress: " << user.m_address;
 	user.toOs(os);
 	return os;
 }

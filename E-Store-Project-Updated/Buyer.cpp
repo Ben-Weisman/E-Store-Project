@@ -146,12 +146,6 @@ void Buyer::showCart()const
 	}
 }
 
-void Buyer::showBuyer()const
-{ // Print buyer's info.
-	cout << "\tFull Name: " << m_fname << " " << m_lname << endl;
-	cout << "\tUsername: " << m_username << endl;
-	cout << "\tFrom: " << m_address.getCountry() << endl;
-}
 
 void Buyer::showCheckoutOrders()const
 { // Show all orders that hasn't been paid yet.
@@ -247,7 +241,7 @@ const Buyer& Buyer::operator=(const Buyer& other)
 }
  void Buyer::toOs(ostream& os)const
 {
-	 os << "User type: " <<typeid(*this).name() + 6;
+	 os << "\n\tUser type: " <<typeid(*this).name() + 6;
 
 }
 
