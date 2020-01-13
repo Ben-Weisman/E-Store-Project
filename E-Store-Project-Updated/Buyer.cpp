@@ -247,7 +247,7 @@ const Buyer& Buyer::operator=(const Buyer& other)
 }
  void Buyer::toOs(ostream& os)const
 {
-	 os << typeid(*this).name() + 6;
+	 os << "User type: " <<typeid(*this).name() + 6;
 
 }
 
