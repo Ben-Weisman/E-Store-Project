@@ -52,7 +52,7 @@ public:
 	virtual inline Product** getCart()const { return m_cart; }
 	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
 	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
-	virtual double const getTotalCartValue()const;
+	virtual double getTotalCartValue()const;
 public:
 
 	virtual bool addToCart(Product* item_to_add);
