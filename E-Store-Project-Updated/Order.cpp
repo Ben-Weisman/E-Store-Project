@@ -17,7 +17,6 @@ Order::Order(Buyer* b) :m_buyer(b)
 	m_products_arr = new Product*[m_products_phy_size];
 }
 
-
 Order::~Order()
 {
 	for (int i = 0; i < m_num_of_products; i++)
@@ -28,31 +27,18 @@ Order::~Order()
 
 Order::Order(const Order& o):m_buyer(o.m_buyer)
 {
-	*this = o;
-}
+	setTotalPrice(o.m_total_price);
+	setProductsPhySize(o.m_products_phy_size);
+	setNumOfProducts(o.m_num_of_products);
+	setPaid(false);
 
 
-// ----------------------------------------- operators ---------------------------------
-
-const Order& Order::operator=(const Order& o) 
-{
-	if (this != &o)
+	m_products_arr = new Product*[m_products_phy_size];
+	for (int i = 0; i < m_num_of_products; i++)
 	{
-		setTotalPrice(o.m_total_price);
-		setProductsPhySize(o.m_products_phy_size);
-		setNumOfProducts(o.m_num_of_products);
-		setPaid(false);
-		//# Nir: what about the buyer pointer ? ----> Ben: simple pointer assignment-> m_buyer = o.m_buyer..
-
-		m_products_arr = new Product*[m_products_phy_size];
-		for (int i = 0; i < m_num_of_products; i++)
-		{
-			m_products_arr[i] = o.m_products_arr[i]; // use product = operator. ## Ben: Are we sure this is the right way?
-		}
+		m_products_arr[i] = o.m_products_arr[i]; // use product = operator. 
 	}
-	return *this;
 }
-
 
 // ----------------------------------------- setters ---------------------------------
 

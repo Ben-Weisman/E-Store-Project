@@ -22,14 +22,15 @@ private:
 
 public:
 	Product(ecategory category, char* name, double price, char* seller_username); //c'tor
-	Product(const Product&p); //copy c'tor
 	~Product(); //d'tor
 	Product(Product&&p); //move c'tor
+private:
+	Product(const Product&p); //copy c'tor
+	const Product& operator=(const Product& p);
 
 public:
 	friend ostream& operator<<(ostream& os, const Product& product);
-private:
-	const Product& operator=(const Product& p);
+
 
 public:
 	bool setName(const char* name);
@@ -50,5 +51,7 @@ public:
 public:
 	//void showProduct()const; # transfer that func to << operator
 	void showProductToBuyer()const;
+
+	friend class System;
 };
 #endif // !__Product_h

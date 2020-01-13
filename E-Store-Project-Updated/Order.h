@@ -16,7 +16,6 @@ class Order
 
 private:
 	Order(const Order& o); 
-	const Order& operator=(const Order& o);
 
 public:
 	Order(Buyer* b);
