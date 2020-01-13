@@ -31,20 +31,15 @@ public:
 	~System();// d'tor
 
 public:
-	bool operator+=(Buyer* new_buyer);
-	bool operator+=(Seller* new_seller); 
-	bool operator+=(Buyer_Seller* new_buyer_seller);
+	bool operator+=(User* new_user); // Add user to the system
 
 public:
 	bool setName(const char* name);
-
 	bool setNumOfUsers(int num_of_users);
 	bool setUsersPhySize(int u_physize);
 
-
 public:
 	inline const char* getName()const{ return m_name; }
-	
 	inline  User** getUsersArr()const{ return m_user_arr; }
 	inline  int getUsersPhySize()const{ return m_users_phy_size; }
 	inline  int getNumOfUsers()const{ return m_num_of_users; }
@@ -55,7 +50,6 @@ public:
 	const int isUserExist(const char* username)const;
 	void usersRealloc();
 	
-
 	 // ---------------------------------- MENU functions ------------------------------------
 
 public:
