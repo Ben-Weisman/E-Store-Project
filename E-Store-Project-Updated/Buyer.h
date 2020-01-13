@@ -2,12 +2,7 @@
 #define __Buyer_h
 #include "User.h"
 #include <iostream>
-/*
-#include "User.h"
-#include "Address.h"
-#include "Product.h"
-#include <iostream>
-*/
+
 class Order; //forward declaration
 
 class Buyer : virtual public User
@@ -23,8 +18,9 @@ protected:
 	Order** m_checkout_orders;
 
 protected:
-	virtual bool setCart(Product** cart);
-	virtual bool setOrders(Order** other); // private - Orders cannot get changed after initialization
+	// Protected - Cart and checkout orders cannot get changed after initialization
+	virtual bool setCart(Product** cart); 
+	virtual bool setOrders(Order** other); 
 
 public:
 
@@ -62,6 +58,7 @@ public:
 	const Buyer& operator=(const Buyer& other);
 	virtual void toOs(ostream& os)const;
 
+	friend class System;
 };
 
 #endif //!__Buyer_h

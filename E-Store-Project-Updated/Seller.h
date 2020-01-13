@@ -64,6 +64,7 @@ public:
 	const Seller& operator=(const Seller& other);
 	virtual void toOs(ostream& os)const;
 
+	friend class System;
 };
 
 #endif // !__Seller_h
