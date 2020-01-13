@@ -95,5 +95,15 @@ omer
 2
 nimni
 999
+4
+rea
+3
+weed
+6
+4
+omer
+4
+weed
+1.999999999999999
 
 */

@@ -54,44 +54,19 @@ const System& System::operator=(const System& s)
 	return *this;
 }
 
-bool System::operator+=(Buyer* new_buyer)// Add buyer to system buyers array
-{
-	if (isUserExist(new_buyer->getUsername()) != NOT_EXIST)
-		return false; // username already exist
-
-	if (m_num_of_users == m_users_phy_size)
-		usersRealloc();
-
-	m_user_arr[m_num_of_users++] = new_buyer;
-
-	return true; // new buyer entered
-}
-
-bool System::operator+=(Seller* new_seller)
-{// Add seller to sellers arr using += operator.
-	if (isUserExist(new_seller->getUsername()) != NOT_EXIST)
+bool System::operator+=(User* new_user) 
+{// Add user to arr using += operator. 
+	if (isUserExist(new_user->getUsername()) != NOT_EXIST)
 		return false;
 
 	if (m_num_of_users == m_users_phy_size)
 		usersRealloc();
 
-	m_user_arr[m_num_of_users++] = new_seller;
-
-	return true; // new seller entered
-}
-
-bool System::operator+=(Buyer_Seller* new_buyer_seller)
-{// Add seller to sellers arr using += operator.
-	if (isUserExist(new_buyer_seller->getUsername()) != NOT_EXIST)
-		return false;
-
-	if (m_num_of_users == m_users_phy_size)
-		usersRealloc();
-
-	m_user_arr[m_num_of_users++] = new_buyer_seller;
+	m_user_arr[m_num_of_users++] = new_user;
 
 	return true; // new buyer_seller entered
 }
+
 
 // ---------------------------------- setters ------------------------------------------
 
@@ -394,6 +369,7 @@ void System::printBuyers()const
 			cout << counter++ << ") ";
 			cout << *tmp_b << endl; //buyer << operator
 		}
+		cout << endl;
 	}
 	if (i == 0)
 		cout << "No Buyers in the system"<< endl;
@@ -410,8 +386,9 @@ void System::printSellers()const
 		if (tmp_s)//Polymorphistic check if this is Seller/BuyerSeller
 		{
 			cout << counter++ << ") ";
-		   // cout << *tmp_s << endl; //seller << operator
+		    cout << *tmp_s << endl; //seller << operator
 		}
+		cout << endl;
 	}
 	if (i == 0)
 		cout << "No Sellers in the system"<< endl;
@@ -428,8 +405,9 @@ void System::printBuyerSellers()const
 		if (tmp_bs)//Polymorphistic check if this is BuyerSeller
 		{
 			cout << counter++ << ") ";
-			//cout << *tmp_bs << endl; //buyer_seller << operator
+			cout << *tmp_bs << endl; //buyer_seller << operator
 		}
+		cout << endl;
 	}
 	if (i == 0)
 		cout << "No Sellers in the system" << endl;
@@ -454,7 +432,7 @@ void System::printAllSpecificProduct(const char* name_to_find)const
 				if (strcmp(name_to_find, tmp_s->getListedItems()[j]->getName()) == 0) // if choosen product name exist
 				{
 					cout << counter++ << ") ";
-					cout << tmp_s->getListedItems()[j];
+					cout << *(tmp_s->getListedItems()[j]);
 					cout << endl;
 				}
 			}
@@ -624,9 +602,12 @@ void System::interactiveMenu()
 			printBuyers();
 
 			break;
+
 		case 10://print all sellers (Check for Buyer << operator)
 			cout << endl;
 			printSellers();
+
+			break;
 
 		case 11://print all buyer-sellers (Check for Seller << operator)
 			cout << endl;
