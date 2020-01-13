@@ -178,7 +178,7 @@ bool System::addProductToSeller(Product* prod, const char* seller_username)
 		tmp_s->addToListItemsArr(prod);
 		return true; // new product enterd to the seller
 	}
-
+	
 	return false;  // no such seller OR invalid product
 }
 
@@ -393,9 +393,9 @@ void System::printBuyers()const
 		if (tmp_b) //Polymorphistic check if this is Buyer/BuyerSeller
 		{
 			cout << counter++ << ") ";
-		//	cout << *tmp_b << endl; //buyer << operator
+			cout << *tmp_b << endl; //buyer << operator
 			//###########################
-			tmp_b->showBuyer();
+		//	tmp_b->showBuyer();
 			//###########################
 		}
 	}
