@@ -71,7 +71,7 @@ void Buyer_Seller::cartRealloc()
 	 return Buyer::isEmptyCheckoutOrders();
 }
 
- double const Buyer_Seller::getTotalCartValue()const
+ double Buyer_Seller::getTotalCartValue()const
 {
 	 return Buyer::getTotalCartValue();
 }

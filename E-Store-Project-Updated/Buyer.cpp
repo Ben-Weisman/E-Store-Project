@@ -199,7 +199,7 @@ bool Buyer::isEmptyCheckoutOrders()
 	return true;
 }
 
-double const Buyer::getTotalCartValue()const
+double Buyer::getTotalCartValue()const
 { // Get the total price of the cart.
 	double res = 0;
 

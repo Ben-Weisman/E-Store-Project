@@ -223,15 +223,15 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 		{
 
 			if ((count++) > 0)   // Not the first try  
-				cout << "No such seller's username."<< endl;
+				cout << "Please try again."<< endl;
 
-			cout << "please enter the desired seller's username that you want to buy from: ";
+			cout << "Enter the desired seller's username that you want to buy from: ";
 			cin.getline(chosen_seller_username, MAX_LEN);
 			cout << endl;
 			
 			if (count == MAX_TRIES) // failed to enter seller name 3 time
 			{
-				cout << "Sorry, invalid inputs" << endl;
+				cout << "Sorry, to many invalid inputs" << endl;
 				return false;
 			}
 
@@ -241,7 +241,7 @@ bool System::addProductToBuyersCart(const char* prod_name, const char* buyer_use
 
 			if (chosen_seller_index == buyer_index)
 			{
-				cout << "Can't buy from yourself !" << endl;
+				cout << "Can't buy from yourself !";
 				chosen_seller_index = NOT_EXIST;
 			}
 
@@ -460,11 +460,11 @@ void System::compareBuyersByCart(const char* username1, const char* username2)co
 	}
 
 	if (*tmp_b1 > *tmp_b2)
-		cout << username1 << " cart total price is greater from " << username2 << " cart." << endl << endl;
+		cout << username1 << "'s cart total price is greater from " << username2 << "'s cart total price" << endl << endl;
 	else if (*tmp_b2 > *tmp_b1)
-		cout << username2 << " cart total price is greater from " << username1 << " cart." << endl << endl;
+		cout << username2 << "'s cart total price is greater from " << username1 << "'s cart total price" << endl << endl;
 	else
-		cout << username1 << " cart total price is equals to " << username2 << " cart." << endl << endl;;
+		cout << username1 << "'s cart total price is equals to " << username2 << "'s cart total price" << endl << endl;;
 }
 /**********************************************************************************************************************/
 
@@ -628,7 +628,8 @@ void System::interactiveMenu()
 
 			cout << "Enter second seller's username: ";
 			cin.getline(b2_username, MAX_NAMES_LEN);
-			
+
+			cout << endl;
 			compareBuyersByCart(b_username, b2_username);
 			break;
 
