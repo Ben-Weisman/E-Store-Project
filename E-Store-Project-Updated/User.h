@@ -17,11 +17,11 @@ protected:
 	Address m_address;
 	
 protected:
+
 	User(const char* userName, const char* password, const char* fname, const char*
 		lname, const Address& address); // User is an abstract class - prevent from creating User obj.
 	User(const User& u); //copy c'tor
 
-protected:
 	// Assume no changes are allowed after first initialization.
 	bool setUsername(const char* username);
 	bool setPassword(const char* password);
