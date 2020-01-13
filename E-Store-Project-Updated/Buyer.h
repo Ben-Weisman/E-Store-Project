@@ -31,34 +31,37 @@ public:
 
 public:
 
-
+	//			Getters			//
 	virtual inline const int getNumberOfItems()const { return m_number_of_items; }
 	virtual inline Product** getCart()const { return m_cart; }
 	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
 	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
 	virtual int const getTotalCartValue()const;
 public:
-
+	//			Arrays maintenance			//
 	virtual bool addToCart(Product* item_to_add);
 	virtual bool addToCheckout(Order* checkout_order);
 	virtual bool removeFromCart(Product* item_to_remove);
 	virtual void cartRealloc();
 	virtual void checkoutRealloc();
+
+	//			Boolean checks			//
 	virtual bool isOrderedFrom(const char* username)const;
 	virtual bool isEmptyCheckoutOrders();
 	virtual bool isEmptyCart();
 
 public:
-
+	//			Present cart / checkout cart			//
 	virtual void showCart()const;
-	virtual void showBuyer()const; // NO delete
 	virtual void showCheckoutOrders()const;
 
 public:
+
+	//			Operators			//
 	bool operator>(const Buyer& other)const;
 	const Buyer& operator=(const Buyer& other);
 	virtual void toOs(ostream& os)const;
-
+	// Declare System class as a friend in order to give it access to the copy c'tor // 
 	friend class System;
 };
 
