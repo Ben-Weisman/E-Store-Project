@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class User
+class User // Abstract class
 {
 protected:
 
@@ -40,7 +40,7 @@ public:
 public:
 	const User& operator=(const User& other);
 	friend ostream& operator<<(ostream& os, const User& buyer);
-	virtual void toOs(ostream& os)const {};
+	virtual void toOs(ostream& os)const = 0 {}; // Make this class Abstract
 };
 
 #endif // !__User_h

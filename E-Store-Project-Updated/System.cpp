@@ -495,9 +495,11 @@ void System::compareBuyersByCart(const char* username1, const char* username2)co
 		
 
 	if (*tmp_b1 > *tmp_b2)
-		cout << username1 << " cart total price is greater from" << username2 << " cart." << endl;
+		cout << username1 << " cart total price is greater from " << username2 << " cart." << endl << endl;
+	else if (*tmp_b2 > *tmp_b1)
+		cout << username2 << " cart total price is greater from " << username1 << " cart." << endl << endl;
 	else
-		cout << username2 << " cart total price is greater from or equals to" << username1 << " cart." << endl;
+		cout << username1 << " cart total price is equals to " << username2 << " cart." << endl << endl;;
 }
 /**********************************************************************************************************************/
 
@@ -660,7 +662,7 @@ void System::interactiveMenu()
 			cin.getline(b2_username, MAX_NAMES_LEN);
 			
 			compareBuyersByCart(b_username, b2_username);
-			
+			break;
 
 		case 14: // exit
 			cout << endl << "Thanks for using " << m_name << ", Bye Bye (:" << endl;
