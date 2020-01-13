@@ -2,7 +2,9 @@
 #include "Utils.h"
 #pragma warning(disable:4996) 
 
-
+/////////////////////////////////////////////////////////////////////////
+// -------------------- C'tor, copy c'tor, d'tor -------------------- //
+///////////////////////////////////////////////////////////////////////
 User::User(const char* username,const char* password,const char* fname,const char* lname,
 	const Address& address) : m_address(address) // c'tor
 {
@@ -22,8 +24,11 @@ User::~User() // d'tor
 }
 
 User::User(const User& u) :m_address(u.m_address) // copy c'tor
-{
-	*this = u;
+{ // Don't use assignment operator due to the double assignment of address. Send to Address' copy instead
+	setUsername(u.m_username);
+	setPassword(u.m_password);
+	setFname(u.m_fname);
+	setLname(u.m_lname);
 }
 
 const User& User::operator=(const User& other)
@@ -35,7 +40,7 @@ const User& User::operator=(const User& other)
 		setFname(other.m_fname);
 		setLname(other.m_lname);
 
-		m_address = other.m_address;// ### Check this assignment while debuging.
+		m_address = other.m_address;
 	}
 	return *this;
 }
@@ -85,9 +90,7 @@ bool User::setLname(const char* lname)
 		return false;
 	} //We assumed that the lname can be a word with letters and spaces (more than 1 character) 
 
-//################################## 
 	m_lname = nullptr;
-//################################## 
 	delete[]m_lname;
 	m_lname = strdup(lname);
 	return true;
@@ -97,9 +100,8 @@ bool User::setUsername(const char* username) // private - username cannot get ch
 {  // set username for seller. Validation check - not an empty string.
 	if (strlen(username) == 0)
 		return false;
-	//################################## 
+
 	m_username = nullptr;
-	//################################## 
 	delete[]m_username;
 	m_username = strdup(username);
 	return true;
@@ -115,7 +117,7 @@ bool User::setAddress(const Address& address)
 ostream& operator<<(ostream& os, const User& user)
 {
 	os << "Full name: " << user.m_fname << " " << user.m_lname <<
-		"\nUsername: " << user.m_username	<< "\nAddress: \n" << user.m_address;
+		"\nUsername: " << user.m_username	<< "\nAddress: " << user.m_address;
 	user.toOs(os);
 	return os;
 }

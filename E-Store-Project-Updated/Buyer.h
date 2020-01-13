@@ -31,6 +31,7 @@ public:
 
 public:
 
+
 	virtual inline const int getNumberOfItems()const { return m_number_of_items; }
 	virtual inline Product** getCart()const { return m_cart; }
 	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
