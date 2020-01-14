@@ -3,7 +3,6 @@
 #include "Seller.h"
 #include "Order.h"
 #include <iostream>
-#include <typeinfo>
 #pragma warning(disable:4996) 
 
 using namespace std;
