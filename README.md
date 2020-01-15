@@ -5,9 +5,9 @@ Nir:
 - check invalid inputs in the source (tempurary)
 
 Ben:
-- Finish User
-- Change copy that use = 
-- Fix Show Methods (Sent you picture at the phone)
+- Finish User DONE
+- Change copy that use =  DONE
+- Fix Show Methods (Sent you picture at the phone) DONE
 
 
 
