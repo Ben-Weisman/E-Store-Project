@@ -11,7 +11,7 @@ using namespace std;
 class Buyer_Seller : public Seller, public Buyer
 {
 public:
-	Buyer_Seller(const Buyer& b, const Seller& s); //##Nir: maybe we should change, according to System.cpp line 490  
+	Buyer_Seller(const Buyer& b, const Seller& s);   
 
 public:
 

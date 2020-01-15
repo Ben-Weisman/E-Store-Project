@@ -30,8 +30,6 @@ public:
 	inline const char* getCity()const { return m_city; }
 	inline const char* getStreet()const{ return m_street;}
 	inline int getHouseNumber()const { return m_house_number; }
-public:
-	//inline void showAddress()const {cout << m_country << ", " << m_city << ", " << m_house_number << " " << m_street << " st" << endl;} # Added operator << instead
 
 };
 #endif // !__Address_h

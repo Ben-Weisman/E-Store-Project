@@ -49,7 +49,6 @@ public:
 
 
 public:
-	//void showProduct()const; # transfer that func to << operator
 	void showProductToBuyer()const;
 
 	friend class System;

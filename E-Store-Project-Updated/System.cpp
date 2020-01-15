@@ -477,26 +477,26 @@ void System::interactiveMenu()
 	{
 		int i = 1;
 		cout << "----------------------------------------------------------Actions menu:----------------------------------------------------------" << endl;
-		cout << (i++) << ") Add buyer" << endl; //1
-		cout << (i++) << ") Add seller" << endl; //2
-		cout << (i++) << ") Add buyer-seller" << endl; //3
+		cout << (i++) << ") Add buyer" << endl; //1 -----> Use += operator
+		cout << (i++) << ") Add seller" << endl; //2 -----> Use += operator
+		cout << (i++) << ") Add buyer-seller" << endl; //3 -----> Use += operator
 		cout << (i++) << ") Add product to seller" << endl; //4
 		cout << (i++) << ") Add feedback" << endl; //5
 		cout << (i++) << ") Add to cart" << endl; //6 
 		cout << (i++) << ") Order products" << endl; //7
 		cout << (i++) << ") Payment" << endl; //8
-		cout << (i++) << ") Show all buyers" << endl; //9
-		cout << (i++) << ") Show all sellers" << endl; //10
+		cout << (i++) << ") Show all buyers" << endl; //9 -----> Use << operator
+		cout << (i++) << ") Show all sellers" << endl; //10 -----> Use << operator
 		cout << (i++) << ") Show all buyer-sellers" << endl; //11
-		cout << (i++) << ") Show all products by name" << endl; //12
-		cout << (i++) << ") Compare between tow carts" << endl << endl; //13
+		cout << (i++) << ") Show all products by name" << endl; //12 -----> Use << operator
+		cout << (i++) << ") Compare between tow carts" << endl << endl; //13 -----> Use > operator
 		cout << (i++) << ") Exit" << endl << endl; //14
 		cout << "Please enter your action: "; 
 		int option;
 		cin >> option;
 		cin.ignore(1, '\n');
 
-		//////////////For the switch cases///////////////
+		//////////////For the switch cases:///////////////
 		char b_username[MAX_NAMES_LEN], b2_username[MAX_NAMES_LEN];
 		char s_username[MAX_NAMES_LEN];
 		char prod_name[MAX_NAMES_LEN];
@@ -527,7 +527,6 @@ void System::interactiveMenu()
 			new_bs = createBuyerSeller();
 			if (!((*this) += new_bs))
 				cout << "Username already exist, please try again" << endl;
-               //## Impliment 
 			break;
 
 		case 4: //add product to seller
@@ -596,19 +595,19 @@ void System::interactiveMenu()
 
 			break;
 
-		case 9: //print all buyers
+		case 9: //print all buyers (Check for Buyer << operator)
 			cout << endl;
 			printBuyers();
 
 			break;
 
-		case 10://print all sellers (Check for Buyer << operator)
+		case 10://print all sellers (Check for Seller << operator)
 			cout << endl;
 			printSellers();
 
 			break;
 
-		case 11://print all buyer-sellers (Check for Seller << operator)
+		case 11:
 			cout << endl;
 			printBuyerSellers();
 
@@ -622,7 +621,7 @@ void System::interactiveMenu()
 
 			break;
 
-		case 13: 
+		case 13: //(Check for Buyer > operator)
 			cout << "Enter first buyer's username: ";
 			cin.getline(b_username, MAX_NAMES_LEN);
 
