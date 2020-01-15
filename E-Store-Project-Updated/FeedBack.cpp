@@ -18,9 +18,12 @@ FeedBack::~FeedBack() //d'tor
 	delete[]m_provider_username;
 }
 
-FeedBack::FeedBack(const FeedBack& f) :m_date(f.m_date) //copy c'tor
-{
-	*this = f;
+FeedBack::FeedBack(const FeedBack& other) :m_date(other.m_date) //copy c'tor
+{ // Don't call the assignment operator because it's assigning date, and we want to keep
+	// the call in the init list. - After consulting with the lecturer.
+
+	setFeedbackEval(other.m_feedback_evaluation);
+	setFeedbackProvider(other.m_provider_username);
 }
 
 FeedBack::FeedBack(FeedBack&& f) : m_date(f.m_date) // move c'tor

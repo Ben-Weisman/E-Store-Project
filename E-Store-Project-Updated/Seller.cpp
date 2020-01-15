@@ -41,9 +41,29 @@ Seller::~Seller() // d'tor
 		delete m_orders[i];
 }
 
-Seller::Seller(const Seller& s) :User(s) // copy c'tor
-{
-	*this = s;
+Seller::Seller(const Seller& other) :User(other) // copy c'tor
+{ // Don't call the assignment operator because it calls the assignment of User, and we want to keep
+	// the call in the init list. - After consulting with the lecturer.
+
+	m_feedbacks_phy_size = other.m_feedbacks_phy_size;
+	m_num_of_feedbacks = other.m_num_of_feedbacks;
+	m_num_of_listed_items = other.m_num_of_listed_items;
+	m_listed_items_pSize = other.m_listed_items_pSize;
+	m_num_of_orders = other.m_num_of_orders;
+	m_orders_pSize = other.m_orders_pSize;
+
+	m_listed_items = new Product * [m_listed_items_pSize];
+	m_orders = new Order * [m_orders_pSize];
+	m_feedback_arr = new FeedBack * [m_feedbacks_phy_size];
+
+	for (int i = 0; i < m_num_of_feedbacks; i++)
+		*(m_feedback_arr + i) = *(other.m_feedback_arr + i);
+
+	for (int i = 0; i < m_num_of_listed_items; i++)
+		*(m_listed_items + i) = *(other.m_listed_items + i);
+
+	for (int i = 0; i < m_num_of_orders; i++)
+		*(m_orders + i) = *(other.m_orders + i);
 }
 
 
