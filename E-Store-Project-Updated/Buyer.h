@@ -18,7 +18,7 @@ protected:
 	Order** m_checkout_orders;
 
 protected:
-	// Protected - Cart and checkout orders cannot get changed after initialization
+	// Protected - Cart and checkout orders cannot get re-initialazied changed after first initialization
 	virtual bool setCart(Product** cart); 
 	virtual bool setOrders(Order** other); 
 
@@ -51,7 +51,7 @@ public:
 	virtual bool isEmptyCart();
 
 public:
-	//			Present cart / checkout cart			//
+	//			Present cart (type Product) / checkout cart	(Type Order)		//
 	virtual void showCart()const;
 	virtual void showCheckoutOrders()const;
 

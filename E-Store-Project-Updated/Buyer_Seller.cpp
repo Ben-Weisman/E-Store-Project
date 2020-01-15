@@ -1,24 +1,17 @@
 #include "Buyer_Seller.h"
 #pragma warning(disable:4996) 
 
+
+// -------------------- c'tor -------------------- //
+
 Buyer_Seller::Buyer_Seller(const Buyer& b, const Seller& s) : User(s),
-Seller(s), Buyer(b) {} // #### Check why when sending User(s), there's an error. 
+Seller(s), Buyer(b) {}
 
-const Buyer_Seller& Buyer_Seller::operator=(const Buyer_Seller& other)
-{
-	User::operator=(other);
-	Buyer::operator=(other);
-	Seller::operator=(other);
-	return *this;
-}
+// ---------------------------------------------------------------------------- //
+// ------------------------------ Buyer Methods ------------------------------ // 
+// ---------------------------------------------------------------------------- //
 
-void Buyer_Seller::toOs(ostream& os)const
-{
-	os << "\n\tUser type: " << typeid(*this).name() + 6;
-}
-
-
-// ----------------------- Buyer's arrays maintenance methods. ----------------------- 
+// ----------------------- Arrays maintenance methods. ----------------------- 
 
 bool Buyer_Seller::addToCart(Product* item_to_add)
 { // Add to buyer's cart using realloc method.
@@ -59,7 +52,7 @@ void Buyer_Seller::cartRealloc()
 	 Buyer::showCheckoutOrders();
 }
 
-// ---------------------------------------------------------------------
+//			Boolean checks			//
 
  bool Buyer_Seller::isOrderedFrom(const char* username)const
 { // Check if there's an existing order from a given seller, and that it's paid for.
@@ -71,15 +64,23 @@ void Buyer_Seller::cartRealloc()
 	 return Buyer::isEmptyCheckoutOrders();
 }
 
- double Buyer_Seller::getTotalCartValue()const
-{
-	 return Buyer::getTotalCartValue();
-}
-
  bool Buyer_Seller::isEmptyCart()
-{
+{ // check for empty cart.
 	 return Buyer::isEmptyCart();
 }
+
+ // -------------------------------------------------- // 
+
+ double Buyer_Seller::getTotalCartValue()const
+ { // get total cart value.
+	 return Buyer::getTotalCartValue();
+ }
+
+ // ---------------------------------------------------------------------------- //
+ // ------------------------------ Seller Methods ------------------------------ // 
+ // ---------------------------------------------------------------------------- //
+
+ //         Arrays maintenance          //
 
  bool Buyer_Seller::addToListItemsArr(Product* item_to_add)
 { // Add to listed items using realloc method. 
@@ -111,6 +112,8 @@ void Buyer_Seller::cartRealloc()
 	 Seller::OrdersArrRealloc();
 }
 
+ //             Print method            //
+
  void Buyer_Seller::showListedItems() const
 {
 	 Seller::showListedItems();
@@ -120,6 +123,21 @@ void Buyer_Seller::cartRealloc()
 { // search for a given product in seller's listed items and return its pointer. 
 	 return Seller::findProduct(to_find);
 }
+
+ // -------------------- Operators -------------------- // 
+
+ const Buyer_Seller& Buyer_Seller::operator=(const Buyer_Seller& other)
+ {
+	 User::operator=(other);
+	 Buyer::operator=(other);
+	 Seller::operator=(other);
+	 return *this;
+ }
+
+ void Buyer_Seller::toOs(ostream& os)const
+ {
+	 os << "\n\tUser type: " << typeid(*this).name() + 6;
+ }
 
 
 

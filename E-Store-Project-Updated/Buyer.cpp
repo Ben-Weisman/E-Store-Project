@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// -------------------- C'tor, Copy C'tor, D'tor --------------------
+// -------------------- C'tor, Copy C'tor, D'tor --------------------//
 Buyer::Buyer(const char* userName,const char* password, const char* fname,
 	const char* lname, const Address& address): User(userName, password, fname, lname, address)
 {
@@ -24,7 +24,7 @@ Buyer::Buyer(const char* userName,const char* password, const char* fname,
 
 Buyer::Buyer(const Buyer& other): User(other) // copy c'tor
 { // Don't call the assignment operator because it calls the assignment of User, and we want to keep
-	// the call in the init list.
+	// the call in the init list. - After consulting with the lecturer.
 	m_cartPsize = other.m_cartPsize;
 	m_number_of_items = other.m_number_of_items;
 	m_num_checkout_orders = other.m_num_checkout_orders;
@@ -34,9 +34,9 @@ Buyer::Buyer(const Buyer& other): User(other) // copy c'tor
 	m_checkout_orders = new Order * [m_checkout_orders_pSize];
 
 	for (int i = 0; i < m_number_of_items; i++)
-		*(m_cart + i) = *(other.m_cart + i);
+		*(m_cart + i) = *(other.m_cart + i); // Calling Product operator=
 	for (int i = 0; i < m_num_checkout_orders; i++)
-		*(m_checkout_orders + i) = *(other.m_checkout_orders + i);
+		*(m_checkout_orders + i) = *(other.m_checkout_orders + i); // Calling Order operator=
 }
 
 Buyer::~Buyer() // d'tor
@@ -47,9 +47,7 @@ Buyer::~Buyer() // d'tor
 		delete m_checkout_orders[i];
 }
 
-// ----------------------------------------------------------------------//
 //----------------------- Setters Methods ------------------------------//
-// --------------------------------------------------------------------//
 
 bool Buyer::setCart(Product** cart)
 { // Set cart for buyer. Validation check - cart exists.
@@ -60,7 +58,7 @@ bool Buyer::setCart(Product** cart)
 }
 
 bool Buyer::setOrders(Order** other) // protected - Orders cannot get changed after initialization
-{  // set orders for seller. Validation check - pointer exists.
+{  // set orders for Buyer. Validation check - pointer exists.
 	if (!other)
 		return false;
 	m_checkout_orders = other;
@@ -71,7 +69,7 @@ bool Buyer::setOrders(Order** other) // protected - Orders cannot get changed af
 // ----------------------- Arrays maintenance methods. ----------------------- //
 
 bool Buyer::addToCart(Product* item_to_add)
-{ // Add to buyer's cart using realloc method.
+{ // Add to Buyer's cart using realloc method.
 	if (!item_to_add)
 		return false;
 	if (m_cartPsize == m_number_of_items)
@@ -91,7 +89,7 @@ bool Buyer::addToCheckout(Order* checkout_order)
 }
 
 bool Buyer::removeFromCart(Product* item_to_delete)
-{ /* Remove a product from buyer's cart by bubbling it to the end of the arr,
+{ /* Remove a product from Buyer's cart by bubbling it to the end of the arr,
 	and setting it to nullptr.*/
 	bool flag = false;
 	for (int i = 0; i < m_number_of_items; i++)
@@ -140,7 +138,7 @@ void Buyer::checkoutRealloc()
 }
 
 
-// ----------------------- Printing methods. -----------------------
+// ----------------------- Printing methods. ----------------------- // 
 
 void Buyer::showCart()const
 { // Print buyer's cart.
@@ -170,7 +168,7 @@ void Buyer::showCheckoutOrders()const
 	}
 }
 
-// ---------------------------------------------------------------------
+// -------------------- Boolean checks -------------------- //
 
 bool Buyer::isOrderedFrom(const char* username)const
 { // Check if there's an existing order from a given seller, and that it's paid for.
@@ -198,8 +196,15 @@ bool Buyer::isEmptyCheckoutOrders()
 	return true;
 }
 
+bool Buyer::isEmptyCart()
+{ // Check for empty cart.
+	return (this->m_number_of_items == 0);
+}
+
+// ---------------------------------------------------------------------- //
+
 double Buyer::getTotalCartValue()const
-{ // Get the total price of the cart.
+{ // Get the total price value of the cart.
 	double res = 0;
 
 	for (int i = 0; i < this->getNumberOfItems(); i++)
@@ -215,12 +220,7 @@ double Buyer::getTotalCartValue()const
 	return res;
 }
 
-bool Buyer::isEmptyCart()
-{ // Check for empty cart.
-	if (this->m_number_of_items == 0)
-		return true;
-	return false;
-}
+// -------------------- Operators -------------------- //
 
 bool Buyer::operator>(const Buyer& other)const
 { // Compare between two cart values of different Buyers.

@@ -2,7 +2,6 @@
 #define __Seller_h
 #include "User.h"
 #include "FeedBack.h"
-#include "Address.h"
 #include "Product.h"
 #include <iostream>
 
@@ -25,7 +24,7 @@ protected:
 
 protected:
 	//			Setters			//
-	
+	// No option for re-assigning the following arrays after initialization - thus declared as protected.
 	virtual bool setFeedBacks(FeedBack** feed);
 	virtual bool setOrders(Order** other);
 	virtual bool setListItems(Product **listed_items);
@@ -33,12 +32,13 @@ protected:
 public:		
 	
 	//			c'tor, copy, d'tor			//
-	virtual ~Seller(); // d'tor
 	Seller(const char* userName, const char* password, const char* fname, const char*
 		lname, const Address& address);
 	Seller(const Seller& s); //copy c'tor
+	virtual ~Seller(); // d'tor
 
 	//			Getters			//
+public:
 
 	virtual inline  Product **getListedItems()const{ return m_listed_items; }
 	virtual inline  FeedBack** getFeedbacks()const{ return m_feedback_arr; }
@@ -56,14 +56,15 @@ public:
 	virtual void ListedItemsArrRealloc();
 	virtual void OrdersArrRealloc();
 
-	//func
+	//			func			//
 	virtual const Product* findProduct(const char* to_find)const;
 	virtual void showListedItems() const;
 
-	//operators
+	//		Operators			//
 	const Seller& operator=(const Seller& other);
 	virtual void toOs(ostream& os)const;
 
+	// Declare System class as a friend in order to give it access to the copy c'tor // 
 	friend class System;
 };
 

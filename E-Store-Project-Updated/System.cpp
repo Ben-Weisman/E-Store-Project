@@ -489,7 +489,7 @@ void System::interactiveMenu()
 		cout << (i++) << ") Show all sellers" << endl; //10 -----> Use << operator
 		cout << (i++) << ") Show all buyer-sellers" << endl; //11
 		cout << (i++) << ") Show all products by name" << endl; //12 -----> Use << operator
-		cout << (i++) << ") Compare between tow carts" << endl << endl; //13 -----> Use > operator
+		cout << (i++) << ") Compare between two carts" << endl << endl; //13 -----> Use > operator
 		cout << (i++) << ") Exit" << endl << endl; //14
 		cout << "Please enter your action: "; 
 		int option;

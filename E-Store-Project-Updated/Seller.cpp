@@ -1,10 +1,10 @@
 #include "Seller.h"
 #include "Utils.h"
 #include <iostream>
-
-
 using namespace std;
 #pragma warning(disable:4996) 
+
+
 
 // ----------------- C'tor, Copy C'tor, D'tor -----------------
 
@@ -75,7 +75,7 @@ bool Seller::setListItems(Product** listed_items) // private - listed items cann
 }
 
 
-// ----------------- Seller's maintenance methods -----------------
+//		Arrays maintenance methods			//
 
 bool Seller::addToListItemsArr(Product *item_to_add)
 { // Add to listed items using realloc method. 
@@ -144,11 +144,7 @@ void Seller::OrdersArrRealloc()
 	m_orders = tmp;
 }
 
-void Seller::showListedItems() const
-{
-	for (int i = 0; i < m_num_of_listed_items; i++)
-		cout << m_listed_items[i];
-}
+// ----------------------------------------------------------------- //
 
 const Product* Seller::findProduct(const char* to_find)const
 { // search for a given product in seller's listed items and return its pointer. 
@@ -160,13 +156,22 @@ const Product* Seller::findProduct(const char* to_find)const
 	return nullptr;
 }
 
-// -------------------- Printing methods --------------------
+//			Print method			//
 
 ostream& operator<<(ostream& os, Seller& seller) 
 { 
 	os << "Full Name: " << (User&)seller;
 	return os;
 }
+
+void Seller::showListedItems() const
+{
+	for (int i = 0; i < m_num_of_listed_items; i++)
+		cout << m_listed_items[i];
+}
+
+//			Operators			//
+
 const Seller& Seller::operator=(const Seller& other)
 {
 	if (this != &other)
