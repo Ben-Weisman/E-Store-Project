@@ -283,7 +283,7 @@ bool System::newOrder(const char* buyer_username)
 			return false;
 		}
 		new_order = new Order(tmp_b);// Make new order using c'tor
-
+		
 		do
 		{ // The user check from list until he deciede to exit 
 			tmp_b->showCart();
@@ -300,7 +300,6 @@ bool System::newOrder(const char* buyer_username)
 
 			else if ((option != EXIT && option < 1) || option > tmp_b->getNumberOfItems()) // option validity check 
 				cout << "Sorry, invalid option."<<endl;
-
 		} while (option != EXIT && tmp_b->getNumberOfItems() != EMPTY); // While the user still have products to choose 
 	}
 
@@ -309,7 +308,11 @@ bool System::newOrder(const char* buyer_username)
 	
 	if (tmp_b) //Buyer
 		tmp_b->addToCheckout(new_order); //Add the order to the buyer's orders array
-
+	if (new_order->getNumOfProducts() == 0) // Checking if the user entered this function but exited immediately.
+	{
+		tmp_b->m_num_checkout_orders--; // Updating the current num of orders, using friend access to Buyer.
+		delete new_order;
+	}
 	return true;
 }
 
@@ -595,13 +598,13 @@ void System::interactiveMenu()
 
 			break;
 
-		case 9: //print all buyers (Check for Buyer << operator)
+		case 9: //print all buyers (Uses Buyer << operator)
 			cout << endl;
 			printBuyers();
 
 			break;
 
-		case 10://print all sellers (Check for Seller << operator)
+		case 10://print all sellers (Uses Seller << operator)
 			cout << endl;
 			printSellers();
 
@@ -612,7 +615,7 @@ void System::interactiveMenu()
 			printBuyerSellers();
 
 			break;
-		case 12: // print all products from specific name  (Check for Product << operator)
+		case 12: // print all products from specific name  (Uses Product << operator)
 			cout << "Enter the product name: ";
 			cin.getline(prod_name, MAX_NAMES_LEN);
 
@@ -621,11 +624,11 @@ void System::interactiveMenu()
 
 			break;
 
-		case 13: //(Check for Buyer > operator)
+		case 13: //(Uses Buyer > operator)
 			cout << "Enter first buyer's username: ";
 			cin.getline(b_username, MAX_NAMES_LEN);
 
-			cout << "Enter second seller's username: ";
+			cout << "Enter second buyer's username: ";
 			cin.getline(b2_username, MAX_NAMES_LEN);
 
 			cout << endl;

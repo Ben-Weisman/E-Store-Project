@@ -28,7 +28,7 @@ protected:
 	virtual bool setFeedBacks(FeedBack** feed);
 	virtual bool setOrders(Order** other);
 	virtual bool setListItems(Product **listed_items);
-
+	
 public:		
 	
 	//			c'tor, copy, d'tor			//

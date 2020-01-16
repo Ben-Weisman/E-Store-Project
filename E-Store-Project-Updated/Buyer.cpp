@@ -209,14 +209,6 @@ double Buyer::getTotalCartValue()const
 
 	for (int i = 0; i < this->getNumberOfItems(); i++)
 		res +=this->m_cart[i]->getPrice();
-	for (int i = 0; i < this->getNumOfOrders(); i++)
-	{
-		if (!this->m_checkout_orders[i]->getPaid())
-		{
-			for (int j = 0; j < this->m_checkout_orders[i]->getNumOfProducts(); j++)
-				res += this->m_checkout_orders[i]->getProductsArr()[j]->getPrice();
-		}
-	}
 	return res;
 }
 

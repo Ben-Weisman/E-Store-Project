@@ -11,7 +11,6 @@ Seller(s), Buyer(b) {}
 
  const Buyer_Seller& Buyer_Seller::operator=(const Buyer_Seller& other)
  {
-	 User::operator=(other);
 	 Buyer::operator=(other);
 	 Seller::operator=(other);
 	 return *this;
