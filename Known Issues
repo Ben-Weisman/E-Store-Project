@@ -1,0 +1,8 @@
+Known Issues:
+1. We have some checks in the setters that are un-handled - waiting for the exceptions part of
+ the project. (for example - short name input will generate an error).
+ 
+ 2. When comparing between two Buyer's carts - we don't calculate the products that has been ordered 
+ but not paid for. This is because We've split the cart and checkout carts to two arrays.
+ 
+ 
