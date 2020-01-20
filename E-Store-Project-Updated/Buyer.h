@@ -1,6 +1,7 @@
 #ifndef __Buyer_h
 #define __Buyer_h
 #include "User.h"
+#include "Array.h"
 #include <iostream>
 
 class Order; //forward declaration
@@ -9,18 +10,16 @@ class Buyer : virtual public User
 {
 protected:
 
-	int m_cartPsize;
-	int m_number_of_items;
 	int m_num_checkout_orders;
 	int m_checkout_orders_pSize;
 
-	Product** m_cart;
+	Array<Product> m_cart;
 	Order** m_checkout_orders;
-
+	
 protected:
 	// Protected - Cart and checkout orders cannot get re-initialazied changed after first initialization
-	virtual bool setCart(Product** cart); 
-	virtual bool setOrders(Order** other); 
+	virtual bool setCart(Product** cart);
+	virtual bool setOrders(Order** other);
 
 public:
 	//			c'tor, copy, d'tor			//
@@ -32,8 +31,7 @@ public:
 public:
 
 	//			Getters			//
-	virtual inline const int getNumberOfItems()const { return m_number_of_items; }
-	virtual inline Product** getCart()const { return m_cart; }
+	virtual inline Product** getCart()const { return m_cart.getArray(); }
 	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
 	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
 	virtual double getTotalCartValue()const;
@@ -42,7 +40,6 @@ public:
 	virtual bool addToCart(Product* item_to_add);
 	virtual bool addToCheckout(Order* checkout_order);
 	virtual bool removeFromCart(Product* item_to_remove);
-	virtual void cartRealloc();
 	virtual void checkoutRealloc();
 
 	//			Boolean checks			//

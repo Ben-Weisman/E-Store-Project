@@ -8,41 +8,32 @@
 using namespace std;
 
 // -------------------- C'tor, Copy C'tor, D'tor --------------------//
-Buyer::Buyer(const char* userName,const char* password, const char* fname,
-	const char* lname, const Address& address): User(userName, password, fname, lname, address)
+Buyer::Buyer(const char* userName, const char* password, const char* fname,
+	const char* lname, const Address& address) : User(userName, password, fname, lname, address), m_cart(1, ' ')
 {
-	m_number_of_items = 0;
-	m_cartPsize = 1;
 	m_num_checkout_orders = 0;
 	m_checkout_orders_pSize = 1;
 
-	m_cart = new Product *[m_cartPsize];
-	m_cart[0] = nullptr;
-	m_checkout_orders = new Order *[m_checkout_orders_pSize];
+	m_checkout_orders = new Order * [m_checkout_orders_pSize];
 	m_checkout_orders[0] = nullptr;
 }
 
-Buyer::Buyer(const Buyer& other): User(other) // copy c'tor
+Buyer::Buyer(const Buyer& other) : User(other) // copy c'tor
 { // Don't call the assignment operator because it calls the assignment of User, and we want to keep
 	// the call in the init list. - After consulting with the lecturer.
-	m_cartPsize = other.m_cartPsize;
-	m_number_of_items = other.m_number_of_items;
+
 	m_num_checkout_orders = other.m_num_checkout_orders;
 	m_checkout_orders_pSize = other.m_checkout_orders_pSize;
 
-	m_cart = new Product * [m_cartPsize];
+	m_cart = other.m_cart;
 	m_checkout_orders = new Order * [m_checkout_orders_pSize];
 
-	for (int i = 0; i < m_number_of_items; i++)
-		*(m_cart + i) = *(other.m_cart + i); // Calling Product operator=
 	for (int i = 0; i < m_num_checkout_orders; i++)
 		*(m_checkout_orders + i) = *(other.m_checkout_orders + i); // Calling Order operator=
 }
 
 Buyer::~Buyer() // d'tor
 {
-	for (int i = 0; i < m_number_of_items; i++)
-		delete m_cart[i];
 	for (int i = 0; i < m_num_checkout_orders; i++)
 		delete m_checkout_orders[i];
 }
@@ -53,7 +44,7 @@ bool Buyer::setCart(Product** cart)
 { // Set cart for buyer. Validation check - cart exists.
 	if (!cart)
 		return false;
-	m_cart = cart;
+	m_cart.setArray(cart);
 	return true;
 }
 
@@ -72,9 +63,7 @@ bool Buyer::addToCart(Product* item_to_add)
 { // Add to Buyer's cart using realloc method.
 	if (!item_to_add)
 		return false;
-	if (m_cartPsize == m_number_of_items)
-		cartRealloc();
-	m_cart[m_number_of_items++] = item_to_add;
+	m_cart += item_to_add;
 	return true;
 }
 
@@ -92,43 +81,23 @@ bool Buyer::removeFromCart(Product* item_to_delete)
 { /* Remove a product from Buyer's cart by bubbling it to the end of the arr,
 	and setting it to nullptr.*/
 	bool flag = false;
-	for (int i = 0; i < m_number_of_items; i++)
+	for (int i = 0; i < m_cart.getNumberOfItems(); i++)
 	{
 		if (m_cart[i]->getSerialNumber() == item_to_delete->getSerialNumber())
 		{
-			flag = true;
-			Product* tmp;
-			for (int j = i; j < m_number_of_items - 1; j++)
-			{
-				tmp = m_cart[j];
-				m_cart[j] = m_cart[j + 1];
-				m_cart[j + 1] = tmp;
-			}
-			m_cart[m_number_of_items - 1] = nullptr;
-			m_number_of_items -= 1;
+			m_cart.removeFromArray(i); // Remove the product in the i place
 			break;
 		}
 	}
 	return flag;
 }
 
-void Buyer::cartRealloc()
-{ // Resize cart.
-	m_cartPsize *= 2;
-	Product** tmp = new Product *[m_cartPsize];
-
-	for (int i = 0; i < m_number_of_items; i++)
-		tmp[i] = m_cart[i];
-	delete m_cart;
-
-	m_cart = tmp;
-}
 
 void Buyer::checkoutRealloc()
 { // Resize checkout arr.
 	m_checkout_orders_pSize *= 2;
 
-	Order** tmp = new Order *[m_checkout_orders_pSize];
+	Order** tmp = new Order * [m_checkout_orders_pSize];
 
 	for (int i = 0; i < m_num_checkout_orders; i++)
 		tmp[i] = m_checkout_orders[i];
@@ -143,13 +112,13 @@ void Buyer::checkoutRealloc()
 void Buyer::showCart()const
 { // Print buyer's cart.
 
-	if (m_number_of_items == 0)
+	if (m_cart.isEmpty())
 		cout << endl << "No products to show, your cart is currently empty." << endl <<
 		"Please search for products to buy or go to your checkout cart to continue with your order" << endl;
-	else{
+	else {
 		cout << "All products are in #/Name/Price/Seller format" << endl;
-	
-		for (int i = 0; i < m_number_of_items; i++)
+
+		for (int i = 0; i < m_cart.getNumberOfItems(); i++)
 			cout << i + 1 << ") " << m_cart[i]->getName() << "\t" << m_cart[i]->getPrice() <<
 			"$\t" << m_cart[i]->getSellerUsername() << endl;
 	}
@@ -198,7 +167,7 @@ bool Buyer::isEmptyCheckoutOrders()
 
 bool Buyer::isEmptyCart()
 { // Check for empty cart.
-	return (this->m_number_of_items == 0);
+	return m_cart.isEmpty();
 }
 
 // ---------------------------------------------------------------------- //
@@ -207,8 +176,8 @@ double Buyer::getTotalCartValue()const
 { // Get the total price value of the cart.
 	double res = 0;
 
-	for (int i = 0; i < this->getNumberOfItems(); i++)
-		res +=this->m_cart[i]->getPrice();
+	for (int i = 0; i < this->m_cart.getNumberOfItems(); i++)
+		res += this->m_cart[i]->getPrice();
 	return res;
 }
 
@@ -216,7 +185,7 @@ double Buyer::getTotalCartValue()const
 
 bool Buyer::operator>(const Buyer& other)const
 { // Compare between two cart values of different Buyers.
-	return this->getTotalCartValue() > other.getTotalCartValue(); 
+	return this->getTotalCartValue() > other.getTotalCartValue();
 }
 
 const Buyer& Buyer::operator=(const Buyer& other)
@@ -224,19 +193,13 @@ const Buyer& Buyer::operator=(const Buyer& other)
 	if (this != &other)
 	{
 		User::operator=(other);
-
-		m_cartPsize = other.m_cartPsize;
-		m_number_of_items = other.m_number_of_items;
+		m_cart = other.m_cart;
 		m_num_checkout_orders = other.m_num_checkout_orders;
 		m_checkout_orders_pSize = other.m_checkout_orders_pSize;
 
-		m_cart = new Product *[m_cartPsize];
 		m_checkout_orders = new Order * [m_checkout_orders_pSize];
-
-		for (int i = 0; i < m_number_of_items; i++)
-			*(m_cart+i) = *(other.m_cart+i);
 		for (int i = 0; i < m_num_checkout_orders; i++)
-			*(m_checkout_orders+i) = *(other.m_checkout_orders+i);
+			*(m_checkout_orders + i) = *(other.m_checkout_orders + i);
 
 	}
 	return *this;
@@ -244,7 +207,6 @@ const Buyer& Buyer::operator=(const Buyer& other)
 }
 void Buyer::toOs(ostream& os)const
 { // Print user type. 
-	 os << "\n\tUser type: " <<typeid(*this).name() + 6;
+	os << "\n\tUser type: " << typeid(*this).name() + 6;
 
 }
-

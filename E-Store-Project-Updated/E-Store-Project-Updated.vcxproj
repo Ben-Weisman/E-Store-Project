@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Address.h" />
+    <ClInclude Include="Array.h" />
     <ClInclude Include="Buyer.h" />
     <ClInclude Include="Buyer_Seller.h" />
     <ClInclude Include="Date.h" />

@@ -292,18 +292,18 @@ bool System::newOrder(const char* buyer_username)
 			cin >> option;
 			cin.ignore(1, '\n');
 
-			if (option > 0 && option <= tmp_b->getNumberOfItems())
+			if (option > 0 && option <= tmp_b->m_cart.getNumberOfItems())
 			{
 				new_order->addToProdArr(tmp_b->getCart()[option - 1]); // Adding the chosen option to the order prod array (remove from cart, sum the prices)
 				cout << "Item added to the Order successfully." << endl;
 			}
 
-			else if ((option != EXIT && option < 1) || option > tmp_b->getNumberOfItems()) // option validity check 
+			else if ((option != EXIT && option < 1) || option > tmp_b->m_cart.getNumberOfItems()) // option validity check 
 				cout << "Sorry, invalid option."<<endl;
-		} while (option != EXIT && tmp_b->getNumberOfItems() != EMPTY); // While the user still have products to choose 
+		} while (option != EXIT && tmp_b->m_cart.getNumberOfItems() != EMPTY); // While the user still have products to choose 
 	}
 
-	if(tmp_b->getNumberOfItems() == EMPTY)
+	if(tmp_b->m_cart.getNumberOfItems() == EMPTY)
 		cout << "Your cart is empty."<<endl;
 	
 	if (tmp_b) //Buyer
