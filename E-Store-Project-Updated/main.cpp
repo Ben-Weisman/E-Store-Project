@@ -4,6 +4,7 @@ using namespace std;
 
 #pragma warning(disable:4996) 
 
+
 int main()
 {
 	System system("eBen"); // Our defult system name
