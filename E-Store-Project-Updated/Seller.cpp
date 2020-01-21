@@ -8,7 +8,7 @@ using namespace std;
 
 // ----------------- C'tor, Copy C'tor, D'tor -----------------
 
-Seller::Seller(const char* username, const char* password, const char* fname, const char* lname,
+Seller::Seller(const string& username, const string& password, const string& fname, const string& lname,
 	const Address& address) :User(username, password, fname, lname, address) // c'tor
 {
 	m_num_of_feedbacks = 0;
@@ -166,11 +166,11 @@ void Seller::OrdersArrRealloc()
 
 // ----------------------------------------------------------------- //
 
-const Product* Seller::findProduct(const char* to_find)const
+const Product* Seller::findProduct(const string& to_find)const
 { // search for a given product in seller's listed items and return its pointer. 
 	for (int i = 0; i < m_num_of_listed_items; i++)
 	{
-		if (strcmp(m_listed_items[i]->getName(), to_find) == 0)
+		if (m_listed_items[i]->getName() == to_find)
 			return this->m_listed_items[i];
 	}
 	return nullptr;

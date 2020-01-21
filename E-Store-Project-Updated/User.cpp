@@ -5,22 +5,13 @@
 /////////////////////////////////////////////////////////////////////////
 // -------------------- C'tor, copy c'tor, d'tor -------------------- //
 ///////////////////////////////////////////////////////////////////////
-User::User(const char* username,const char* password,const char* fname,const char* lname,
+User::User(const string& username,const string& password,const string& fname,const string& lname,
 	const Address& address) : m_address(address) // c'tor
 {
 	setUsername(username);
 	setPassword(password);
 	setFname(fname);
 	setLname(lname);
-}
-
-
-User::~User() // d'tor
-{
-	delete[]m_fname;
-	delete[]m_lname;
-	delete[]m_username;
-	delete[]m_password;
 }
 
 User::User(const User& u) :m_address(u.m_address) // copy c'tor
@@ -34,72 +25,55 @@ User::User(const User& u) :m_address(u.m_address) // copy c'tor
 const User& User::operator=(const User& other)
 {
 	if (this != &other)
-	{
-		setUsername(other.m_username);
-		setPassword(other.m_password);
-		setFname(other.m_fname);
-		setLname(other.m_lname);
-
 		m_address = other.m_address;
-	}
 	return *this;
 }
 
-bool User::setPassword(const char* password)
+bool User::setPassword(const string& password)
 { // set password for seller. Validation check - not an empty string.
-	if (strlen(password) == 0)
+	if (password.length() == 0)
 		return false;
-	m_password = nullptr;
-	delete[]m_password;
-	m_password = strdup(password);
+	m_password = password;
 	return true;
 }
 
-bool User::setFname(const char* fname)
+bool User::setFname(const string& fname)
 { // set first name for seller. Validation check 
 	int i = 0;
 
 	while (fname[i] != '\0' && isLetter(fname[i]))
-	{
 		i++;
-	}
+
 	if (fname[i] != '\0' || i <= 1)
-	{
 		return false;
-	} //We assumed that the fname can be a word with only letters (more than 1 character) 
-	m_fname = nullptr;
-	delete[]m_fname;
-	m_fname = strdup(fname);
+	//We assumed that the fname can be a word with only letters (more than 1 character) 
+	
+	m_fname = fname;
 	return true;
 }
 
-bool User::setLname(const char* lname)
+bool User::setLname(const string& lname)
 { // set last name for seller. Validation check 
 	int i = 0;
 
 	while (lname[i] != '\0' && (isLetter(lname[i]) || lname[i] == ' '))
-	{
 		i++;
-	}
-	if (lname[i] != '\0' || i <= 1)
-	{
-		return false;
-	} //We assumed that the lname can be a word with letters and spaces (more than 1 character) 
 
-	m_lname = nullptr;
-	delete[]m_lname;
-	m_lname = strdup(lname);
+	if (lname[i] != '\0' || i <= 1)
+		return false;
+	//We assumed that the lname can be a word with letters and spaces (more than 1 character) 
+
+
+	m_lname = lname;
 	return true;
 }
 
-bool User::setUsername(const char* username) // private - username cannot get changed after initialization 
+bool User::setUsername(const string& username) // private - username cannot get changed after initialization 
 {  // set username for seller. Validation check - not an empty string.
-	if (strlen(username) == 0)
+	if (username.length() == 0)
 		return false;
 
-	m_username = nullptr;
-	delete[]m_username;
-	m_username = strdup(username);
+	m_username = username;
 	return true;
 }
 

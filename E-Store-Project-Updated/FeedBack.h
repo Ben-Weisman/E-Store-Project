@@ -2,33 +2,33 @@
 #define __FeedBack_h
 #include "Buyer.h"
 #include "Date.h"
+#include <string>
 
 class FeedBack
 {
 private:
-	char* m_feedback_evaluation;
-	char* m_provider_username;
+	string m_feedback_evaluation;
+	string m_provider_username;
 	Date m_date;
 
 private:
 	//			Setters			//
 	// No option for re-assigning the following attributes after initialization -
 	//thus declared as private.
-	bool setFeedbackEval(const char* eval);
-	bool setFeedbackProvider(const char* provider_username);
+	bool setFeedbackEval(const string& eval);
+	bool setFeedbackProvider(const string& provider_username);
 
 public:
 	//			c'tor, copy c'tor, d'tor, move c'tor			//
-	FeedBack(char* feedback, const char* provider_username, const Date& date); //c'tor
-	~FeedBack(); //d'tor
+	FeedBack(string& feedback, const string& provider_username, const Date& date); //c'tor
 	FeedBack(const FeedBack& f); //copy c'tor
 	FeedBack(FeedBack&& f); // move c'tor
 
 public: 
 	//			Getters			//
-	inline const char* getFeedbackEvaluation()const { return m_feedback_evaluation; }
+	inline const string getFeedbackEvaluation()const { return m_feedback_evaluation; }
 	inline const Date& getFeedbackDate()const { return m_date; }
-	inline const char* getProviderUsername()const { return m_provider_username; }
+	inline const string getProviderUsername()const { return m_provider_username; }
 
 	//			Print method			//
 	void showFeedback()const;

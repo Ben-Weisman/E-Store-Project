@@ -1,21 +1,16 @@
 #include "FeedBack.h"
 #include <iostream>
+#include <string>
 using namespace std;
 #pragma warning(disable:4996) 
 
 
 // --------------------- C'tor, Copy C'tor, D'tor, Move C'tor ---------------------
 
-FeedBack::FeedBack(char* feedback, const char* provider_username, const Date& date) : m_date(date) //c'tor
+FeedBack::FeedBack(string& feedback, const string& provider_username, const Date& date) : m_date(date) //c'tor
 {
 	setFeedbackEval(feedback);
 	setFeedbackProvider(provider_username);
-}
-
-FeedBack::~FeedBack() //d'tor
-{
-	delete[]m_feedback_evaluation;
-	delete[]m_provider_username;
 }
 
 FeedBack::FeedBack(const FeedBack& other) :m_date(other.m_date) //copy c'tor
@@ -38,19 +33,19 @@ FeedBack::FeedBack(FeedBack&& f) : m_date(f.m_date) // move c'tor
 
 // --------------------- Private Setters Methods ---------------------
 
-bool FeedBack::setFeedbackEval(const char* eval)
+bool FeedBack::setFeedbackEval(const string& eval)
 { // Set feedback evaluation. Validation check - not an empty string.
-	if (strlen(eval) == 0)
+	if (eval.length() == 0)
 		return false;
-	m_feedback_evaluation = strdup(eval);
+	m_feedback_evaluation = eval;
 	return true;
 }
 
-bool FeedBack::setFeedbackProvider(const char* provider_username)
+bool FeedBack::setFeedbackProvider(const string& provider_username)
 { // Set feedback's provider username. Validation check - not an empty string.
-	if (!provider_username)
+	if (provider_username.length() == 0)
 		return false;
-	m_provider_username = strdup(provider_username);
+	m_provider_username = provider_username;
 	return true;
 }
 

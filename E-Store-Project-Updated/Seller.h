@@ -4,6 +4,7 @@
 #include "FeedBack.h"
 #include "Product.h"
 #include <iostream>
+#include <string>
 
 class Order; //forward declaration
 
@@ -32,7 +33,7 @@ protected:
 public:		
 	
 	//			c'tor, copy, d'tor			//
-	Seller(const char* userName, const char* password, const char* fname, const char*
+	Seller(const string& userName, const string& password, const string& fname, const string&
 		lname, const Address& address);
 	Seller(const Seller& s); //copy c'tor
 	virtual ~Seller(); // d'tor
@@ -57,7 +58,7 @@ public:
 	virtual void OrdersArrRealloc();
 
 	//			func			//
-	virtual const Product* findProduct(const char* to_find)const;
+	virtual const Product* findProduct(const string& to_find)const;
 	virtual void showListedItems() const;
 
 	//		Operators			//
