@@ -31,7 +31,7 @@ const User& User::operator=(const User& other)
 
 bool User::setPassword(const string& password)
 { // set password for seller. Validation check - not an empty string.
-	if (password.length() == 0)
+	if (password.empty())
 		return false;
 	m_password = password;
 	return true;
@@ -70,7 +70,7 @@ bool User::setLname(const string& lname)
 
 bool User::setUsername(const string& username) // private - username cannot get changed after initialization 
 {  // set username for seller. Validation check - not an empty string.
-	if (username.length() == 0)
+	if (username.empty())
 		return false;
 
 	m_username = username;

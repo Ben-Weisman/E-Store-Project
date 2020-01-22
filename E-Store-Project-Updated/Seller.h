@@ -3,6 +3,7 @@
 #include "User.h"
 #include "FeedBack.h"
 #include "Product.h"
+#include <vector>
 #include <iostream>
 #include <string>
 
@@ -10,25 +11,18 @@ class Order; //forward declaration
 
 class Seller : virtual public User
 {
-protected:
-	int m_feedbacks_phy_size;
-	int m_num_of_feedbacks;
-	int m_num_of_listed_items;
-	int m_listed_items_pSize;
-	int m_num_of_orders;
-	int m_orders_pSize;
 	
 protected:
-	FeedBack** m_feedback_arr;
-	Product** m_listed_items;
-	Order** m_orders;
-
+	vector<FeedBack*> m_feedback_arr;
+	vector<Product*> m_listed_items;
+	vector<Order*> m_orders;
+	
 protected:
 	//			Setters			//
 	// No option for re-assigning the following arrays after initialization - thus declared as protected.
-	virtual bool setFeedBacks(FeedBack** feed);
-	virtual bool setOrders(Order** other);
-	virtual bool setListItems(Product **listed_items);
+	virtual bool setFeedBacks(vector<FeedBack*> feed);
+	virtual bool setOrders(vector<Order*> other);
+	virtual bool setListItems(vector<Product*> listed_items);
 	
 public:		
 	
@@ -41,10 +35,12 @@ public:
 	//			Getters			//
 public:
 
-	virtual inline  Product **getListedItems()const{ return m_listed_items; }
-	virtual inline  FeedBack** getFeedbacks()const{ return m_feedback_arr; }
-	virtual inline  Order** getSellerOrders ()const{ return m_orders; }
-	virtual inline  const int getNumOfListedItems()const{ return m_num_of_listed_items; }
+	virtual inline  vector<Product*> getListedItems()const{ return m_listed_items; }
+	virtual inline  vector<FeedBack*> getFeedbacks()const{ return m_feedback_arr; }
+	virtual inline  vector<Order*> getSellerOrders ()const{ return m_orders; }
+	virtual inline  const int getNumOfListedItems()const{ return (const int)m_listed_items.size(); }
+
+
 
 public:
 
@@ -52,10 +48,6 @@ public:
 	virtual bool addToListItemsArr(Product* item_to_add);
 	virtual bool addToFeedArr(FeedBack* feed_to_add);
 	virtual bool addToOrdersArr(Order* order_request);
-
-	virtual void FeedbackArrRealloc();
-	virtual void ListedItemsArrRealloc();
-	virtual void OrdersArrRealloc();
 
 	//			func			//
 	virtual const Product* findProduct(const string& to_find)const;

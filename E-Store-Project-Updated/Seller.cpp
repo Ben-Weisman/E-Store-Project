@@ -11,84 +11,64 @@ using namespace std;
 Seller::Seller(const string& username, const string& password, const string& fname, const string& lname,
 	const Address& address) :User(username, password, fname, lname, address) // c'tor
 {
-	m_num_of_feedbacks = 0;
-	m_num_of_listed_items = 0;
-	m_feedbacks_phy_size = 1;
-	m_listed_items_pSize = 1;
-	m_num_of_orders = 0;
-	m_orders_pSize = 1;
 
-	m_orders = new Order *[m_orders_pSize];
-	m_orders[m_num_of_orders] = nullptr;
-
-	m_feedback_arr = new FeedBack *[m_feedbacks_phy_size];
-	m_feedback_arr[m_num_of_feedbacks] = nullptr;
-
-	m_listed_items = new Product *[m_listed_items_pSize];
-	m_listed_items[m_num_of_listed_items] = nullptr;
 }
 
 
 Seller::~Seller() // d'tor
 {
-	for (int i = 0; i < m_num_of_feedbacks; i++)
-		delete m_feedback_arr[i];
+	for (auto feed_ptr : m_feedback_arr)
+		delete feed_ptr;
 
-	for (int i = 0; i < m_num_of_listed_items; i++)
-		delete m_listed_items[i];
+	for (auto product_ptr : m_listed_items)
+		delete product_ptr;
 
-	for (int i = 0; i < m_num_of_orders; i++)
-		delete m_orders[i];
+	for (auto order_ptr : m_orders)
+		delete order_ptr;
+
 }
 
 Seller::Seller(const Seller& other) :User(other) // copy c'tor
 { // Don't call the assignment operator because it calls the assignment of User, and we want to keep
-	// the call in the init list. - After consulting with the lecturer.
+	// the call in the init list. - After consulting with the lecturer. @@@@ Check relevance
+	
+	m_feedback_arr.reserve(other.getFeedbacks().capacity());
+	m_listed_items.reserve(other.getListedItems().capacity());
+	m_orders.reserve(other.getSellerOrders().capacity());
 
-	m_feedbacks_phy_size = other.m_feedbacks_phy_size;
-	m_num_of_feedbacks = other.m_num_of_feedbacks;
-	m_num_of_listed_items = other.m_num_of_listed_items;
-	m_listed_items_pSize = other.m_listed_items_pSize;
-	m_num_of_orders = other.m_num_of_orders;
-	m_orders_pSize = other.m_orders_pSize;
+	for (auto feed_ptr : other.m_feedback_arr)
+		m_feedback_arr.push_back(new FeedBack(*feed_ptr));
 
-	m_listed_items = new Product * [m_listed_items_pSize];
-	m_orders = new Order * [m_orders_pSize];
-	m_feedback_arr = new FeedBack * [m_feedbacks_phy_size];
+	for (auto product_ptr : other.m_listed_items)
+		m_listed_items.push_back(new Product(*product_ptr));
 
-	for (int i = 0; i < m_num_of_feedbacks; i++)
-		*(m_feedback_arr + i) = *(other.m_feedback_arr + i);
-
-	for (int i = 0; i < m_num_of_listed_items; i++)
-		*(m_listed_items + i) = *(other.m_listed_items + i);
-
-	for (int i = 0; i < m_num_of_orders; i++)
-		*(m_orders + i) = *(other.m_orders + i);
+	for (auto order_ptr : other.m_orders)
+		m_orders.push_back(new Order(*order_ptr));
 }
 
 
 // ----------------- Setters Methods -----------------
 
-bool Seller::setFeedBacks(FeedBack** feed) // private - Feedbacks cannot get changed after initialization
-{  // set feedbacks for seller. Validation check - pointer exists.
+bool Seller::setFeedBacks(vector<FeedBack*> feed_arr) // private - Feedbacks cannot get changed after initialization
+{  // set feedbacks for seller. Validation check - is empty vector container.
 
-	if (!feed)
+	if (feed_arr.empty())
 		return false;
-	m_feedback_arr = feed;
+	m_feedback_arr = feed_arr;
 	return true;
 }
 
-bool Seller::setOrders(Order** other) // private - Orders cannot get changed after initialization
-{  // set orders for seller. Validation check - pointer exists.
-	if (!other)
+bool Seller::setOrders(vector<Order*> other) // private - Orders cannot get changed after initialization
+{  // set orders for seller. Validation check - is empty vector container.
+	if (other.empty())
 		return false;
 	m_orders = other;
 	return true;
 }
 
-bool Seller::setListItems(Product** listed_items) // private - listed items cannot get changed after initialization
-{  // set listed items for seller. Validation check - pointer exists.
-	if (!listed_items)
+bool Seller::setListItems(vector<Product*> listed_items) // private - listed items cannot get changed after initialization
+{  // set listed items for seller. Validation check - is empty vector container.
+	if (listed_items.empty())
 		return false;
 	m_listed_items = listed_items;
 	return true;
@@ -101,9 +81,10 @@ bool Seller::addToListItemsArr(Product *item_to_add)
 { // Add to listed items using realloc method. 
 	if (!item_to_add)
 		return false;
-	if (m_num_of_listed_items == m_listed_items_pSize)
-		ListedItemsArrRealloc();
-	m_listed_items[m_num_of_listed_items++] = item_to_add;
+
+	if (m_listed_items.size() == m_listed_items.capacity())
+		m_listed_items.reserve(m_listed_items.capacity() * 2);
+	m_listed_items.push_back(item_to_add);
 	return true;
 }
 
@@ -111,9 +92,10 @@ bool Seller::addToFeedArr(FeedBack* feed_to_add)
 { // Add to feedback arr using realloc method. 
 	if (!feed_to_add)
 		return false;
-	if (m_feedbacks_phy_size == m_num_of_feedbacks)
-		FeedbackArrRealloc();
-	m_feedback_arr[m_num_of_feedbacks++] = feed_to_add;
+
+	if (m_feedback_arr.size() == m_feedback_arr.capacity())
+		m_feedback_arr.reserve(m_feedback_arr.capacity() * 2);
+	m_feedback_arr.push_back(feed_to_add);
 	return true;
 }
 
@@ -121,57 +103,22 @@ bool Seller::addToOrdersArr(Order* order_request)
 { // Add to orders arr using realloc method. 
 	if (!order_request)
 		return false;
-	if (m_num_of_orders == m_orders_pSize)
-		OrdersArrRealloc();
-	m_orders[m_num_of_orders++] = order_request;
+
+	if (m_orders.size() == m_orders.capacity())
+		m_orders.reserve(m_orders.capacity() * 2);
+	m_orders.push_back(order_request);
 	return true;
-}
-
-void Seller::FeedbackArrRealloc()
-{ // Resize feedback arr using realloc logic. 
-
-	m_feedbacks_phy_size *= 2;
-	FeedBack** tmp = new FeedBack*[m_feedbacks_phy_size];
-
-	for (int i = 0; i < m_num_of_feedbacks; i++)
-		tmp[i] = m_feedback_arr[i];
-	delete m_feedback_arr;
-	m_feedback_arr = tmp;
-}
-
-void Seller::ListedItemsArrRealloc()
-{ // Resize listed items arr using realloc logic. 
-
-	m_feedbacks_phy_size *= 2;
-	Product** tmp = new Product *[m_feedbacks_phy_size];
-
-	for (int i = 0; i < m_num_of_listed_items; i++)
-		tmp[i] = m_listed_items[i];
-	delete m_listed_items;
-
-	m_listed_items = tmp;
-}
-
-void Seller::OrdersArrRealloc()
-{ // Resize orders arr using realloc logic. 
-	m_orders_pSize *= 2;
-	Order** tmp = new Order *[m_orders_pSize];
-
-	for (int i = 0; i < m_num_of_orders; i++)
-		tmp[i] = m_orders[i];
-	delete m_orders;
-
-	m_orders = tmp;
 }
 
 // ----------------------------------------------------------------- //
 
 const Product* Seller::findProduct(const string& to_find)const
 { // search for a given product in seller's listed items and return its pointer. 
-	for (int i = 0; i < m_num_of_listed_items; i++)
+
+	for (auto product_ptr : m_listed_items)
 	{
-		if (m_listed_items[i]->getName() == to_find)
-			return this->m_listed_items[i];
+		if (product_ptr->getName() == to_find)
+			return product_ptr;
 	}
 	return nullptr;
 }
@@ -186,8 +133,9 @@ ostream& operator<<(ostream& os, Seller& seller)
 
 void Seller::showListedItems() const
 {
-	for (int i = 0; i < m_num_of_listed_items; i++)
-		cout << m_listed_items[i];
+	for (auto product_ptr : m_listed_items)
+		cout << product_ptr;
+
 }
 
 //			Operators			//
@@ -198,25 +146,17 @@ const Seller& Seller::operator=(const Seller& other)
 	{
 		User::operator=(other);
 
-		m_feedbacks_phy_size = other.m_feedbacks_phy_size;
-		m_num_of_feedbacks = other.m_num_of_feedbacks;
-		m_num_of_listed_items = other.m_num_of_listed_items;
-		m_listed_items_pSize = other.m_listed_items_pSize;
-		m_num_of_orders = other.m_num_of_orders;
-		m_orders_pSize = other.m_orders_pSize;
+		m_feedback_arr.reserve(other.getFeedbacks().capacity());
+		m_listed_items.reserve(other.getListedItems().capacity());
+		m_orders.reserve(other.getSellerOrders().capacity());
 
-		m_listed_items = new Product * [m_listed_items_pSize];
-		m_orders = new Order * [m_orders_pSize];
-		m_feedback_arr = new FeedBack * [m_feedbacks_phy_size];
+		for (auto feed_ptr : other.m_feedback_arr)
+			m_feedback_arr.push_back(new FeedBack(*feed_ptr));
+		for (auto product_ptr : other.m_listed_items)
+			m_listed_items.push_back(new Product(*product_ptr));
+		for (auto order_ptr : other.m_orders)
+			m_order.push_back(new Order(*order_ptr));
 
-		for (int i = 0; i < m_num_of_feedbacks; i++)
-			*(m_feedback_arr+i) = *(other.m_feedback_arr+i);
-
-		for (int i = 0; i < m_num_of_listed_items; i++)
-			*(m_listed_items+i) = *(other.m_listed_items+i);
-
-		for (int i = 0; i < m_num_of_orders; i++)
-			*(m_orders+i) = *(other.m_orders+i);
 	}
 	return *this;
 }

@@ -2,6 +2,8 @@
 #define __Buyer_h
 #include "User.h"
 #include "Array.h"
+#include <string>
+#include <vector>
 #include <iostream>
 
 class Order; //forward declaration
@@ -10,20 +12,17 @@ class Buyer : virtual public User
 {
 protected:
 
-	int m_num_checkout_orders;
-	int m_checkout_orders_pSize;
-
 	Array<Product> m_cart;
-	Order** m_checkout_orders;
+	vector<Order*> m_checkout_orders;
 	
 protected:
 	// Protected - Cart and checkout orders cannot get re-initialazied changed after first initialization
-	virtual bool setCart(Product** cart);
-	virtual bool setOrders(Order** other);
+	virtual bool setCart(Product** cart); // Array
+	virtual bool setOrders(vector<Order*> other); // Vector
 
 public:
 	//			c'tor, copy, d'tor			//
-	Buyer(const char* userName, const char* password, const char* fname, const char*
+	Buyer(const string& userName, const string& password, const string& fname, const string&
 		lname, const Address& address);
 	Buyer(const Buyer& b); // copy c'tor
 	virtual ~Buyer();
@@ -32,18 +31,17 @@ public:
 
 	//			Getters			//
 	virtual inline Product** getCart()const { return m_cart.getArray(); }
-	virtual inline Order** getBuyerOrders()const { return m_checkout_orders; }
-	virtual inline const int getNumOfOrders()const { return m_num_checkout_orders; }
+	virtual inline vector<Order*> getBuyerOrders()const { return m_checkout_orders; }
 	virtual double getTotalCartValue()const;
+	virtual inline const int getNumOfOrders()const { return (const int)m_checkout_orders.size(); }
 public:
 	//			Arrays maintenance			//
 	virtual bool addToCart(Product* item_to_add);
 	virtual bool addToCheckout(Order* checkout_order);
 	virtual bool removeFromCart(Product* item_to_remove);
-	virtual void checkoutRealloc();
 
 	//			Boolean checks			//
-	virtual bool isOrderedFrom(const char* username)const;
+	virtual bool isOrderedFrom(const string& username)const;
 	virtual bool isEmptyCheckoutOrders();
 	virtual bool isEmptyCart();
 

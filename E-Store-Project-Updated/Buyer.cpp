@@ -8,34 +8,28 @@
 using namespace std;
 
 // -------------------- C'tor, Copy C'tor, D'tor --------------------//
-Buyer::Buyer(const char* userName, const char* password, const char* fname,
-	const char* lname, const Address& address) : User(userName, password, fname, lname, address), m_cart(1, ' ')
+Buyer::Buyer(const string& userName, const string& password, const string& fname,
+	const string& lname, const Address& address) : User(userName, password, fname, lname, address), m_cart(1, ' ')
 {
-	m_num_checkout_orders = 0;
-	m_checkout_orders_pSize = 1;
-
-	m_checkout_orders = new Order * [m_checkout_orders_pSize];
-	m_checkout_orders[0] = nullptr;
 }
 
 Buyer::Buyer(const Buyer& other) : User(other) // copy c'tor
 { // Don't call the assignment operator because it calls the assignment of User, and we want to keep
-	// the call in the init list. - After consulting with the lecturer.
+	// the call in the init list. - After consulting with the lecturer. @@@@@ Check relevance
 
-	m_num_checkout_orders = other.m_num_checkout_orders;
-	m_checkout_orders_pSize = other.m_checkout_orders_pSize;
+	m_checkout_orders.reserve(other.m_checkout_orders.capacity()); // Efficiency
+
+	for (auto order : other.m_checkout_orders)
+		m_checkout_orders.push_back(new Order (*order)); // Deep copy. order
 
 	m_cart = other.m_cart;
-	m_checkout_orders = new Order * [m_checkout_orders_pSize];
 
-	for (int i = 0; i < m_num_checkout_orders; i++)
-		*(m_checkout_orders + i) = *(other.m_checkout_orders + i); // Calling Order operator=
 }
 
 Buyer::~Buyer() // d'tor
 {
-	for (int i = 0; i < m_num_checkout_orders; i++)
-		delete m_checkout_orders[i];
+	for (auto order:m_checkout_orders)
+		delete order;
 }
 
 //----------------------- Setters Methods ------------------------------//
@@ -48,9 +42,9 @@ bool Buyer::setCart(Product** cart)
 	return true;
 }
 
-bool Buyer::setOrders(Order** other) // protected - Orders cannot get changed after initialization
+bool Buyer::setOrders(vector<Order*> other) // protected - Orders cannot get changed after initialization
 {  // set orders for Buyer. Validation check - pointer exists.
-	if (!other)
+	if (other.empty())
 		return false;
 	m_checkout_orders = other;
 	return true;
@@ -71,9 +65,11 @@ bool Buyer::addToCheckout(Order* checkout_order)
 { // Add to Buyer's checkout cart using realloc method.
 	if (!checkout_order)
 		return false;
-	if (m_num_checkout_orders == m_checkout_orders_pSize)
-		checkoutRealloc();
-	m_checkout_orders[m_num_checkout_orders++] = checkout_order;
+
+	if (m_checkout_orders.size() == m_checkout_orders.capacity()) // Efficiency 
+		m_checkout_orders.reserve(m_checkout_orders.capacity() * 2); 
+	m_checkout_orders.push_back(checkout_order);
+
 	return true;
 }
 
@@ -91,21 +87,6 @@ bool Buyer::removeFromCart(Product* item_to_delete)
 	}
 	return flag;
 }
-
-
-void Buyer::checkoutRealloc()
-{ // Resize checkout arr.
-	m_checkout_orders_pSize *= 2;
-
-	Order** tmp = new Order * [m_checkout_orders_pSize];
-
-	for (int i = 0; i < m_num_checkout_orders; i++)
-		tmp[i] = m_checkout_orders[i];
-	delete m_checkout_orders;
-
-	m_checkout_orders = tmp;
-}
-
 
 // ----------------------- Printing methods. ----------------------- // 
 
@@ -127,42 +108,45 @@ void Buyer::showCart()const
 
 void Buyer::showCheckoutOrders()const
 { // Show all orders that hasn't been paid yet.
-	for (int i = 0; i < m_num_checkout_orders; i++)
-	{
-		if (!this->m_checkout_orders[i]->getPaid())
+	int i = 0;
+
+	for (auto order_ptr:m_checkout_orders)
+		if (!order_ptr->getPaid())
 		{
 			cout << "\n\t Order #" << i + 1 << endl;
-			this->m_checkout_orders[i]->showOrder();
+			order_ptr->showOrder();
 		}
-	}
+
 }
 
 // -------------------- Boolean checks -------------------- //
 
 bool Buyer::isOrderedFrom(const string& username)const
 { // Check if there's an existing order from a given seller, and that it's paid for.
-	for (int i = 0; i < this->m_num_checkout_orders; i++)
+
+	int i = 0;
+	for (auto order_ptr : m_checkout_orders)
 	{
-		for (int j = 0; j < m_checkout_orders[i]->getNumOfProducts(); j++)
+		for (auto product_ptr : order_ptr->getProductsArr())
 		{
-			if (strcmp(this->m_checkout_orders[i]->getProductsArr()[j]->getSellerUsername(), username) == 0)
-			{
-				if (this->m_checkout_orders[i]->getPaid())
+			if (product_ptr->getSellerUsername() == username)
+				if (order_ptr->getPaid())
 					return true;
-			}
 		}
 	}
+
 	return false;
 }
 
 bool Buyer::isEmptyCheckoutOrders()
 { //  Is empty even if there are actual orders in the arr, but they're all paid for. 
-	for (int i = 0; i < this->getNumOfOrders(); i++)
-	{
-		if (!this->getBuyerOrders()[i]->getPaid())
+
+	for (auto order_ptr : m_checkout_orders)
+		if (!order_ptr->getPaid())
 			return false;
-	}
+
 	return true;
+
 }
 
 bool Buyer::isEmptyCart()
@@ -194,12 +178,9 @@ const Buyer& Buyer::operator=(const Buyer& other)
 	{
 		User::operator=(other);
 		m_cart = other.m_cart;
-		m_num_checkout_orders = other.m_num_checkout_orders;
-		m_checkout_orders_pSize = other.m_checkout_orders_pSize;
 
-		m_checkout_orders = new Order * [m_checkout_orders_pSize];
-		for (int i = 0; i < m_num_checkout_orders; i++)
-			*(m_checkout_orders + i) = *(other.m_checkout_orders + i);
+		for (auto order_ptr : other.m_checkout_orders)
+			m_checkout_orders.push_back(new Order(*order_ptr));
 
 	}
 	return *this;
@@ -208,5 +189,5 @@ const Buyer& Buyer::operator=(const Buyer& other)
 void Buyer::toOs(ostream& os)const
 { // Print user type. 
 	os << "\n\tUser type: " << typeid(*this).name() + 6;
-
 }
+
