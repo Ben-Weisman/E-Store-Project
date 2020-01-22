@@ -1,8 +1,8 @@
 #include "Product.h"
 #include "Utils.h"
-#include <string.h>
 
-#pragma warning(disable:4996) 
+
+
 
 // --------------------- static ---------------------
 

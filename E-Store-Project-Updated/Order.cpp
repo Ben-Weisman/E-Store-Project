@@ -9,35 +9,23 @@ using namespace std;
 
 Order::Order(Buyer* b) :m_buyer(b)
 {
-	setProductsPhySize(1);
-	setNumOfProducts(0);
 	setTotalPrice(0);
 	setPaid(false);
-
-	m_products_arr = new Product*[m_products_phy_size];
 }
 
 Order::~Order()
 {
-	for (int i = 0; i < m_num_of_products; i++)
-		delete m_products_arr[i];
-
-	delete m_products_arr;
+	for (auto product_ptr : m_products_arr)
+		delete product_ptr;
 }
 
-Order::Order(const Order& o):m_buyer(o.m_buyer)
+Order::Order(const Order& other):m_buyer(other.m_buyer)
 {
-	setTotalPrice(o.m_total_price);
-	setProductsPhySize(o.m_products_phy_size);
-	setNumOfProducts(o.m_num_of_products);
+	setTotalPrice(other.m_total_price);
 	setPaid(false);
 
-
-	m_products_arr = new Product*[m_products_phy_size];
-	for (int i = 0; i < m_num_of_products; i++)
-	{
-		m_products_arr[i] = o.m_products_arr[i]; // use product = operator. 
-	}
+	for (auto product_ptr : other.m_products_arr)
+		m_products_arr.push_back(new Product(*product_ptr));//copy c'tor of survivor
 }
 
 // ----------------------------------------- setters ---------------------------------
@@ -51,28 +39,17 @@ bool Order::setTotalPrice(double total_price)
 	}
 	return false;
 }
-bool Order::setProductsPhySize(int phy_size)
-{
-	m_products_phy_size = phy_size;
-	return true;
-}
-bool Order::setNumOfProducts(int num_of_prod)
-{
-	m_num_of_products = num_of_prod;
-	return true;
-}
 bool Order::setPaid(bool paid)
 {
 	m_paid = paid;
 	return true;
 }
 
-
 // ----------------------------------------- printing methods ---------------------------------
 
 void Order::showOrder()const
 {
-	for (int i = 0; i < m_num_of_products; i++)
+	for (int i = 0; i < m_products_arr.size(); i++)
 	{
 		cout << i + 1 << ") " << endl <<"\t"<< m_products_arr[i]->getName() << endl;
 	}
@@ -84,22 +61,7 @@ void Order::showOrder()const
 
 void Order::addToProdArr(Product* p)
 {
-	if (m_num_of_products == m_products_phy_size)
-		productsRealloc();
-	m_products_arr[m_num_of_products++] = p;
-
-	m_buyer->removeFromCart(p);
-	m_total_price += p->getPrice();
-}
-
-void Order::productsRealloc()
-{
-	this->m_products_phy_size *= 2;
-	Product** tmp = new Product *[m_products_phy_size];
-
-	for (int i = 0; i < m_num_of_products; i++)
-		tmp[i] = m_products_arr[i];
-	delete m_products_arr;
-
-	m_products_arr = tmp;
+	m_products_arr.push_back(p); // add the product to the array
+	m_buyer->removeFromCart(p); // remove the poduct from the cart - we assumed that what you order not in your cart anymore
+	m_total_price += p->getPrice(); // Add the product price to the total price
 }

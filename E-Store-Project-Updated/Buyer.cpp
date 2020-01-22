@@ -3,7 +3,7 @@
 #include "Seller.h"
 #include "Order.h"
 #include <iostream>
-#pragma warning(disable:4996) 
+
 
 using namespace std;
 
@@ -139,7 +139,7 @@ void Buyer::showCheckoutOrders()const
 
 // -------------------- Boolean checks -------------------- //
 
-bool Buyer::isOrderedFrom(const char* username)const
+bool Buyer::isOrderedFrom(const string& username)const
 { // Check if there's an existing order from a given seller, and that it's paid for.
 	for (int i = 0; i < this->m_num_checkout_orders; i++)
 	{

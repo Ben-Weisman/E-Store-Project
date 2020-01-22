@@ -4,7 +4,6 @@
 #include <iostream>
 
 using namespace std;
-#pragma warning(disable:4996) 
 
 // --------------------- C'tor, D'tor ---------------------
 
@@ -21,8 +20,7 @@ System::System(const System&s)
 
 System::~System()// d'tor
 {
-	// free users arr:  @@@@@@ check here :
-	for (auto& user_ptr : m_user_arr)
+	for (auto user_ptr : m_user_arr)
 		delete user_ptr;
 }
 
@@ -35,7 +33,7 @@ const System& System::operator=(const System& s)
 	{
 		setName(s.m_name);
 		
-		m_user_arr.reserve(s.m_user_arr.size()); // allocate place
+		m_user_arr.reserve(s.m_user_arr.size()); // allocate the place to users array
 		for (int i = 0; i < s.m_user_arr.size(); i++)
 		{
 			m_user_arr[i] = s.m_user_arr[i]; // user = operator
@@ -157,7 +155,7 @@ bool System::addProductToBuyersCart(const string& prod_name, const string& buyer
 	
 	int counter = 1;
 	Seller* tmp_s=nullptr;
-	for (int j = 0; j < m_num_of_users; j++)
+	for (int j = 0; j < m_user_arr.size(); j++)
 	{
 		bool found = false;
 		tmp_s = dynamic_cast<Seller*>(m_user_arr[j]);// Polymorphistic check if this is Seller/BuyerSeller:
@@ -165,7 +163,7 @@ bool System::addProductToBuyersCart(const string& prod_name, const string& buyer
 		{
 			for (int k = 0; !found && k < tmp_s->getNumOfListedItems(); k++)  // show all products with this name fron all the sellers
 			{
-				if (strcmp(tmp_s->getListedItems()[k]->getName(), prod_name) == 0)
+				if (tmp_s->getListedItems()[k]->getName() == prod_name)
 				{
 					cout << counter++ << ") ";
 					tmp_s->getListedItems()[k]->showProductToBuyer();
@@ -175,7 +173,7 @@ bool System::addProductToBuyersCart(const string& prod_name, const string& buyer
 			}
 		}
 	}
-		char chosen_seller_username[MAX_LEN];
+		string chosen_seller_username;
 		int count = 0;
 		int chosen_seller_index;
 		do
@@ -185,7 +183,7 @@ bool System::addProductToBuyersCart(const string& prod_name, const string& buyer
 				cout << "Please try again."<< endl;
 
 			cout << "Enter the desired seller's username that you want to buy from: ";
-			cin.getline(chosen_seller_username, MAX_LEN);
+			cin>>chosen_seller_username;
 			cout << endl;
 			
 			if (count == MAX_TRIES) // failed to enter seller name 3 time
@@ -322,7 +320,7 @@ bool System::payment(const string& buyer_username)
 void System::printBuyers()const
 {// Print all the buyers in the system 
 	int i=0, counter=1;
-	for (i ; i < m_num_of_users; i++)
+	for (i ; i < m_user_arr.size(); i++)
 	{
 		Buyer* tmp_b = dynamic_cast<Buyer*>(m_user_arr[i]);
 		if (tmp_b) //Polymorphistic check if this is Buyer/BuyerSeller
@@ -341,7 +339,7 @@ void System::printBuyers()const
 void System::printSellers()const
 {// Print all the sellers in the system 
 	int i=0, counter=1;
-	for (i ; i < m_num_of_users; i++)
+	for (i ; i < m_user_arr.size(); i++)
 	{
 		Seller* tmp_s = dynamic_cast<Seller*>(m_user_arr[i]); 
 		if (tmp_s)//Polymorphistic check if this is Seller/BuyerSeller
@@ -360,7 +358,7 @@ void System::printSellers()const
 void System::printBuyerSellers()const
 {// Print all the buyersellers in the system 
 	int i = 0, counter=1;
-	for (i; i < m_num_of_users; i++)
+	for (i; i < m_user_arr.size(); i++)
 	{
 		Buyer_Seller* tmp_bs = dynamic_cast<Buyer_Seller*>(m_user_arr[i]); 
 		if (tmp_bs)//Polymorphistic check if this is BuyerSeller
@@ -381,7 +379,7 @@ void System::printBuyerSellers()const
 void System::printAllSpecificProduct(const string& name_to_find)const
 {// Print all products with the chosen name that in the system 
 	int counter = 1;
-	for (int i = 0; i < m_num_of_users; i++) // Check every seller in the system
+	for (int i = 0; i < m_user_arr.size(); i++) // Check every seller in the system
 	{
 		int num_of_prod;
 		Seller* tmp_s = dynamic_cast<Seller*> (m_user_arr[i]); 
@@ -390,7 +388,7 @@ void System::printAllSpecificProduct(const string& name_to_find)const
 			num_of_prod = tmp_s->getNumOfListedItems();  // How many product the seller have
 			for (int j = 0; j < num_of_prod; j++)
 			{
-				if (strcmp(name_to_find, tmp_s->getListedItems()[j]->getName()) == 0) // if choosen product name exist
+				if (name_to_find== tmp_s->getListedItems()[j]->getName()) // if choosen product name exist
 				{
 					cout << counter++ << ") ";
 					cout << *(tmp_s->getListedItems()[j]);
@@ -459,9 +457,7 @@ void System::interactiveMenu()
 		cin.ignore(1, '\n');
 
 		//////////////For the switch cases:///////////////
-		char b_username[MAX_NAMES_LEN], b2_username[MAX_NAMES_LEN];
-		char s_username[MAX_NAMES_LEN];
-		char prod_name[MAX_NAMES_LEN];
+		string b_username, b2_username, s_username, prod_name;
 		int b_index; // Latest update.
 		Buyer_Seller* new_bs = nullptr;
 		Seller* new_seller = nullptr;
@@ -493,7 +489,7 @@ void System::interactiveMenu()
 
 		case 4: //add product to seller
 			cout << "Enter the username of the seller: ";
-			cin.getline(s_username, MAX_NAMES_LEN);
+			cin>>s_username;
 			Product* p;
 			if (addProductToSeller(p = createProduct(s_username), s_username) == false)
 			{
@@ -506,10 +502,10 @@ void System::interactiveMenu()
 		case 5: //add feedback to seller 
 			FeedBack * f;
 			cout << "Enter buyer's username: ";
-			cin.getline(b_username, MAX_NAMES_LEN);
+			cin>>b_username;
 
 			cout << "Enter seller's username: ";
-			cin.getline(s_username, MAX_NAMES_LEN);
+			cin>>s_username;
 
 			b_index = isUserExist(b_username);
 
@@ -528,11 +524,11 @@ void System::interactiveMenu()
 
 		case 6: //add to cart
 			cout << "Enter the username of the buyer: ";
-			cin.getline(b_username, MAX_NAMES_LEN);
+			cin>>b_username;
 
 
 			cout << "Enter the product name: ";
-			cin.getline(prod_name, MAX_NAMES_LEN);
+			cin>>prod_name;
 
 			if (!addProductToBuyersCart(prod_name, b_username))
 			{
@@ -543,7 +539,7 @@ void System::interactiveMenu()
 
 		case 7:	//order
 			cout << "Enter the username of the buyer:";
-			cin.getline(b_username, MAX_NAMES_LEN);
+			cin>>b_username;
 
 			newOrder(b_username);
 
@@ -551,7 +547,7 @@ void System::interactiveMenu()
 
 		case 8:	//payment
 			cout << "Enter the username of the buyer:";
-			cin.getline(b_username, MAX_NAMES_LEN);
+			cin>>b_username;
 
 			payment(b_username);
 
@@ -576,7 +572,7 @@ void System::interactiveMenu()
 			break;
 		case 12: // print all products from specific name  (Uses Product << operator)
 			cout << "Enter the product name: ";
-			cin.getline(prod_name, MAX_NAMES_LEN);
+			cin>>prod_name;
 
 			cout << endl;
 			printAllSpecificProduct(prod_name);
@@ -585,10 +581,10 @@ void System::interactiveMenu()
 
 		case 13: //(Uses Buyer > operator)
 			cout << "Enter first buyer's username: ";
-			cin.getline(b_username, MAX_NAMES_LEN);
+			cin>>b_username;
 
 			cout << "Enter second buyer's username: ";
-			cin.getline(b2_username, MAX_NAMES_LEN);
+			cin>>b2_username;
 
 			cout << endl;
 			compareBuyersByCart(b_username, b2_username);

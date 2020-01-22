@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-#pragma warning(disable:4996) 
+
 
 
 // --------------------- C'tor, Copy C'tor, D'tor, Move C'tor ---------------------

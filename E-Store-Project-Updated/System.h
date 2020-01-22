@@ -7,7 +7,6 @@
 #include "Buyer.h"
 #include "Buyer_Seller.h"
 
-const int MAX_LEN = 21;
 const int NOT_EXIST = -1;
 const int EXIT = -1;
 const int EMPTY = 0;
@@ -42,8 +41,7 @@ public:
 
 	// ---------------------------------- maintanance functions ------------------------------------
 
-	const int isUserExist(const string& username)const;
-	void usersRealloc();
+	const int isUserExist(const string& username)const; // @@@@@@@@@@ should it return ITERATOR?
 	
 	 // ---------------------------------- MENU functions ------------------------------------
 

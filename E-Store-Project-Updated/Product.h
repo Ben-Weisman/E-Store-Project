@@ -53,5 +53,6 @@ public:
 	void showProductToBuyer()const;
 
 	friend class System;
+	friend class Order;
 };
 #endif // !__Product_h

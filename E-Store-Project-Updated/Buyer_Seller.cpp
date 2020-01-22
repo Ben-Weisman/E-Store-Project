@@ -1,5 +1,5 @@
 #include "Buyer_Seller.h"
-#pragma warning(disable:4996) 
+
 
 
 // -------------------- c'tor -------------------- //
