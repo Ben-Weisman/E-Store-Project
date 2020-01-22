@@ -58,6 +58,8 @@ bool System::operator+=(User* new_user)
 
 bool System::setName(const string& name)
 {
+	if (name.length() <= 1)
+		return false; // system name should be more them 1 letter
 	m_name = name;
 	return true;
 }
