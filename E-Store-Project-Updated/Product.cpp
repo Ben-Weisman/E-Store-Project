@@ -11,7 +11,7 @@ int Product::COUNTER = 100000; // First serial number value
 // --------------------- C'tor, Copy C'tor, D'tor, Move C'tor ---------------------
 
 
-Product::Product(ecategory category, char* name, double price, char* seller_username) :m_serial_number(++COUNTER) //c'tor
+Product::Product(ecategory category, const string& name, double price, const string& seller_username) :m_serial_number(++COUNTER) //c'tor
 {
 	setCategory(category);
 	setName(name);
@@ -21,8 +21,6 @@ Product::Product(ecategory category, char* name, double price, char* seller_user
 
 Product::~Product() //d'tor
 {
-	delete[]m_name;
-	delete[]m_seller_username;
 }
 
 Product::Product(const Product&p)  //copy c'tor
@@ -32,10 +30,11 @@ Product::Product(const Product&p)  //copy c'tor
 
 Product::Product(Product&&p) : m_serial_number(std::move(p.m_serial_number)) //move c'tor
 {
+	//@@ move() ??@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	m_category = p.m_category;
-	m_name = m_name;
+	m_name = move(m_name);
 	m_price = p.m_price;
-	m_seller_username = p.m_seller_username;
+	m_seller_username = move(p.m_seller_username);
 
 	p.m_name = nullptr;
 	p.m_seller_username = nullptr;
@@ -73,26 +72,13 @@ ostream& operator<<(ostream& os, const Product& product)
 
 
 
-bool Product::setName(const char* name)
-{ //Check product name validation (2 letters min, no spaces and numbers allowed)
-	bool flag = true;
-	int i = 0, letter_counter = 0;
-	while (flag&&name[i] != '\0') 
-	{
-		if ((name[i] >= 'a'&&name[i] <= 'z') || (name[i] >= 'A'&&name[i] <= 'Z'))
-			letter_counter++;
-		else if (name[i] <= '0' || name[i] >= '9') 
-			flag = false;
+bool Product::setName(const string& name)
+{
+	if (name.length() < 3)// Validity check
+		return false; //We assumed that the name should be word with more then 2 letters
 
-		i++;
-	}
-
-	if (flag&&letter_counter >= 2) //name is valid
-	{
-		delete[] m_name; //in case that user change product name
-		m_name = strdup(name);
-	}
-	return flag;
+	m_name = name;
+	return true;
 }
 bool Product::setPrice(double price)
 {//validity check
@@ -117,9 +103,12 @@ bool Product::setCategory(ecategory category) //private method that we used only
 	return false; //in case that the category is not one from the list of categories
 }
 
-bool Product::setSellerUsername(char* seller_username) //private method that we use only once at the c'tor 
+bool Product::setSellerUsername(const string& seller_username) //private method that we use only once at the c'tor 
 {
-	m_seller_username = strdup(seller_username);
+	if (seller_username.length() < 3)// Validity check
+		return false; //We assumed that the name should be word with more then 2 letters
+
+	m_seller_username = seller_username;
 	return true;
 }
 
@@ -132,7 +121,3 @@ void Product::showProductToBuyer()const
 	cout << "\tprice: " << m_price << "$" << endl;
 	cout << "\tThe seller of this product is: " << m_seller_username << endl;
 }
-
-
-
-

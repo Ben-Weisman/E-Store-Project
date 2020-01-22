@@ -2,28 +2,26 @@
 #include <iostream>
 
 using namespace std;
-#pragma warning(disable:4996) 
 
 
 Address createAdress()
 {// creating address
-	char country[MAX_NAMES_LEN];
+	string country;
 	cout << "Country: ";
-	cin.getline(country, MAX_NAMES_LEN);
+	cin >> country;
 
-	char city[MAX_NAMES_LEN];
+	string city;
 	cout << "City: ";
-	cin.getline(city, MAX_NAMES_LEN);
+	cin>>city;
 
-	char street[MAX_NAMES_LEN];
+	string street;
 	cout << "Street: ";
-	cin.getline(street, MAX_NAMES_LEN);
+	cin>>street;
 
 	int house_number;
 	do {
 	cout << "House number: ";
 	cin >> house_number;
-	cin.ignore(1,'\n');
 	} while (house_number < 1);
 
 	return Address(country, city, street, house_number);
@@ -31,24 +29,24 @@ Address createAdress()
 
 Buyer_Seller* createBuyerSeller()
 { //creating buyer-seller
-	char f_name[MAX_NAMES_LEN];
+	string f_name;
 	cout << "First name: ";
-	cin.getline(f_name, MAX_NAMES_LEN);
+	cin>>f_name;
 
 
-	char l_name[MAX_NAMES_LEN];
+	string l_name;
 	cout << "Last name: ";
-	cin.getline(l_name, MAX_NAMES_LEN);
+	cin>>l_name;
 
 
-	char user_name[MAX_NAMES_LEN];
+	string user_name;
 	cout << "UserName: ";
-	cin.getline(user_name, MAX_NAMES_LEN);
+	cin>>user_name;
 
 
-	char pass[MAX_NAMES_LEN];
+	string pass;
 	cout << "Password: ";
-	cin.getline(pass, MAX_NAMES_LEN);
+	cin>>pass;
 
 	Address a = createAdress();
 
@@ -57,24 +55,24 @@ Buyer_Seller* createBuyerSeller()
 
 Buyer* createBuyer()
 {//creating buyer
-	char f_name[MAX_NAMES_LEN];
+	string f_name;
 	cout << "First name: ";
-	cin.getline(f_name, MAX_NAMES_LEN);
+	cin>>f_name;
 	
 
-	char l_name[MAX_NAMES_LEN];
+	string l_name;
 	cout << "Last name: ";
-	cin.getline(l_name, MAX_NAMES_LEN);
+	cin>>l_name;
 
 
-	char user_name[MAX_NAMES_LEN];
+	string user_name;
 	cout << "UserName: ";
-	cin.getline(user_name, MAX_NAMES_LEN);
+	cin>>user_name;
 
 	
-	char pass[MAX_NAMES_LEN];
+	string pass;
 	cout << "Password: ";
-	cin.getline(pass, MAX_NAMES_LEN);
+	cin>>pass;
 
 
 	return new Buyer(user_name, pass, f_name, l_name, createAdress());
@@ -82,48 +80,46 @@ Buyer* createBuyer()
 
 Seller* createSeller()
 {//creating seller
-	char f_name[MAX_NAMES_LEN];
+	string f_name;
 	cout << "First name: ";
-	cin.getline(f_name, MAX_NAMES_LEN);
+	cin>>f_name;
 
 	
-	char l_name[MAX_NAMES_LEN];
+	string l_name;
 	cout << "Last name: ";
-	cin.getline(l_name, MAX_NAMES_LEN);
+	cin>>l_name;
 
 
-	char user_name[MAX_NAMES_LEN];
+	string user_name;
 	cout << "UserName: ";
-	cin.getline(user_name, MAX_NAMES_LEN);
+	cin>>user_name;
 
 	
-	char pass[MAX_NAMES_LEN];
+	string pass;
 	cout << "Password: ";
-	cin.getline(pass, MAX_NAMES_LEN);
+	cin>>pass;
 
 
 	return new Seller(user_name, pass, f_name, l_name, createAdress());
 } 
 
-Product* createProduct(char* seller_username)
+Product* createProduct(const string& seller_username)
 {//creating product
 	Product::ecategory category;
 	int temp;
 	cout << endl << "Category:" << endl << "1)Kids" << endl << "2)Electricity" << endl << "3)Office" << endl << "4)Clothing" << endl;
 	cin >> temp;
-	cin.ignore(1,'\n');
 	category = (Product::ecategory)(temp - 1);
 
 	
-	char name[MAX_NAMES_LEN];
+	string name;
 	cout << "Name of the product: ";
-	cin.getline(name, MAX_NAMES_LEN);
+	cin>>name;
 
 	double price;
 	do {
 		cout << "Price: ";
 		cin >> price;
-		cin.ignore(1, '\n');
 	} while (price<1);
 
 	return new Product(category, name, price, seller_username); 
@@ -132,25 +128,26 @@ Product* createProduct(char* seller_username)
 
 Date createDate()
 {//creating date
-	char date[DATE_STRING_LEN];
-	char* day, *month, *year;
+	string date;
+	int day, month, year;
 
 	cout << "Enter date in this format: dd/mm/yyyy" << endl;
-	cin.getline(date, DATE_STRING_LEN);
+	cin >> date;
 
-	day = strtok(date, "/");
-	month = strtok(nullptr, "/");
-	year = strtok(nullptr, "\0");
+	//@@@@ Create func at the utils:
+	day = ((date[0] - '0') * 10) + (date[1] - '0'); //calculation of day
+	month = ((date[3] - '0') * 10) + (date[4] - '0'); //calculation of month
+	year = ((date[6] - '0') * 1000) + ((date[7] - '0') * 100) + ((date[8] - '0') * 10) + (date[9] - '0');//calculation of year
 
-	return Date(atoi(day), atoi(month), atoi(year));
+	return Date(day, month, year);
 
 }
 
-FeedBack* createFeedback(const char* b_username)
+FeedBack* createFeedback(const string& b_username)
 {//creating feedback
-	char feedback[MAX_FEEDBACK_LEN];
+	string feedback;
 	cout << "Please write your feedback: ";
-	cin.getline(feedback, MAX_FEEDBACK_LEN);
+	cin>>feedback;
 
 	return new FeedBack(feedback, b_username, createDate());
 }

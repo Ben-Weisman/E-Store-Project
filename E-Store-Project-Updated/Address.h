@@ -1,18 +1,19 @@
 #ifndef __Address_h
 #define __Address_h
 #include <iostream>
+#include <string>
 using namespace std;
 
 class Address
 {
 private:
-	char* m_country;
-	char* m_city;
-	char* m_street;
+	string m_country;
+	string m_city;
+	string m_street;
 	int m_house_number;
 
 public:
-	Address(char* country, char* city, char* street, int number); //c'tor
+	Address(const string& country, const string& city, const string& street, int number); //c'tor
 	~Address();// d'tor
 	Address(const Address&a); //copy c'tor
 	Address(Address&&a); //move c'tor
@@ -21,14 +22,14 @@ public:
 	friend ostream& operator<<(ostream& os, const Address& address);
 
 public:
-	bool setCountry(const char* country);
-	bool setCity(const char* city);
-	bool setStreet(const char* street);
+	bool setCountry(const string& country);
+	bool setCity(const string& city);
+	bool setStreet(const string& street);
 	 bool setHouseNumber(const int number);
 public:
-	inline const char* getCountry()const { return m_country; }
-	inline const char* getCity()const { return m_city; }
-	inline const char* getStreet()const{ return m_street;}
+	inline const string& getCountry()const { return m_country; }
+	inline const string& getCity()const { return m_city; }
+	inline const string& getStreet()const{ return m_street;}
 	inline int getHouseNumber()const { return m_house_number; }
 
 };

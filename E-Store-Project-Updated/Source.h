@@ -3,19 +3,15 @@
 
 #include "System.h"
 #include "Utils.h"
-
-
-const int MAX_NAMES_LEN = 31;
-const int MAX_FEEDBACK_LEN = 91;
-const int DATE_STRING_LEN = 11; //      dd/mm/yyyy
+#include <string>
 
 
 Address createAdress();
 Buyer* createBuyer(); 
 Seller* createSeller(); 
 Buyer_Seller* createBuyerSeller();
-Product* createProduct(char* seller_username);
+Product* createProduct(const string& seller_username);
 Date createDate();
-FeedBack* createFeedback(const char* b_username);
+FeedBack* createFeedback(const string& b_username);
 
 #endif // !__Source_h

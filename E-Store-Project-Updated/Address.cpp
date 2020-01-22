@@ -1,10 +1,9 @@
 #include "Address.h"
 #include "Utils.h"
-#pragma warning(disable:4996) 
 
 // --------------------- C'tor, Copy C'tor, D'tor, Move C'tor ---------------------
 
-Address::Address(char* country, char* city, char* street, int number) //c'tor
+Address::Address(const string& country, const string& city, const string& street, int number) //c'tor
 {
 	setCountry(country);
 	setCity(city);
@@ -17,9 +16,10 @@ Address::Address(const Address&a) //copy c'tor
 }
 Address::Address(Address&&a) //move c'tor
 {
-	m_country = a.m_country;
-	m_city = a.m_city;
-	m_street = a.m_street;
+	//@@ move() ??@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	m_country=move(a.m_country);
+	m_city = move(a.m_city);
+	m_street = move(a.m_street);
 	m_house_number = a.m_house_number;
 
 	a.m_country = nullptr;
@@ -28,9 +28,7 @@ Address::Address(Address&&a) //move c'tor
 }
 Address::~Address()// d'tor
 {
-	delete[]m_country;
-	delete[]m_city;
-	delete[]m_street;
+
 }
 
 // -----------------------------operators----------------------------------
@@ -59,57 +57,29 @@ ostream& operator<<(ostream& os, const Address& address)
 
 // -----------------------------setters----------------------------------
 
-bool Address::setCountry(const char* country)
+bool Address::setCountry(const string& country)
 {
-	int i = 0;
-	while ((country[i] != '\0') && (isLetter(country[i]) || country[i] == ' ')) // Validity check
-	{
-		i++;
-	}
-	if (country[i] != '\0' || i <= 2)// Validity check
-	{
-		return false;
-	} //We assumed that There is no country with numbers/signs/less then 3 letters
+	if (country.length() < 3)
+		return false;//We assumed that There is no country with less then 3 letters
 
-	m_country = nullptr;
-	delete[] m_country;
-	m_country = strdup(country);
+	m_country = country;
 	return true;
 }
-bool Address::setCity(const char* city)
+bool Address::setCity(const string& city)
 {	
-	int i = 0;
-	while ((city[i] != '\0') && (isLetter(city[i]) || city[i] == ' '))// Validity check
-	{
-		i++;
-	}
-	if (city[i] != '\0' || i <= 1)// Validity check
-	{
-		return false;
-	} //We assumed that There is no city with numbers/signs/less then 2 letters 
+	if (city.length()<3)// Validity check
+		return false; //We assumed that There is no city with less then 3 letters 
 
-	m_city = nullptr;
-	delete[] m_city;
-	m_city = strdup(city);
+	m_city = city;
 	return true;
 }
-bool Address::setStreet(const char* street)
+bool Address::setStreet(const string& street)
 {
-	
-	int i = 0;
 
-	while (street[i] != '\0' && (isNumber(street[i]) || isLetter(street[i]) || street[i] == ' '))// Validity check
-	{
-		i++;
-	}
-	if (street[i] != '\0' || i <= 1)// Validity check
-	{
-		return false;
-	} //We assumed that the street can be a word with numbers/letters and with more the 1 letter 
+	if (street.length() < 3)// Validity check
+		return false; //We assumed that the street should be word with more then 2 letters
 
-	m_street = nullptr;
-	delete[] m_street;
-	m_street = strdup(street);
+	m_street = street;
 	return true;
 }
 bool Address::setHouseNumber(const int number)
