@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@ Nir - need to fix getline bug (' ' in the name is problematic)
 
 Address createAdress()
 {// creating address
@@ -16,7 +17,7 @@ Address createAdress()
 
 	string street;
 	cout << "Street: ";
-	cin>>street;
+	street=cin.getline();
 
 	int house_number;
 	do {

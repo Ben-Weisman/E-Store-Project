@@ -70,9 +70,10 @@ const int System::isUserExist(const string& username)const
 	int i = 0;
 	for (auto& user_ptr : m_user_arr)
 	{
-		i++;
 		if (user_ptr->getUsername()==username)
 			return i;
+
+		i++;
 	}
 	return NOT_EXIST;
 }
