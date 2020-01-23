@@ -36,8 +36,10 @@ public:
 
 	void showOrder()const;
 	void addToProdArr(Product* p);
-	void productsRealloc();
 
+
+	friend class Seller;
+	friend class Buyer;
 };
 
 #endif //!__Order_h

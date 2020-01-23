@@ -54,5 +54,6 @@ public:
 
 	friend class System;
 	friend class Order;
+	friend class Seller;
 };
 #endif // !__Product_h

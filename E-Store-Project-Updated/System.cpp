@@ -265,9 +265,9 @@ bool System::newOrder(const string& buyer_username)
 	
 	if (tmp_b) //Buyer
 		tmp_b->addToCheckout(new_order); //Add the order to the buyer's orders array
-	if (new_order->getNumOfProducts() == 0) // Checking if the user entered this function but exited immediately.
+	if (new_order->getProductsArr().size() == 0) // Checking if the user entered this function but exited immediately.
 	{
-		tmp_b->m_num_checkout_orders--; // Updating the current num of orders, using friend access to Buyer.
+		//@@vector take care of it?@@ tmp_b->m_num_checkout_orders--; // Updating the current num of orders, using friend access to Buyer.
 		delete new_order;
 	}
 	return true;

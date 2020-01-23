@@ -155,7 +155,7 @@ const Seller& Seller::operator=(const Seller& other)
 		for (auto product_ptr : other.m_listed_items)
 			m_listed_items.push_back(new Product(*product_ptr));
 		for (auto order_ptr : other.m_orders)
-			m_order.push_back(new Order(*order_ptr));
+			m_orders.push_back(new Order(*order_ptr));
 
 	}
 	return *this;
