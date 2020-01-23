@@ -30,6 +30,7 @@ Buyer::~Buyer() // d'tor
 {
 	for (auto order:m_checkout_orders)
 		delete order;
+	cout << "/n##Buyer Dtor with: " << this->m_username; "####/n";//@@@
 }
 
 //----------------------- Setters Methods ------------------------------//
