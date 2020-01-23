@@ -154,7 +154,7 @@ bool System::addProductToBuyersCart(const string& prod_name, const string& buyer
 	if (!tmp_b)
 		return false; //no such buyer
 	
-	int counter = 1;
+	int counter = 0;
 	Seller* tmp_s=nullptr;
 	for (int j = 0; j < m_user_arr.size(); j++)
 	{
@@ -166,7 +166,7 @@ bool System::addProductToBuyersCart(const string& prod_name, const string& buyer
 			{
 				if (tmp_s->getListedItems()[k]->getName() == prod_name)
 				{
-					cout << counter++ << ") ";
+					cout << ++counter << ") ";
 					tmp_s->getListedItems()[k]->showProductToBuyer();
 					cout << endl;
 					found = true;
@@ -174,6 +174,10 @@ bool System::addProductToBuyersCart(const string& prod_name, const string& buyer
 			}
 		}
 	}
+
+	if (counter == 0)   // No such product on the system 
+		return false;
+
 		string chosen_seller_username;
 		int count = 0;
 		int chosen_seller_index;
@@ -184,7 +188,7 @@ bool System::addProductToBuyersCart(const string& prod_name, const string& buyer
 				cout << "Please try again."<< endl;
 
 			cout << "Enter the desired seller's username that you want to buy from: ";
-			cin>>chosen_seller_username;
+			getline(cin, chosen_seller_username);
 			cout << endl;
 			
 			if (count == MAX_TRIES) // failed to enter seller name 3 time
@@ -499,7 +503,7 @@ void System::interactiveMenu()
 
 		case 4: //add product to seller
 			cout << "Enter the username of the seller: ";
-			cin>>s_username;
+			getline(cin, s_username);
 			Product* p;
 			if (addProductToSeller(p = createProduct(s_username), s_username) == false)
 			{
@@ -512,10 +516,10 @@ void System::interactiveMenu()
 		case 5: //add feedback to seller 
 			FeedBack * f;
 			cout << "Enter buyer's username: ";
-			cin>>b_username;
+			getline(cin, b_username);
 
 			cout << "Enter seller's username: ";
-			cin>>s_username;
+			getline(cin, s_username);
 
 			b_index = isUserExist(b_username);
 
@@ -534,11 +538,11 @@ void System::interactiveMenu()
 
 		case 6: //add to cart
 			cout << "Enter the username of the buyer: ";
-			cin>>b_username;
+			getline(cin, b_username);
 
 
 			cout << "Enter the product name: ";
-			cin>>prod_name;
+			getline(cin, prod_name);
 
 			if (!addProductToBuyersCart(prod_name, b_username))
 			{
@@ -549,7 +553,7 @@ void System::interactiveMenu()
 
 		case 7:	//order
 			cout << "Enter the username of the buyer:";
-			cin>>b_username;
+			getline(cin, b_username);
 
 			newOrder(b_username);
 
@@ -557,7 +561,7 @@ void System::interactiveMenu()
 
 		case 8:	//payment
 			cout << "Enter the username of the buyer:";
-			cin>>b_username;
+			getline(cin, b_username);
 
 			payment(b_username);
 
@@ -582,7 +586,7 @@ void System::interactiveMenu()
 			break;
 		case 12: // print all products from specific name  (Uses Product << operator)
 			cout << "Enter the product name: ";
-			cin>>prod_name;
+			getline(cin, prod_name);
 
 			cout << endl;
 			printAllSpecificProduct(prod_name);
@@ -591,10 +595,10 @@ void System::interactiveMenu()
 
 		case 13: //(Uses Buyer > operator)
 			cout << "Enter first buyer's username: ";
-			cin>>b_username;
+			getline(cin, b_username);
 
 			cout << "Enter second buyer's username: ";
-			cin>>b2_username;
+			getline(cin, b2_username);
 
 			cout << endl;
 			compareBuyersByCart(b_username, b2_username);
