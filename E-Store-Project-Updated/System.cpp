@@ -80,9 +80,48 @@ const int System::isUserExist(const string& username)const
 	return NOT_EXIST;
 }
 
-//@@ loadUsers func @@
+void System::saveUsers(const string& filename)
+{
+	ofstream out_file(filename, ios::trunc);
 
-//@@ writeUsersToFile func @@
+	out_file << m_user_arr.size() << " ";
+	for (int i = 0; i < m_user_arr.size(); ++i)
+	{
+		out_file << type; // should use enum 1, 2, 3 ----> BUYER, SELLER, BUYERSELLER
+		out_file << *(m_user_arr[i]);
+	}
+
+	out_file.close();
+}
+//-----------------------------------------------------------------------------------------------//
+void System::loadUsers(const char* filename)
+{
+	ifstream in_file;
+	int size;
+	eType type;// @@@ use enum @@@
+
+		in_file.open(filename, ios::in);
+		in_file >> size;
+
+		m_user_arr.reserve(size); //allocate the place 
+		for (int i = 0; i < size; ++i)
+		{
+			in_file >> type;
+		
+			if (type == BUYER)
+				m_user_arr[i] = new Buyer(in_file);
+			else if (type == SELLER)
+				m_user_arr[i] = new Seller(in_file);
+			else //(type == BUYERSELLER)
+				m_user_arr[i] = new Buyer_Seller(in_file);
+
+			// @@ we need to make c'tor for all of them
+	    }
+
+	in_file.close();
+}
+
+
 
 
 // ---------------------------------- MENU functions ------------------------------------

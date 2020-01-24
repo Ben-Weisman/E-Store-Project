@@ -42,6 +42,8 @@ public:
 	// ---------------------------------- maintanance functions ------------------------------------
 
 	const int isUserExist(const string& username)const;
+	void saveUsers(const string& filename);
+	void loadUsers(const char* filename);
 	
 	 // ---------------------------------- MENU functions ------------------------------------
 

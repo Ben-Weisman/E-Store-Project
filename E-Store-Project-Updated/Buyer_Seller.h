@@ -11,6 +11,7 @@ class Buyer_Seller : public Seller, public Buyer
 public:
 	// No need for overriding the default copy c'tor & d'tor - No allocated data members in this class.
 	Buyer_Seller(const Buyer& b, const Seller& s);   // c'tor
+	//@@@@ C'tor that gets ifStream @@@ 
 
 	//			Operators			//
 	const Buyer_Seller& operator=(const Buyer_Seller& other); 

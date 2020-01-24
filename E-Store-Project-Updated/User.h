@@ -22,8 +22,6 @@ protected:
 	User(const string& userName, const string& password, const string& fname, const string&
 		lname, const Address& address); // User is an abstract class - prevent from creating User obj.
 
-	//@@@@ C'tor that gets ifStream @@@ 
-
 	User(const User& u); //copy c'tor
 
 	// Assume no changes are allowed after first initialization.

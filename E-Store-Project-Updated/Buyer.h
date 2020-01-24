@@ -24,6 +24,7 @@ public:
 	//			c'tor, copy, d'tor			//
 	Buyer(const string& userName, const string& password, const string& fname, const string&
 		lname, const Address& address);
+	//@@@@ C'tor that gets ifStream @@@ 
 	Buyer(const Buyer& b); // copy c'tor
 	virtual ~Buyer();
 
