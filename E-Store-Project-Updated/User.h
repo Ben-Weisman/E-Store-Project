@@ -21,6 +21,9 @@ protected:
 
 	User(const string& userName, const string& password, const string& fname, const string&
 		lname, const Address& address); // User is an abstract class - prevent from creating User obj.
+
+	//@@@@ C'tor that gets ifStream @@@ 
+
 	User(const User& u); //copy c'tor
 
 	// Assume no changes are allowed after first initialization.
@@ -41,6 +44,7 @@ public:
 	const User& operator=(const User& other);
 	friend ostream& operator<<(ostream& os, const User& buyer);
 	virtual void toOs(ostream& os)const = 0 {}; // Make this class Abstract
+	//@@ we need >> operator @@
 };
 
 #endif // !__User_h

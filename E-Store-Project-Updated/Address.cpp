@@ -16,7 +16,6 @@ Address::Address(const Address&a) //copy c'tor
 }
 Address::Address(Address&&a) //move c'tor
 {
-	//@@ move() ??@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	m_country=move(a.m_country);
 	m_city = move(a.m_city);
 	m_street = move(a.m_street);

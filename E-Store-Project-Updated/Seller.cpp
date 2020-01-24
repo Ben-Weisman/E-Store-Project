@@ -31,7 +31,7 @@ Seller::~Seller() // d'tor
 
 Seller::Seller(const Seller& other) :User(other) // copy c'tor
 { // Don't call the assignment operator because it calls the assignment of User, and we want to keep
-	// the call in the init list. - After consulting with the lecturer. @@@@ Check relevance
+	// the call in the init list. - After consulting with the lecturer.
 	
 	m_feedback_arr.reserve(other.getFeedbacks().capacity());
 	m_listed_items.reserve(other.getListedItems().capacity());

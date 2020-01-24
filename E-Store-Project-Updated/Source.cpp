@@ -3,8 +3,6 @@
 
 using namespace std;
 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@ Nir - need to fix getline bug (' ' in the name is problematic)
-
 Address createAdress()
 {// creating address
 	string country;
@@ -138,7 +136,6 @@ Date createDate()
 	cout << "Enter date in this format: dd/mm/yyyy" << endl;
 	cin >> date;
 
-	//@@@@ Create func at the utils:
 	day = ((date[0] - '0') * 10) + (date[1] - '0'); //calculation of day
 	month = ((date[3] - '0') * 10) + (date[4] - '0'); //calculation of month
 	year = ((date[6] - '0') * 1000) + ((date[7] - '0') * 100) + ((date[8] - '0') * 10) + (date[9] - '0');//calculation of year

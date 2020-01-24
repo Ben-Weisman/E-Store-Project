@@ -30,7 +30,6 @@ Product::Product(const Product&p)  //copy c'tor
 
 Product::Product(Product&&p) : m_serial_number(std::move(p.m_serial_number)) //move c'tor
 {
-	//@@ move() ??@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	m_category = p.m_category;
 	m_name = move(m_name);
 	m_price = p.m_price;

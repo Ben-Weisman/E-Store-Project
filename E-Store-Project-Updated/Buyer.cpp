@@ -15,7 +15,7 @@ Buyer::Buyer(const string& userName, const string& password, const string& fname
 
 Buyer::Buyer(const Buyer& other) : User(other) // copy c'tor
 { // Don't call the assignment operator because it calls the assignment of User, and we want to keep
-	// the call in the init list. - After consulting with the lecturer. @@@@@ Check relevance
+	// the call in the init list. - After consulting with the lecturer. 
 
 	m_checkout_orders.reserve(other.m_checkout_orders.capacity()); // Efficiency
 

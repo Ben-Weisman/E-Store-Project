@@ -13,6 +13,8 @@ System::System(const string& name = "eBen") //Default name
 	setName(name);
 }
 
+//@@ C'tor that get inFile and read from him the users array@@@ use loadUsers func !
+
 System::System(const System&s)
 {
 	*this = s; //using system = operator
@@ -77,6 +79,10 @@ const int System::isUserExist(const string& username)const
 	}
 	return NOT_EXIST;
 }
+
+//@@ loadUsers func @@
+
+//@@ writeUsersToFile func @@
 
 
 // ---------------------------------- MENU functions ------------------------------------
@@ -272,17 +278,8 @@ bool System::newOrder(const string& buyer_username)
 		tmp_b->addToCheckout(new_order); //Add the order to the buyer's orders array
 	if (new_order->getProductsArr().size() == 0) // Checking if the user entered this function but exited immediately.
 	{
-
-		//	--------------------------------------------------------------------------------	//
-		// @@ My life <3, that should do the trick:
-		delete tmp_b->m_checkout_orders.back(); /* @@ returns a DIRECT reference to the last element
-												in the vector, then delete it.*/
-		tmp_b->m_checkout_orders.pop_back(); /* @@ removing the last element (cell)
-											 from the vector + updating the size*/
-		//	--------------------------------------------------------------------------------	//
-
-		//@@vector take care of it?@@ tmp_b->m_num_checkout_orders--; // Updating the current num of orders, using friend access to Buyer.
-		delete new_order; // No need after the above implementation. 
+		delete tmp_b->m_checkout_orders.back(); /*  returns a DIRECT reference to the last element in the vector, then delete it.*/
+		tmp_b->m_checkout_orders.pop_back(); /*  removing the last element (cell) from the vector + updating the size*/
 	}
 	return true;
 }
@@ -605,6 +602,7 @@ void System::interactiveMenu()
 			break;
 
 		case 14: // exit
+			//@@@ Save to the file @@@@@ Use writeUsersToFile func @@@@
 			cout << endl << "Thanks for using " << m_name << ", Bye Bye (:" << endl;
 			exit_flag = false;
 			break;

@@ -41,7 +41,7 @@ public:
 
 	// ---------------------------------- maintanance functions ------------------------------------
 
-	const int isUserExist(const string& username)const; // @@@@@@@@@@ should it return ITERATOR?
+	const int isUserExist(const string& username)const;
 	
 	 // ---------------------------------- MENU functions ------------------------------------
 
