@@ -28,7 +28,6 @@ Seller::~Seller() // d'tor
 	for (auto order_ptr : m_orders)
 		delete order_ptr;
 
-	cout << "/n##Seller Dtor with: " << this->m_username; "####/n";//@@@
 }
 
 Seller::Seller(const Seller& other) :User(other) // copy c'tor

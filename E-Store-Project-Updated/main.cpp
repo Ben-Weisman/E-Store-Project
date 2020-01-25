@@ -8,8 +8,9 @@ using namespace std;
 int main()
 {
 	
-	ifstream inFile("users.txt", ios::_Nocreate);
-	if (inFile.is_open())
+	ifstream inFile("users.txt", ios::_Nocreate); 
+
+	if (inFile.is_open())  
 	{
 		System system("users.txt", "eBen"); // Our default system name
 		system.interactiveMenu();
@@ -19,7 +20,6 @@ int main()
 		System system("eBen");
 		system.interactiveMenu();
 	}
-
 
 	return 0;
 }
