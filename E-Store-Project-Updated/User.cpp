@@ -14,6 +14,11 @@ User::User(const string& username,const string& password,const string& fname,con
 	setLname(lname);
 }
 
+User::User(ifstream& in_file): m_address(in_file)
+{
+	in_file >> m_fname >> m_lname >> m_username >> m_password;
+}
+
 User::User(const User& u) :m_address(u.m_address) // copy c'tor
 { // Don't use assignment operator due to the double assignment of address. Send to Address' copy instead
 	setUsername(u.m_username);
@@ -86,8 +91,22 @@ bool User::setAddress(const Address& address)
 
 ostream& operator<<(ostream& os, const User& user)
 {
-	os << "\tFull name: " << user.m_fname << " " << user.m_lname <<
-		"\n\tUsername: " << user.m_username	<< "\n\tAddress: " << user.m_address;
-	user.toOs(os);
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << user.m_fname << " " << user.m_lname << " " << user.m_username << " " << user.m_password
+			<< " " << user.m_address;
+	}
+	else
+	{
+		os << "\tFull name: " << user.m_fname << " " << user.m_lname <<
+			"\n\tUsername: " << user.m_username << "\n\tAddress: " << user.m_address;
+		user.toOs(os);
+	}
 	return os;
+}
+istream& operator>>(istream& in, const User& user)
+{
+	char delim;
+	if (typeid(in) == typeid (ifstream))
+		in >> user.m_fname;
 }

@@ -7,6 +7,8 @@
 Buyer_Seller::Buyer_Seller(const Buyer& b, const Seller& s) : User(s),
 Seller(s), Buyer(b) {}
 
+Buyer_Seller::Buyer_Seller(ifstream& in_file):User(in_file), Buyer(in_file), Seller (in_file){}
+
  // -------------------- Operators -------------------- // 
 
  const Buyer_Seller& Buyer_Seller::operator=(const Buyer_Seller& other)

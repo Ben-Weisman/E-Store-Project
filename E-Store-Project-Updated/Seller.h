@@ -29,7 +29,7 @@ public:
 	//			c'tor, copy, d'tor			//
 	Seller(const string& userName, const string& password, const string& fname, const string&
 		lname, const Address& address);
-	//@@@@ C'tor that gets ifStream @@@ 
+	Seller(ifstream& in_file);
 	Seller(const Seller& s); //copy c'tor
 	virtual ~Seller(); // d'tor
 

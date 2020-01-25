@@ -13,7 +13,9 @@ Seller::Seller(const string& username, const string& password, const string& fna
 {
 
 }
-
+Seller::Seller(ifstream& in_file):User(in_file)
+{
+}
 
 Seller::~Seller() // d'tor
 {

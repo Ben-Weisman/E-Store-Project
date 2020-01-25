@@ -10,6 +10,11 @@ Address::Address(const string& country, const string& city, const string& street
 	setStreet(street);
 	setHouseNumber(number);
 }
+Address::Address(ifstream& in_file)
+{
+	in_file >> m_country >> m_city >> m_street >> m_house_number;
+}
+
 Address::Address(const Address&a) //copy c'tor
 {
 	*this = a; //using = operator

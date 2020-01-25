@@ -94,7 +94,7 @@ void System::saveUsers(const string& filename)
 	out_file.close();
 }
 //-----------------------------------------------------------------------------------------------//
-void System::loadUsers(const char* filename)
+void System::loadUsers(const char* filename) // @@ why not string?
 {
 	ifstream in_file;
 	int size;
@@ -104,6 +104,8 @@ void System::loadUsers(const char* filename)
 		in_file >> size;
 
 		m_user_arr.reserve(size); //allocate the place 
+
+		// @@ Shouldn't we return the new allocated object?
 		for (int i = 0; i < size; ++i)
 		{
 			in_file >> type;
@@ -115,7 +117,7 @@ void System::loadUsers(const char* filename)
 			else //(type == BUYERSELLER)
 				m_user_arr[i] = new Buyer_Seller(in_file);
 
-			// @@ we need to make c'tor for all of them
+			// @@ we need to make c'tor for all of them - DONE
 	    }
 
 	in_file.close();
