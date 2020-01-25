@@ -32,7 +32,10 @@ protected:
 	bool setLname(const string& lname);
 	bool setAddress(const Address& address);
 
+
+
 public:
+	virtual ~User() = default;
 
 	inline  const string getFirstName()const { return m_fname; }
 	inline  const string getLastName()const { return m_lname; }

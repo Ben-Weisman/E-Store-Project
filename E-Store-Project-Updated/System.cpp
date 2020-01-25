@@ -7,8 +7,11 @@ using namespace std;
 
 // --------------------- C'tor, D'tor ---------------------
 
-
-System::System(const string& file_name, const string& name = "eBen") //Default name
+System::System(const string& name)
+{
+	setName(name);
+}
+System::System(const string& file_name, const string& name) //Default name
 {
 	loadUsers(file_name);
 	setName(name);
@@ -83,7 +86,6 @@ const int System::isUserExist(const string& username)const
 void System::saveUsers(const string& filename)
 {
 	ofstream out_file(filename, ios::trunc);
-
 	out_file << m_user_arr.size() << " ";
 	for (int i = 0; i < m_user_arr.size(); ++i)
 	{
@@ -121,11 +123,11 @@ void System::loadUsers(const string& filename)
 			in_file >> type;
 		
 			if (type == BUYER)
-				m_user_arr[i] = new Buyer(in_file);
+				m_user_arr.push_back(new Buyer(in_file));
 			else if (type == SELLER)
-				m_user_arr[i] = new Seller(in_file);
+				m_user_arr.push_back(new Seller(in_file));
 			else //(type == BUYERSELLER)
-				m_user_arr[i] = new Buyer_Seller(in_file);
+				m_user_arr.push_back(new Buyer_Seller(in_file));
 
 	    }
 
@@ -653,6 +655,7 @@ void System::interactiveMenu()
 
 		case 14: // exit
 			saveUsers("users.txt"); //@@@@ do we want to get from the user a name for the file? :S
+									// @@ No
 			cout << endl << "Thanks for using " << m_name << ", Bye Bye (:" << endl;
 			exit_flag = false;
 			break;

@@ -14,6 +14,7 @@ User::User(const string& username,const string& password,const string& fname,con
 	setLname(lname);
 }
 
+
 User::User(ifstream& in_file): m_address(in_file)
 {
 	in_file >> m_fname >> m_lname >> m_username >> m_password;
@@ -93,8 +94,8 @@ ostream& operator<<(ostream& os, const User& user)
 {
 	if (typeid(os) == typeid(ofstream))
 	{
-		os << user.m_fname << " " << user.m_lname << " " << user.m_username << " " << user.m_password
-			<< " " << user.m_address;
+		os << user.m_address << " " << user.m_fname << " " << user.m_lname << " " 
+			<< user.m_username << " " << user.m_password;
 	}
 	else
 	{
@@ -103,10 +104,4 @@ ostream& operator<<(ostream& os, const User& user)
 		user.toOs(os);
 	}
 	return os;
-}
-istream& operator>>(istream& in, const User& user)
-{
-	char delim;
-	if (typeid(in) == typeid (ifstream))
-		in >> user.m_fname;
 }

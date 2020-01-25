@@ -30,10 +30,7 @@ Address::Address(Address&&a) //move c'tor
 	a.m_city = nullptr;
 	a.m_street = nullptr;
 }
-Address::~Address()// d'tor
-{
 
-}
 
 // -----------------------------operators----------------------------------
 
@@ -54,7 +51,13 @@ const Address& Address::operator=(const Address& a)
 
 ostream& operator<<(ostream& os, const Address& address)
 {
-	os << address.m_country << ", " << address.m_city << ", " << address.m_house_number << " " << address.m_street << " st" << endl;
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << address.m_country << " " << address.m_city << " " << address.m_street <<
+			" " << address.m_house_number;
+	}
+	else
+		os << address.m_country << ", " << address.m_city << ", " << address.m_house_number << " " << address.m_street << " st" << endl;
 
 	return os;
 }

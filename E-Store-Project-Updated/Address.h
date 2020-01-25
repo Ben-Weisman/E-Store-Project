@@ -15,7 +15,6 @@ private:
 
 public:
 	Address(const string& country, const string& city, const string& street, int number); //c'tor
-	~Address();// d'tor
 	Address(ifstream& in_file); // @@ added file c'tor
 	Address(const Address&a); //copy c'tor
 	Address(Address&&a); //move c'tor

@@ -6,6 +6,7 @@ using namespace std;
 Address createAdress()
 {// creating address
 	string country;
+	cout << "For space-seperated cities / countries, please enter a '-'" << endl;
 	cout << "Country: ";
 	getline(cin, country);
 

@@ -7,8 +7,19 @@ using namespace std;
 
 int main()
 {
-	System system("eBen"); // Our defult system name
-	system.interactiveMenu();
+	
+	ifstream inFile("users.txt", ios::_Nocreate);
+	if (inFile.is_open())
+	{
+		System system("users.txt", "eBen"); // Our default system name
+		system.interactiveMenu();
+	}
+	else  
+	{
+		System system("eBen");
+		system.interactiveMenu();
+	}
+
 
 	return 0;
 }

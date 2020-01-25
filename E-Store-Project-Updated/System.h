@@ -29,7 +29,8 @@ private:
 	const System& operator=(const System& s);
 
 public:
-	System(const string& file_name, const string& name = "eBen"); //c'tor
+	System(const string& name);
+	System(const string& file_name, const string& name); //c'tor
 	~System();// d'tor
 
 public:
