@@ -11,6 +11,9 @@ const int NOT_EXIST = -1;
 const int EXIT = -1;
 const int EMPTY = 0;
 const int MAX_TRIES = 3;
+const int BUYER = 1;
+const int SELLER = 2;
+const int BUYERSELLER = 3;
 
 class System
 {
@@ -26,7 +29,7 @@ private:
 	const System& operator=(const System& s);
 
 public:
-	System(const string& name); //c'tor
+	System(const string& file_name, const string& name = "eBen"); //c'tor
 	~System();// d'tor
 
 public:
@@ -43,7 +46,7 @@ public:
 
 	const int isUserExist(const string& username)const;
 	void saveUsers(const string& filename);
-	void loadUsers(const char* filename);
+	void loadUsers(const string& filename);
 	
 	 // ---------------------------------- MENU functions ------------------------------------
 

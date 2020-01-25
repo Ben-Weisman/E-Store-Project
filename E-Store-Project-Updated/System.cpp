@@ -8,12 +8,12 @@ using namespace std;
 // --------------------- C'tor, D'tor ---------------------
 
 
-System::System(const string& name = "eBen") //Default name
+System::System(const string& file_name, const string& name = "eBen") //Default name
 {
+	loadUsers(file_name);
 	setName(name);
 }
 
-//@@ C'tor that get inFile and read from him the users array@@@ use loadUsers func !
 
 System::System(const System&s)
 {
@@ -87,25 +87,35 @@ void System::saveUsers(const string& filename)
 	out_file << m_user_arr.size() << " ";
 	for (int i = 0; i < m_user_arr.size(); ++i)
 	{
-		out_file << type; // should use enum 1, 2, 3 ----> BUYER, SELLER, BUYERSELLER
-		out_file << *(m_user_arr[i]);
+		// Polymorphistic check if this is Buyer/Seller/BuyerSeller:
+		Buyer* tmp_b = dynamic_cast<Buyer*>(m_user_arr[i]); 
+		Seller* tmp_s = dynamic_cast<Seller*>(m_user_arr[i]);
+
+		if(tmp_b&&!tmp_s) //buyer
+		out_file << BUYER << " ";
+		else if (!tmp_b && tmp_s) // seller
+			out_file << SELLER << " ";
+		else // (tmp_b && tmp_s)
+			out_file << BUYERSELLER << " ";
+
+		out_file << *(m_user_arr[i]) << " ";
 	}
 
 	out_file.close();
 }
 //-----------------------------------------------------------------------------------------------//
-void System::loadUsers(const char* filename) // @@ why not string?
+void System::loadUsers(const string& filename) 
 {
 	ifstream in_file;
 	int size;
-	eType type;// @@@ use enum @@@
+	int type;
 
 		in_file.open(filename, ios::in);
 		in_file >> size;
 
 		m_user_arr.reserve(size); //allocate the place 
 
-		// @@ Shouldn't we return the new allocated object?
+		// @@ Shouldn't we return the new allocated object? @@@@ Why? we can do it on the object's array @@@ 
 		for (int i = 0; i < size; ++i)
 		{
 			in_file >> type;
@@ -117,7 +127,6 @@ void System::loadUsers(const char* filename) // @@ why not string?
 			else //(type == BUYERSELLER)
 				m_user_arr[i] = new Buyer_Seller(in_file);
 
-			// @@ we need to make c'tor for all of them - DONE
 	    }
 
 	in_file.close();
@@ -643,7 +652,7 @@ void System::interactiveMenu()
 			break;
 
 		case 14: // exit
-			//@@@ Save to the file @@@@@ Use writeUsersToFile func @@@@
+			saveUsers("users.txt"); //@@@@ do we want to get from the user a name for the file? :S
 			cout << endl << "Thanks for using " << m_name << ", Bye Bye (:" << endl;
 			exit_flag = false;
 			break;
